@@ -634,7 +634,7 @@ export function FilePane({
             className="drive-select"
             value={list.path.slice(0, 3)}
             options={list.roots.map((r) => ({ value: r }))}
-            onChange={(p) => load(p)}
+            onSelect={(p) => load(p)}
           />
         )}
       </div>
