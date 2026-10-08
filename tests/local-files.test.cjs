@@ -74,7 +74,11 @@ test(
   'Windows drive discovery tolerates unavailable volumes but preserves file operation errors',
   { skip: process.platform !== 'win32' },
   async (t) => {
-    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-unavailable-drives-'))
+    // Windows runners may expose TEMP through a short-name or directory alias.
+    // The failure injection must match the canonical paths used by Files.list.
+    const directory = fs.realpathSync.native(
+      fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-unavailable-drives-'))
+    )
     const files = new Files(null)
     const root = path.parse(fs.realpathSync.native(directory)).root
     const originalLstat = fs.promises.lstat.bind(fs.promises)
