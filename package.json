@@ -1,0 +1,99 @@
+{
+  "name": "quayterm",
+  "productName": "QuayTerm",
+  "version": "0.1.0",
+  "description": "QuayTerm \u6cca\u5cb8 \u2014 SSH \u4e0e SFTP \u5de5\u4f5c\u533a",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "QuayTerm",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "node scripts/dev.cjs",
+    "start": "npm run build && electron .",
+    "build": "tsc --noEmit && vite build",
+    "test": "node --test tests/*.test.cjs",
+    "test:e2e": "npm run build && playwright test",
+    "test:lan": "node scripts/test-lan.cjs",
+    "licenses": "node scripts/licenses.cjs",
+    "pack": "npm run build && npm run licenses && electron-builder --dir",
+    "dist:linux": "npm run build && npm run licenses && electron-builder --linux",
+    "dist:win": "npm run build && npm run licenses && electron-builder --win",
+    "dist:mac": "npm run build && npm run licenses && electron-builder --mac",
+    "format": "prettier --write src electron scripts tests *.json *.ts *.cjs .github",
+    "check": "tsc --noEmit && prettier --check src electron scripts tests"
+  },
+  "dependencies": {
+    "@electerm/ssh2": "1.22.1"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "6.3.4",
+    "@playwright/test": "1.64.0",
+    "@types/node": "^22.19.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "@xterm/addon-fit": "0.11.0",
+    "@xterm/addon-search": "0.16.0",
+    "@xterm/addon-unicode11": "0.9.0",
+    "@xterm/headless": "6.0.0",
+    "@xterm/xterm": "6.0.0",
+    "antd": "6.6.5",
+    "electron": "44.7.0",
+    "electron-builder": "26.15.3",
+    "prettier": "^3.9.9",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "typescript": "^5.9.3",
+    "vite": "8.3.3"
+  },
+  "build": {
+    "appId": "app.quayterm.desktop",
+    "productName": "QuayTerm",
+    "asar": true,
+    "npmRebuild": false,
+    "directories": {
+      "output": "release",
+      "buildResources": "resources"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD-PARTY-NOTICES.txt",
+      "resources/icon.png"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "tar.gz"
+      ],
+      "category": "Network",
+      "icon": "resources/icon.png",
+      "maintainer": "QuayTerm",
+      "syncDesktopName": true
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "resources/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.developer-tools",
+      "icon": "resources/icon.png",
+      "hardenedRuntime": true
+    },
+    "publish": null
+  },
+  "desktopName": "quayterm.desktop"
+}
