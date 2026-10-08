@@ -53,6 +53,10 @@
 
 这些主机的测试只建立新的终端会话和 SFTP 浏览，不发送 shell 命令、不上传、不修改、不删除文件。远端的 resize 请求没有通过执行远端命令进行反查；尺寸传递由本地真实 PTY 测试验证。
 
+### 已打包程序复测
+
+Linux 解包程序以默认沙箱启动，通过真实桌面界面逐一连接三台局域网主机并显示 SFTP 目录；未输入远端命令。AppImage 通过 extract-and-run 启动，并在新进程中从 GNOME Secret Service 解密已保存密码，再次完成真实 SSH / SFTP 连接。
+
 ## 产物与未完成的原生验证
 
 Linux AppImage / tar.gz、Windows x64 zip、macOS x64 / arm64 zip 均已构建。跨平台源码使用系统路径 API 和 Electron 安全存储，CI 已配置原生桌面 smoke test 与打包步骤。
