@@ -1,5 +1,9 @@
 # QuayTerm 验证记录
 
+## v0.2.2：Windows 修复发布
+
+v0.2.2 将下方 Windows 测试发现的修复纳入发布版本，并按用户指令从 `main` 发布。该版本的构建提交、CI 结果、资产 SHA-256 和新包抽查记录见 [v0.2.2 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.2)。下面的 0.2.1 本地修复包报告仍绑定原有代码和哈希，不作为新版本二进制已经完成完整验收的证明。
+
 ## 2026-10-08：Windows x64 本机补测
 
 Windows 10 x64 的本轮原生结果见 [独立测试报告](docs/test-reports/2026-10-08-windows-x64-0.2.1.md) 和 [脱敏证据](docs/test-reports/2026-10-08-windows-x64-0.2.1.evidence.json)。最终修复代码为 `41af01282c39fb4717cfc5ffa4975308d112939e`；本地安装器/便携包的哈希在报告中，不能与原 v0.2.1 Release 混用。
