@@ -33,6 +33,7 @@ export default function App() {
   const [knownHosts, setKnownHosts] = useState<KnownHost[]>([])
   const [settings, setSettings] = useState<Settings>({ sidebar: true })
   const [platform, setPlatform] = useState('linux')
+  const [version, setVersion] = useState('')
   const [secureStorage, setSecureStorage] = useState(false)
   const [view, setView] = useState<View>('hosts')
   const [page, setPage] = useState<'hosts' | 'known'>('hosts')
@@ -76,6 +77,7 @@ export default function App() {
         setKnownHosts(data.knownHosts)
         setSettings({ sidebar: true, ...data.settings })
         setPlatform(data.platform)
+        setVersion(data.version)
         setSecureStorage(data.secureStorage)
         pool.resizeFont(data.settings.fontSize || 14)
         setReady(true)
@@ -134,8 +136,20 @@ export default function App() {
         })
       }
     })
+    // Native Edit menu accelerators serve ordinary inputs. The terminal owns
+    // its clipboard shortcuts so bracketed/multiline paste keeps working.
+    const focusChanged = (event: FocusEvent) => {
+      const target = event.type === 'focusout' ? event.relatedTarget : event.target
+      window.quay.terminal('focus', {
+        active: target instanceof Element && Boolean(target.closest('.xterm'))
+      })
+    }
+    document.addEventListener('focusin', focusChanged)
+    document.addEventListener('focusout', focusChanged)
     return () => {
       unsubscribe()
+      document.removeEventListener('focusin', focusChanged)
+      document.removeEventListener('focusout', focusChanged)
       pool.dispose()
     }
   }, [])
@@ -737,7 +751,7 @@ export default function App() {
           </Button>
         }
       >
-        <p>SSH 与 SFTP，放在顺手的位置。版本 0.1.0</p>
+        <p>SSH 与 SFTP，放在顺手的位置。版本 {version}</p>
         <div className="shortcut-list">
           {[
             ['新建连接', 'Ctrl / ⌘ Shift T'],

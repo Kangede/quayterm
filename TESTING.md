@@ -1,4 +1,4 @@
-# QuayTerm 0.1.0 验证记录
+# QuayTerm 0.1.1 验证记录
 
 日期：2026-10-08（Asia/Shanghai）。执行环境：Linux x64 桌面、Node.js 22.23.2、Electron 44.7.0。
 
@@ -8,7 +8,7 @@
 | ---------------------------- | ---------------------------------------------- |
 | TypeScript + Vite 生产构建   | 通过                                           |
 | 代码格式及类型检查           | 通过                                           |
-| 底层与状态测试               | 15 / 15 通过                                   |
+| 底层与状态测试               | 18 / 18 通过                                   |
 | 真实桌面交互测试             | 9 / 9 通过                                     |
 | 局域网 SSH + SFTP 只读测试   | 3 / 3 通过                                     |
 | Linux 已打包程序默认沙箱启动 | 通过                                           |
@@ -25,6 +25,8 @@
 - Unicode、UTF-8 BOM、CRLF 文本读写及版本冲突保护。
 - 文件 / 目录创建、重命名、递归删除和根目录保护。
 - 递归上传下载、内容一致性、覆盖控制和取消传输。
+- 两个独立 SSH/SFTP 服务之间的 1 MiB 二进制传输及字节一致性。
+- 两个会话连接同一主机时的复制到自身保护；拒绝或取消操作不打开源文件流。
 - Linux 文件权限保留、原生路径和本地文件复制。
 - 遍历八种布局及多次面板间移动，确保会话无重复、无丢失。
 - SSH 快速连接格式、IPv6 和非法输入。
@@ -33,13 +35,13 @@
 
 1. 主机列表、右侧编辑、显示方式、持久化。
 2. 真实 SSH 终端中文 / Unicode / ANSI 颜色；控制键、复制粘贴、bracketed paste、查找和侧栏开关。
-3. 每面板独立标签、连接快捷键、跨面板拖动、八种布局切换和标签合并；SSH 连接数不因拖动而增加。
+3. 按图十五实际建立左右各两个标签；跨面板拖动后成为左三右一，四个 SSH 连接保持独立且不重新连接。覆盖连接快捷键、八种布局切换和标签合并。
 4. 本地隔离 tmux 3.6 与 screen：启动、Ctrl+B / Ctrl+A 前缀、新窗口、备用屏幕、尺寸变化和分离。
 5. 终端文件树编辑与保存；双栏 SFTP 的两侧均能切换本地 / 远端。
 6. 实际 UI 拖动上传、远端重命名、拖动下载、确认删除，核对文件内容。
 7. 50,000 行终端输出完成，验证流量控制、滚动缓存和最后一行；关闭会话快捷键。
 8. 已知主机详情、渲染进程隔离和未捕获错误检查。
-9. 桌面启动、主机创建、原生本地文件浏览和磁盘无明文密码。
+9. 无 Linux 专用依赖的原生验收脚本：通过本机临时服务验证真实 SSH/SFTP 协议连接、Unicode、粘贴、控制键、resize、目录与文本读取，并检查本地文件与凭证隔离。脚本已在 Linux 通过；在 macOS 还会检查原生编辑菜单。
 
 测试用的 screen / tmux 仅在一次性本地目录及专用 socket / 会话名下运行。没有对用户提供的主机执行这些测试命令。
 
@@ -57,6 +59,8 @@
 
 Linux 解包程序以默认沙箱启动，通过真实桌面界面逐一连接三台局域网主机并显示 SFTP 目录；未输入远端命令。AppImage 通过 extract-and-run 启动，并在新进程中从 GNOME Secret Service 解密已保存密码，再次完成真实 SSH / SFTP 连接。
 
+0.1.1 的已打包 Linux 程序使用全新临时数据目录，再次通过三台局域网主机的真实 SSH/SFTP 验收，核对主机指纹且不发送 shell 命令。报告：`.private/packaged-0.1.1.json`。
+
 ## 产物与未完成的原生验证
 
 Linux AppImage / tar.gz、Windows x64 zip、macOS x64 / arm64 zip 均已构建。跨平台源码使用系统路径 API 和 Electron 安全存储，CI 已配置原生桌面 smoke test 与打包步骤。
@@ -69,10 +73,12 @@ macOS 交叉构建包未签名；Windows 交叉 zip 未签名且保留 Electron 
 
 本机详细报告和截图位于 `.private/`，不打进安装包：
 
-- `core-test.log`：15 项底层测试。
+- `core-test.log`：18 项底层测试。
 - `e2e-report.json`、`e2e.log`：9 项桌面测试。
 - `lan-report.json`：只读局域网测试。
-- `hosts.png`、`terminal.png`、`split.png`、`tmux.png`、`sftp.png`：界面截图。
-- `package-linux.log`、`package-windows.log`、`package-macos.log`：构建记录。
+- `hosts.png`、`terminal.png`、`two-tabs-per-pane.png`、`split.png`、`tmux.png`、`sftp.png`：界面截图。
+- `package-linux-0.1.1.log`、`package-windows-0.1.1.log`、`package-macos-0.1.1.log`：构建记录。
 
-安装包校验和见 `release/SHA256SUMS`。
+macOS 窗口配置和编辑快捷键按 [Electron 自定义标题栏](https://www.electronjs.org/docs/latest/tutorial/custom-title-bar)及 [before-input-event](https://www.electronjs.org/docs/latest/api/web-contents#event-before-input-event) 说明调整；这属于代码适配依据，不替代 macOS 原生运行证据。
+
+0.1.1 安装包校验和见 `release/0.1.1/SHA256SUMS`。0.1.0 的产物和校验和保留供回退。

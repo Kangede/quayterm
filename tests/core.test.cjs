@@ -124,6 +124,37 @@ test('SFTP lists real files, Unicode names, hidden files and symlinks without sh
   assert.ok(list.entries.find((f) => f.name === 'linked-folder' && f.isDirectory && f.isSymlink))
   assert.equal(fx.inputs.length, count)
 })
+test('separate connections to the same host cannot copy a directory into itself', async () => {
+  const second = crypto.randomUUID()
+  const ready = status(second, 'ready')
+  sessions.start({ id: second, hostId: host.id, sftpOnly: true })
+  await ready
+  const source = path.join(fx.root, 'self-copy')
+  const target = path.join(source, 'nested')
+  fs.mkdirSync(target, { recursive: true })
+  fs.writeFileSync(path.join(source, 'keep.txt'), 'preserve')
+  const events = []
+  const listener = (event) => events.push(event)
+  files.on('event', listener)
+  try {
+    const task = files.transfer({
+      source: id,
+      destination: second,
+      paths: [source],
+      directory: target,
+      overwrite: true
+    })
+    await files.queue
+    const final = events.filter((event) => event.id === task.id).at(-1)
+    assert.equal(final.state, 'error')
+    assert.match(final.message, /自身/)
+    assert.deepEqual(fs.readdirSync(target), [])
+    assert.equal(fs.readFileSync(path.join(source, 'keep.txt'), 'utf8'), 'preserve')
+  } finally {
+    files.off('event', listener)
+    sessions.close(second)
+  }
+})
 test('text editor round trips Unicode and rejects stale saves and binary content', async () => {
   const p = path.join(fx.root, 'hello.txt')
   const first = await files.readText(id, p)
@@ -203,6 +234,37 @@ test('transfer collision never silently overwrites; canceled queued transfers wr
   files.cancel(canceled.id)
   await files.queue
   assert.equal(fs.existsSync(path.join(fx.root, 'cancel.txt')), false)
+})
+test('SFTP to SFTP transfers stream between two independent hosts', async () => {
+  const destination = await fixture()
+  const saved = store.upsert(destination.host)
+  const targetId = crypto.randomUUID()
+  const ready = status(targetId, 'ready')
+  const sourcePath = path.join(fx.root, 'host-to-host.bin')
+  const bytes = crypto.randomBytes(1024 * 1024)
+  fs.writeFileSync(sourcePath, bytes)
+  const events = []
+  const listener = (event) => events.push(event)
+  files.on('event', listener)
+  try {
+    sessions.start({ id: targetId, hostId: saved.id, sftpOnly: true })
+    await ready
+    const task = files.transfer({
+      source: id,
+      destination: targetId,
+      paths: [sourcePath],
+      directory: destination.root
+    })
+    await files.queue
+    const final = events.filter((event) => event.id === task.id).at(-1)
+    assert.equal(final.state, 'done', final.message)
+    assert.deepEqual(fs.readFileSync(path.join(destination.root, 'host-to-host.bin')), bytes)
+    assert.equal(final.transferred, bytes.length)
+  } finally {
+    files.off('event', listener)
+    sessions.close(targetId)
+    await destination.close()
+  }
 })
 test('authentication failure becomes a visible error without retaining a live connection', async () => {
   const bad = crypto.randomUUID()

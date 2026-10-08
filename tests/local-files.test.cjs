@@ -4,6 +4,33 @@ const fs = require('node:fs')
 const path = require('node:path')
 const os = require('node:os')
 const { Files } = require('../electron/files.cjs')
+const { Readable } = require('node:stream')
+test('rejected or canceled writes do not open the source stream', async () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-deferred-read-'))
+  const files = new Files(null)
+  try {
+    const target = path.join(directory, 'existing.txt')
+    fs.writeFileSync(target, 'original')
+    const adapter = await files.adapter('local')
+    let opened = 0
+    const source = () => {
+      opened++
+      return Readable.from('replacement')
+    }
+    await assert.rejects(files.atomic(adapter, target, source), /已存在/)
+    const controller = new AbortController()
+    controller.abort()
+    await assert.rejects(
+      files.atomic(adapter, path.join(directory, 'cancel.txt'), source, { signal: controller.signal }),
+      { name: 'AbortError' }
+    )
+    assert.equal(opened, 0)
+    assert.equal(fs.readFileSync(target, 'utf8'), 'original')
+    assert.deepEqual(fs.readdirSync(directory), ['existing.txt'])
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true })
+  }
+})
 test('native paths, Unicode files, optimistic edits, local transfers and permission preservation', async () => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-native-files-'))
   const files = new Files(null)

@@ -29,7 +29,7 @@ contextBridge.exposeInMainWorld('quay', {
     return result.value
   },
   terminal: (action, data) => {
-    if (['write', 'resize', 'ack'].includes(action)) ipcRenderer.send('quay:terminal', action, data)
+    if (['write', 'resize', 'ack', 'focus'].includes(action)) ipcRenderer.send('quay:terminal', action, data)
   },
   onEvent: (callback) => {
     const handler = (_event, data) => callback(data)

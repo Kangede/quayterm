@@ -1,8 +1,8 @@
 {
   "name": "quayterm",
   "productName": "QuayTerm",
-  "version": "0.1.0",
-  "description": "QuayTerm \u6cca\u5cb8 \u2014 SSH \u4e0e SFTP \u5de5\u4f5c\u533a",
+  "version": "0.1.1",
+  "description": "QuayTerm 泊岸 — SSH 与 SFTP 工作区",
   "private": true,
   "license": "UNLICENSED",
   "author": "QuayTerm",
@@ -19,7 +19,7 @@
     "dist:linux": "npm run build && npm run licenses && electron-builder --linux",
     "dist:win": "npm run build && npm run licenses && electron-builder --win",
     "dist:mac": "npm run build && npm run licenses && electron-builder --mac",
-    "format": "prettier --write src electron scripts tests *.json *.ts *.cjs .github",
+    "format": "prettier --write src electron scripts tests *.json *.mts *.cjs .github",
     "check": "tsc --noEmit && prettier --check src electron scripts tests"
   },
   "dependencies": {

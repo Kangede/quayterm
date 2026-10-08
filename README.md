@@ -4,15 +4,15 @@
 
 ## 启动
 
-已生成的程序放在 `release/`：
+当前 0.1.1 程序包放在 `release/0.1.1/`；此前 0.1.0 包保留在 `release/`。构建脚本默认仍输出到 `release/`：
 
 | 平台                | 文件                                 | 当前验证状态                           |
 | ------------------- | ------------------------------------ | -------------------------------------- |
-| Linux x64           | `QuayTerm-0.1.0.AppImage`            | 已完成本机运行、三台局域网主机连接测试 |
-| Linux x64           | `quayterm-0.1.0.tar.gz`              | 解压运行 `quayterm`；已验证解包程序    |
-| Windows x64         | `windows/QuayTerm-0.1.0-win.zip`     | 已交叉构建；待 Windows 原生验收        |
-| macOS Intel         | `macos/QuayTerm-0.1.0-mac.zip`       | 已交叉构建、未签名；待 macOS 原生验收  |
-| macOS Apple Silicon | `macos/QuayTerm-0.1.0-arm64-mac.zip` | 已交叉构建、未签名；待 macOS 原生验收  |
+| Linux x64           | `linux/QuayTerm-0.1.1.AppImage`      | 已完成本机运行、三台局域网主机连接测试 |
+| Linux x64           | `linux/quayterm-0.1.1.tar.gz`        | 解压运行 `quayterm`；已验证解包程序    |
+| Windows x64         | `windows/QuayTerm-0.1.1-win.zip`     | 已交叉构建；待 Windows 原生验收        |
+| macOS Intel         | `macos/QuayTerm-0.1.1-mac.zip`       | 已交叉构建、未签名；待 macOS 原生验收  |
+| macOS Apple Silicon | `macos/QuayTerm-0.1.1-arm64-mac.zip` | 已交叉构建、未签名；待 macOS 原生验收  |
 
 Linux AppImage 需要系统的 FUSE 支持。也可以使用 tar.gz 包，或运行 AppImage 的 `--appimage-extract-and-run` 模式。Windows 解压后运行 `QuayTerm.exe`。macOS 发布前需要在 macOS 上进行签名和验收；当前 zip 是开发验证包。
 
@@ -36,7 +36,7 @@ npm run dev
 - **终端**：每个会话拥有独立 SSH 连接和 PTY。默认显示左侧 SFTP 文件树，单击箭头展开目录、双击进入目录或编辑文本。侧栏跟随当前聚焦的会话，也可隐藏或调整宽度。
 - **布局**：支持单一、双列、三列、双行、三行、2×2、右侧双行、底部双列。新面板可以独立连接主机；标签可在面板之间拖动，也可在同一面板中排序。切换布局和拖动不会重建 SSH 会话；缩减布局会合并标签。分隔线可拖动调整尺寸。
 - **SFTP**：左侧默认本地，右侧选择主机；点击任一侧左上角的名称可重新选择本地或主机。输入路径跳转，支持隐藏文件、过滤、按名称 / 日期 / 大小排序，以及 Windows 磁盘选择。
-- **文件**：拖放文件或文件夹到另一侧开始传输，也可把系统文件管理器中的本地文件拖入。传输前确认目标，可选择允许覆盖。支持递归目录、进度、取消、新建文件 / 文件夹、重命名、确认删除和文本编辑。编辑保存时检查版本，检测到外部修改会保留原文件并提示重新打开。
+- **文件**：拖放文件或文件夹到另一侧开始传输，也可把系统文件管理器中的本地文件拖入。传输前确认目标，可选择允许覆盖。支持本地到远端、远端到本地及远端到远端的流式传输。双栏连接相同地址、端口和用户名时，也会阻止复制到自身或子目录。支持递归目录、进度、取消、新建文件 / 文件夹、重命名、确认删除和文本编辑。编辑保存时检查版本，检测到外部修改会保留原文件并提示重新打开。
 
 ## 快捷键
 
@@ -95,7 +95,7 @@ npm run dist:mac
 
 完整网络 / PTY 集成测试在 Linux 上运行，需要 Python 3、Bash、OpenSSH `sftp-server`、tmux 和 screen。通过 `QUAYTERM_SFTP_SERVER`、`QUAYTERM_TMUX` 指定测试程序路径。本次工具只解包到 `.private/tooling/`，未更改系统服务。
 
-Windows / macOS 可以运行无 Linux 依赖的测试：
+Windows / macOS 可以运行无 Linux 依赖的测试；桌面测试会在本机启动临时 SSH/SFTP 协议服务，验证连接、粘贴、控制键、目录列表、文本读取和 resize。tmux/screen 仍由 Linux 的真实 PTY 测试覆盖：
 
 ```sh
 node --test tests/workspace.test.cjs tests/local-files.test.cjs
@@ -104,6 +104,8 @@ npx playwright test tests/desktop-smoke.e2e.cjs
 ```
 
 局域网测试通过 `QUAYTERM_TEST_HOSTS` 指向私有 JSON 数组，字段为 `name/address/port/username/password`。仅新建 SSH PTY、发送 resize 请求和列出 SFTP 主目录，不发送远端 shell 命令，不写远端文件。
+
+已打包程序也可通过 `scripts/test-packaged.cjs` 进行只读验收，设置 `QUAYTERM_EXECUTABLE`（程序路径）、`QUAYTERM_TEST_HOSTS`（私有凭证文件）、`QUAYTERM_EXPECTED_FINGERPRINTS`（含预先确认指纹的 `lan-report.json`）。测试使用一次性数据目录，不修改日常配置。
 
 ## 当前范围
 

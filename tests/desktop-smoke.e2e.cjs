@@ -2,7 +2,9 @@ const { test, expect, _electron: electron } = require('@playwright/test')
 const fs = require('node:fs')
 const os = require('node:os')
 const path = require('node:path')
-test('native desktop host management, local files, credentials isolation and window startup', async () => {
+const { nativeProbe } = require('./native-probe.cjs')
+test('native desktop SSH, SFTP, shortcuts, credentials isolation and window startup', async () => {
+  const probe = await nativeProbe()
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-native-'))
   const app = await electron.launch({
     args: [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
@@ -17,7 +19,8 @@ test('native desktop host management, local files, credentials isolation and win
       .locator('.host-toolbar')
       .getByRole('button', { name: /添加主机/ })
       .click()
-    await page.getByRole('textbox', { name: '主机地址', exact: true }).fill('192.0.2.1')
+    await page.getByRole('textbox', { name: '主机地址', exact: true }).fill('127.0.0.1')
+    await page.getByRole('spinbutton', { name: 'SSH 端口', exact: true }).fill(String(probe.port))
     await page.getByRole('textbox', { name: '主机名称', exact: true }).fill('Native desktop')
     await page.getByRole('textbox', { name: 'SSH 用户名' }).fill('tester')
     await page.getByLabel('SSH 密码', { exact: true }).fill('native-fixture-not-a-secret')
@@ -34,11 +37,45 @@ test('native desktop host management, local files, credentials isolation and win
     await location.fill(directory)
     await location.press('Enter')
     await expect(page.locator('.sftp-screen .file-row').filter({ hasText: 'quayterm.json' })).toBeVisible()
+    await page.getByRole('button', { name: '主机', exact: true }).click()
+    await page.locator('.host-card').dblclick()
+    await expect(page.locator('.verify-content')).toContainText(probe.fingerprint)
+    await page.getByRole('button', { name: '信任并连接', exact: true }).click()
+    await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('Native SSH ready 测试')
+    await expect(page.locator('.terminal-files .file-row').filter({ hasText: 'info.txt' })).toBeVisible()
+    const terminal = page.locator('.terminal-pane.focused .xterm-helper-textarea')
+    await terminal.focus()
+    await app.evaluate(({ clipboard }) => clipboard.writeText('NATIVE_PASTE'))
+    await page.keyboard.press(process.platform === 'darwin' ? 'Meta+v' : 'Control+Shift+v')
+    await page.keyboard.press('Control+a')
+    await page.keyboard.press('Control+b')
+    await expect.poll(() => Buffer.concat(probe.input).toString()).toContain('\x1b[200~NATIVE_PASTE\x1b[201~')
+    await expect
+      .poll(() => Buffer.concat(probe.input).includes(1) && Buffer.concat(probe.input).includes(2))
+      .toBeTruthy()
+    const sizeCount = probe.dimensions.length
+    await app.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].setSize(1100, 720))
+    await expect.poll(() => probe.dimensions.length).toBeGreaterThan(sizeCount)
+    await page.locator('.terminal-files .file-row').filter({ hasText: 'info.txt' }).dblclick()
+    await expect(page.getByRole('textbox', { name: '文件编辑器' })).toHaveValue(probe.text)
+    if (process.platform === 'darwin') {
+      const roles = await app.evaluate(({ Menu }) =>
+        Menu.getApplicationMenu().items.map((item) => String(item.role || '').toLowerCase())
+      )
+      expect(roles).toContain('editmenu')
+      const editor = page.getByRole('textbox', { name: '文件编辑器' })
+      await editor.focus()
+      await app.evaluate(({ clipboard }) => clipboard.writeText('Native menu paste'))
+      await page.keyboard.press('Meta+a')
+      await page.keyboard.press('Meta+v')
+      await expect(editor).toHaveValue('Native menu paste')
+    }
     expect(await page.evaluate(() => typeof window.require)).toBe('undefined')
     expect(errors).toEqual([])
   } finally {
     await app.evaluate(({ app }) => app.exit())
     await app.close().catch(() => {})
+    await probe.close()
     fs.rmSync(directory, { recursive: true, force: true })
   }
 })

@@ -27,6 +27,7 @@ let window,
   known,
   sessions,
   files,
+  terminalFocused = false,
   quitting = false
 const send = (event) => {
   if (window && !window.isDestroyed()) window.webContents.send('quay:event', event)
@@ -49,7 +50,7 @@ function createWindow() {
     minHeight: 550,
     title: 'QuayTerm · 泊岸',
     backgroundColor: '#edf1f3',
-    frame: false,
+    frame: process.platform === 'darwin',
     ...(process.platform === 'darwin'
       ? { titleBarStyle: 'hidden', trafficLightPosition: { x: 14, y: 16 } }
       : {}),
@@ -64,6 +65,15 @@ function createWindow() {
     }
   })
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
+  window.webContents.on('before-input-event', (_event, input) => {
+    // Preserve native Quit/Hide/Minimize while the terminal owns only its edit keys.
+    const terminalShortcut =
+      process.platform === 'darwin' &&
+      terminalFocused &&
+      input.meta &&
+      ['a', 'c', 'v', 'f'].includes(input.key.toLowerCase())
+    window.webContents.setIgnoreMenuShortcuts(Boolean(terminalShortcut))
+  })
   window.webContents.on('will-navigate', (e) => e.preventDefault())
   window.webContents.session.setPermissionRequestHandler((_wc, _permission, cb) => cb(false))
   window.webContents.session.setPermissionCheckHandler(() => false)
@@ -170,6 +180,10 @@ app.whenReady().then(() => {
       if (action === 'write') sessions.write(data.id, data.data, data.binary === true)
       else if (action === 'resize') sessions.resize(data.id, data.cols, data.rows)
       else if (action === 'ack') sessions.ack(data.id, data.bytes)
+      else if (action === 'focus') {
+        terminalFocused = data.active === true
+        if (!terminalFocused) window.webContents.setIgnoreMenuShortcuts(false)
+      }
     } catch (error) {
       if (action !== 'ack' && sessions.items.get(data.id)?.state === 'ready')
         send({ type: 'session-status', id: data.id, state: 'error', message: error.message })
@@ -181,7 +195,9 @@ app.whenReady().then(() => {
           {
             label: 'QuayTerm',
             submenu: [{ role: 'about' }, { type: 'separator' }, { role: 'hide' }, { role: 'quit' }]
-          }
+          },
+          { role: 'editMenu' },
+          { role: 'windowMenu' }
         ])
       : null
   )

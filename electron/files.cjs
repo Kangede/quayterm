@@ -168,7 +168,18 @@ class Files extends EventEmitter {
       if (this.locks.get(key) === next) this.locks.delete(key)
     }
   }
-  async atomic(a, destination, source, { overwrite = false, expectedHash, signal, progress, mode } = {}) {
+  endpointKey(endpoint) {
+    if (endpoint === 'local') return 'local'
+    const host = this.sessions.get(endpoint).host
+    return JSON.stringify([host.address.toLowerCase(), Number(host.port), host.username])
+  }
+  async atomic(
+    a,
+    destination,
+    createSource,
+    { overwrite = false, expectedHash, signal, progress, mode } = {}
+  ) {
+    signal?.throwIfAborted()
     const original = await this.exists(a, destination)
     if (original?.isSymbolicLink()) throw new Error('为避免覆盖链接目标，请打开文件的真实路径后操作')
     if (original && !original.isFile()) throw new Error('目标不是普通文件')
@@ -185,7 +196,10 @@ class Files extends EventEmitter {
           cb(null, chunk)
         }
       })
-      await pipeline(source, meter, a.write(temp, original ? original.mode & 0o777 : 0o600), { signal })
+      signal?.throwIfAborted()
+      await pipeline(createSource(), meter, a.write(temp, original ? original.mode & 0o777 : 0o600), {
+        signal
+      })
       if (original && Number.isInteger(original.uid) && Number.isInteger(original.gid)) {
         const tempStat = await a.stat(temp)
         if (tempStat.uid !== original.uid || tempStat.gid !== original.gid)
@@ -206,10 +220,10 @@ class Files extends EventEmitter {
     safePath(p)
     if (typeof text !== 'string' || Buffer.byteLength(text) > MAX_TEXT || typeof expectedHash !== 'string')
       throw new Error('文本或文件版本无效')
-    return this.locked(`${endpoint}:${p}`, async () => {
+    return this.locked(`${this.endpointKey(endpoint)}:${p}`, async () => {
       const a = await this.adapter(endpoint)
       const data = Buffer.from(text)
-      await this.atomic(a, p, Readable.from(data), { overwrite: true, expectedHash })
+      await this.atomic(a, p, () => Readable.from(data), { overwrite: true, expectedHash })
       return { hash: hash(data), size: data.length }
     })
   }
@@ -218,7 +232,7 @@ class Files extends EventEmitter {
     const a = await this.adapter(endpoint)
     if (['mkdir', 'create', 'rename'].includes(action)) filename(name)
     if (action === 'mkdir') return a.mkdir(a.path.join(p, name))
-    if (action === 'create') return this.atomic(a, a.path.join(p, name), Readable.from(Buffer.alloc(0)))
+    if (action === 'create') return this.atomic(a, a.path.join(p, name), () => Readable.from(Buffer.alloc(0)))
     if (action === 'rename') {
       const destination = a.path.join(a.path.dirname(p), name)
       if (destination === p) return
@@ -270,6 +284,8 @@ class Files extends EventEmitter {
         signal.throwIfAborted()
         const a = await this.adapter(source)
         const b = await this.adapter(destination)
+        const sourceKey = this.endpointKey(source)
+        const destinationKey = this.endpointKey(destination)
         const targetDirectory = await b.realpath(directory)
         const records = []
         let nodes = 0
@@ -292,7 +308,12 @@ class Files extends EventEmitter {
           const from = await a.realpath(p)
           if ((await a.lstat(p)).isSymbolicLink()) throw new Error('请选择真实文件而非符号链接')
           const to = b.path.join(targetDirectory, a.path.basename(from))
-          if (source === destination && (from === to || to.startsWith(from + a.path.sep)))
+          const relative = a.path.relative(from, to)
+          if (
+            sourceKey === destinationKey &&
+            (relative === '' ||
+              (!relative.startsWith(`..${a.path.sep}`) && relative !== '..' && !a.path.isAbsolute(relative)))
+          )
             throw new Error('不能复制到自身或其子目录')
           await collect(from, to)
         }
@@ -311,8 +332,8 @@ class Files extends EventEmitter {
             if (!(await this.exists(b, record.to))) await b.mkdir(record.to)
             continue
           }
-          await this.locked(`${destination}:${record.to}`, () =>
-            this.atomic(b, record.to, a.read(record.from), {
+          await this.locked(`${destinationKey}:${record.to}`, () =>
+            this.atomic(b, record.to, () => a.read(record.from), {
               overwrite,
               signal,
               mode: record.mode,

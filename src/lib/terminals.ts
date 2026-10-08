@@ -62,6 +62,13 @@ export class Terminals {
     term.onBinary((data) => window.quay.terminal('write', { id, data, binary: true }))
     term.onResize(({ cols, rows }) => window.quay.terminal('resize', { id, cols, rows }))
     term.attachCustomKeyEventHandler((event) => {
+      if (event.metaKey && event.key.toLowerCase() === 'a') {
+        if (event.type === 'keydown') {
+          term.selectAll()
+          event.preventDefault()
+        }
+        return false
+      }
       const command = event.metaKey || (event.ctrlKey && event.shiftKey)
       if (command && ['c', 'v', 'f'].includes(event.key.toLowerCase())) {
         if (event.type === 'keydown') {
