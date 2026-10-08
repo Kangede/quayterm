@@ -20,7 +20,14 @@ import {
 } from '@ant-design/icons'
 import { FingerprintOutlined } from './components/Icons'
 import { HostIcon, HostManager } from './components/HostManager'
-import { FileEditor, FilePane, formatSize, type FileOpen, type TransferRequest } from './components/Files'
+import {
+  FileEditor,
+  FilePane,
+  formatSize,
+  type FileOpen,
+  type TransferRequest,
+  type FileClipboard
+} from './components/Files'
 import { TerminalWorkspace } from './components/TerminalWorkspace'
 import { Terminals } from './lib/terminals'
 import { addTab, changeLayout, initialWorkspace, moveTab, removeTab } from './lib/workspace'
@@ -53,6 +60,11 @@ export default function App() {
   })
   const [sftpVisited, setSftpVisited] = useState(false)
   const [locations, setLocations] = useState({ left: '', right: '' })
+  const [fileClipboard, setFileClipboard] = useState<FileClipboard | null>(null)
+  const availableClipboard =
+    fileClipboard && (fileClipboard.source === 'local' || sessions[fileClipboard.source]?.state === 'ready')
+      ? fileClipboard
+      : null
   const [openFile, setOpenFile] = useState<FileOpen | null>(null)
   const [refreshToken, setRefreshToken] = useState(0)
   const [transfers, setTransfers] = useState<Transfer[]>([])
@@ -80,6 +92,7 @@ export default function App() {
         setVersion(data.version)
         setSecureStorage(data.secureStorage)
         pool.resizeFont(data.settings.fontSize || 14)
+        pool.configure(data.settings)
         setReady(true)
       })
       .catch((e) => setFatal(e.message))
@@ -141,7 +154,7 @@ export default function App() {
     const focusChanged = (event: FocusEvent) => {
       const target = event.type === 'focusout' ? event.relatedTarget : event.target
       window.quay.terminal('focus', {
-        active: target instanceof Element && Boolean(target.closest('.xterm'))
+        active: target instanceof Element && Boolean(target.closest('.xterm, .file-rows'))
       })
     }
     document.addEventListener('focusin', focusChanged)
@@ -175,6 +188,7 @@ export default function App() {
     setSettings((s) => ({ ...s, ...change }))
     void window.quay.invoke('settings', change).catch((e) => message.error(e.message))
     if (change.fontSize) pool.resizeFont(change.fontSize)
+    pool.configure(change)
   }
   function start(host: Host, options: ConnectOptions = {}, suppliedPassword?: string) {
     if (!host.hasPassword && suppliedPassword === undefined) {
@@ -480,6 +494,10 @@ export default function App() {
             sessions={sessions}
             hosts={hosts}
             pool={pool}
+            fileClipboard={availableClipboard}
+            onCopyFiles={setFileClipboard}
+            appearance={settings}
+            onAppearance={updateSettings}
             sidebar={settings.sidebar !== false}
             onSidebar={() => updateSettings({ sidebar: !settings.sidebar })}
             onLayout={(id) => setWorkspace((w) => changeLayout(w, id))}
@@ -496,6 +514,15 @@ export default function App() {
         {sftpVisited && (
           <div className={`sftp-screen ${view !== 'sftp' ? 'hidden-screen' : ''}`}>
             <FilePane
+              clipboard={availableClipboard}
+              onCopy={setFileClipboard}
+              transferTarget={
+                endpoints.right &&
+                locations.right &&
+                (endpoints.right === 'local' || sessions[endpoints.right]?.state === 'ready')
+                  ? { endpoint: endpoints.right, directory: locations.right }
+                  : null
+              }
               endpoint={endpoints.left}
               session={sessions[endpoints.left || '']}
               hosts={hosts}
@@ -511,6 +538,15 @@ export default function App() {
               <SwapOutlined />
             </div>
             <FilePane
+              clipboard={availableClipboard}
+              onCopy={setFileClipboard}
+              transferTarget={
+                endpoints.left &&
+                locations.left &&
+                (endpoints.left === 'local' || sessions[endpoints.left]?.state === 'ready')
+                  ? { endpoint: endpoints.left, directory: locations.left }
+                  : null
+              }
               endpoint={endpoints.right}
               session={sessions[endpoints.right || '']}
               hosts={hosts}
@@ -727,7 +763,13 @@ export default function App() {
           }
         }}
       >
-        <p>复制 {transferRequest?.paths.length} 个项目到：</p>
+        <p>
+          复制 {transferRequest?.paths.length} 个项目到{' '}
+          {transferRequest?.destination === 'local'
+            ? '本地'
+            : sessions[transferRequest?.destination || '']?.host.name || '目标主机'}
+          ：
+        </p>
         <pre className="path-preview">{transferRequest?.directory}</pre>
         <Checkbox checked={overwrite} onChange={(e) => setOverwrite(e.target.checked)}>
           允许覆盖目标中的同名文件

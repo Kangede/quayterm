@@ -2,18 +2,23 @@ import { Terminal } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
 import { SearchAddon } from '@xterm/addon-search'
 import { Unicode11Addon } from '@xterm/addon-unicode11'
-import type { Host } from '../types'
+import type { Host, Settings } from '../types'
+import { getTerminalTheme } from './terminal-themes'
+import { OutputHighlights } from './output-highlights'
 export type TerminalRecord = {
   term: Terminal
   fit: FitAddon
   search: SearchAddon
   element: HTMLDivElement
   opened: boolean
+  highlights: OutputHighlights
   observer?: ResizeObserver
 }
 export class Terminals {
   records = new Map<string, TerminalRecord>()
   fontSize = 14
+  theme = getTerminalTheme()
+  outputHighlights = true
   onPaste: (text: string, accept: () => void) => void = (_text, accept) => accept()
   create(id: string, host: Host) {
     const term = new Terminal({
@@ -26,28 +31,7 @@ export class Terminals {
       allowProposedApi: true,
       screenReaderMode: false,
       rightClickSelectsWord: true,
-      theme: {
-        background: '#141827',
-        foreground: '#cbd4e3',
-        cursor: '#80cbc4',
-        selectionBackground: '#3e536b',
-        black: '#1c2331',
-        red: '#ef7d85',
-        green: '#83cfac',
-        yellow: '#e5c889',
-        blue: '#8eb8f5',
-        magenta: '#c6a0df',
-        cyan: '#80cbc4',
-        white: '#cbd4e3',
-        brightBlack: '#6b7894',
-        brightRed: '#ffa2a9',
-        brightGreen: '#ade6c8',
-        brightYellow: '#f9e2af',
-        brightBlue: '#aecbfa',
-        brightMagenta: '#dbbaf0',
-        brightCyan: '#a3e2dd',
-        brightWhite: '#f3f5f9'
-      }
+      theme: this.theme.colors
     })
     const fit = new FitAddon()
     const search = new SearchAddon()
@@ -101,7 +85,8 @@ export class Terminals {
     const element = document.createElement('div')
     element.className = 'terminal-mount'
     element.dataset.sessionId = id
-    this.records.set(id, { term, fit, search, element, opened: false })
+    const highlights = new OutputHighlights(term, () => this.theme.colors, this.outputHighlights)
+    this.records.set(id, { term, fit, search, element, opened: false, highlights })
   }
   attach(id: string, container: HTMLElement) {
     const r = this.records.get(id)
@@ -124,6 +109,7 @@ export class Terminals {
     const raf = requestAnimationFrame(() => {
       fit()
       r.term.focus()
+      r.highlights.schedule()
     })
     return () => {
       cancelAnimationFrame(raf)
@@ -153,6 +139,14 @@ export class Terminals {
         r.term.focus()
       })
   }
+  configure(settings: Settings) {
+    if (settings.terminalTheme !== undefined) this.theme = getTerminalTheme(settings.terminalTheme)
+    if (settings.outputHighlights !== undefined) this.outputHighlights = settings.outputHighlights
+    for (const record of this.records.values()) {
+      record.term.options.theme = this.theme.colors
+      record.highlights.update(this.outputHighlights)
+    }
+  }
   resizeFont(size: number) {
     this.fontSize = size
     for (const r of this.records.values()) {
@@ -163,6 +157,7 @@ export class Terminals {
   close(id: string) {
     const r = this.records.get(id)
     r?.observer?.disconnect()
+    r?.highlights.dispose()
     r?.term.dispose()
     r?.element.remove()
     this.records.delete(id)

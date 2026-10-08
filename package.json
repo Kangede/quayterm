@@ -1,7 +1,7 @@
 {
   "name": "quayterm",
   "productName": "QuayTerm",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "QuayTerm 泊岸 — SSH 与 SFTP 工作区",
   "private": true,
   "license": "UNLICENSED",
@@ -61,7 +61,8 @@
       "package.json",
       "LICENSE",
       "THIRD-PARTY-NOTICES.txt",
-      "resources/icon.png"
+      "resources/icon.png",
+      "shared/**/*"
     ],
     "linux": {
       "target": [

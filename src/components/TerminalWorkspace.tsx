@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { App, Button, Dropdown, Input, Tooltip } from 'antd'
+import { App, Button, Checkbox, Dropdown, Input, Tooltip } from 'antd'
 import {
   AppstoreOutlined,
   ArrowDownOutlined,
@@ -12,12 +12,14 @@ import {
   LayoutOutlined,
   PlusOutlined,
   ReloadOutlined,
-  SearchOutlined
+  SearchOutlined,
+  BgColorsOutlined
 } from '@ant-design/icons'
-import type { Host, Pane, Session, Workspace, LayoutName } from '../types'
+import type { Host, Pane, Session, Workspace, LayoutName, Settings } from '../types'
+import { getTerminalTheme, terminalThemes } from '../lib/terminal-themes'
 import { layouts } from '../lib/workspace'
 import type { Terminals } from '../lib/terminals'
-import { FilePane, type FileOpen, type TransferRequest } from './Files'
+import { FilePane, type FileOpen, type TransferRequest, type FileClipboard } from './Files'
 import { HostIcon } from './HostManager'
 function TerminalView({ id, pool }: { id: string; pool: Terminals }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -286,6 +288,10 @@ export function TerminalWorkspace({
   workspace,
   sessions,
   pool,
+  appearance,
+  fileClipboard,
+  onCopyFiles,
+  onAppearance,
   hosts,
   sidebar,
   onSidebar,
@@ -302,6 +308,10 @@ export function TerminalWorkspace({
   workspace: Workspace
   sessions: Record<string, Session>
   pool: Terminals
+  fileClipboard: FileClipboard | null
+  onCopyFiles: (clipboard: FileClipboard) => void
+  appearance: Settings
+  onAppearance: (change: Settings) => void
   hosts: Host[]
   sidebar: boolean
   onSidebar: () => void
@@ -315,6 +325,8 @@ export function TerminalWorkspace({
   onTransfer: (request: TransferRequest) => void
   refreshToken: number
 }) {
+  const { modal } = App.useApp()
+  const theme = getTerminalTheme(appearance.terminalTheme)
   const gridRef = useRef<HTMLDivElement>(null)
   const [sideWidth, setSideWidth] = useState(264)
   const [x, setX] = useState<number[]>([])
@@ -362,7 +374,7 @@ export function TerminalWorkspace({
       .join(' ')
   }
   return (
-    <div className="workspace">
+    <div className="workspace" data-terminal-theme={theme.id} style={theme.style}>
       <header className="workspace-toolbar">
         <Button
           type="text"
@@ -379,6 +391,52 @@ export function TerminalWorkspace({
         </span>
         <span className="toolbar-spacer" />
         <span className="workspace-drag-tip">拖动标签，在面板间移动会话</span>
+        <Dropdown
+          trigger={['click']}
+          menu={{
+            items: [
+              {
+                type: 'group',
+                label: '终端配色',
+                children: terminalThemes.map((t) => ({
+                  key: t.id,
+                  label: (
+                    <span className="theme-option">
+                      <span className="theme-swatches" style={{ background: t.background }}>
+                        <i style={{ background: t.palette[1] }} />
+                        <i style={{ background: t.palette[2] }} />
+                        <i style={{ background: t.foreground }} />
+                      </span>
+                      {t.name}
+                      {theme.id === t.id && <CheckOutlined />}
+                    </span>
+                  )
+                }))
+              },
+              { type: 'divider' },
+              {
+                key: 'toggle-highlights',
+                label: <Checkbox checked={appearance.outputHighlights !== false}>自动高亮输出</Checkbox>
+              },
+              { key: 'highlight-info', label: '高亮说明' }
+            ],
+            onClick: ({ key }) => {
+              if (key === 'toggle-highlights')
+                onAppearance({ outputHighlights: appearance.outputHighlights === false })
+              else if (key === 'highlight-info')
+                modal.info({
+                  title: '自动高亮输出',
+                  content:
+                    '错误、警告、成功信息和地址会用不同颜色显示。脚本指定的颜色优先保留。高亮仅作用于普通终端输出，进入 tmux、screen 等程序的备用屏幕时自动停用；不会改写输出内容或影响进度条刷新。'
+                })
+              else onAppearance({ terminalTheme: key })
+            }
+          }}
+        >
+          <Button type="text" aria-label="终端风格" icon={<BgColorsOutlined />}>
+            风格
+          </Button>
+        </Dropdown>
         <Dropdown
           trigger={['click']}
           menu={{
@@ -416,6 +474,8 @@ export function TerminalWorkspace({
                 session={activeSession}
                 hosts={hosts}
                 compact
+                clipboard={fileClipboard}
+                onCopy={onCopyFiles}
                 onOpen={onOpenFile}
                 onTransfer={onTransfer}
                 refreshToken={refreshToken}

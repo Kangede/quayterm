@@ -85,10 +85,14 @@ class Store {
     }
   }
   settings(input) {
-    const allowed = { view: ['grid', 'list'], sort: ['az', 'za', 'newest', 'oldest'] }
+    const allowed = {
+      view: ['grid', 'list'],
+      sort: ['az', 'za', 'newest', 'oldest'],
+      terminalTheme: Object.keys(require('../shared/terminal-themes.json'))
+    }
     for (const key of Object.keys(allowed))
       if (allowed[key].includes(input[key])) this.data.settings[key] = input[key]
-    for (const key of ['sidebar', 'showHidden'])
+    for (const key of ['sidebar', 'showHidden', 'outputHighlights'])
       if (typeof input[key] === 'boolean') this.data.settings[key] = input[key]
     if (Number.isInteger(input.fontSize) && input.fontSize >= 10 && input.fontSize <= 26)
       this.data.settings.fontSize = input.fontSize

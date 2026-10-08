@@ -1,19 +1,32 @@
-# QuayTerm 0.1.1 验证记录
+# QuayTerm 0.2.0 验证记录
 
 日期：2026-10-08（Asia/Shanghai）。执行环境：Linux x64 桌面、Node.js 22.23.2、Electron 44.7.0。
 
 ## 已通过
 
-| 验证                         | 结果                                           |
-| ---------------------------- | ---------------------------------------------- |
-| TypeScript + Vite 生产构建   | 通过                                           |
-| 代码格式及类型检查           | 通过                                           |
-| 底层与状态测试               | 18 / 18 通过                                   |
-| 真实桌面交互测试             | 9 / 9 通过                                     |
-| 局域网 SSH + SFTP 只读测试   | 3 / 3 通过                                     |
-| Linux 已打包程序默认沙箱启动 | 通过                                           |
-| 运行时依赖 npm audit         | 0 个已报告漏洞                                 |
-| 四种打包产物中的 app.asar    | 内容哈希一致；均不包含测试、私有凭证或参考仓库 |
+| 验证                                | 结果                                           |
+| ----------------------------------- | ---------------------------------------------- |
+| TypeScript + Vite 生产构建          | 通过                                           |
+| 代码格式及类型检查                  | 通过                                           |
+| 底层与状态测试                      | 22 / 22 通过                                   |
+| 真实桌面交互测试                    | 13 / 13 通过                                   |
+| 既有局域网 SSH + SFTP 测试（0.1.1） | 3 / 3 通过                                     |
+| Linux 已打包程序默认沙箱启动        | 通过                                           |
+| 运行时依赖 npm audit                | 0 个已报告漏洞                                 |
+| 四种打包产物中的 app.asar           | 内容哈希一致；均不包含测试、私有凭证或参考仓库 |
+
+### 0.2.0 新增验证
+
+- 本地 / 远端文件右键、目录和空白处右键、Shift+F10、保留多选、点击目标切换。
+- 属性、重命名、确认删除、新建；复制到目标文件夹、下载、文件 / 文件夹上传和传输到另一侧。文件选择器在自动化中返回专用临时路径，后续文件传输使用真实 SFTP。
+- 六种配色热切换与持久化，新终端继承主题，连接数不因换肤增加。
+- 显示层错误 / 警告 / 成功高亮，脚本真彩色及 256 色保留，关闭高亮可立即还原。
+- CJK、emoji、组合字符的单元格位置；ValueError / UserWarning / Traceback 识别。
+- 通过真实 SSH 数据通道反复发送回车及清行，确认进度只占一行；显式换行会增加新行。
+- 备用屏幕暂停高亮，返回普通屏幕后恢复；原有 tmux / screen 和 50,000 行输出回归通过。
+- 已打包 Linux 0.2.0 程序在默认沙箱下重复执行新增的四组桌面验收，4 / 4 通过。报告：`.private/packaged-features-0.2.0.log`。
+
+本次新增文件操作仅在一次性本地目录和隔离 SSH/SFTP 测试服务中执行，没有修改用户提供的局域网主机文件。
 
 ### 底层与状态测试
 
@@ -61,9 +74,11 @@ Linux 解包程序以默认沙箱启动，通过真实桌面界面逐一连接�
 
 0.1.1 的已打包 Linux 程序使用全新临时数据目录，再次通过三台局域网主机的真实 SSH/SFTP 验收，核对主机指纹且不发送 shell 命令。报告：`.private/packaged-0.1.1.json`。
 
+上述三台局域网主机的记录属于 0.1.1；0.2.0 的新增功能在本地隔离服务和 Linux 已打包程序中验证，未重复在用户主机上执行文件操作。
+
 ## 产物与未完成的原生验证
 
-Linux AppImage / tar.gz、Windows x64 zip、macOS x64 / arm64 zip 均已构建。跨平台源码使用系统路径 API 和 Electron 安全存储，CI 已配置原生桌面 smoke test 与打包步骤。
+0.2.0 的 Linux AppImage / tar.gz、Windows x64 zip、macOS x64 / arm64 zip 均已构建。跨平台源码使用系统路径 API 和 Electron 安全存储，CI 已配置原生桌面 smoke test 与打包步骤。
 
 **当前没有 Windows 或 macOS 执行环境，不能把交叉构建视为这两个系统已实测通过。** Windows 原生 SSH / SFTP、macOS 原生 SSH / SFTP、macOS ⌘ 按键及原生窗口行为、签名 / 公证仍须在对应平台验收。CI 配置尚未上传或在远端执行。
 
@@ -73,12 +88,14 @@ macOS 交叉构建包未签名；Windows 交叉 zip 未签名且保留 Electron 
 
 本机详细报告和截图位于 `.private/`，不打进安装包：
 
-- `core-test.log`：18 项底层测试。
-- `e2e-report.json`、`e2e.log`：9 项桌面测试。
+- `core-test.log`：22 项底层测试。
+- `e2e-report.json`、`e2e.log`：13 项桌面测试。
 - `lan-report.json`：只读局域网测试。
 - `hosts.png`、`terminal.png`、`two-tabs-per-pane.png`、`split.png`、`tmux.png`、`sftp.png`：界面截图。
-- `package-linux-0.1.1.log`、`package-windows-0.1.1.log`、`package-macos-0.1.1.log`：构建记录。
+- `context-menu.png`、`paper-theme.png`、`output-highlights.png`：0.2.0 右键菜单、主题与高亮截图。
+- `terminal-display-0.2.0.log`、`packaged-features-0.2.0.log`：控制序列及已打包程序新增验收。
+- `package-linux-0.2.0.log`、`package-windows-0.2.0.log`、`package-macos-0.2.0.log`：构建记录。
 
 macOS 窗口配置和编辑快捷键按 [Electron 自定义标题栏](https://www.electronjs.org/docs/latest/tutorial/custom-title-bar)及 [before-input-event](https://www.electronjs.org/docs/latest/api/web-contents#event-before-input-event) 说明调整；这属于代码适配依据，不替代 macOS 原生运行证据。
 
-0.1.1 安装包校验和见 `release/0.1.1/SHA256SUMS`。0.1.0 的产物和校验和保留供回退。
+0.2.0 安装包校验和见 `release/0.2.0/SHA256SUMS`。旧版产物和校验和保留供回退。

@@ -7,7 +7,8 @@ const {
   dialog,
   protocol,
   net,
-  Menu
+  Menu,
+  shell
 } = require('electron')
 const fs = require('node:fs')
 const path = require('node:path')
@@ -16,6 +17,7 @@ const { Store } = require('./store.cjs')
 const { KnownHosts } = require('./known-hosts.cjs')
 const { Sessions } = require('./sessions.cjs')
 const { Files } = require('./files.cjs')
+const { safePath } = require('./validation.cjs')
 
 app.setName('QuayTerm')
 if (process.env.QUAYTERM_DATA_DIR) app.setPath('userData', path.resolve(process.env.QUAYTERM_DATA_DIR))
@@ -148,6 +150,21 @@ app.whenReady().then(() => {
     fileOperation: (input) => files.operate(input),
     transfer: (input) => files.transfer(input),
     transferCancel: ({ id }) => files.cancel(id),
+    chooseUploadPaths: async ({ folder }) => {
+      const result = await dialog.showOpenDialog(window, {
+        title: folder ? '选择上传的文件夹' : '选择上传的文件',
+        properties: [folder ? 'openDirectory' : 'openFile', 'multiSelections']
+      })
+      return result.canceled ? [] : result.filePaths
+    },
+    chooseDownloadDirectory: async () => {
+      const result = await dialog.showOpenDialog(window, {
+        title: '选择下载位置',
+        properties: ['openDirectory', 'createDirectory']
+      })
+      return result.canceled ? null : result.filePaths[0]
+    },
+    fileReveal: ({ path: p }) => shell.showItemInFolder(safePath(p)),
     clipboardRead: () => clipboard.readText(),
     clipboardWrite: ({ text }) => {
       if (typeof text !== 'string' || text.length > 8 * 1024 * 1024) throw new Error('剪贴板内容过大')

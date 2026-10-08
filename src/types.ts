@@ -61,6 +61,8 @@ export type Settings = {
   sidebar?: boolean
   fontSize?: number
   showHidden?: boolean
+  terminalTheme?: string
+  outputHighlights?: boolean
 }
 export type Verification = {
   id: string

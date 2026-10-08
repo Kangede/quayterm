@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { App, Button, Checkbox, Dropdown, Input, Modal, Select, Tooltip } from 'antd'
+import type { MenuProps } from 'antd'
 import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
@@ -16,7 +17,11 @@ import {
   UploadOutlined,
   LinkOutlined,
   EyeOutlined,
-  PlusOutlined
+  PlusOutlined,
+  CopyOutlined,
+  DownloadOutlined,
+  DeleteOutlined,
+  InfoCircleOutlined
 } from '@ant-design/icons'
 import type { FileEntry, FileList, Host, Session } from '../types'
 import { HostIcon } from './HostManager'
@@ -28,6 +33,9 @@ export function formatSize(size: number) {
 }
 export type FileOpen = { endpoint: string; path: string; name: string }
 export type TransferRequest = { source: string; destination: string; paths: string[]; directory: string }
+export type FileClipboard = { source: string; paths: string[] }
+export type TransferTarget = { endpoint: string; directory: string }
+type FileContext = { x: number; y: number; entry?: FileEntry; paths: string[]; directory: string }
 export function EndpointPicker({
   hosts,
   onSelect,
@@ -85,6 +93,9 @@ export function FilePane({
   onSelect,
   onOpen,
   onTransfer,
+  clipboard,
+  onCopy,
+  transferTarget,
   onLocation,
   refreshToken,
   showHiddenDefault = false
@@ -96,6 +107,9 @@ export function FilePane({
   onSelect?: (host: Host | 'local') => void
   onOpen: (file: FileOpen) => void
   onTransfer?: (request: TransferRequest) => void
+  clipboard?: FileClipboard | null
+  onCopy?: (clipboard: FileClipboard) => void
+  transferTarget?: TransferTarget | null
   onLocation?: (location: string) => void
   refreshToken?: number
   showHiddenDefault?: boolean
@@ -115,6 +129,7 @@ export function FilePane({
   const [operation, setOperation] = useState<{ action: string; name: string; path: string } | null>(null)
   const [opBusy, setOpBusy] = useState(false)
   const [history, setHistory] = useState<string[]>([])
+  const [context, setContext] = useState<FileContext | null>(null)
   const generation = useRef(0)
   const current = useRef(list)
   current.current = list
@@ -143,6 +158,8 @@ export function FilePane({
   useEffect(() => {
     generation.current++
     setList(null)
+    setPathInput('')
+    setContext(null)
     current.current = null
     setHistory([])
     setSelected([])
@@ -157,6 +174,14 @@ export function FilePane({
   useEffect(() => {
     if (refreshToken && current.current) void load(current.current.path, false)
   }, [refreshToken])
+  useEffect(() => {
+    if (!context) return
+    const close = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setContext(null)
+    }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  }, [context])
   const visible = useMemo(
     () =>
       (list?.entries || [])
@@ -203,21 +228,21 @@ export function FilePane({
       message.error(e.message)
     }
   }
-  function remove() {
-    if (!selected.length) return
+  function remove(paths = selected) {
+    if (!paths.length) return
     modal.confirm({
-      title: `删除 ${selected.length} 个项目？`,
+      title: `删除 ${paths.length} 个项目？`,
       content: (
         <>
           <p>此操作会永久删除所选文件或文件夹及其内容。</p>
-          <pre className="path-preview">{selected.join('\n')}</pre>
+          <pre className="path-preview">{paths.join('\n')}</pre>
         </>
       ),
       okText: '永久删除',
       okButtonProps: { danger: true },
       onOk: async () => {
         try {
-          for (const p of selected)
+          for (const p of paths)
             await window.quay.invoke('fileOperation', { endpoint, path: p, action: 'delete' })
           await load(list?.path, false)
         } catch (e: any) {
@@ -227,16 +252,139 @@ export function FilePane({
       }
     })
   }
-  function action(key: string) {
-    if (key === 'refresh') void load(list?.path, false)
-    else if (key === 'hidden') setHidden(!hidden)
-    else if (key === 'mkdir' || key === 'create') setOperation({ action: key, path: list!.path, name: '' })
-    else if (key === 'rename' && selected.length === 1)
-      setOperation({ action: key, path: selected[0], name: selected[0].split(/[/\\]/).pop()! })
-    else if (key === 'delete') remove()
-    else if (key === 'copy-path')
-      void window.quay.invoke('clipboardWrite', { text: selected[0] || list?.path || '' })
+  const entryAt = (p: string) =>
+    [...(list?.entries || []), ...Object.values(expanded).flat()].find((entry) => entry.path === p)
+  function showContext(entry: FileEntry | undefined, x: number, y: number) {
+    if (!list || !canLoad) return
+    const paths = entry ? (selected.includes(entry.path) ? selected : [entry.path]) : []
+    setSelected(paths)
+    setContext({ x, y, entry, paths, directory: entry?.isDirectory ? entry.path : list.path })
   }
+  async function action(key: string, target?: FileContext) {
+    const paths = target?.paths || selected
+    const entry = target?.entry || entryAt(paths[0])
+    const directory = target?.directory || list?.path
+    try {
+      if (key === 'refresh') await load(list?.path, false)
+      else if (key === 'hidden') setHidden(!hidden)
+      else if (key === 'open' && entry && paths.length === 1) open(entry)
+      else if ((key === 'mkdir' || key === 'create') && directory)
+        setOperation({ action: key, path: directory, name: '' })
+      else if (key === 'rename' && paths.length === 1)
+        setOperation({ action: key, path: paths[0], name: entry?.name || paths[0].split(/[/\\]/).pop()! })
+      else if (key === 'delete') remove(paths)
+      else if (key === 'copy-path')
+        await window.quay.invoke('clipboardWrite', {
+          text: paths.length ? paths.join('\n') : directory || ''
+        })
+      else if (key === 'copy-name')
+        await window.quay.invoke('clipboardWrite', {
+          text: paths.map((p) => entryAt(p)?.name || p.split(/[/\\]/).pop()).join('\n')
+        })
+      else if (key === 'copy' && paths.length && endpoint) {
+        onCopy?.({ source: endpoint, paths: [...paths] })
+        message.success(`已复制 ${paths.length} 个项目，可在目标文件夹粘贴`)
+      } else if (key === 'paste' && clipboard && endpoint && directory)
+        onTransfer?.({ ...clipboard, destination: endpoint, directory })
+      else if (key === 'transfer' && paths.length && endpoint && transferTarget)
+        onTransfer?.({
+          source: endpoint,
+          destination: transferTarget.endpoint,
+          paths,
+          directory: transferTarget.directory
+        })
+      else if (key === 'download' && paths.length && endpoint) {
+        const folder = await window.quay.invoke<string | null>('chooseDownloadDirectory')
+        if (folder) onTransfer?.({ source: endpoint, destination: 'local', paths, directory: folder })
+      } else if ((key === 'upload' || key === 'upload-folder') && endpoint && directory) {
+        const paths = await window.quay.invoke<string[]>('chooseUploadPaths', {
+          folder: key === 'upload-folder'
+        })
+        if (paths.length) onTransfer?.({ source: 'local', destination: endpoint, paths, directory })
+      } else if (key === 'reveal' && paths.length === 1 && endpoint === 'local')
+        await window.quay.invoke('fileReveal', { path: paths[0] })
+      else if (key === 'properties' && entry && paths.length === 1)
+        modal.info({
+          title: entry.name,
+          width: 570,
+          content: (
+            <dl className="file-properties">
+              <dt>路径</dt>
+              <dd>{entry.path}</dd>
+              <dt>类型</dt>
+              <dd>{entry.isSymlink ? '符号链接' : entry.isDirectory ? '文件夹' : '文件'}</dd>
+              <dt>大小</dt>
+              <dd>{entry.isDirectory ? '—' : `${formatSize(entry.size)}（${entry.size} 字节）`}</dd>
+              <dt>修改时间</dt>
+              <dd>{entry.modified ? new Date(entry.modified).toLocaleString() : '—'}</dd>
+              <dt>权限</dt>
+              <dd>{(entry.mode & 0o777).toString(8).padStart(3, '0')}</dd>
+            </dl>
+          )
+        })
+    } catch (e: any) {
+      message.error(e.message)
+    }
+  }
+  const contextItems: MenuProps['items'] = context
+    ? [
+        ...(context.paths.length
+          ? [
+              {
+                key: 'open',
+                label: context.entry?.isDirectory ? '打开文件夹' : '编辑文件',
+                icon: context.entry?.isDirectory ? <FolderOpenOutlined /> : <EditOutlined />,
+                disabled: context.paths.length !== 1
+              },
+              { key: 'copy', label: '复制文件', icon: <CopyOutlined />, disabled: !onCopy },
+              { key: 'copy-name', label: '复制名称' },
+              { key: 'copy-path', label: '复制路径' },
+              ...(endpoint !== 'local'
+                ? [{ key: 'download', label: '下载到本地…', icon: <DownloadOutlined /> }]
+                : [{ key: 'reveal', label: '在系统文件管理器中显示', disabled: context.paths.length !== 1 }]),
+              ...(transferTarget
+                ? [{ key: 'transfer', label: '传输到另一侧', icon: <ArrowRightOutlined /> }]
+                : []),
+              { type: 'divider' as const },
+              {
+                key: 'rename',
+                label: '重命名',
+                icon: <EditOutlined />,
+                disabled: context.paths.length !== 1
+              },
+              {
+                key: 'delete',
+                label: context.paths.length > 1 ? `删除 ${context.paths.length} 个项目` : '删除',
+                icon: <DeleteOutlined />,
+                danger: true
+              },
+              {
+                key: 'properties',
+                label: '属性',
+                icon: <InfoCircleOutlined />,
+                disabled: context.paths.length !== 1
+              },
+              { type: 'divider' as const }
+            ]
+          : []),
+        ...(!context.entry || (context.entry.isDirectory && context.paths.length === 1)
+          ? [
+              { key: 'paste', label: '粘贴文件', disabled: !clipboard },
+              { key: 'mkdir', label: '新建文件夹', icon: <FolderOutlined /> },
+              { key: 'create', label: '新建文件', icon: <FileOutlined /> },
+              ...(endpoint !== 'local'
+                ? [
+                    { key: 'upload', label: '上传文件…', icon: <UploadOutlined /> },
+                    { key: 'upload-folder', label: '上传文件夹…' }
+                  ]
+                : []),
+              { type: 'divider' as const }
+            ]
+          : []),
+        { key: 'refresh', label: '刷新', icon: <ReloadOutlined /> },
+        { key: 'hidden', label: <Checkbox checked={hidden}>显示隐藏文件</Checkbox> }
+      ]
+    : []
   function drop(event: React.DragEvent, directory = list?.path) {
     event.preventDefault()
     event.stopPropagation()
@@ -266,10 +414,21 @@ export function FilePane({
           data-path={entry.path}
           onClick={(e) => pick(entry, e)}
           onDoubleClick={() => open(entry)}
+          onContextMenu={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            showContext(entry, e.clientX, e.clientY)
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               e.stopPropagation()
               open(entry)
+            }
+            if (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10')) {
+              e.preventDefault()
+              e.stopPropagation()
+              const rect = e.currentTarget.getBoundingClientRect()
+              showContext(entry, rect.left + 40, rect.top + 20)
             }
           }}
           draggable
@@ -375,6 +534,9 @@ export function FilePane({
   return (
     <div
       className={`file-pane ${compact ? 'compact' : ''}`}
+      onScrollCapture={(e) => {
+        if (e.currentTarget.contains(e.target as Node)) setContext(null)
+      }}
       onDragOver={(e) => {
         if (
           onTransfer &&
@@ -508,11 +670,19 @@ export function FilePane({
             role="table"
             aria-label={`${label}文件列表`}
             tabIndex={0}
+            onContextMenu={(e) => {
+              e.preventDefault()
+              showContext(undefined, e.clientX, e.clientY)
+            }}
             onKeyDown={(e) => {
               if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
                 e.preventDefault()
                 e.stopPropagation()
                 setSelected(visible.map((v) => v.path))
+              } else if ((e.ctrlKey || e.metaKey) && ['c', 'v'].includes(e.key.toLowerCase())) {
+                e.preventDefault()
+                e.stopPropagation()
+                void action(e.key.toLowerCase() === 'c' ? 'copy' : 'paste')
               } else if (e.key === 'Delete') {
                 e.preventDefault()
                 remove()
@@ -561,6 +731,26 @@ export function FilePane({
           </footer>
         </>
       )}
+      <Dropdown
+        open={Boolean(context)}
+        autoFocus
+        trigger={['click']}
+        placement="bottomLeft"
+        onOpenChange={(open) => {
+          if (!open) setContext(null)
+        }}
+        menu={{
+          items: contextItems,
+          style: { maxHeight: 'calc(100vh - 24px)', overflowY: 'auto' },
+          onClick: ({ key }) => {
+            const target = context
+            setContext(null)
+            if (target) void action(key, target)
+          }
+        }}
+      >
+        <span className="file-menu-anchor" style={{ left: context?.x || 0, top: context?.y || 0 }} />
+      </Dropdown>
       <Modal
         open={Boolean(operation)}
         title={

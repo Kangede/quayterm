@@ -25,6 +25,7 @@ async function fixture() {
   const inputs = []
   const sizes = []
   const shells = []
+  const outputChannels = new Set()
   const server = new Server({ hostKeys: [privateKey] }, (client) => {
     clients.add(client)
     client.on('error', (error) => {
@@ -55,6 +56,7 @@ async function fixture() {
         })
         session.on('shell', (accept) => {
           const stream = accept()
+          outputChannels.add(stream)
           child = spawn('python3', [path.join(__dirname, 'pty-fixture.py'), root], {
             stdio: ['pipe', 'pipe', 'pipe', 'pipe']
           })
@@ -72,7 +74,10 @@ async function fixture() {
             stream.exit(0)
             stream.end()
           })
-          stream.on('close', () => child.kill())
+          stream.on('close', () => {
+            outputChannels.delete(stream)
+            child.kill()
+          })
         })
         session.on('subsystem', (accept, reject, info) => {
           if (info.name !== 'sftp') return reject()
@@ -112,6 +117,9 @@ async function fixture() {
     inputs,
     sizes,
     shells,
+    output(data) {
+      for (const channel of outputChannels) channel.write(data)
+    },
     async close() {
       // Only test-specific multiplexers are touched; never the user's existing server.
       const tmux = process.env.QUAYTERM_TMUX || path.resolve(__dirname, '../.private/tooling/usr/bin/tmux')

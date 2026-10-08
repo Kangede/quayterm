@@ -1906,3 +1906,138 @@ kbd {
     display: none;
   }
 }
+
+/* Terminal appearance is scoped to its workspace; file pages keep their own theme. */
+.workspace,
+.terminal-pane,
+.terminal-canvas,
+.xterm .xterm-viewport {
+  background: var(--terminal-bg, #141827);
+  color: var(--terminal-fg, #cbd4e3);
+}
+.workspace-toolbar,
+.pane-tabs,
+.terminal-mini-toolbar,
+.terminal-files,
+.terminal-files .file-pane,
+.terminal-files .empty-pane {
+  background: var(--terminal-panel, #1e2637);
+  color: var(--terminal-fg, #cbd4e3);
+  border-color: var(--terminal-border, #344156);
+}
+.terminal-grid,
+.sidebar-resizer {
+  background: var(--terminal-border, #344156);
+}
+.terminal-pane.focused {
+  outline-color: var(--terminal-accent, #80cbc4);
+}
+.pane-tab,
+.pane-tab button,
+.pane-tabs > .ant-btn,
+.terminal-mini-toolbar > .ant-btn,
+.terminal-mini-toolbar > span,
+.workspace-caption,
+.workspace-drag-tip,
+.workspace-toolbar .ant-btn,
+.terminal-files .file-row,
+.terminal-files .file-path .ant-input,
+.terminal-files .file-status,
+.terminal-files .endpoint-label,
+.terminal-files .file-pane-header > .ant-btn {
+  color: var(--terminal-muted, #91a2b8);
+}
+.pane-tab.active,
+.pane-tab:hover,
+.terminal-files .file-row.selected,
+.terminal-files .file-row:hover,
+.workspace-toolbar .ant-btn.enabled {
+  background: var(--terminal-selection, #3e536b);
+  color: var(--terminal-fg, #cbd4e3);
+}
+.pane-tab.active {
+  border-bottom-color: var(--terminal-accent, #80cbc4);
+}
+.workspace-toolbar .ant-btn:hover {
+  background: var(--terminal-selection, #3e536b) !important;
+  color: var(--terminal-fg, #cbd4e3) !important;
+}
+.terminal-files .file-pane-header,
+.terminal-files .file-path,
+.terminal-files .file-filter,
+.terminal-files .file-footer {
+  background: var(--terminal-panel, #1e2637);
+  border-color: var(--terminal-border, #344156);
+}
+.terminal-files .file-footer,
+.terminal-files .file-empty {
+  color: var(--terminal-muted, #91a2b8);
+}
+.terminal-files .file-path .ant-input:focus {
+  background: var(--terminal-bg, #141827);
+}
+.terminal-files .file-filter .ant-input-affix-wrapper {
+  background: var(--terminal-bg, #141827);
+  color: var(--terminal-fg, #cbd4e3);
+  border-color: var(--terminal-border, #344156);
+}
+.empty-terminal h3 {
+  color: var(--terminal-fg, #cbd4e3);
+}
+.empty-terminal p,
+.empty-terminal-icon {
+  color: var(--terminal-muted, #91a2b8);
+}
+.empty-terminal > .ant-btn {
+  background: var(--terminal-panel, #1e2637);
+  border-color: var(--terminal-border, #344156);
+  color: var(--terminal-fg, #cbd4e3);
+}
+.theme-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 206px;
+  padding: 3px 0;
+}
+.theme-option > .anticon {
+  margin-left: auto;
+  color: #568578;
+}
+.theme-swatches {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  border: 1px solid #8496a330;
+  border-radius: 5px;
+  padding: 6px 7px;
+}
+.theme-swatches i {
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  display: block;
+}
+.file-menu-anchor {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  z-index: 99;
+}
+.file-properties {
+  display: grid;
+  grid-template-columns: 65px minmax(0, 1fr);
+  gap: 13px 15px;
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+.file-properties dt {
+  color: #8da0ad;
+}
+.file-properties dd {
+  margin: 0;
+}
+.terminal-files .file-name > .folder-icon {
+  color: var(--terminal-folder, #c8ad73);
+}
