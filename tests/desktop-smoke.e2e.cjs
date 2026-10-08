@@ -6,6 +6,8 @@ const { nativeProbe } = require('./native-probe.cjs')
 test('native desktop SSH, SFTP, shortcuts, credentials isolation and window startup', async () => {
   const probe = await nativeProbe()
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-native-'))
+  const textFile = path.join(directory, 'BOM CRLF 中文.txt')
+  fs.writeFileSync(textFile, '\ufeffline1\r\nline2\r\n')
   const app = await electron.launch({
     args: [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
     env: { ...process.env, QUAYTERM_DATA_DIR: directory }
@@ -37,6 +39,15 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
     await location.fill(directory)
     await location.press('Enter')
     await expect(page.locator('.sftp-screen .file-row').filter({ hasText: 'quayterm.json' })).toBeVisible()
+    await page.locator('.sftp-screen .file-row').filter({ hasText: 'BOM CRLF 中文.txt' }).dblclick()
+    const fileEditor = page.getByRole('textbox', { name: '文件编辑器' })
+    await expect(fileEditor).toHaveValue('\ufeffline1\nline2\n')
+    for (const marker of ['first edit', 'second edit']) {
+      await fileEditor.fill(`中文 ${marker}\nline2\n`)
+      await fileEditor.press(process.platform === 'darwin' ? 'Meta+s' : 'Control+s')
+      await expect.poll(() => fs.readFileSync(textFile, 'utf8')).toBe(`\ufeff中文 ${marker}\r\nline2\r\n`)
+    }
+    await page.getByRole('button', { name: '关闭', exact: true }).last().click()
     await page.getByRole('button', { name: '主机', exact: true }).click()
     await page.locator('.host-card').dblclick()
     await expect(page.locator('.verify-content')).toContainText(probe.fingerprint)

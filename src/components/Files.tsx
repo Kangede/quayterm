@@ -804,12 +804,17 @@ export function FileEditor({
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const format = useRef({ bom: false, newline: '\n' })
   useEffect(() => {
     let alive = true
     window.quay
       .invoke('fileRead', file)
       .then((result) => {
         if (alive) {
+          format.current = {
+            bom: result.text.startsWith('\ufeff'),
+            newline: result.text.match(/\r\n|\r|\n/)?.[0] || '\n'
+          }
           setText(result.text)
           setOriginal(result.text)
           setHash(result.hash)
@@ -829,7 +834,12 @@ export function FileEditor({
     if (saving || loading || error || text === original) return
     setSaving(true)
     try {
-      const result = await window.quay.invoke('fileWrite', { ...file, text, hash })
+      // Native textareas normalize line endings. Keep the file's format
+      // independently of the editor value, including after repeated saves.
+      const content =
+        (format.current.bom && !text.startsWith('\ufeff') ? '\ufeff' : '') +
+        text.replace(/\r\n|\r|\n/g, format.current.newline)
+      const result = await window.quay.invoke('fileWrite', { ...file, text: content, hash })
       setHash(result.hash)
       setOriginal(text)
       onSaved()
