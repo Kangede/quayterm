@@ -11,6 +11,9 @@ const hash = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex'
 const MAX_TEXT = 2 * 1024 * 1024
 const isMissing = (error) => error?.code === 'ENOENT' || error?.code === 2
 function call(ftp, method, ...args) {
+  // ssh2 silently drops new requests after EOF, without invoking callbacks.
+  // In particular, cleanup must not leave a failed transfer waiting forever.
+  if (ftp.readable === false) return Promise.reject(new Error('SFTP 连接已关闭，请重新连接'))
   return new Promise((resolve, reject) =>
     ftp[method](...args, (err, result) => (err ? reject(err) : resolve(result)))
   )

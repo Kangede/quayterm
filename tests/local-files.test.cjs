@@ -4,7 +4,34 @@ const fs = require('node:fs')
 const path = require('node:path')
 const os = require('node:os')
 const { Files } = require('../electron/files.cjs')
-const { Readable } = require('node:stream')
+const { Readable, Writable } = require('node:stream')
+test('a disconnected SFTP cleanup cannot keep a failed atomic write pending', { timeout: 1500 }, async () => {
+  let cleanupRequests = 0
+  const ftp = {
+    readable: true,
+    lstat: (_path, callback) => callback(Object.assign(new Error('Missing'), { code: 2 })),
+    createWriteStream: () =>
+      new Writable({
+        write(_chunk, _encoding, callback) {
+          ftp.readable = false
+          callback(new Error('Test connection interrupted'))
+        }
+      }),
+    // Match ssh2's behavior when a request is issued after the channel has ended.
+    unlink: () => {
+      cleanupRequests++
+    }
+  }
+  const files = new Files({ sftp: async () => ftp })
+  const adapter = await files.adapter('test-remote')
+  await assert.rejects(
+    files.atomic(adapter, '/target.txt', () => Readable.from('replacement')),
+    /Test connection interrupted/
+  )
+  assert.equal(cleanupRequests, 0)
+  await assert.rejects(adapter.stat('/target.txt'), /SFTP 连接已关闭/)
+})
+
 test(
   'Windows drive discovery tolerates unavailable volumes but preserves file operation errors',
   { skip: process.platform !== 'win32' },
