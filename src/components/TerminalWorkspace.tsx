@@ -33,6 +33,8 @@ function TerminalPane({
   focused,
   sessions,
   pool,
+  copyOnSelect,
+  onCopyOnSelect,
   onFocus,
   onClose,
   onAdd,
@@ -43,6 +45,8 @@ function TerminalPane({
   focused: boolean
   sessions: Record<string, Session>
   pool: Terminals
+  copyOnSelect: boolean
+  onCopyOnSelect: (enabled: boolean) => void
   onFocus: (id: string) => void
   onClose: (id: string) => void
   onAdd: () => void
@@ -180,6 +184,12 @@ function TerminalPane({
                   { key: 'copy', label: '复制选中文本' },
                   { key: 'paste', label: '粘贴' },
                   { key: 'all', label: '全选终端内容' },
+                  { type: 'divider' },
+                  {
+                    key: 'copy-on-select',
+                    label: <Checkbox checked={copyOnSelect}>选中文本后自动复制</Checkbox>
+                  },
+                  { type: 'divider' },
                   { key: 'clear', label: '清除滚动记录' }
                 ],
                 onClick: async (e) => {
@@ -192,11 +202,18 @@ function TerminalPane({
                       message.error(error.message)
                     }
                   } else if (e.key === 'all') r?.term.selectAll()
+                  else if (e.key === 'copy-on-select') onCopyOnSelect(!copyOnSelect)
                   else r?.term.clear()
                 }
               }}
             >
-              <Button type="text" size="small" icon={<CopyOutlined />} aria-label="终端操作" />
+              <Button
+                type="text"
+                size="small"
+                icon={<CopyOutlined />}
+                aria-label="终端操作"
+                title="终端操作"
+              />
             </Dropdown>
           </div>
           {finding && (
@@ -515,6 +532,8 @@ export function TerminalWorkspace({
               focused={workspace.focused === p.id}
               sessions={sessions}
               pool={pool}
+              copyOnSelect={appearance.copyOnSelect === true}
+              onCopyOnSelect={(enabled) => onAppearance({ copyOnSelect: enabled })}
               onFocus={(id) => onFocus(p.id, id)}
               onClose={onClose}
               onAdd={() => onAdd(p.id)}

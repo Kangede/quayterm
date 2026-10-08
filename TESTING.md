@@ -1,8 +1,15 @@
-# QuayTerm 0.2.0 验证记录
+# QuayTerm 验证记录
 
 日期：2026-10-08（Asia/Shanghai）。执行环境：Linux x64 桌面、Node.js 22.23.2、Electron 44.7.0。
 
-## 已通过
+## 0.2.1：自动复制与 CI 修复
+
+- 新增持久化的“选中文本后自动复制”开关，默认关闭。
+- 桌面用例覆盖：默认不复制、开启后双击选词复制、清除选区保留剪贴板、关闭后不复制、手动复制仍可用。该用例在三个系统的原生桌面测试中执行。
+- 首次 GitHub 运行 `37754591310` 的 Linux 构建成功，Windows/macOS 均在同一条文件路径比较断言失败。文件列表返回原生真实路径，测试却与未规范化的临时路径直接比较；现已使用 `fs.realpathSync.native` 验证，并增加目录链接 / Windows junction 的回归测试。
+- CI 保留全部检查，增加失败诊断产物和执行超时。最新原生复验状态以 [GitHub Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml) 对应提交为准。
+
+## 0.2.0 已通过记录
 
 | 验证                                | 结果                                           |
 | ----------------------------------- | ---------------------------------------------- |
@@ -80,7 +87,7 @@ Linux 解包程序以默认沙箱启动，通过真实桌面界面逐一连接�
 
 0.2.0 的 Linux AppImage / tar.gz、Windows x64 zip、macOS x64 / arm64 zip 均已构建。跨平台源码使用系统路径 API 和 Electron 安全存储，CI 已配置原生桌面 smoke test 与打包步骤。
 
-**当前没有 Windows 或 macOS 执行环境，不能把交叉构建视为这两个系统已实测通过。** Windows 原生 SSH / SFTP、macOS 原生 SSH / SFTP、macOS ⌘ 按键及原生窗口行为、签名 / 公证仍须在对应平台验收。CI 配置尚未上传或在远端执行。
+本机只有 Linux。Windows/macOS 的原生 SSH/SFTP、剪贴板、窗口测试及打包已交由 GitHub Actions 执行；首次运行的失败与修复见上方 0.2.1 记录。交叉构建和原生测试应分别判断，原生通过状态需要以对应提交的 Actions 结果为依据。发行签名 / 公证仍需另行配置。
 
 macOS 交叉构建包未签名；Windows 交叉 zip 未签名且保留 Electron 可执行文件的资源图标。原生 Windows 构建会应用应用图标与元数据。此版本不声称经过长期断网恢复、大型目录性能、所有 SSH 服务端或所有输入法的穷尽验证。
 

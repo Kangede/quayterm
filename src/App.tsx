@@ -96,6 +96,9 @@ export default function App() {
         setReady(true)
       })
       .catch((e) => setFatal(e.message))
+    pool.onClipboardError = (text) => {
+      message.error(text)
+    }
     pool.onPaste = (text, accept) => {
       if (/[\r\n]/.test(text))
         modal.confirm({

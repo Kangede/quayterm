@@ -98,11 +98,17 @@ test('theme and highlighting settings persist and reject unknown presets', () =>
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-themes-'))
   try {
     const store = new Store(directory)
-    store.settings({ terminalTheme: 'paper', outputHighlights: false })
+    assert.equal(store.data.settings.copyOnSelect, undefined)
+    store.settings({ terminalTheme: 'paper', outputHighlights: false, copyOnSelect: true })
     store.settings({ terminalTheme: 'unknown' })
     const reloaded = new Store(directory)
     assert.equal(reloaded.data.settings.terminalTheme, 'paper')
     assert.equal(reloaded.data.settings.outputHighlights, false)
+    assert.equal(reloaded.data.settings.copyOnSelect, true)
+    reloaded.settings({ copyOnSelect: 'false' })
+    assert.equal(reloaded.data.settings.copyOnSelect, true)
+    reloaded.settings({ copyOnSelect: false })
+    assert.equal(new Store(directory).data.settings.copyOnSelect, false)
     for (const preset of Object.values(definitions)) {
       assert.equal(preset.palette.length, 16)
       for (const color of [preset.background, preset.foreground, preset.cursor, ...preset.palette])

@@ -43,6 +43,39 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
     await page.getByRole('button', { name: '信任并连接', exact: true }).click()
     await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('Native SSH ready 测试')
     await expect(page.locator('.terminal-files .file-row').filter({ hasText: 'info.txt' })).toBeVisible()
+    const firstLine = page.locator('.terminal-pane.focused .xterm-screen')
+    const selectWord = async () => {
+      await firstLine.click({ position: { x: 3, y: 7 } })
+      await firstLine.dblclick({ position: { x: 3, y: 7 } })
+    }
+    const toggleAutoCopy = async () => {
+      await page.getByRole('button', { name: '终端操作', exact: true }).click()
+      await page.getByRole('menuitem', { name: '选中文本后自动复制', exact: true }).click()
+      await expect(page.locator('.ant-dropdown:visible')).toHaveCount(0)
+    }
+    await app.evaluate(({ clipboard }) => clipboard.writeText('disabled-sentinel'))
+    await selectWord()
+    await page.waitForTimeout(120)
+    expect(await app.evaluate(({ clipboard }) => clipboard.readText())).toBe('disabled-sentinel')
+    await toggleAutoCopy()
+    await selectWord()
+    await expect.poll(() => app.evaluate(({ clipboard }) => clipboard.readText())).toBe('Native')
+    expect(
+      JSON.parse(fs.readFileSync(path.join(directory, 'quayterm.json'), 'utf8')).settings.copyOnSelect
+    ).toBe(true)
+    await firstLine.click({ position: { x: 3, y: 7 } })
+    expect(await app.evaluate(({ clipboard }) => clipboard.readText())).toBe('Native')
+    await toggleAutoCopy()
+    await app.evaluate(({ clipboard }) => clipboard.writeText('off-again'))
+    await selectWord()
+    await page.waitForTimeout(120)
+    expect(await app.evaluate(({ clipboard }) => clipboard.readText())).toBe('off-again')
+    await page.getByRole('button', { name: '终端操作', exact: true }).click()
+    await page.getByRole('menuitem', { name: '复制选中文本', exact: true }).click()
+    await expect.poll(() => app.evaluate(({ clipboard }) => clipboard.readText())).toBe('Native')
+    expect(
+      JSON.parse(fs.readFileSync(path.join(directory, 'quayterm.json'), 'utf8')).settings.copyOnSelect
+    ).toBe(false)
     const terminal = page.locator('.terminal-pane.focused .xterm-helper-textarea')
     await terminal.focus()
     await app.evaluate(({ clipboard }) => clipboard.writeText('NATIVE_PASTE'))

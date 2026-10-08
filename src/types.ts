@@ -63,6 +63,7 @@ export type Settings = {
   showHidden?: boolean
   terminalTheme?: string
   outputHighlights?: boolean
+  copyOnSelect?: boolean
 }
 export type Verification = {
   id: string

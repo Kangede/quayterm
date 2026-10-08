@@ -40,7 +40,8 @@ test('native paths, Unicode files, optimistic edits, local transfers and permiss
     if (process.platform !== 'win32') fs.chmodSync(p, 0o640)
     const list = await files.list('local', directory)
     assert.equal(list.separator, path.sep)
-    assert.ok(list.entries.some((e) => e.path === p))
+    assert.equal(list.path, fs.realpathSync.native(directory))
+    assert.ok(list.entries.some((e) => e.path === fs.realpathSync.native(p)))
     assert.ok(list.roots.length >= 1)
     const first = await files.readText('local', p)
     await files.writeText('local', p, first.text + 'next\r\n', first.hash)
@@ -62,6 +63,25 @@ test('native paths, Unicode files, optimistic edits, local transfers and permiss
     assert.equal(fs.existsSync(target), false)
   } finally {
     await files.queue
+    fs.rmSync(directory, { recursive: true, force: true })
+  }
+})
+test('directory aliases return canonical paths that still identify the requested Unicode file', async () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-path-alias-'))
+  const files = new Files(null)
+  try {
+    const real = path.join(directory, 'real folder')
+    const alias = path.join(directory, 'alias folder')
+    fs.mkdirSync(real)
+    fs.writeFileSync(path.join(real, '中文.txt'), 'canonical path content')
+    fs.symlinkSync(real, alias, process.platform === 'win32' ? 'junction' : 'dir')
+    const list = await files.list('local', alias)
+    assert.equal(list.path, fs.realpathSync.native(alias))
+    const entry = list.entries.find((item) => item.name === '中文.txt')
+    assert.ok(entry)
+    assert.equal(entry.path, fs.realpathSync.native(path.join(alias, '中文.txt')))
+    assert.equal((await files.readText('local', entry.path)).text, 'canonical path content')
+  } finally {
     fs.rmSync(directory, { recursive: true, force: true })
   }
 })

@@ -19,6 +19,8 @@ export class Terminals {
   fontSize = 14
   theme = getTerminalTheme()
   outputHighlights = true
+  copyOnSelect = false
+  onClipboardError: (message: string) => void = () => {}
   onPaste: (text: string, accept: () => void) => void = (_text, accept) => accept()
   create(id: string, host: Host) {
     const term = new Terminal({
@@ -45,6 +47,11 @@ export class Terminals {
     term.onData((data) => window.quay.terminal('write', { id, data }))
     term.onBinary((data) => window.quay.terminal('write', { id, data, binary: true }))
     term.onResize(({ cols, rows }) => window.quay.terminal('resize', { id, cols, rows }))
+    // xterm fires this after a mouse selection is completed (or Select All).
+    // Empty selections must never replace the user's clipboard.
+    term.onSelectionChange(() => {
+      if (this.copyOnSelect && term.element?.isConnected) this.copy(id)
+    })
     term.attachCustomKeyEventHandler((event) => {
       if (event.metaKey && event.key.toLowerCase() === 'a') {
         if (event.type === 'keydown') {
@@ -128,7 +135,10 @@ export class Terminals {
   }
   copy(id: string) {
     const text = this.records.get(id)?.term.getSelection()
-    if (text) void window.quay.invoke('clipboardWrite', { text })
+    if (text)
+      void window.quay
+        .invoke('clipboardWrite', { text })
+        .catch((error) => this.onClipboardError(error?.message || '无法复制到剪贴板'))
   }
   async paste(id: string) {
     const text = await window.quay.invoke<string>('clipboardRead')
@@ -142,6 +152,7 @@ export class Terminals {
   configure(settings: Settings) {
     if (settings.terminalTheme !== undefined) this.theme = getTerminalTheme(settings.terminalTheme)
     if (settings.outputHighlights !== undefined) this.outputHighlights = settings.outputHighlights
+    if (settings.copyOnSelect !== undefined) this.copyOnSelect = settings.copyOnSelect
     for (const record of this.records.values()) {
       record.term.options.theme = this.theme.colors
       record.highlights.update(this.outputHighlights)
