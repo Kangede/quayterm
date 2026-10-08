@@ -10,13 +10,34 @@ const { safePath, filename } = require('./validation.cjs')
 const hash = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
 const MAX_TEXT = 2 * 1024 * 1024
 const isMissing = (error) => error?.code === 'ENOENT' || error?.code === 2
+const sftpClosed = (ftp) => ftp.readable === false || ftp.incoming?.state === 'closed'
+const disconnected = () => new Error('SFTP 连接已关闭，请重新连接')
 function call(ftp, method, ...args) {
   // ssh2 silently drops new requests after EOF, without invoking callbacks.
   // In particular, cleanup must not leave a failed transfer waiting forever.
-  if (ftp.readable === false) return Promise.reject(new Error('SFTP 连接已关闭，请重新连接'))
+  if (sftpClosed(ftp)) return Promise.reject(disconnected())
   return new Promise((resolve, reject) =>
     ftp[method](...args, (err, result) => (err ? reject(err) : resolve(result)))
   )
+}
+function streamConnection(ftp) {
+  // ssh2 streams issue their own CLOSE (and chmod/stat fallbacks) during
+  // destruction. Guard those callbacks too, including the EOF cleanup race
+  // where the incoming channel is closed but readable has not changed yet.
+  const requests = new Set(['open', 'close', 'read', 'write', 'fstat', 'stat', 'fchmod', 'chmod'])
+  return new Proxy(ftp, {
+    get(target, key, receiver) {
+      if (!requests.has(key)) return Reflect.get(target, key, receiver)
+      return (...args) => {
+        if (sftpClosed(target)) {
+          const callback = args[args.length - 1]
+          queueMicrotask(() => callback(disconnected()))
+          return
+        }
+        return target[key](...args)
+      }
+    }
+  })
 }
 class Files extends EventEmitter {
   constructor(sessions) {
@@ -57,6 +78,7 @@ class Files extends EventEmitter {
         chown: (p, uid, gid) => (process.platform === 'win32' ? Promise.resolve() : fsp.chown(p, uid, gid))
       }
     const ftp = await this.sessions.sftp(endpoint)
+    const streams = streamConnection(ftp)
     return {
       path: path.posix,
       home: '.',
@@ -65,8 +87,8 @@ class Files extends EventEmitter {
       lstat: (p) => call(ftp, 'lstat', p),
       readdir: async (p) =>
         (await call(ftp, 'readdir', p)).map((e) => ({ name: e.filename, attrs: e.attrs })),
-      read: (p) => ftp.createReadStream(p),
-      write: (p, mode) => ftp.createWriteStream(p, { flags: 'wx', mode: mode || 0o600 }),
+      read: (p) => streams.createReadStream(p),
+      write: (p, mode) => streams.createWriteStream(p, { flags: 'wx', mode: mode || 0o600 }),
       mkdir: (p) => call(ftp, 'mkdir', p),
       unlink: (p) => call(ftp, 'unlink', p),
       rmdir: (p) => call(ftp, 'rmdir', p),

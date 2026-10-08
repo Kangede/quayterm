@@ -5,6 +5,44 @@ const path = require('node:path')
 const os = require('node:os')
 const { Files } = require('../electron/files.cjs')
 const { Readable, Writable } = require('node:stream')
+const { SFTP } = require('@electerm/ssh2/lib/protocol/SFTP.js')
+
+test(
+  'ssh2 write streams terminate when EOF arrives before their handle closes',
+  { timeout: 1500 },
+  async () => {
+    let closedRequests = 0
+    const ftp = {
+      readable: true,
+      incoming: { state: 'open' },
+      lstat: (_path, callback) => callback(Object.assign(new Error('Missing'), { code: 2 })),
+      createWriteStream: SFTP.prototype.createWriteStream,
+      open: (_path, _flags, _mode, callback) => queueMicrotask(() => callback(null, Buffer.from('handle'))),
+      fchmod: (_handle, _mode, callback) => callback(),
+      write: (_handle, _buffer, _offset, _length, _position, callback) => {
+        // ssh2 sets the incoming state before rejecting pending operations,
+        // and only clears readable after their callbacks have run.
+        ftp.incoming.state = 'closed'
+        callback(new Error('Test connection interrupted'))
+        ftp.readable = false
+      },
+      close: () => {
+        closedRequests++
+      },
+      unlink: () => {
+        closedRequests++
+      }
+    }
+    const files = new Files({ sftp: async () => ftp })
+    const adapter = await files.adapter('test-remote')
+    await assert.rejects(
+      files.atomic(adapter, '/target.txt', () => Readable.from('replacement')),
+      /Test connection interrupted|SFTP 连接已关闭/
+    )
+    assert.equal(closedRequests, 0)
+  }
+)
+
 test('a disconnected SFTP cleanup cannot keep a failed atomic write pending', { timeout: 1500 }, async () => {
   let cleanupRequests = 0
   const ftp = {
