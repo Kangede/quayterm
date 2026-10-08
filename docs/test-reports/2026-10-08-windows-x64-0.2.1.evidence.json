@@ -1,0 +1,1690 @@
+{
+  "generated": "2026-10-08T15:20:49.279Z",
+  "timeZone": "Asia/Shanghai",
+  "code": "41af01282c39fb4717cfc5ffa4975308d112939e",
+  "documentationBaseline": "1b39f5493d04b479806fa8776b45328615f773d7",
+  "releaseBaseline": "5bffb398da7abe69ab7e5b6c7e7f861a236e3e09",
+  "environment": {
+    "os": "Windows 10 Pro 10.0.19045",
+    "architecture": "x64",
+    "virtualMachine": "VMware",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "electron": "44.7.0",
+    "git": "2.56.0.windows.2",
+    "openSSH": "10.5p1",
+    "scaleFactor": 1.75,
+    "displayLogicalBounds": {
+      "width": 1947,
+      "height": 1082
+    }
+  },
+  "artifacts": [
+    {
+      "Path": "<repo>\\release\\QuayTerm Setup 0.2.1.exe",
+      "Hash": "2DCC804F85FBB5D305FB20AB187B65F79BD828286F587AD493DB7B5592D994CD"
+    },
+    {
+      "Path": "<repo>\\release\\QuayTerm 0.2.1.exe",
+      "Hash": "0447D5AEA23B25C1D4C1FC003120D27B1045924960D1B7B55191B315D47EBD08"
+    },
+    {
+      "Path": "<repo>\\release\\win-unpacked\\resources\\app.asar",
+      "Hash": "C8FD8389FB2CD718CB94D2F054EDFEC4BD85E3ADC370743B980D579803F96E2A"
+    },
+    {
+      "Path": "<repo>\\.private\\qa\\2026-10-08-windows-x64\\installed-acceptance\\resources\\app.asar",
+      "Hash": "C8FD8389FB2CD718CB94D2F054EDFEC4BD85E3ADC370743B980D579803F96E2A"
+    }
+  ],
+  "originalRelease": [
+    {
+      "file": "QuayTerm.Setup.0.2.1.exe",
+      "sha256": "a6c350018f6396ce315b86ae26496a0619ff198c262505c35214ff786487c4f3",
+      "matches": true,
+      "signature": "NotSigned"
+    },
+    {
+      "file": "QuayTerm.0.2.1.exe",
+      "sha256": "40d0ca4a0b23f8d24a52f15400748ed00ab5906e1917583ac058f3740f269346",
+      "matches": true,
+      "signature": "NotSigned"
+    }
+  ],
+  "portableAsar": {
+    "Hash": "C8FD8389FB2CD718CB94D2F054EDFEC4BD85E3ADC370743B980D579803F96E2A",
+    "Path": "<user-profile>\\AppData\\Local\\Temp\\3KPsE9Q2PNw9Ono9MViMvCLgtCS\\resources\\app.asar"
+  },
+  "sourceCommands": [
+    {
+      "command": "npm ci",
+      "started": "2026-10-08T21:00:10.1462362+08:00",
+      "ended": "2026-10-08T21:00:38.8229703+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check",
+      "started": "2026-10-08T21:01:52.2399459+08:00",
+      "ended": "2026-10-08T21:01:56.7907861+08:00",
+      "exitCode": 1
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-08T21:01:56.8203705+08:00",
+      "ended": "2026-10-08T21:02:08.3963290+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-08T21:02:08.4053049+08:00",
+      "ended": "2026-10-08T21:02:08.9158559+08:00",
+      "exitCode": 1
+    },
+    {
+      "command": "npx playwright test tests/desktop-smoke.e2e.cjs",
+      "started": "2026-10-08T21:02:08.9249252+08:00",
+      "ended": "2026-10-08T21:02:59.0811950+08:00",
+      "exitCode": 1
+    },
+    {
+      "command": "npm run check",
+      "started": "2026-10-08T21:07:19.5943395+08:00",
+      "ended": "2026-10-08T21:07:23.7202438+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-08T21:07:23.7464219+08:00",
+      "ended": "2026-10-08T21:07:27.7844837+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-08T21:07:27.7946996+08:00",
+      "ended": "2026-10-08T21:07:28.2890264+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test tests/desktop-smoke.e2e.cjs",
+      "started": "2026-10-08T21:07:28.2998506+08:00",
+      "ended": "2026-10-08T21:07:34.4583902+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run dist:win",
+      "started": "2026-10-08T21:08:40.4305274+08:00",
+      "ended": "2026-10-08T21:09:45.4909573+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check",
+      "started": "2026-10-08T21:54:27.0292387+08:00",
+      "ended": "2026-10-08T21:54:31.7821785+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-08T21:54:31.8098088+08:00",
+      "ended": "2026-10-08T21:54:35.8989084+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-08T21:54:35.9081732+08:00",
+      "ended": "2026-10-08T21:54:36.3414434+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test tests/desktop-smoke.e2e.cjs",
+      "started": "2026-10-08T21:54:36.3502572+08:00",
+      "ended": "2026-10-08T21:54:44.7566469+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run dist:win",
+      "started": "2026-10-08T21:55:05.6861286+08:00",
+      "ended": "2026-10-08T21:55:46.7969549+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check",
+      "started": "2026-10-08T22:05:42.0850762+08:00",
+      "ended": "2026-10-08T22:05:46.6015412+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-08T22:05:46.6254236+08:00",
+      "ended": "2026-10-08T22:05:50.7203930+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-08T22:05:50.7312889+08:00",
+      "ended": "2026-10-08T22:05:51.1923690+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test tests/desktop-smoke.e2e.cjs",
+      "started": "2026-10-08T22:05:51.2012557+08:00",
+      "ended": "2026-10-08T22:05:57.6957669+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check",
+      "started": "2026-10-08T22:24:53.3120595+08:00",
+      "ended": "2026-10-08T22:24:57.9040879+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-08T22:24:57.9284747+08:00",
+      "ended": "2026-10-08T22:25:01.9902635+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-08T22:25:01.9996778+08:00",
+      "ended": "2026-10-08T22:25:02.5448537+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test tests/desktop-smoke.e2e.cjs",
+      "started": "2026-10-08T22:25:02.5536793+08:00",
+      "ended": "2026-10-08T22:25:09.0551424+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run check",
+      "started": "2026-10-08T22:48:51.8465546+08:00",
+      "ended": "2026-10-08T22:48:56.2929226+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-08T22:48:56.3163412+08:00",
+      "ended": "2026-10-08T22:49:00.3559430+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-08T22:49:00.3655594+08:00",
+      "ended": "2026-10-08T22:49:00.8341305+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test tests/desktop-smoke.e2e.cjs",
+      "started": "2026-10-08T22:49:00.8431857+08:00",
+      "ended": "2026-10-08T22:49:08.9816182+08:00",
+      "exitCode": 0
+    }
+  ],
+  "packageCommands": [
+    {
+      "label": "acceptance-support",
+      "command": "node support-check.cjs",
+      "started": "2026-10-08T22:45:00.3597237+08:00",
+      "ended": "2026-10-08T22:45:04.4201411+08:00",
+      "exitCode": 0
+    },
+    {
+      "label": "acceptance-installed",
+      "command": "node packaged-check.cjs",
+      "started": "2026-10-08T22:45:04.4307452+08:00",
+      "ended": "2026-10-08T22:45:26.8005465+08:00",
+      "exitCode": 0
+    },
+    {
+      "label": "acceptance-misc",
+      "command": "node misc-check.cjs",
+      "started": "2026-10-08T22:45:26.8040429+08:00",
+      "ended": "2026-10-08T22:45:37.3282702+08:00",
+      "exitCode": 0
+    },
+    {
+      "label": "acceptance-atomic-capability",
+      "command": "node atomic-capability-check.cjs",
+      "started": "2026-10-08T22:45:37.3509277+08:00",
+      "ended": "2026-10-08T22:45:38.8555707+08:00",
+      "exitCode": 0
+    },
+    {
+      "label": "acceptance-editor-crlf",
+      "command": "node editor-crlf-check.cjs",
+      "started": "2026-10-08T22:45:38.8626502+08:00",
+      "ended": "2026-10-08T22:45:39.8732515+08:00",
+      "exitCode": 0
+    },
+    {
+      "label": "acceptance-lan",
+      "command": "node <repo>\\scripts\\test-packaged.cjs",
+      "started": "2026-10-08T22:45:39.8767515+08:00",
+      "ended": "2026-10-08T22:45:45.7972037+08:00",
+      "exitCode": 0
+    },
+    {
+      "label": "acceptance-lan-multiplexers",
+      "command": "node lan-multiplexers.cjs",
+      "started": "2026-10-08T22:45:45.7999220+08:00",
+      "ended": "2026-10-08T22:45:57.2775432+08:00",
+      "exitCode": 0
+    },
+    {
+      "label": "acceptance-portable",
+      "command": "node cdp-check.cjs",
+      "started": "2026-10-08T22:45:57.2806768+08:00",
+      "ended": "2026-10-08T22:51:32.4824448+08:00",
+      "exitCode": 1
+    }
+  ],
+  "suites": [
+    {
+      "name": "installed",
+      "started": "2026-10-08T14:45:04.721Z",
+      "ended": "2026-10-08T14:45:26.786Z",
+      "checks": [
+        {
+          "name": "R01 packaged identity and default sandbox",
+          "status": "PASS",
+          "ms": 99,
+          "detail": {
+            "version": "0.2.1",
+            "arch": "x64",
+            "sandbox": true,
+            "DPAPI": true
+          }
+        },
+        {
+          "name": "F01 local listing with empty optical drive",
+          "status": "PASS",
+          "ms": 238,
+          "detail": {
+            "roots": [
+              "C:\\"
+            ],
+            "entries": 5
+          }
+        },
+        {
+          "name": "H01 create and edit host through UI",
+          "status": "PASS",
+          "ms": 459,
+          "detail": {
+            "encrypted": true,
+            "plaintextFound": false
+          }
+        },
+        {
+          "name": "H02 first trust matches independently generated fixture key",
+          "status": "PASS",
+          "ms": 473,
+          "detail": {
+            "session": "8f544227-671a-44e1-93a3-f722de9a17c1",
+            "fingerprint": "SHA256:3s+Ug68afOld+rMUsvDX4VU5BARgBguHu1EclDsIX2A",
+            "sftp": true
+          }
+        },
+        {
+          "name": "R02 maximize restore minimize resize and cancel close",
+          "status": "PASS",
+          "ms": 427,
+          "detail": {
+            "resize": {
+              "id": 1,
+              "cols": 104,
+              "rows": 27
+            },
+            "cancelKeptSession": true
+          }
+        },
+        {
+          "name": "T02 system clipboard select copy and bracketed multiline paste",
+          "status": "PASS",
+          "ms": 4276,
+          "detail": {
+            "copyOnSelect": true,
+            "cancelSentBytes": 0,
+            "bracketedPaste": true
+          }
+        },
+        {
+          "name": "T03 terminal search sidebar and control-key bytes",
+          "status": "PASS",
+          "ms": 170,
+          "detail": {
+            "controlBytes": [
+              1,
+              2,
+              3,
+              4,
+              26,
+              11,
+              9
+            ],
+            "arrows": true,
+            "search": true,
+            "sidebar": true,
+            "realShell": false
+          }
+        },
+        {
+          "name": "T04 six themes and 50000-line SSH output",
+          "status": "PASS",
+          "ms": 8055,
+          "detail": {
+            "lines": 50000,
+            "last": "QT_LOAD_49999",
+            "connectionsUnchanged": true
+          }
+        },
+        {
+          "name": "F03 byte-identical upload download and remote-to-remote transfer",
+          "status": "PASS",
+          "ms": 4345,
+          "detail": {
+            "directions": 3,
+            "hashes": [
+              {
+                "name": "empty.txt",
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "bytes": 0
+              },
+              {
+                "name": "中文 space.txt",
+                "sha256": "1a688a7bad26ac2b9e9d35417aa7d7ac5d1a2161754153365787f348f5c89684",
+                "bytes": 18
+              },
+              {
+                "name": "binary.bin",
+                "sha256": "eec0c9a3505507c6b6926c3628e1052708cb072287f61e4d98fda59649f7a304",
+                "bytes": 5
+              },
+              {
+                "name": "tree/leaf.txt",
+                "sha256": "9f91161f43433e49a6de6db680d79f60159f2e4ac9172621a12846428158440b",
+                "bytes": 4
+              }
+            ]
+          }
+        },
+        {
+          "name": "F03 overwrite rejection allowance self-copy and cancellation",
+          "status": "PASS",
+          "ms": 1122,
+          "detail": {
+            "rejectPreserved": true,
+            "overwriteHash": "95713e9cbdd1dfcb2d4080c2537f418d43ca0da25f0d7d6631f4f7c97b89dc47",
+            "selfCopyBlocked": true,
+            "canceled": true
+          }
+        },
+        {
+          "name": "F04 local and OpenSSH remote BOM CRLF edits conflict and size limits",
+          "status": "PASS",
+          "ms": 495,
+          "detail": [
+            {
+              "endpoint": "local",
+              "BOMCRLF": true,
+              "conflictPreserved": true
+            },
+            {
+              "endpoint": "OpenSSH",
+              "BOMCRLF": true,
+              "conflictPreserved": true
+            }
+          ]
+        },
+        {
+          "name": "P01 settings DPAPI survive a new process",
+          "status": "PASS",
+          "ms": 664,
+          "detail": {
+            "backend": "Windows DPAPI",
+            "newProcess": true,
+            "reconnectedWithoutPassword": true,
+            "plaintextFound": false
+          }
+        },
+        {
+          "name": "R02 confirmed close exits and reopening works",
+          "status": "PASS",
+          "ms": 631,
+          "detail": {
+            "exitCode": 0,
+            "reopened": true
+          }
+        },
+        {
+          "name": "Q01 renderer errors and scoped temporary-file cleanup",
+          "status": "PASS",
+          "ms": 2,
+          "detail": {
+            "rendererErrors": 0,
+            "partFiles": 0
+          }
+        }
+      ],
+      "summary": {
+        "PASS": 14,
+        "FAIL": 0
+      }
+    },
+    {
+      "name": "faults",
+      "started": "2026-10-08T14:45:00.772Z",
+      "ended": "2026-10-08T14:45:04.402Z",
+      "checks": [
+        {
+          "name": "P01 isolated unavailable-storage fault injection",
+          "status": "PASS",
+          "detail": {
+            "mechanism": "in-process safeStorage availability stub; OS DPAPI unchanged",
+            "warningShown": true,
+            "memoryOnly": true,
+            "newProcessRequiresPassword": true
+          }
+        },
+        {
+          "name": "F03 distinct connections to same host reject self and descendant copies",
+          "status": "PASS",
+          "detail": {
+            "connections": 2,
+            "selfBlocked": true,
+            "descendantBlocked": true
+          }
+        },
+        {
+          "name": "F03 Windows directory link is not followed",
+          "status": "PASS",
+          "detail": {
+            "junctionRejected": true,
+            "targetUntouched": true
+          }
+        },
+        {
+          "name": "N01 wrong password and refused loopback connection",
+          "status": "PASS",
+          "detail": {
+            "wrongPassword": "error",
+            "refused": "error",
+            "realHostsTouched": false
+          }
+        },
+        {
+          "name": "N01 cancel mid-transfer leaves no complete target",
+          "status": "PASS",
+          "detail": {
+            "sampleBytes": 33554432,
+            "terminalState": "canceled",
+            "completeTargetAbsent": true
+          }
+        },
+        {
+          "name": "N01 interrupted overwrite preserves existing destination",
+          "status": "PASS",
+          "detail": {
+            "sampleBytes": 33554432,
+            "terminalState": "error",
+            "existingDestinationPreserved": true,
+            "temporaryPartsRemoved": 1
+          }
+        }
+      ],
+      "summary": {
+        "PASS": 6,
+        "FAIL": 0
+      }
+    },
+    {
+      "name": "host-drive-profile",
+      "started": "2026-10-08T14:45:27.140Z",
+      "ended": "2026-10-08T14:45:37.316Z",
+      "checks": [
+        {
+          "name": "H01 search groups tags views four sorts delete and persistence",
+          "status": "PASS",
+          "detail": {
+            "groupSearch": true,
+            "tagFilter": true,
+            "views": 2,
+            "sorts": 4,
+            "deletedOnlyTestHost": true,
+            "persisted": true
+          }
+        },
+        {
+          "name": "F01 native drive selection Unicode paths filter hidden and sort",
+          "status": "PASS",
+          "detail": {
+            "roots": [
+              "C:\\",
+              "Q:\\"
+            ],
+            "mapping": "temporary SUBST inside QA directory",
+            "unicodePath": true,
+            "filter": true,
+            "hidden": true,
+            "sizeSort": true
+          }
+        },
+        {
+          "name": "R03 original-release profile survives replacement and DPAPI decrypts",
+          "status": "PASS",
+          "detail": {
+            "source": "GitHub v0.2.1 profile",
+            "destination": "local 700dbaae build",
+            "hosts": 2,
+            "knownHosts": 2,
+            "settingsPreserved": true,
+            "DPAPIDecrypted": true,
+            "configHashUnchanged": true
+          }
+        }
+      ],
+      "summary": {
+        "PASS": 3,
+        "FAIL": 0
+      }
+    },
+    {
+      "name": "portable",
+      "started": "2026-10-08T14:45:57.580Z",
+      "ended": "2026-10-08T14:51:17.632Z",
+      "checks": [
+        {
+          "name": "R01 exact executable starts with Chromium-only inspection",
+          "status": "PASS",
+          "detail": {
+            "version": "0.2.1",
+            "secureStorage": true,
+            "localEntries": 3
+          }
+        },
+        {
+          "name": "H02 reject then independently verify and trust",
+          "status": "PASS",
+          "detail": {
+            "refusalCreatedShell": false,
+            "fingerprint": "SHA256:3f76GYaA7Je9j9xJc/esmcfRyNxddLl6EFRnpPLs+Z4"
+          }
+        },
+        {
+          "name": "T01 independent 2+2 sessions drag resize eight layouts",
+          "status": "FAIL",
+          "error": "The expression evaluated to a falsy value:\n\n  assert.ok(marker)\n"
+        },
+        {
+          "name": "T03 nine tab shortcuts connection selector and cancel close",
+          "status": "PASS",
+          "detail": {
+            "altTargets": 9,
+            "cycle": true,
+            "cancelPreserved": true,
+            "confirmedClosed": true
+          }
+        },
+        {
+          "name": "F02 local context targets multiselection create rename delete and paste",
+          "status": "PASS",
+          "detail": {
+            "multiselect": true,
+            "folderTarget": true,
+            "keyboardMenu": true,
+            "rename": true,
+            "cancelDeletePreserved": true
+          }
+        },
+        {
+          "name": "F04 file editor Control S and external conflict through UI",
+          "status": "PASS",
+          "detail": {
+            "saved": true,
+            "externalVersionPreserved": true
+          }
+        },
+        {
+          "name": "N01 five-minute idle then interrupted local service and changed key",
+          "status": "PASS",
+          "detail": {
+            "idleSeconds": 300,
+            "disconnectObserved": true,
+            "keyChangeBlocked": true,
+            "explicitRetrustReconnected": true
+          }
+        },
+        {
+          "name": "R02 cancel and confirm native application exit without Node inspector",
+          "status": "PASS",
+          "detail": {
+            "code": 0,
+            "signal": null
+          }
+        }
+      ],
+      "summary": {
+        "PASS": 7,
+        "FAIL": 1
+      }
+    },
+    {
+      "name": "layout-retest",
+      "started": "2026-10-08T14:51:26.555Z",
+      "ended": "2026-10-08T14:51:39.211Z",
+      "checks": [
+        {
+          "name": "R01 exact executable starts with Chromium-only inspection",
+          "status": "PASS",
+          "detail": {
+            "version": "0.2.1",
+            "secureStorage": true,
+            "localEntries": 3
+          }
+        },
+        {
+          "name": "H02 reject then independently verify and trust",
+          "status": "PASS",
+          "detail": {
+            "refusalCreatedShell": false,
+            "fingerprint": "SHA256:Nsat0EgbIkRQJSr35ST+3DOSSNq3LLYwgshP1VQ5yWQ"
+          }
+        },
+        {
+          "name": "T01 independent 2+2 sessions drag resize eight layouts",
+          "status": "PASS",
+          "detail": {
+            "shellChannels": 4,
+            "markers": [
+              "SESSION_1",
+              "SESSION_4",
+              "SESSION_2",
+              "SESSION_3"
+            ],
+            "layoutCount": 8,
+            "reconnected": false
+          }
+        },
+        {
+          "name": "R02 cancel and confirm native application exit without Node inspector",
+          "status": "PASS",
+          "detail": {
+            "code": 0,
+            "signal": null
+          }
+        }
+      ],
+      "summary": {
+        "PASS": 4,
+        "FAIL": 0
+      }
+    }
+  ],
+  "atomicCapability": {
+    "status": "PASS",
+    "deniedCapability": "posix-rename",
+    "originalPreserved": true,
+    "sha256": "93919df26eb5578082f2e1624fb0f813940cdfffb5f693db3820faa400e53fe4",
+    "partFiles": 0
+  },
+  "editorCRLF": {
+    "bom": true,
+    "crlfCount": 2,
+    "lfCount": 2,
+    "bytes": 22
+  },
+  "fileEndpoints": {
+    "status": "PASS",
+    "dualPanesBothLocalAndRemote": true,
+    "sidebarFollowsFocusedHost": true,
+    "sidebarResize": true,
+    "sidebarToggle": true
+  },
+  "lan": {
+    "version": "0.2.1",
+    "time": "2026-10-08T14:45:40.093Z",
+    "credentialsPersisted": false,
+    "results": [
+      {
+        "host": "LAN QA A",
+        "ssh": "passed",
+        "sftp": "passed"
+      },
+      {
+        "host": "LAN QA B",
+        "ssh": "passed",
+        "sftp": "passed"
+      },
+      {
+        "host": "LAN QA C",
+        "ssh": "passed",
+        "sftp": "passed"
+      }
+    ]
+  },
+  "multiplexers": {
+    "started": "2026-10-08T14:45:46.089Z",
+    "results": [
+      {
+        "host": "LAN QA A",
+        "tmux": "PASS",
+        "screen": "BLOCKED",
+        "tmuxVersion": "tmux 3.4",
+        "screenVersion": "MISSING",
+        "parentPTY": "/dev/pts/2:36 145",
+        "screenReason": "screen was absent; no remote packages were installed",
+        "tmuxPTYs": [
+          "/dev/pts/5:35 145",
+          "/dev/pts/6:35 145"
+        ],
+        "resized": "/dev/pts/5:23 91",
+        "shiftSelection": true,
+        "reattached": true,
+        "cleanupExit": 0
+      },
+      {
+        "host": "LAN QA B",
+        "tmux": "PASS",
+        "screen": "BLOCKED",
+        "tmuxVersion": "tmux 3.4",
+        "screenVersion": "MISSING",
+        "parentPTY": "/dev/pts/7:36 145",
+        "screenReason": "screen was absent; no remote packages were installed",
+        "tmuxPTYs": [
+          "/dev/pts/8:35 145",
+          "/dev/pts/10:35 145"
+        ],
+        "resized": "/dev/pts/8:23 91",
+        "shiftSelection": true,
+        "reattached": true,
+        "cleanupExit": 0
+      }
+    ],
+    "ended": "2026-10-08T14:45:57.265Z"
+  },
+  "reinstall": {
+    "uninstallExit": 0,
+    "exeRemoved": true,
+    "customProfilePreserved": true,
+    "reinstallExit": 0,
+    "asar": "C8FD8389FB2CD718CB94D2F054EDFEC4BD85E3ADC370743B980D579803F96E2A"
+  },
+  "reopenedProfile": {
+    "status": "PASS",
+    "version": "0.2.1",
+    "hosts": 2,
+    "knownHosts": 2,
+    "settingsPreserved": true,
+    "DPAPI": true,
+    "profileSha256": "b6cb53475a2bf5f4a59e4db80731f92f08e0bbaf95573b0ffe637cf1bbfe01cf"
+  },
+  "sourceTestSummary": {
+    "pass": 13,
+    "fail": 0,
+    "skip": 0,
+    "desktopSmoke": {
+      "pass": 1,
+      "fail": 0
+    }
+  },
+  "evidenceScope": "Only sanitized summaries and hashes are committed. Raw logs, auxiliary scripts, screenshots, archives, and package binaries remain local under the ignored QA/release directories. The portable T01 harness failure is retained; the targeted textContent/render-wait correction passed on the same binary.",
+  "localEvidenceHashes": [
+    {
+      "file": "01-npm-ci.log",
+      "sha256": "1d872d4a86fdfdc51cbd41e1cc5ba1fe98e90c8133be45306d9009ea020e4dac"
+    },
+    {
+      "file": "02-check.log",
+      "sha256": "26f387af121574cf49c6c0e102fc0ad10c0700543427d3b3c8f1569a5457c063"
+    },
+    {
+      "file": "03-build.log",
+      "sha256": "901141d49652ca0c6c1fa5de6e35b55767726a296b4d007e8eac4dc3da0d2e78"
+    },
+    {
+      "file": "04-portable.log",
+      "sha256": "df406e7a8544ea1658aab367b059e2cef5a44735cc79b1a31b9c80294c5b5312"
+    },
+    {
+      "file": "05-desktop-smoke.log",
+      "sha256": "4ca7a69f8bcb91753761e05ecab891e62e4d7236a9090cfacbd6086de56c640b"
+    },
+    {
+      "file": "06-dist-win.log",
+      "sha256": "093addf2dbeef645675a5d139a068b5eea75b145ebe2b3e992e3678d3fa6e57c"
+    },
+    {
+      "file": "07-original-package.log",
+      "sha256": "feee725542764a9356be819e1496da875a0ad1df263f98f8c66e1cde6adefcdc"
+    },
+    {
+      "file": "08-original-package-r2.log",
+      "sha256": "fba70e718fd471b5ecae765574f91432459785be8492d971028d1382f423b3a1"
+    },
+    {
+      "file": "09-fixed-installed.log",
+      "sha256": "eaa9968e8d31a6fd728ebbcb50da4ec6288cd37485e204a86612cd9d9172f3e6"
+    },
+    {
+      "file": "10-fixed-cdp-extended.log",
+      "sha256": "ec152547b53f2b22d4fe202b419c556dfe778c0e0ee912eff3c40da9e1e00800"
+    },
+    {
+      "file": "11-lan-packaged.log",
+      "sha256": "22e635ed77881058ad214e3c688bbea07e45f794a7094d88decfcba18334c551"
+    },
+    {
+      "file": "12-lan-multiplexers.log",
+      "sha256": "39adc068a8a9106d0ebb8cc491d2a4cd85b54fd4c3665b03e7af204d10307def"
+    },
+    {
+      "file": "13-lan-multiplexers-r2.log",
+      "sha256": "ab31e295ea257789ea6fd9168b695fcc4a6e48bf99b8e176f0ac16f1b8b4caf0"
+    },
+    {
+      "file": "14-lan-multiplexers-r3.log",
+      "sha256": "844d5366ae46983bebf396d5955137815f7d73297ca668750f278594073de91c"
+    },
+    {
+      "file": "15-fixed-cdp-extended-r2.log",
+      "sha256": "68acd1a632ceb65fca301ee8fb362b15b81c53663c87d3d49e2dee33c7c79770"
+    },
+    {
+      "file": "16-fixed-portable-layout.log",
+      "sha256": "2949a0362248d1c167c0de62e157df05c4f90951e3e5b75dc602981f4f0e80ad"
+    },
+    {
+      "file": "17-support-check.log",
+      "sha256": "994f04e2524f599cb07c0b6d199c7042341339df5bff1fc870f2c80ab255984a"
+    },
+    {
+      "file": "18-final-dist-win.log",
+      "sha256": "b85d0e15d2cb3997a0d919166042ec3bd04bed8992722bf4cd146d60de3429a1"
+    },
+    {
+      "file": "19-final-installed.log",
+      "sha256": "eaa9968e8d31a6fd728ebbcb50da4ec6288cd37485e204a86612cd9d9172f3e6"
+    },
+    {
+      "file": "20-final-support.log",
+      "sha256": "1d74b5f0ff6ffb4429dc0eea70ee7786f04a0c7a6ca7cbef6dcf27643f406b36"
+    },
+    {
+      "file": "21-final-portable-extended.log",
+      "sha256": "7f29b426cff7f13860b9ade9d7cd26d9c58e3039e659a3da6f6b8a41e57be735"
+    },
+    {
+      "file": "22-verified-dist-win.log",
+      "sha256": "f88832651dfa893a582630acac76b5bd437328d51b62621c11c23226e6b2d0ac"
+    },
+    {
+      "file": "23-verified-support.log",
+      "sha256": "d5085fb085386aabbce1511e92bdf3dc8372dcc9eb2dea368b1b097f200678ef"
+    },
+    {
+      "file": "24-verified-installed.log",
+      "sha256": "eaa9968e8d31a6fd728ebbcb50da4ec6288cd37485e204a86612cd9d9172f3e6"
+    },
+    {
+      "file": "25-verified-misc.log",
+      "sha256": "53766a1a53abd4df28124204bcf158dcce657aaf86d2a1876e3cee861214f072"
+    },
+    {
+      "file": "26-verified-portable.log",
+      "sha256": "7f29b426cff7f13860b9ade9d7cd26d9c58e3039e659a3da6f6b8a41e57be735"
+    },
+    {
+      "file": "27-verified-lan.log",
+      "sha256": "22e635ed77881058ad214e3c688bbea07e45f794a7094d88decfcba18334c551"
+    },
+    {
+      "file": "28-verified-misc-r2.log",
+      "sha256": "70d214bf90eb1fe8da71a175faabfc753556af3832edf97e6ffbcd4a482cb28f"
+    },
+    {
+      "file": "29-verified-lan-multiplexers.log",
+      "sha256": "844d5366ae46983bebf396d5955137815f7d73297ca668750f278594073de91c"
+    },
+    {
+      "file": "30-editor-dist-win.log",
+      "sha256": "1d7d0dcc48fb6e24f8e229b1661bf378fb1f8edf3ccfeeb0e2324159ea6a9dcd"
+    },
+    {
+      "file": "31-drive-dist-win.log",
+      "sha256": "d7c25bcc167bd5e2e3e6f4ff6b9125e54885ea408effd6db318f8ec4c3e57b54"
+    },
+    {
+      "file": "acceptance-atomic-capability.log",
+      "sha256": "7fd3a50f3061e8a1a0caf9dfc09f0054ee9ae996465f51dffd27e1514c0f6a17"
+    },
+    {
+      "file": "acceptance-editor-crlf.log",
+      "sha256": "a02ff89331ffcef4a29224e08bb73835828be87b37f3b3d7df536ca26ef881aa"
+    },
+    {
+      "file": "acceptance-file-endpoints.log",
+      "sha256": "3b28d31fe0efe5f0d02cd8b202ea38ff7ecca19199ffaa784f859d7b971cf6d7"
+    },
+    {
+      "file": "acceptance-installed.log",
+      "sha256": "eaa9968e8d31a6fd728ebbcb50da4ec6288cd37485e204a86612cd9d9172f3e6"
+    },
+    {
+      "file": "acceptance-lan-multiplexers.log",
+      "sha256": "844d5366ae46983bebf396d5955137815f7d73297ca668750f278594073de91c"
+    },
+    {
+      "file": "acceptance-lan.log",
+      "sha256": "22e635ed77881058ad214e3c688bbea07e45f794a7094d88decfcba18334c551"
+    },
+    {
+      "file": "acceptance-layout.log",
+      "sha256": "2949a0362248d1c167c0de62e157df05c4f90951e3e5b75dc602981f4f0e80ad"
+    },
+    {
+      "file": "acceptance-misc.log",
+      "sha256": "e78b6fc91bcf00051e037991cfa5e4f732ebe174ff852d57018eb99243cfc13f"
+    },
+    {
+      "file": "acceptance-portable.log",
+      "sha256": "51fd68c68afd34ab1b6f6999db5a0ee86a5365f2a91ef0995e799daa8e9cf30a"
+    },
+    {
+      "file": "acceptance-support.log",
+      "sha256": "d5085fb085386aabbce1511e92bdf3dc8372dcc9eb2dea368b1b097f200678ef"
+    },
+    {
+      "file": "atomic-capability-check.cjs",
+      "sha256": "90c9f010261ae55f7d753880fef59057df50ea282ea521524d03bebe5ecee7e5"
+    },
+    {
+      "file": "cdp-check.cjs",
+      "sha256": "8afdd8b267953e59a4641a77235addfc07a6db551a6abe1cb92e8ea0ef862626"
+    },
+    {
+      "file": "cleanup-fix-02-check.log",
+      "sha256": "26f387af121574cf49c6c0e102fc0ad10c0700543427d3b3c8f1569a5457c063"
+    },
+    {
+      "file": "cleanup-fix-03-build.log",
+      "sha256": "b848a19b49e7af9ba531c144efcd477704835a6166c1d1d340b596355f9d3385"
+    },
+    {
+      "file": "cleanup-fix-04-portable.log",
+      "sha256": "e3ea59d020092d92e0b09d5ebabd4b51cbd2218b60579c8d719a1db7bfb29a70"
+    },
+    {
+      "file": "cleanup-fix-05-desktop-smoke.log",
+      "sha256": "dff1f50e34ea1e8c81c2bb67e1091468c0b711606dcbd93f695aba5a8dc51f1b"
+    },
+    {
+      "file": "collect-evidence.cjs",
+      "sha256": "04a4e95526ee860cfdccafd0b85a6db0b2910f90924eb5491de1f35c44ea7800"
+    },
+    {
+      "file": "diagnose-interruption-late.cjs",
+      "sha256": "57fc18a63eafb1b54d4027ca2b0ecae552dcf4ac8f349daf7f2732e605a61d75"
+    },
+    {
+      "file": "diagnose-interruption.cjs",
+      "sha256": "13593d698b5917f7fc6b45bf8139d987f7e8dd8ec05679e653f073f5ac16e519"
+    },
+    {
+      "file": "editor-crlf-check.cjs",
+      "sha256": "08052cc703613959e054ee0d4cde172fcbe8671cd781dcc1ba64d954237b8ac6"
+    },
+    {
+      "file": "editor-fix-02-check.log",
+      "sha256": "26f387af121574cf49c6c0e102fc0ad10c0700543427d3b3c8f1569a5457c063"
+    },
+    {
+      "file": "editor-fix-03-build.log",
+      "sha256": "7ab781c4fa691608300114d069e9503ce1b9353566ee4bff5a14ca0d6c00542a"
+    },
+    {
+      "file": "editor-fix-04-portable.log",
+      "sha256": "ee17d542abd7ce8a5342b7566ad1832fc5bb67c98d518552c0d89b5bab3521b7"
+    },
+    {
+      "file": "editor-fix-05-desktop-smoke.log",
+      "sha256": "4f0122c01ac182ec0d08a8e118fa5a201a6d46afe0c4e945feefd65a6783a98c"
+    },
+    {
+      "file": "file-endpoints-check.cjs",
+      "sha256": "1aa9729c4698c7f12492dc90192a1d41c58c787fc23b1751702f8ffafa0278d4"
+    },
+    {
+      "file": "first-fix-02-check.log",
+      "sha256": "26f387af121574cf49c6c0e102fc0ad10c0700543427d3b3c8f1569a5457c063"
+    },
+    {
+      "file": "first-fix-03-build.log",
+      "sha256": "6a57d939d58d93edd081575a5f4e8fb223331b3ff9670f933078eadbab05db9f"
+    },
+    {
+      "file": "first-fix-04-portable.log",
+      "sha256": "d9a2c3e8470c9b9ef17406b83d79faadf5de76f64d22a80c6e4bf24c69276efe"
+    },
+    {
+      "file": "first-fix-05-desktop-smoke.log",
+      "sha256": "618377215768f4d863617ca2adb059ffc4f2a60344f7e4bce1740c8fd939bb92"
+    },
+    {
+      "file": "initial-02-check.log",
+      "sha256": "f88a9924cc1cc5bd1a8a758d9fbd94fd779b86798b3561f256b19fde8e5af6f0"
+    },
+    {
+      "file": "initial-03-build.log",
+      "sha256": "14a8ea488d8b55cf414d5ae084d0491182f8286afb5324823f1be22a9e24360e"
+    },
+    {
+      "file": "initial-04-portable.log",
+      "sha256": "408192e437c0d327a33b7adf9ceb8da831edaa2de9475d2758e2197bf9a0f4d9"
+    },
+    {
+      "file": "initial-05-desktop-smoke.log",
+      "sha256": "9ee02d200fc832e5580eb542fb4c3bb3f3f12a8260ff4fe8adc6b8e157b727fd"
+    },
+    {
+      "file": "inspect-exit.cjs",
+      "sha256": "fd14733c7a8d1911a7aeb0e00e70827f63804b2136915ab393e25fa1791fb1d3"
+    },
+    {
+      "file": "lan-multiplexers.cjs",
+      "sha256": "1c2f7f624f7231438c58d46e96ff7cd1cdef5839350861323fd780d3a1e9074f"
+    },
+    {
+      "file": "misc-check.cjs",
+      "sha256": "6625419873898e7cba387a2aa216f2bf6731b996dd43f90b1e828db75f4a7ffa"
+    },
+    {
+      "file": "observe-keys.cjs",
+      "sha256": "79951d63c3b9bb9696ab84a8f34bc4fbeb1b70d130e0ed6f31acdf19f72719d3"
+    },
+    {
+      "file": "packaged-check.cjs",
+      "sha256": "52030f0d48588aef70a8b64f851102d483ef9ecfb1414978e559343c376d6650"
+    },
+    {
+      "file": "release-atomic-capability.log",
+      "sha256": "dde4161d19243c8c3c9a8471c6b939cefd4122e70447b52081b0afb3d0cee96a"
+    },
+    {
+      "file": "release-editor-crlf.log",
+      "sha256": "a02ff89331ffcef4a29224e08bb73835828be87b37f3b3d7df536ca26ef881aa"
+    },
+    {
+      "file": "release-installed.log",
+      "sha256": "eaa9968e8d31a6fd728ebbcb50da4ec6288cd37485e204a86612cd9d9172f3e6"
+    },
+    {
+      "file": "release-lan-multiplexers.log",
+      "sha256": "844d5366ae46983bebf396d5955137815f7d73297ca668750f278594073de91c"
+    },
+    {
+      "file": "release-lan.log",
+      "sha256": "22e635ed77881058ad214e3c688bbea07e45f794a7094d88decfcba18334c551"
+    },
+    {
+      "file": "release-misc.log",
+      "sha256": "d10cbc1a9a24dc637c4b47a1728d12ea1b670e81213d75185a18faa22a3f28a2"
+    },
+    {
+      "file": "release-portable.log",
+      "sha256": "0a5752f66abac45c1e6ceecc4a504cca6db22c43da6dad70514b6fb26573ccd7"
+    },
+    {
+      "file": "release-support.log",
+      "sha256": "d5085fb085386aabbce1511e92bdf3dc8372dcc9eb2dea368b1b097f200678ef"
+    },
+    {
+      "file": "reopen-profile-check.cjs",
+      "sha256": "c9c830d558a6aca0c11ef1f4b25a03f7455e5e3f0ca3708025ca41453f7a0eaf"
+    },
+    {
+      "file": "run-acceptance-checks.ps1",
+      "sha256": "c5f126224b025ca551e36c8b348c823f9a27dc2c7d92ee4817277ec1b0c0d8c2"
+    },
+    {
+      "file": "run-release-checks.ps1",
+      "sha256": "cf8d54c6106aef0825d53b95b0234ec89a667f6fc0ecc812bb694746c179b743"
+    },
+    {
+      "file": "run-source.ps1",
+      "sha256": "792405450794d735bef6a2fe27b0b547c61bc764d58a990c9d2dc09728a7d30c"
+    },
+    {
+      "file": "stream-fix-02-check.log",
+      "sha256": "26f387af121574cf49c6c0e102fc0ad10c0700543427d3b3c8f1569a5457c063"
+    },
+    {
+      "file": "stream-fix-03-build.log",
+      "sha256": "c8b4d353f46de1da82afa99226f876a91ed9e1d906a09a01c4c5af1692ad6299"
+    },
+    {
+      "file": "stream-fix-04-portable.log",
+      "sha256": "15e5101832232b78d7bd77859f0ca9ea6304809236e5a340b470cdf2bc274aed"
+    },
+    {
+      "file": "stream-fix-05-desktop-smoke.log",
+      "sha256": "a2b4d985f8855af80eb6ea934fe220b59e5721a391674085dd0fffe52ce62aca"
+    },
+    {
+      "file": "support-check.cjs",
+      "sha256": "14bdf745e55559d85b489ac928ec3ea95b76e95d58e939b4bb24ed0ad0630a7e"
+    },
+    {
+      "file": "windows-peer.cjs",
+      "sha256": "e3ce1ad6929eb81afbd0ec4f38f96de02c645e262732945feeaa3f7d421a5b78"
+    },
+    {
+      "file": "acceptance-editor-crlf/report.json",
+      "sha256": "de380d732af48fd7d28dc6ed57c7b6da380e602bfd25951fae2a2a0afa7d6012"
+    },
+    {
+      "file": "acceptance-file-endpoints/dual-endpoints.png",
+      "sha256": "5621b0d3b8b402f558850b129565a90f12745eb6fcc6ad7df3146c8906156a6a"
+    },
+    {
+      "file": "acceptance-file-endpoints/report.json",
+      "sha256": "4036fec1087cfc7eae45f7975dde2b24a5ccbdc9736cc4ade30e6a2ba8224b3a"
+    },
+    {
+      "file": "acceptance-file-endpoints/sidebar-focus.png",
+      "sha256": "1d231fa58170b89eb839975467b9b3fe665663f3e50a69e2953f04cb54901019"
+    },
+    {
+      "file": "acceptance-installed/large-output.png",
+      "sha256": "44de8e5ef314ac5a5ec07e7034c15974d7b518f8721b575dabc8e2127a491225"
+    },
+    {
+      "file": "acceptance-installed/local-files.png",
+      "sha256": "c23de8d2a097ca30991307ed0e093e92a00ba8df7aab29eba1d35863f0b8da2c"
+    },
+    {
+      "file": "acceptance-installed/report.json",
+      "sha256": "dfe0a3ca605129e52d86db3bed877db7ada2d2cbd5c47beb6900a13852e30118"
+    },
+    {
+      "file": "acceptance-installed/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "acceptance-installed/terminal-colors.png",
+      "sha256": "a3256aa5332db0081acad10e2c4db38c1e22ed16f77634f228843991c7d01ee3"
+    },
+    {
+      "file": "acceptance-installed/terminal.png",
+      "sha256": "92fa7c53802f8283f72c66db75404b00bf87fb00b83d92e901bdb01735095cae"
+    },
+    {
+      "file": "acceptance-lan-multiplexers/report.json",
+      "sha256": "0f5eeef9bcb93fc02175dccc50c98fafc0bbdef89456d243409c982c0d3163c8"
+    },
+    {
+      "file": "acceptance-lan-multiplexers/tmux-1.png",
+      "sha256": "2614ee345539cc5b1941e1b039a75cfa9d09294e5d22f53fd71b47281ae13522"
+    },
+    {
+      "file": "acceptance-lan-multiplexers/tmux-2.png",
+      "sha256": "511eab93347788a4823f6af0b9780f4daef1e90f2831aced25e72e4f38a5567a"
+    },
+    {
+      "file": "acceptance-layout/report.json",
+      "sha256": "e64152fbc6851a90a7e597ee8425eb9c6c9153a69e09aca9562404fdee89ae32"
+    },
+    {
+      "file": "acceptance-layout/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "acceptance-layout/three-plus-one.png",
+      "sha256": "0969c1b724916e1e6cc9140790b7fbc154f7ca9e6adf0daff486d25c9a25b9c2"
+    },
+    {
+      "file": "acceptance-misc/drive-switch.png",
+      "sha256": "a6cc7331fadb76eb3018ad19c239e04c2cbfde36a4b771fac5a226f3130176e3"
+    },
+    {
+      "file": "acceptance-misc/report.json",
+      "sha256": "b4185531d45fb104441f6d72b99e8730be8e393e35a16e00a08c548e3526431b"
+    },
+    {
+      "file": "acceptance-portable/context-files.png",
+      "sha256": "f9d1a589c305298432f78e4682bab0861e9a5c08f5205501c3b9093dca1c12a7"
+    },
+    {
+      "file": "acceptance-portable/failure-3.png",
+      "sha256": "75d604b565e93f70921bad2e481880b864ea85701e984c7b223833302f8ca2a8"
+    },
+    {
+      "file": "acceptance-portable/report.json",
+      "sha256": "9c487bc7535565d57fcddb14a041054c333cfd1283caacdb6848c8acd455d43a"
+    },
+    {
+      "file": "acceptance-portable/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "acceptance-portable/three-plus-one.png",
+      "sha256": "0969c1b724916e1e6cc9140790b7fbc154f7ca9e6adf0daff486d25c9a25b9c2"
+    },
+    {
+      "file": "acceptance-support/report.json",
+      "sha256": "f3bde99e3e108c48b863ad6437f495bb201999e551a93b44510e7651de05bb20"
+    },
+    {
+      "file": "acceptance-support/unavailable-storage.png",
+      "sha256": "905a4363656cf8df04ff2935b7930e1c0876714a6a5cb13c1b8c038bd0f20a5e"
+    },
+    {
+      "file": "editor-crlf/report.json",
+      "sha256": "bd58a56d1665a14c648649ea1cbe5712e8968427fca45c35edd1226edeb42051"
+    },
+    {
+      "file": "final-installed/large-output.png",
+      "sha256": "44de8e5ef314ac5a5ec07e7034c15974d7b518f8721b575dabc8e2127a491225"
+    },
+    {
+      "file": "final-installed/local-files.png",
+      "sha256": "73ceb298e3e226e8b14ea174cf9ce1c8b30e06926624d75c544d21746a33784d"
+    },
+    {
+      "file": "final-installed/report.json",
+      "sha256": "7e4faf7b993cff00b40bbb53a6193a2c3018d3057f4c84cc122a18df3de6639e"
+    },
+    {
+      "file": "final-installed/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "final-installed/terminal-colors.png",
+      "sha256": "a3256aa5332db0081acad10e2c4db38c1e22ed16f77634f228843991c7d01ee3"
+    },
+    {
+      "file": "final-installed/terminal.png",
+      "sha256": "0542f6a8f084a55df18e205ed89ce0d63eed4b2f9c9ace44d705e532b3bada92"
+    },
+    {
+      "file": "final-portable-extended/context-files.png",
+      "sha256": "567075ea1b77e71071e5da9791121a400a8934928a5ff9d7b5200c5c3c531642"
+    },
+    {
+      "file": "final-portable-extended/report.json",
+      "sha256": "769f9a683ddbec6a7d6b1edaf57756648cf7acec2edc0f1cca15456c64bbf4c3"
+    },
+    {
+      "file": "final-portable-extended/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "final-portable-extended/three-plus-one.png",
+      "sha256": "0969c1b724916e1e6cc9140790b7fbc154f7ca9e6adf0daff486d25c9a25b9c2"
+    },
+    {
+      "file": "final-support/report.json",
+      "sha256": "76d976f1854f0152c02eb3a28e56d1edc8bc677c7a8a05f0d7c4d5046adfb4b0"
+    },
+    {
+      "file": "final-support/unavailable-storage.png",
+      "sha256": "bb9f789e368f20cdd933ed61aacc2ed8583f11ba178b42d5fade0d758d46a47f"
+    },
+    {
+      "file": "fixed-cdp-extended/failure-3.png",
+      "sha256": "d5b4719382cc09e387b193aae330c21a253aa5094687e5c9bbf3cae12328f9a3"
+    },
+    {
+      "file": "fixed-cdp-extended/failure-4.png",
+      "sha256": "614bb974a622cf3c0f855cbd01880e4535a95f8091a4a0cbe25a0614c6e9c5f9"
+    },
+    {
+      "file": "fixed-cdp-extended/failure-5.png",
+      "sha256": "28ba7e474f402e8dd9225f1f8fd39510a0aff10ee3e9e4d44371ceda0571374c"
+    },
+    {
+      "file": "fixed-cdp-extended/failure-6.png",
+      "sha256": "7f4a104e7d03cbb5d80adbc5c82de22127cef647463837e95f9005d2ea1fe7f0"
+    },
+    {
+      "file": "fixed-cdp-extended/failure-7.png",
+      "sha256": "c5b047fdbf01c68178df097b414dbbf2d2a86b142ab072e8377dee6ba754fc0c"
+    },
+    {
+      "file": "fixed-cdp-extended/report.json",
+      "sha256": "648d01b93d0fc3234facee8c4caba03ac7b7f7c5922f4334d164b23cc61dbdc9"
+    },
+    {
+      "file": "fixed-cdp-extended/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "fixed-cdp-extended-r2/context-files.png",
+      "sha256": "5c9f9cd2a4ded87a35ec291f1d25c8c3fe47b22fa38cd553075e00d11e309180"
+    },
+    {
+      "file": "fixed-cdp-extended-r2/failure-3.png",
+      "sha256": "c06e818543b1aaceec1682b3b60100511a354301433870681f4fec93ab878899"
+    },
+    {
+      "file": "fixed-cdp-extended-r2/failure-7.png",
+      "sha256": "a34535471afa37d6fd15e969c3f60946f5de411983b24a11fd3a4dabd268b627"
+    },
+    {
+      "file": "fixed-cdp-extended-r2/report.json",
+      "sha256": "cadecc77bc7c04f33ca87ec50e413c25722e2bf7959a7deb1992cf0c6fecdd1c"
+    },
+    {
+      "file": "fixed-cdp-extended-r2/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "fixed-installed/large-output.png",
+      "sha256": "b1f8bee7467e699e2dc8112b5d86b7865795fb793e1f8d11d79fb74de18999e2"
+    },
+    {
+      "file": "fixed-installed/local-files.png",
+      "sha256": "680a555b49386faed4f63fcb35745409a647e6b1790694e66514daecc3226361"
+    },
+    {
+      "file": "fixed-installed/report.json",
+      "sha256": "2d6e5a1e17efe27d0831d1268c74e714afb739a9748ba31163bd84ec2a66a647"
+    },
+    {
+      "file": "fixed-installed/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "fixed-installed/terminal-colors.png",
+      "sha256": "109a9b396042fddaf86493e5f3044b88615e09f8ce04f3f045c594205de4dbde"
+    },
+    {
+      "file": "fixed-installed/terminal.png",
+      "sha256": "9b4c0a475f7ac82c464d73ce46dd20768d819658346510f4046ffdf8327502c2"
+    },
+    {
+      "file": "fixed-portable-layout/report.json",
+      "sha256": "33d5b94467f5b897261be91a4fc3ade5f7d3f724022814fd484a64010a15e2fd"
+    },
+    {
+      "file": "fixed-portable-layout/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "fixed-portable-layout/three-plus-one.png",
+      "sha256": "0969c1b724916e1e6cc9140790b7fbc154f7ca9e6adf0daff486d25c9a25b9c2"
+    },
+    {
+      "file": "lan-multiplexers/report.json",
+      "sha256": "2ce022e3cdffefb4c3ce1832c30d34a9271c32a8c02ef0ee6168224401035037"
+    },
+    {
+      "file": "lan-multiplexers-r2/report.json",
+      "sha256": "8c02078002e8f4128afc3c40c8436f64439927841c6ac0c456e7b5ac8a97ba25"
+    },
+    {
+      "file": "lan-multiplexers-r3/report.json",
+      "sha256": "2bef6c0b030d176234b93a76fbb1eb4468ae4cb0bf33d7cb4a309b9dced842f4"
+    },
+    {
+      "file": "lan-multiplexers-r3/tmux-1.png",
+      "sha256": "7e938364751a349612c8ad455e6d1ae6b52fabdf080fd055cb20f4e69cdc6fa3"
+    },
+    {
+      "file": "lan-multiplexers-r3/tmux-2.png",
+      "sha256": "41ddde085c2a38ee86c54f6616bf30da6455e0d6f7dc323f3bfe2021bbd74583"
+    },
+    {
+      "file": "original-package/failure-10.png",
+      "sha256": "48ddf911a6bf41cb4b55bff966d2f1ebe2ed8a78675d0ce73be6daf3eb28a864"
+    },
+    {
+      "file": "original-package/failure-11.png",
+      "sha256": "48ddf911a6bf41cb4b55bff966d2f1ebe2ed8a78675d0ce73be6daf3eb28a864"
+    },
+    {
+      "file": "original-package/failure-2.png",
+      "sha256": "7aa5213d8dcde07f6d5824049feecaeaa865a649849ed6e01973fe4878d5377c"
+    },
+    {
+      "file": "original-package/failure-4.png",
+      "sha256": "8b92ca626374d7cb7ec6a72b8f2071b78eb3287f718823e3b63509bdccb1be2d"
+    },
+    {
+      "file": "original-package/failure-5.png",
+      "sha256": "e68b3eacec46db10e722dafbc28fd7e8764e045d9bce78bc504d3b540c1fde35"
+    },
+    {
+      "file": "original-package/failure-6.png",
+      "sha256": "6b25511300d2e6ba70b4b5e0128e6c678068ea807ecf85e3c88a16d5f44a9e33"
+    },
+    {
+      "file": "original-package/failure-7.png",
+      "sha256": "653a3b4ae0862c12781055e16444d97d5d82fe37462c4b113d90bd8074bdb0b1"
+    },
+    {
+      "file": "original-package/failure-8.png",
+      "sha256": "653a3b4ae0862c12781055e16444d97d5d82fe37462c4b113d90bd8074bdb0b1"
+    },
+    {
+      "file": "original-package/failure-9.png",
+      "sha256": "48ddf911a6bf41cb4b55bff966d2f1ebe2ed8a78675d0ce73be6daf3eb28a864"
+    },
+    {
+      "file": "original-package/report.json",
+      "sha256": "5c6f461b89bbd03663d2da42221fddbf0e38b5d29cd69813fd6c4a0421b8023e"
+    },
+    {
+      "file": "original-package/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "original-package-r2/failure-2.png",
+      "sha256": "931a47e6f7a449fc8955a2f59b71e498754e8824b682dabbc0966ee076a77c61"
+    },
+    {
+      "file": "original-package-r2/failure-6.png",
+      "sha256": "a2cc0d224f9115bad3d7daab46323b8b1c5f78c059daeb111d6dc4d406757237"
+    },
+    {
+      "file": "original-package-r2/failure-8.png",
+      "sha256": "4d0b5890df478aba92880f0bfb8d9f51d2dfb7a05f92e974c405c9e66be1ed04"
+    },
+    {
+      "file": "original-package-r2/report.json",
+      "sha256": "94be0a3ba4ac17e253551c296f75c81726d599de5b13221ce9943107640baf47"
+    },
+    {
+      "file": "original-package-r2/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "original-package-r2/terminal.png",
+      "sha256": "3741eed45baacb7bbeb9750261f8cab123ef7ac1e9a56b28f0f92cb0a17d3d2d"
+    },
+    {
+      "file": "release-atomic-capability/report.json",
+      "sha256": "814edadce228761cf1e6f66a963053391b9840c1dfdded1eec153435767e9b5d"
+    },
+    {
+      "file": "release-editor-crlf/report.json",
+      "sha256": "de380d732af48fd7d28dc6ed57c7b6da380e602bfd25951fae2a2a0afa7d6012"
+    },
+    {
+      "file": "release-installed/large-output.png",
+      "sha256": "44de8e5ef314ac5a5ec07e7034c15974d7b518f8721b575dabc8e2127a491225"
+    },
+    {
+      "file": "release-installed/local-files.png",
+      "sha256": "75c90eaf6ae1119b1852fe540a329d4901b6f9d431007a2d424e336d6388529e"
+    },
+    {
+      "file": "release-installed/report.json",
+      "sha256": "604fe52d6ab0326ac57ee1e6e216cc3cf6f73beb2f7d0c4745c4b8b934f778f3"
+    },
+    {
+      "file": "release-installed/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "release-installed/terminal-colors.png",
+      "sha256": "a3256aa5332db0081acad10e2c4db38c1e22ed16f77634f228843991c7d01ee3"
+    },
+    {
+      "file": "release-installed/terminal.png",
+      "sha256": "80c10d2fb55656605fee19ea4ea7d1a6e16ff0d8b0740d1561873f3ecf9eb0df"
+    },
+    {
+      "file": "release-lan-multiplexers/report.json",
+      "sha256": "5df0c4dc119520d1f14435ae94f1d78da675b4b4ad29a532e0c7492442c071da"
+    },
+    {
+      "file": "release-lan-multiplexers/tmux-1.png",
+      "sha256": "8f4977325c69ecb35003f42171c7885d6dd8d51d59cb780b3d83b097af14a97b"
+    },
+    {
+      "file": "release-lan-multiplexers/tmux-2.png",
+      "sha256": "c22904df829356a298e1550e0f1db3776bd13aeadf1048ec3fda69edd417c586"
+    },
+    {
+      "file": "release-misc/report.json",
+      "sha256": "a8b449368900dd6c81c14ac46c36f61573d2695f692c226d82b177475221f742"
+    },
+    {
+      "file": "release-portable/failure-3.png",
+      "sha256": "75d604b565e93f70921bad2e481880b864ea85701e984c7b223833302f8ca2a8"
+    },
+    {
+      "file": "release-portable/failure-5.png",
+      "sha256": "20003a9d5502e48ac0f809b147dac83f3d258642e0719ebbaf715f3962501cf7"
+    },
+    {
+      "file": "release-portable/report.json",
+      "sha256": "f2f231cfaf11f7b6250c6d12a3440a1154d337ebbd1fe35af7b88679d03d1ec6"
+    },
+    {
+      "file": "release-portable/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "release-portable/three-plus-one.png",
+      "sha256": "0969c1b724916e1e6cc9140790b7fbc154f7ca9e6adf0daff486d25c9a25b9c2"
+    },
+    {
+      "file": "release-support/report.json",
+      "sha256": "ef52024f0d5272ba518cb47181a985aa7625be147e61b063d9b3931a12f1b4b7"
+    },
+    {
+      "file": "release-support/unavailable-storage.png",
+      "sha256": "76d8edb938e53490383f48d07686a282f7190f1f50381cd028e57470bf9b680e"
+    },
+    {
+      "file": "support/report.json",
+      "sha256": "68fd67f79ddda034bcc3caedba2c2848dae5e72deffc383e36e3f9ce85b5c091"
+    },
+    {
+      "file": "support/unavailable-storage.png",
+      "sha256": "bb9f789e368f20cdd933ed61aacc2ed8583f11ba178b42d5fade0d758d46a47f"
+    },
+    {
+      "file": "verified-installed/large-output.png",
+      "sha256": "b1f8bee7467e699e2dc8112b5d86b7865795fb793e1f8d11d79fb74de18999e2"
+    },
+    {
+      "file": "verified-installed/local-files.png",
+      "sha256": "88e77ea12a2e9a591f710678b2393145a2962ce89be16e6b6e4fc02ef2c1bc02"
+    },
+    {
+      "file": "verified-installed/report.json",
+      "sha256": "d0ec91afae8b7dcbb98bb4f7b68dce9ebeb28f75d9cc9f7dc593d3e0dfe5c33b"
+    },
+    {
+      "file": "verified-installed/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "verified-installed/terminal-colors.png",
+      "sha256": "a3256aa5332db0081acad10e2c4db38c1e22ed16f77634f228843991c7d01ee3"
+    },
+    {
+      "file": "verified-installed/terminal.png",
+      "sha256": "5f60db901534d0e7385ec9413728f2eb90f147efe07eddebb6c8c2a7f398a3aa"
+    },
+    {
+      "file": "verified-lan-multiplexers/report.json",
+      "sha256": "fde2f6dc21139786b6d09a63436fd3404b3a4eac8f9f31fc24ada4cfccb6c26c"
+    },
+    {
+      "file": "verified-lan-multiplexers/tmux-1.png",
+      "sha256": "791830661b7c8975d77692b7ff09b3c8a8bef497aaa182c0aab4fb24e0dc156b"
+    },
+    {
+      "file": "verified-lan-multiplexers/tmux-2.png",
+      "sha256": "2ff5a5e5ab6a804dbac9c438ef9e81b6c0270411b467f2653ec7df5da4ebd103"
+    },
+    {
+      "file": "verified-misc/report.json",
+      "sha256": "d1b1dddd3a0a86b46a699abdab42f79ec0eba35eea9e283e94547684d2a74a60"
+    },
+    {
+      "file": "verified-misc-r2/report.json",
+      "sha256": "7f0a1cdba4fb89400b6d20999f8d4de6dd943e5c37114b1609a656814700a42a"
+    },
+    {
+      "file": "verified-portable/context-files.png",
+      "sha256": "8810146a59addbd668841b1a96b91b7269660d9ff2db7bcae72aafc18ebcf038"
+    },
+    {
+      "file": "verified-portable/report.json",
+      "sha256": "45b4df8ee4ab9cfb7d2a9af492d826556407048389eba0b97f893ddce8ce295e"
+    },
+    {
+      "file": "verified-portable/startup.png",
+      "sha256": "ea49231742dc47169457eeca1326015a19945128162cfeb36dc719abf9514954"
+    },
+    {
+      "file": "verified-portable/three-plus-one.png",
+      "sha256": "0969c1b724916e1e6cc9140790b7fbc154f7ca9e6adf0daff486d25c9a25b9c2"
+    },
+    {
+      "file": "verified-support/report.json",
+      "sha256": "cf84ac8cdf047b6110ea364c1f56a5b2f30950f209c217d5190d0b3e78b173e1"
+    },
+    {
+      "file": "verified-support/unavailable-storage.png",
+      "sha256": "2b99be641a6cae0021bb842d8b0eba090c82fbd753f89adb96a13b0987eefcf7"
+    },
+    {
+      "file": "cleanup.ps1",
+      "sha256": "6b5c7420a1d8b8f2ae3895575af29732b29eb3c2ddfbd0608f87da0bb81cdcfd"
+    },
+    {
+      "file": "cleanup.json",
+      "sha256": "dfb3aae779e8bb21385dc465c343c31552d8cb2842310e74fa3ae58ebc306a88"
+    },
+    {
+      "file": "final-uninstall.json",
+      "sha256": "113177d6ff0f4c01549058bdb48c29f3448f786aaf4fe7e4940321e5c9447896"
+    }
+  ],
+  "cleanup": {
+    "time": "2026-10-08T23:23:28.0319313+08:00",
+    "removedTestPaths": 106,
+    "appAndSftpProcesses": 0,
+    "partFiles": 0,
+    "credentialDirectoryRemoved": true,
+    "testDriveRemoved": true,
+    "reportRedactionPassed": true,
+    "userResourcesModified": false
+  },
+  "finalUninstall": {
+    "finalUninstallExit": 0,
+    "exeRemoved": true,
+    "time": "2026-10-08T23:19:22.1760706+08:00"
+  },
+  "coreSummary": {
+    "PASS": 9,
+    "FAIL": 0,
+    "BLOCKED": 8,
+    "NOT_RUN": 1,
+    "N/A": 0
+  }
+}

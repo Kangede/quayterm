@@ -1,5 +1,13 @@
 # QuayTerm 验证记录
 
+## 2026-10-08：Windows x64 本机补测
+
+Windows 10 x64 的本轮原生结果见 [独立测试报告](docs/test-reports/2026-10-08-windows-x64-0.2.1.md) 和 [脱敏证据](docs/test-reports/2026-10-08-windows-x64-0.2.1.evidence.json)。最终修复代码为 `41af01282c39fb4717cfc5ffa4975308d112939e`；本地安装器/便携包的哈希在报告中，不能与原 v0.2.1 Release 混用。
+
+修复了空光驱阻断文件浏览、断连后 SFTP 传输挂起、编辑器丢失 BOM/CRLF 格式、规范化路径后的盘符重新选择，以及 Windows 检出换行导致格式检查失败。13 项可移植测试和扩展后的 1 项桌面 smoke 通过；实际包完成多组功能/故障检查、3 个 LAN SSH/SFTP 登录、2 个真实 tmux 3.4 验证。screen 缺失，部分系统交互和完整键盘矩阵仍未完成，因此 **Windows 核心验收尚未完成**。其他系统未复测这些修复。
+
+## 此前 Linux 与 CI 记录
+
 最后核对：2026-10-08（Asia/Shanghai）。本地执行环境：Linux x64 桌面、Node.js 22.23.2、Electron 44.7.0；另外已有 GitHub 三平台 CI 结果。
 
 给其他系统的 agent：[交接指南](docs/agent-testing.md) · [验收用例与完成标准](docs/test-acceptance.md) · [报告模板](docs/test-report-template.md)。以下明确区分版本和运行范围，历史通过不自动适用于新的发行包。
