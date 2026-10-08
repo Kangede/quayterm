@@ -2,21 +2,20 @@
 
 一个私有的 SSH + SFTP 桌面客户端。Quay 是码头：多个远程会话可以在自己的面板中停靠、切换。界面按需求中的 Termius / TermX 布局组织，采用 electerm 同类核心技术。
 
-当前源码版本为 **0.2.1**。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)，成功运行的 Artifacts 中提供原生构建的程序包。
+当前源码版本为 **0.2.1**，安装包见 [v0.2.1 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.1)。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
 
 ## 启动
 
-本地已交付的 0.2.0 程序包放在 `release/0.2.0/`；0.1.1 保留在 `release/0.1.1/`，0.1.0 保留在 `release/`。关闭旧版窗口后再打开新版，现有主机配置会沿用。构建脚本默认仍输出到 `release/`：
+从私有 Release 下载对应系统的程序包与 `SHA256SUMS`，核对哈希后运行。关闭旧版窗口后再打开新版，现有主机配置会沿用：
 
-| 平台                | 文件                                 | 当前验证状态                          |
-| ------------------- | ------------------------------------ | ------------------------------------- |
-| Linux x64           | `linux/QuayTerm-0.2.0.AppImage`      | 已完成本机运行及新增功能验收          |
-| Linux x64           | `linux/quayterm-0.2.0.tar.gz`        | 解压运行 `quayterm`；已验证解包程序   |
-| Windows x64         | `windows/QuayTerm-0.2.0-win.zip`     | 已交叉构建；待 Windows 原生验收       |
-| macOS Intel         | `macos/QuayTerm-0.2.0-mac.zip`       | 已交叉构建、未签名；待 macOS 原生验收 |
-| macOS Apple Silicon | `macos/QuayTerm-0.2.0-arm64-mac.zip` | 已交叉构建、未签名；待 macOS 原生验收 |
+| 平台                | 发布文件                                                   | 启动方式                         |
+| ------------------- | ---------------------------------------------------------- | -------------------------------- |
+| Linux x64           | `QuayTerm-0.2.1.AppImage`、`quayterm-0.2.1.tar.gz`         | AppImage 或解压后运行 `quayterm` |
+| Windows x64         | `QuayTerm.Setup.0.2.1.exe`、`QuayTerm.0.2.1.exe`           | 分别为安装器和便携程序           |
+| macOS Intel         | `QuayTerm-0.2.1.dmg`、`QuayTerm-0.2.1-mac.zip`             | 安装/解压 `QuayTerm.app`         |
+| macOS Apple Silicon | `QuayTerm-0.2.1-arm64.dmg`、`QuayTerm-0.2.1-arm64-mac.zip` | 安装/解压 `QuayTerm.app`         |
 
-Linux AppImage 需要系统的 FUSE 支持。也可以使用 tar.gz 包，或运行 AppImage 的 `--appimage-extract-and-run` 模式。Windows 解压后运行 `QuayTerm.exe`。macOS 发布前需要在 macOS 上进行签名和验收；当前 zip 是开发验证包。
+Linux AppImage 需要系统的 FUSE 支持。也可以使用 tar.gz 包，或运行 AppImage 的 `--appimage-extract-and-run` 模式。当前 Windows 包未做发行签名，macOS 包未做发行签名/公证，首次启动可能出现系统提示。三个系统的源码 CI 已通过，发行包完整原生验收仍有未完成项，具体范围见 [测试状态](TESTING.md) 和 [完成标准](docs/test-acceptance.md)。构建脚本默认输出到 `release/`；该目录及早期本地包不包含在 Git 仓库中。
 
 从源代码运行需要 Node.js 22.12+：
 
@@ -121,7 +120,9 @@ Ctrl+A、Ctrl+B、Ctrl+C、Ctrl+D、Ctrl+Z、Tab、方向键和普通 Ctrl+K 保
 
 ## 测试与打包
 
-详细实测结果见 [TESTING.md](TESTING.md)。
+详细实测结果见 [TESTING.md](TESTING.md)。跨系统接手请使用 [agent 测试指南](docs/agent-testing.md)、[逐项验收标准](docs/test-acceptance.md) 和 [测试报告模板](docs/test-report-template.md)。
+
+Linux 完整测试及各平台打包入口如下；打包时选择当前原生系统对应的一条：
 
 ```sh
 npm run check
@@ -137,14 +138,14 @@ npm run dist:mac
 Windows / macOS 可以运行无 Linux 依赖的测试；桌面测试会在本机启动临时 SSH/SFTP 协议服务，验证连接、粘贴、控制键、目录列表、文本读取和 resize。tmux/screen 仍由 Linux 的真实 PTY 测试覆盖：
 
 ```sh
-node --test tests/workspace.test.cjs tests/local-files.test.cjs
+node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs
 npm run build
 npx playwright test tests/desktop-smoke.e2e.cjs
 ```
 
 局域网测试通过 `QUAYTERM_TEST_HOSTS` 指向私有 JSON 数组，字段为 `name/address/port/username/password`。仅新建 SSH PTY、发送 resize 请求和列出 SFTP 主目录，不发送远端 shell 命令，不写远端文件。
 
-已打包程序也可通过 `scripts/test-packaged.cjs` 进行只读验收，设置 `QUAYTERM_EXECUTABLE`（程序路径）、`QUAYTERM_TEST_HOSTS`（私有凭证文件）、`QUAYTERM_EXPECTED_FINGERPRINTS`（含预先确认指纹的 `lan-report.json`）。测试使用一次性数据目录，不修改日常配置。
+已打包程序也可通过 `scripts/test-packaged.cjs` 进行只读验收，设置 `QUAYTERM_EXECUTABLE`（实际程序路径）、`QUAYTERM_TEST_HOSTS`（私有凭证文件）、`QUAYTERM_EXPECTED_FINGERPRINTS`（含独立核实指纹的 JSON）。测试使用一次性数据目录，不修改日常配置。`test-lan.cjs` 自动接受首次观察到的指纹，其报告未经核实不能直接作为信任依据；文件格式和分平台操作见 [交接指南](docs/agent-testing.md)。
 
 ## 当前范围
 
@@ -152,4 +153,4 @@ npx playwright test tests/desktop-smoke.e2e.cjs
 
 文件保存使用临时文件加原子替换，尽量保留原文件权限和所有者。覆盖远端文件要求服务端支持 OpenSSH 的原子 rename 扩展；不支持时操作失败并保留原文件。网络中断时可能留下尚未清理的 `.quayterm-*.part` 文件。
 
-早期本地 Windows/macOS zip 为交叉构建包。GitHub Actions 已配置三个系统的原生测试及打包，具体结果请查看对应提交的运行记录。公开发布前仍需要配置发行签名和 macOS 公证。
+早期本地 Windows/macOS zip 为交叉构建包；v0.2.1 Release 使用已通过的三平台 CI 产物。macOS 两种架构由 Apple Silicon runner 构建，不能据此声称 Intel 原生运行已验证。发行签名、公证及其他待补测试分别记录，不把构建通过当作完整验收。

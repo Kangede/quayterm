@@ -1,13 +1,26 @@
 # QuayTerm 验证记录
 
-日期：2026-10-08（Asia/Shanghai）。执行环境：Linux x64 桌面、Node.js 22.23.2、Electron 44.7.0。
+最后核对：2026-10-08（Asia/Shanghai）。本地执行环境：Linux x64 桌面、Node.js 22.23.2、Electron 44.7.0；另外已有 GitHub 三平台 CI 结果。
+
+给其他系统的 agent：[交接指南](docs/agent-testing.md) · [验收用例与完成标准](docs/test-acceptance.md) · [报告模板](docs/test-report-template.md)。以下明确区分版本和运行范围，历史通过不自动适用于新的发行包。
 
 ## 0.2.1：自动复制与 CI 修复
 
 - 新增持久化的“选中文本后自动复制”开关，默认关闭。
 - 桌面用例覆盖：默认不复制、开启后双击选词复制、清除选区保留剪贴板、关闭后不复制、手动复制仍可用。该用例在三个系统的原生桌面测试中执行。
 - 首次 GitHub 运行 `37754591310` 的 Linux 构建成功，Windows/macOS 均在同一条文件路径比较断言失败。文件列表返回原生真实路径，测试却与未规范化的临时路径直接比较；现已使用 `fs.realpathSync.native` 验证，并增加目录链接 / Windows junction 的回归测试。
-- CI 保留全部检查，增加失败诊断产物和执行超时。最新原生复验状态以 [GitHub Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml) 对应提交为准。
+- CI 保留全部检查，增加失败诊断产物和执行超时。修复提交 `5bffb398da7abe69ab7e5b6c7e7f861a236e3e09` 的 [运行 37758264822](https://github.com/Kangede/quayterm/actions/runs/37758264822) 三个 job 已全部成功。
+
+| 0.2.1 验证范围 | 已核实结果                                                                     |
+| -------------- | ------------------------------------------------------------------------------ |
+| Linux CI       | 23 项底层/集成、13 项桌面用例全部通过；AppImage/tar.gz 构建成功                |
+| Windows x64 CI | 10 项可移植测试、1 项原生桌面 smoke 通过；NSIS/portable 构建成功               |
+| macOS arm64 CI | 10 项可移植测试、1 项原生桌面 smoke 通过；arm64/x64 DMG/ZIP 构建成功           |
+| v0.2.1 Release | 上述 CI 的 8 个二进制资产及 SHA256SUMS 已发布；远端资产 SHA-256 与上传文件一致 |
+
+10 项可移植测试已包含在 Linux 的 23 项中。桌面 CI 从源码启动 Electron，不运行最终安装器或发行程序；Windows/macOS smoke 使用真实 SSH/SFTP 协议回环服务，但不执行真实 PTY、tmux 或 screen。macOS runner 为 `macos-26-arm64`，因此 x64 包的原生执行仍待 Intel 机器验证。
+
+上述结果不能替代 Windows/macOS 的安装后完整操作、系统密码存储重启、原生输入法等验收，也不能把 0.1.1/0.2.0 的本地包结果升级为 0.2.1 发行包结果。按交接指南逐平台补齐。
 
 ## 0.2.0 已通过记录
 
@@ -61,7 +74,7 @@
 6. 实际 UI 拖动上传、远端重命名、拖动下载、确认删除，核对文件内容。
 7. 50,000 行终端输出完成，验证流量控制、滚动缓存和最后一行；关闭会话快捷键。
 8. 已知主机详情、渲染进程隔离和未捕获错误检查。
-9. 无 Linux 专用依赖的原生验收脚本：通过本机临时服务验证真实 SSH/SFTP 协议连接、Unicode、粘贴、控制键、resize、目录与文本读取，并检查本地文件与凭证隔离。脚本已在 Linux 通过；在 macOS 还会检查原生编辑菜单。
+9. 无 Linux 专用依赖的原生验收脚本：通过本机临时服务验证真实 SSH/SFTP 协议连接、Unicode、粘贴、控制键、resize、目录与文本读取，并检查本地文件与凭证隔离。0.2.0 当时仅在本地 Linux 通过；后续三平台 0.2.1 CI 结果见上方，在 macOS 还检查原生编辑菜单。
 
 测试用的 screen / tmux 仅在一次性本地目录及专用 socket / 会话名下运行。没有对用户提供的主机执行这些测试命令。
 
@@ -83,19 +96,19 @@ Linux 解包程序以默认沙箱启动，通过真实桌面界面逐一连接�
 
 上述三台局域网主机的记录属于 0.1.1；0.2.0 的新增功能在本地隔离服务和 Linux 已打包程序中验证，未重复在用户主机上执行文件操作。
 
-## 产物与未完成的原生验证
+## 0.2.1 产物与未完成的原生验证
 
-0.2.0 的 Linux AppImage / tar.gz、Windows x64 zip、macOS x64 / arm64 zip 均已构建。跨平台源码使用系统路径 API 和 Electron 安全存储，CI 已配置原生桌面 smoke test 与打包步骤。
+当前 [v0.2.1 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.1) 包含 Linux x64 AppImage/tar.gz、Windows x64 NSIS/portable、macOS x64/arm64 DMG/ZIP，均来自已通过的 CI 运行。早期 0.2.0 本地包只是历史记录。
 
-本机只有 Linux。Windows/macOS 的原生 SSH/SFTP、剪贴板、窗口测试及打包已交由 GitHub Actions 执行；首次运行的失败与修复见上方 0.2.1 记录。交叉构建和原生测试应分别判断，原生通过状态需要以对应提交的 Actions 结果为依据。发行签名 / 公证仍需另行配置。
+本机只有 Linux；其他系统的 CI 成功范围已在上方列明。四个目标系统/架构的 0.2.1 发行包完整核心验收均尚无完整报告，尤其需补 Windows 安装与便携运行、macOS 两架构实际启动、DPAPI/Keychain 密码重启保存、真实桌面快捷键/文件交互、连接真实测试机运行 tmux/screen，以及受控中断恢复。详见 [平台缺口表](docs/agent-testing.md) 和 [逐项完成条件](docs/test-acceptance.md)。
 
-macOS 交叉构建包未签名；Windows 交叉 zip 未签名且保留 Electron 可执行文件的资源图标。原生 Windows 构建会应用应用图标与元数据。此版本不声称经过长期断网恢复、大型目录性能、所有 SSH 服务端或所有输入法的穷尽验证。
+v0.2.1 Windows 未做 Authenticode 签名，macOS 未做发行签名/公证；这些状态与功能验收分别记录。此版本不声称经过长期断网恢复、大型目录性能、所有 SSH 服务端或所有输入法的穷尽验证。
 
 ## 证据
 
-本机详细报告和截图位于 `.private/`，不打进安装包：
+CI 证据可从上方固定运行链接查看。本机详细报告和截图位于 `.private/`，不提交到 Git、不打进安装包，新机器克隆后不会获得它们。以下文件可能随复测更新，不能只凭文件名推断受测版本：
 
-- `core-test.log`：22 项底层测试。
+- `core-test.log`：最近底层测试记录；0.2.0 为 22 项，0.2.1 为 23 项。
 - `e2e-report.json`、`e2e.log`：13 项桌面测试。
 - `lan-report.json`：只读局域网测试。
 - `hosts.png`、`terminal.png`、`two-tabs-per-pane.png`、`split.png`、`tmux.png`、`sftp.png`：界面截图。
@@ -105,4 +118,4 @@ macOS 交叉构建包未签名；Windows 交叉 zip 未签名且保留 Electron 
 
 macOS 窗口配置和编辑快捷键按 [Electron 自定义标题栏](https://www.electronjs.org/docs/latest/tutorial/custom-title-bar)及 [before-input-event](https://www.electronjs.org/docs/latest/api/web-contents#event-before-input-event) 说明调整；这属于代码适配依据，不替代 macOS 原生运行证据。
 
-0.2.0 安装包校验和见 `release/0.2.0/SHA256SUMS`。旧版产物和校验和保留供回退。
+0.2.1 安装包校验和随 Release 的 `SHA256SUMS` 发布。旧版 `release/0.2.0/SHA256SUMS` 仅是本机历史文件，不能校验新版资产。后续验收应按报告模板新增带 OS、架构、版本和日期的记录。
