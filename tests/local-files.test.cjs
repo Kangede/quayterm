@@ -5,6 +5,53 @@ const path = require('node:path')
 const os = require('node:os')
 const { Files } = require('../electron/files.cjs')
 const { Readable } = require('node:stream')
+test(
+  'Windows drive discovery tolerates unavailable volumes but preserves file operation errors',
+  { skip: process.platform !== 'win32' },
+  async (t) => {
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-unavailable-drives-'))
+    const files = new Files(null)
+    const root = path.parse(fs.realpathSync.native(directory)).root
+    const originalLstat = fs.promises.lstat.bind(fs.promises)
+    const originalReaddir = fs.promises.readdir.bind(fs.promises)
+    const denied = path.join(directory, 'denied')
+    const codes = ['UNKNOWN', 'EACCES', 'EIO', 'ENOENT']
+    t.mock.method(fs.promises, 'lstat', async (p, ...args) => {
+      if (/^[A-Z]:\\$/i.test(p) && p.toUpperCase() !== root.toUpperCase()) {
+        const code = codes[p.charCodeAt(0) % codes.length]
+        throw Object.assign(new Error('Unavailable test volume'), { code })
+      }
+      return originalLstat(p, ...args)
+    })
+    t.mock.method(fs.promises, 'readdir', async (p, ...args) => {
+      if (p === denied) throw Object.assign(new Error('Access denied'), { code: 'EACCES' })
+      return originalReaddir(p, ...args)
+    })
+    try {
+      fs.writeFileSync(path.join(directory, 'readable.txt'), 'still readable')
+      fs.mkdirSync(denied)
+      const list = await files.list('local', directory)
+      assert.deepEqual(list.roots, [root])
+      assert.ok(list.entries.some((entry) => entry.name === 'readable.txt'))
+      await assert.rejects(files.list('local', denied), { code: 'EACCES' })
+      await assert.rejects(
+        files.exists(
+          {
+            lstat: async () => {
+              throw Object.assign(new Error('I/O failure'), { code: 'EIO' })
+            }
+          },
+          'target.txt'
+        ),
+        { code: 'EIO' }
+      )
+    } finally {
+      t.mock.restoreAll()
+      fs.rmSync(directory, { recursive: true, force: true })
+    }
+  }
+)
+
 test('rejected or canceled writes do not open the source stream', async () => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-deferred-read-'))
   const files = new Files(null)

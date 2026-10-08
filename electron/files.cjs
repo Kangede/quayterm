@@ -126,7 +126,13 @@ class Files extends EventEmitter {
         await Promise.all(
           'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(async (c) => {
             const p = `${c}:\\`
-            return (await this.exists(a, p)) ? p : null
+            // Empty optical/removable drives and inaccessible volumes must not
+            // prevent listing an unrelated, readable directory.
+            try {
+              return (await this.exists(a, p))?.isDirectory() ? p : null
+            } catch {
+              return null
+            }
           })
         )
       ).filter(Boolean)

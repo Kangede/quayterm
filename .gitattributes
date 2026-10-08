@@ -1,0 +1,2 @@
+# Keep the formatter's LF convention on Windows checkouts as well.
+* text=auto eol=lf
