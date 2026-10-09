@@ -12,6 +12,8 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
   fs.writeFileSync(binaryFile, Buffer.from([0, 255, 42]))
   const executable = process.env.QUAYTERM_TEST_EXECUTABLE
   const app = await electron.launch({
+    // Playwright adds --no-sandbox on Linux unless explicitly opted out.
+    chromiumSandbox: Boolean(executable),
     ...(executable ? { executablePath: path.resolve(executable) } : {}),
     args: executable
       ? []
@@ -19,7 +21,10 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
     env: { ...process.env, QUAYTERM_DATA_DIR: directory }
   })
   try {
-    if (executable) expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
+    if (executable) {
+      expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
+      expect(await app.evaluate(({ app }) => app.commandLine.hasSwitch('no-sandbox'))).toBe(false)
+    }
     const page = await app.firstWindow()
     // Exercise the native opening IPC without starting arbitrary third-party
     // applications on CI. The SFTP download and local files remain real.
