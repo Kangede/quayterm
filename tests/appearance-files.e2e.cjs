@@ -4,6 +4,7 @@ const path = require('node:path')
 const os = require('node:os')
 const { fixture } = require('./fixture.cjs')
 const themes = require('../shared/terminal-themes.json')
+const multiSelectModifier = process.platform === 'darwin' ? 'Meta' : 'Control'
 let app, page, fx, directory, local, download
 const rgb = (hex) => `rgb(${[1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(', ')})`
 test.describe.configure({ mode: 'serial' })
@@ -120,7 +121,7 @@ test('local file context menus target the clicked item, preserve multiple select
   const left = panel(0)
   await location(left, local)
   await row(left, 'first.txt').click()
-  await row(left, 'second.txt').click({ modifiers: ['Control'] })
+  await row(left, 'second.txt').click({ modifiers: [multiSelectModifier] })
   await row(left, 'first.txt').click({ button: 'right' })
   await expect(left.locator('.file-row.selected')).toHaveCount(2)
   await contextItem('复制路径')
@@ -267,7 +268,7 @@ test('binary double-click opens independent local snapshots while text and read 
   const textSnapshot = await app.evaluate(() => global.__quayExternalOpens[3])
   expect(fs.readFileSync(textSnapshot, 'utf8')).toBe('still editable\r\n')
   await row(right, 'plain.txt').click()
-  await row(right, 'report.pdf').click({ modifiers: ['Control'] })
+  await row(right, 'report.pdf').click({ modifiers: [multiSelectModifier] })
   await row(right, 'plain.txt').click({ button: 'right' })
   await expect(page.getByRole('menuitem', { name: /用本地程序打开/ })).toHaveAttribute(
     'aria-disabled',
