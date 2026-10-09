@@ -22,6 +22,7 @@ test.beforeAll(async () => {
   const seed = path.join(directory, 'seed.json')
   fs.writeFileSync(seed, JSON.stringify([{ ...fx.host, name: '功能测试主机' }]))
   app = await electron.launch({
+    chromiumSandbox: Boolean(process.env.QUAYTERM_TEST_EXECUTABLE),
     ...(process.env.QUAYTERM_TEST_EXECUTABLE
       ? { executablePath: path.resolve(process.env.QUAYTERM_TEST_EXECUTABLE) }
       : {}),
@@ -30,6 +31,8 @@ test.beforeAll(async () => {
   })
   page = await app.firstWindow()
   if (process.env.QUAYTERM_TEST_EXECUTABLE) {
+    expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
+    expect(await app.evaluate(({ app }) => app.commandLine.hasSwitch('no-sandbox'))).toBe(false)
     await page.getByRole('button', { name: '远程主机', exact: true }).waitFor()
     await page.evaluate(
       (host) => window.quay.invoke('hostSave', { ...host, name: '功能测试主机', rememberPassword: false }),
