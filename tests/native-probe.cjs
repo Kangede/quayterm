@@ -12,6 +12,7 @@ async function nativeProbe() {
   const text = 'Native SFTP ✓\n跨平台文件浏览\n'
   const contents = Buffer.from(text)
   const clients = new Set()
+  const channels = new Set()
   const input = []
   const dimensions = []
   const attrs = {
@@ -50,6 +51,8 @@ async function nativeProbe() {
         })
         session.on('shell', (accept) => {
           const stream = accept()
+          channels.add(stream)
+          stream.on('close', () => channels.delete(stream))
           stream.write('\x1b[?2004h\x1b[32mNative SSH ready 测试\x1b[0m\r\n> ')
           stream.on('data', (bytes) => {
             input.push(Buffer.from(bytes))
@@ -114,6 +117,9 @@ async function nativeProbe() {
     text,
     input,
     dimensions,
+    output(data) {
+      for (const channel of channels) channel.write(data)
+    },
     async close() {
       for (const client of clients) client.end()
       await new Promise((resolve) => server.close(resolve))

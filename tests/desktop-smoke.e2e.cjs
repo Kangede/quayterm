@@ -143,7 +143,26 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
       await page.keyboard.press('Meta+a')
       await page.keyboard.press('Meta+v')
       await expect(editor).toHaveValue('Native menu paste')
+      await editor.fill(probe.text)
     }
+    await page.getByRole('button', { name: '关闭', exact: true }).last().click()
+    await expect(page.locator('.file-editor-modal')).toHaveCount(0)
+    // Exercise local selection while a remote application owns mouse reporting.
+    probe.output('\x1b[?1049h\x1b[?1002h\x1b[?1006h\x1b[2J\x1b[HSHIFT_SELECT\r\n')
+    await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('SHIFT_SELECT')
+    await app.evaluate(({ clipboard }) => clipboard.writeText('before-mouse-selection'))
+    const mouseOffset = probe.input.length
+    const box = await page.locator('.terminal-pane.focused .xterm-screen').boundingBox()
+    await page.keyboard.down('Shift')
+    await page.mouse.move(box.x + 2, box.y + 7)
+    await page.mouse.down()
+    await page.mouse.move(box.x + 125, box.y + 7, { steps: 12 })
+    await page.mouse.up()
+    await page.keyboard.up('Shift')
+    await page.keyboard.press(process.platform === 'darwin' ? 'Meta+c' : 'Control+Shift+c')
+    await expect.poll(() => app.evaluate(({ clipboard }) => clipboard.readText())).toContain('SHIFT_SELECT')
+    expect(Buffer.concat(probe.input.slice(mouseOffset)).toString()).not.toMatch(/\x1b\[(?:M|<)/)
+    probe.output('\x1b[?1002l\x1b[?1006l\x1b[?1049l')
     expect(await page.evaluate(() => typeof window.require)).toBe('undefined')
     expect(errors).toEqual([])
   } finally {
