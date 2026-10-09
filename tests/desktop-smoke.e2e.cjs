@@ -10,11 +10,16 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
   const binaryFile = path.join(directory, 'native-binary.png')
   fs.writeFileSync(textFile, '\ufeffline1\r\nline2\r\n')
   fs.writeFileSync(binaryFile, Buffer.from([0, 255, 42]))
+  const executable = process.env.QUAYTERM_TEST_EXECUTABLE
   const app = await electron.launch({
-    args: [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
+    ...(executable ? { executablePath: path.resolve(executable) } : {}),
+    args: executable
+      ? []
+      : [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
     env: { ...process.env, QUAYTERM_DATA_DIR: directory }
   })
   try {
+    if (executable) expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
     const page = await app.firstWindow()
     // Exercise the native opening IPC without starting arbitrary third-party
     // applications on CI. The SFTP download and local files remain real.
