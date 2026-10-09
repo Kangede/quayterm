@@ -338,12 +338,12 @@
     {
       "file": "e2e-report.json",
       "sha256": "d09c1d19c357e9375c85de131af73326ab5e7aa73c421ffbd1d46f5ea0baea49",
-      "retention": "raw file kept only in local ignored test workspace"
+      "retention": "Initial raw report archived at .private/qa/linux-cross-platform-20261009/e2e-report.json"
     },
     {
       "file": "context-menu.png",
       "sha256": "78b56c7cbba9072e3a2d367b421160ea0de31f52da3b496fa71d0e607dda42b2",
-      "retention": "raw file kept only in local ignored test workspace"
+      "retention": "Reviewed during the initial round; fixed output path was overwritten by later suite runs. Initial hash is retained, but the original PNG is no longer available at that path."
     }
   ],
   "uncovered": [
@@ -360,5 +360,1281 @@
     "visibleQuaytermParentProjectId": "01ca1cfd-9e32-4175-9380-45f29c0bc6b0",
     "visibleQuaytermParentProjectPath": "/home/kk/workspace/ssh_client",
     "laterCoordinationUpdate": "Mac execution chat has been created separately; no further project investigation needed"
+  },
+  "aggregationBranch": "codex/cross-platform-qa-20261009",
+  "packagedDriverRegression": {
+    "upstreamCommits": [
+      "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+      "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19"
+    ],
+    "sandboxDriverFix": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+    "productBaseline": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+    "artifact": {
+      "time": "2026-10-09T10:31:16.481Z",
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "driverCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+      "mergeCommit": "28d3f622950b83bc6b4e582c2860dc178a5858e9",
+      "origin": "Existing local Linux test build; not a GitHub Release asset",
+      "artifactPath": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+      "version": "0.2.2",
+      "architecture": "linux x64",
+      "appAsarSha256": "02ae584447ddd543bb19c511e614c565f730b441f30cdcfe7049d85928594b01",
+      "electronVersion": "44.7.0",
+      "executableSha256": "10a14d05c6ff4f94075cfb3eeb6ed6571be33ebcc08cbd675b5ce9ff84706564",
+      "matchingProductFiles": [
+        {
+          "path": "electron/files.cjs",
+          "sha256": "3d5b31e3a44a2ed32e7231b467d0bcbf3ac5946fc4be18d691b5b1f570f72192"
+        },
+        {
+          "path": "electron/known-hosts.cjs",
+          "sha256": "3faeb75197d48d7dfc18b53e303ce3e760179254e2c175e5e4902bfccf8ad8ec"
+        },
+        {
+          "path": "electron/main.cjs",
+          "sha256": "b39c54317b6fa9d75aa8e2f3e4509ec4e158a9b41804585f1d7f37976530360c"
+        },
+        {
+          "path": "electron/preload.cjs",
+          "sha256": "2d232171b0e16d69eb9d35892b9f7ee5fb2f02017d529dd996ef5c42168f2d4f"
+        },
+        {
+          "path": "electron/sessions.cjs",
+          "sha256": "2eb716e7c554e09c1976fbc85ccf208a0a1ecd39a98272be3abe648b205e69c6"
+        },
+        {
+          "path": "electron/store.cjs",
+          "sha256": "e995e831e8ec32093595e4d0886783fc6fe32bf8e7dfa1cb6e08d5442b726800"
+        },
+        {
+          "path": "electron/validation.cjs",
+          "sha256": "77c7518bd63f7f8e6e936b8f55039910a18e76fc98c9504f9deb065ad2ec2106"
+        },
+        {
+          "path": "resources/icon.png",
+          "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706"
+        },
+        {
+          "path": "shared/terminal-themes.json",
+          "sha256": "4f05456012dfd2ad00c4a49d0d633df16e1adcb8f8dec8fdeeff0b9c63daf627"
+        },
+        {
+          "path": "dist/assets/index-C7EnujSW.css",
+          "sha256": "60997054e0b3fee3d139318e311d67188f6f50ed8a52a19c9c847f0e13ef8427"
+        },
+        {
+          "path": "dist/assets/index-w2lchqM0.js",
+          "sha256": "36bf79f4cf966065712bd8290782b43349b31e99449f907c601ac18175c58107"
+        },
+        {
+          "path": "dist/index.html",
+          "sha256": "de810a5170977353d4136b34f2f1135c6d210511ff8e1aadf86aee071862cda5"
+        }
+      ],
+      "developmentMaterialIncluded": []
+    },
+    "runs": [
+      {
+        "step": "check",
+        "mergeCommit": "28d3f622950b83bc6b4e582c2860dc178a5858e9",
+        "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+        "command": ["npm", "run", "check"],
+        "started": "2026-10-09T10:34:02.553Z",
+        "finished": "2026-10-09T10:34:05.708Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 3155,
+        "testExecutable": null,
+        "display": null,
+        "upstreamDriverCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+        "driverTreeCommit": "28d3f622950b83bc6b4e582c2860dc178a5858e9"
+      },
+      {
+        "step": "check",
+        "mergeCommit": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+        "driverTreeCommit": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+        "upstreamDriverCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+        "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+        "command": ["npm", "run", "check"],
+        "started": "2026-10-09T10:45:13.684Z",
+        "finished": "2026-10-09T10:45:16.095Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 2411,
+        "testExecutable": null,
+        "display": null
+      },
+      {
+        "step": "source-smoke",
+        "mergeCommit": "4f309c5a1db38cc4664e681819434a9cc1b13e67",
+        "driverTreeCommit": "4f309c5a1db38cc4664e681819434a9cc1b13e67",
+        "upstreamDriverCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+        "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+        "command": [
+          "xvfb-run",
+          "-a",
+          "-s",
+          "-screen 0 1600x1000x24",
+          "npx",
+          "playwright",
+          "test",
+          "--config",
+          ".private/qa/linux-cross-platform-20261009-driver-b8be374/source-smoke.config.cjs",
+          "desktop-smoke.e2e.cjs"
+        ],
+        "started": "2026-10-09T10:54:31.050Z",
+        "finished": "2026-10-09T10:54:40.440Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 9390,
+        "testExecutable": null,
+        "display": "isolated Xvfb"
+      },
+      {
+        "step": "packaged-smoke",
+        "mergeCommit": "4f309c5a1db38cc4664e681819434a9cc1b13e67",
+        "driverTreeCommit": "4f309c5a1db38cc4664e681819434a9cc1b13e67",
+        "upstreamDriverCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+        "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+        "command": [
+          "xvfb-run",
+          "-a",
+          "-s",
+          "-screen 0 1600x1000x24",
+          "npx",
+          "playwright",
+          "test",
+          "--config",
+          ".private/qa/linux-cross-platform-20261009-driver-b8be374/packaged-smoke.config.cjs",
+          "desktop-smoke.e2e.cjs"
+        ],
+        "started": "2026-10-09T10:55:48.312Z",
+        "finished": "2026-10-09T10:55:57.695Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 9383,
+        "testExecutable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+        "display": "isolated Xvfb"
+      },
+      {
+        "step": "packaged-files",
+        "mergeCommit": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+        "driverTreeCommit": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+        "upstreamDriverCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+        "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+        "command": [
+          "xvfb-run",
+          "-a",
+          "-s",
+          "-screen 0 1600x1000x24",
+          "npx",
+          "playwright",
+          "test",
+          "--config",
+          ".private/qa/linux-cross-platform-20261009-driver-b8be374/packaged-files.config.cjs",
+          "appearance-files.e2e.cjs",
+          "--grep",
+          "local file context|SFTP context|binary double-click"
+        ],
+        "started": "2026-10-09T10:50:30.624Z",
+        "finished": "2026-10-09T10:51:09.171Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 38547,
+        "testExecutable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+        "display": "isolated Xvfb"
+      }
+    ],
+    "sourceRuntime": {
+      "isPackaged": false,
+      "appPath": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009",
+      "appVersion": "0.2.2",
+      "electronVersion": "44.7.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "hasNoSandboxSwitch": true,
+      "passwordStoreSwitch": "basic",
+      "useMockKeychainSwitch": true,
+      "rendererSandbox": true,
+      "contextIsolation": true,
+      "nodeIntegration": false
+    },
+    "packagedRuntime": {
+      "isPackaged": true,
+      "appPath": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/resources/app.asar",
+      "appVersion": "0.2.2",
+      "electronVersion": "44.7.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "hasNoSandboxSwitch": false,
+      "passwordStoreSwitch": "",
+      "useMockKeychainSwitch": false,
+      "rendererSandbox": true,
+      "contextIsolation": true,
+      "nodeIntegration": false
+    },
+    "desktopResults": {
+      "source-smoke": {
+        "stats": {
+          "startTime": "2026-10-09T10:54:31.532Z",
+          "duration": 8893.828000000001,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        },
+        "cases": [
+          {
+            "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+            "status": "expected",
+            "annotations": [],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 8595
+              }
+            ]
+          }
+        ]
+      },
+      "packaged-smoke": {
+        "stats": {
+          "startTime": "2026-10-09T10:55:48.809Z",
+          "duration": 8870.051,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        },
+        "cases": [
+          {
+            "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+            "status": "expected",
+            "annotations": [],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 8567
+              }
+            ]
+          }
+        ]
+      },
+      "packaged-files": {
+        "stats": {
+          "startTime": "2026-10-09T10:50:31.065Z",
+          "duration": 38085.985,
+          "expected": 3,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        },
+        "cases": [
+          {
+            "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "serial",
+                "location": {
+                  "file": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/tests/appearance-files.e2e.cjs",
+                  "line": 0,
+                  "column": 0
+                }
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 7894
+              }
+            ]
+          },
+          {
+            "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "serial",
+                "location": {
+                  "file": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/tests/appearance-files.e2e.cjs",
+                  "line": 0,
+                  "column": 0
+                }
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 12016
+              }
+            ]
+          },
+          {
+            "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "serial",
+                "location": {
+                  "file": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/tests/appearance-files.e2e.cjs",
+                  "line": 0,
+                  "column": 0
+                }
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 17064
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "initialDriverFailures": {
+      "reason": "Playwright Linux default injected --no-sandbox despite args=[]; private runtime assertion correctly rejected both packaged suites",
+      "runs": [
+        {
+          "step": "packaged-smoke",
+          "mergeCommit": "39f6cbea90c647ffe73eb4e8f8d3ef8151fbee46",
+          "driverCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+          "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+          "command": [
+            "xvfb-run",
+            "-a",
+            "-s",
+            "-screen 0 1600x1000x24",
+            "npx",
+            "playwright",
+            "test",
+            "--config",
+            ".private/qa/linux-cross-platform-20261009-driver-b8be374/packaged-smoke.config.cjs",
+            "desktop-smoke.e2e.cjs"
+          ],
+          "started": "2026-10-09T10:37:28.066Z",
+          "finished": "2026-10-09T10:37:29.429Z",
+          "exitCode": 1,
+          "signal": null,
+          "elapsedMs": 1363,
+          "testExecutable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "display": "isolated Xvfb"
+        },
+        {
+          "step": "packaged-files",
+          "mergeCommit": "39f6cbea90c647ffe73eb4e8f8d3ef8151fbee46",
+          "driverCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+          "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+          "command": [
+            "xvfb-run",
+            "-a",
+            "-s",
+            "-screen 0 1600x1000x24",
+            "npx",
+            "playwright",
+            "test",
+            "--config",
+            ".private/qa/linux-cross-platform-20261009-driver-b8be374/packaged-files.config.cjs",
+            "appearance-files.e2e.cjs",
+            "--grep",
+            "local file context|SFTP context|binary double-click"
+          ],
+          "started": "2026-10-09T10:39:13.931Z",
+          "finished": "2026-10-09T10:39:15.240Z",
+          "exitCode": 1,
+          "signal": null,
+          "elapsedMs": 1309,
+          "testExecutable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "display": "isolated Xvfb"
+        }
+      ],
+      "runtime": {
+        "isPackaged": true,
+        "appPath": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/resources/app.asar",
+        "appVersion": "0.2.2",
+        "electronVersion": "44.7.0",
+        "platform": "linux",
+        "architecture": "x64",
+        "hasNoSandboxSwitch": true,
+        "rendererSandbox": true,
+        "contextIsolation": true,
+        "nodeIntegration": false
+      },
+      "retention": "initial-no-sandbox-failure/ logs, JSON and traces retained locally"
+    },
+    "directLaunch": {
+      "started": "2026-10-09T10:57:37.432Z",
+      "artifactSha256": "02ae584447ddd543bb19c511e614c565f730b441f30cdcfe7049d85928594b01",
+      "artifactPath": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+      "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "launch": "direct child_process.spawn, no Electron automation loader",
+      "args": ["--remote-debugging-address=127.0.0.1", "--remote-debugging-port=0"],
+      "display": "isolated Xvfb",
+      "defaultEnvironmentLimit": "loopback CDP debug port and temporary profile explicitly added; no installer or physical-desktop acceptance",
+      "state": {
+        "version": "0.2.2",
+        "platform": "linux",
+        "secureStorageAvailable": true,
+        "hostCount": 0,
+        "nodeInMainWorld": "undefined",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) QuayTerm/0.2.2 Chrome/152.0.7977.130 Electron/44.7.0 Safari/537.36"
+      },
+      "processes": [
+        {
+          "pid": 30004,
+          "parent": 29996,
+          "executable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm --remote-debugging-address=127.0.0.1 --remote-debugging-port=0"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "29996",
+            "NSpid": "30004",
+            "NoNewPrivs": "0",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 30007,
+          "parent": 30004,
+          "executable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm --type=zygote --no-zygote-sandbox"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "30004",
+            "NSpid": "30007",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 30008,
+          "parent": 30004,
+          "executable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm --type=zygote"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "30004",
+            "NSpid": "30008\t1",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 30010,
+          "parent": 30008,
+          "executable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm --type=zygote"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "30008",
+            "NSpid": "30010\t3",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 30038,
+          "parent": 30007,
+          "executable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm --type=gpu-process --ozone-platform=x11 --enable-crash-reporter=25de5c97-f746-46cc-bac0-d345935adfb9,no_channel --user-data-dir=/tmp/quayterm-direct-BdvzLW --gpu-preferences=YAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAASAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAMAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=3,i,4851930285506011859,1572420561920418001,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,16382894652821545897,3228179378352559965,4 --trace-process-track-uuid=3190708988185955192"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "30007",
+            "NSpid": "30038",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 30042,
+          "parent": 30004,
+          "executable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --enable-crash-reporter=25de5c97-f746-46cc-bac0-d345935adfb9,no_channel --user-data-dir=/tmp/quayterm-direct-BdvzLW --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,4851930285506011859,1572420561920418001,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,16382894652821545897,3228179378352559965,4 --trace-process-track-uuid=3190708989122997041"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "30004",
+            "NSpid": "30042",
+            "NoNewPrivs": "0",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 30046,
+          "parent": 30010,
+          "executable": "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/quayterm --type=renderer --enable-crash-reporter=25de5c97-f746-46cc-bac0-d345935adfb9,no_channel --user-data-dir=/tmp/quayterm-direct-BdvzLW --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --app-path=/home/kk/workspace/ssh_client/quayterm/.private/external-open-package/linux-unpacked/resources/app.asar --enable-sandbox --remote-debugging-port=0 --ozone-platform=x11 --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=6131173669 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,4851930285506011859,1572420561920418001,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,16382894652821545897,3228179378352559965,4 --trace-process-track-uuid=3190708990060038890"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "30010",
+            "NSpid": "30046\t4\t1",
+            "NoNewPrivs": "1",
+            "Seccomp": "2",
+            "Seccomp_filters": "1"
+          }
+        }
+      ],
+      "checks": {
+        "noAutomationSecurityOverrides": true,
+        "rendererEnableSandbox": true,
+        "rendererNoNewPrivs": 1,
+        "rendererSeccomp": 2
+      },
+      "result": "PASS",
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "finished": "2026-10-09T10:57:37.997Z"
+    },
+    "directProbeCorrection": "Early private sampler incorrectly assumed every /proc/cmdline argument was a separate NUL segment. Chromium rewrites process titles into a single segment. Boundary-based switch matching retained the full raw command lines and original security assertions; initial failures are retained locally. No application startup or system policy failure was inferred.",
+    "cleanup": {
+      "failedLaunchProfilesRemoved": [
+        {
+          "directory": "quayterm-native-vrXtvA",
+          "origin": "packaged-smoke failed sandbox precondition",
+          "verified": "absent before phase; test-generated prefix; owner; failure interval; test file markers or Chromium-only recreation after fixture cleanup"
+        },
+        {
+          "directory": "quayterm-features-vZPfql",
+          "origin": "packaged-files failed sandbox precondition",
+          "verified": "absent before phase; test-generated prefix; owner; failure interval; test file markers or Chromium-only recreation after fixture cleanup"
+        }
+      ],
+      "remainingNewTempPaths": [],
+      "note": "No user profile or Windows cleanup-blocked directory was touched"
+    },
+    "evidenceHashes": [
+      {
+        "file": "artifact-verification.json",
+        "sha256": "137ff021707cc3599e05bda35a7d784c71c59532af1b92636e6f4dfabec515ad",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "source-smoke.log",
+        "sha256": "074361b1658120f7e6d9a18e45e73e562ee87edeb74bcc8912bc40ebb8064596",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "source-smoke-report.json",
+        "sha256": "36e45b377d0974753432545ad7a1ba28bd524d0eb2dfe363b896cec38678947c",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "source-smoke-runtime.json",
+        "sha256": "6e1afb3245f40447f2b7ba3c6c9d609aaf43b0711a10bf678072b7a3b0b0588b",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-smoke.log",
+        "sha256": "9c6a2c0d89b5f04395ac5fb15f825dc0f7c8ea7a68e114095bece93678c7d622",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-smoke-report.json",
+        "sha256": "d190a86da1de637dff7abb992367be6158dbde02117d5c28ca2f7466d7363514",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-smoke-runtime.json",
+        "sha256": "be3a58657067269891ae838af2e1d21daaffb15f0cc35673a84f7dd05cc92589",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-files.log",
+        "sha256": "72d4e5a0d370fc7818f6c7ccc2f736ef60ea61fcdbfd3a70dbd0849ed3d3e0fd",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-files-report.json",
+        "sha256": "279e2529788cf4b6af3e77ae2bdbeb400af54f8a782de6cd79d3ea70203341c8",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "direct-start.json",
+        "sha256": "eabd21234e64e789962e78d501e7d4b63485354edc755954c5d3f8edb4f105eb",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "direct-start.stderr.log",
+        "sha256": "0bba6700c30956963d1bf6bb349e0a4533f9adca2535e4ed66fc822752957f90",
+        "rawRetention": "local ignored QA directory"
+      }
+    ]
+  },
+  "finalMouseRegression": {
+    "productFixCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+    "mouseRegressionCommit": "2efad3c288d03a8b9f6acd4279bc02fb71823e74",
+    "fileWaitCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+    "buildCheckoutCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+    "testedDriverCheckoutCommit": "819108f2087d626f3884e0545af81a997877b7a2",
+    "artifact": {
+      "sourceCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+      "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "driverCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+      "artifactPath": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+      "verified": true,
+      "time": "2026-10-09T11:15:17.214Z",
+      "origin": "New Linux local test build from merged macOS Shift fix; not a release asset",
+      "version": "0.2.2",
+      "architecture": "linux x64",
+      "appAsarSha256": "e1cdf75c0c579d3d0979d87f6171ebb75120752403ba637c7de91c76d51bee86",
+      "executableSha256": "10a14d05c6ff4f94075cfb3eeb6ed6571be33ebcc08cbd675b5ce9ff84706564",
+      "electronVersion": "44.7.0",
+      "matchingProductFiles": [
+        {
+          "path": "electron/files.cjs",
+          "sha256": "3d5b31e3a44a2ed32e7231b467d0bcbf3ac5946fc4be18d691b5b1f570f72192"
+        },
+        {
+          "path": "electron/known-hosts.cjs",
+          "sha256": "3faeb75197d48d7dfc18b53e303ce3e760179254e2c175e5e4902bfccf8ad8ec"
+        },
+        {
+          "path": "electron/main.cjs",
+          "sha256": "b39c54317b6fa9d75aa8e2f3e4509ec4e158a9b41804585f1d7f37976530360c"
+        },
+        {
+          "path": "electron/preload.cjs",
+          "sha256": "2d232171b0e16d69eb9d35892b9f7ee5fb2f02017d529dd996ef5c42168f2d4f"
+        },
+        {
+          "path": "electron/sessions.cjs",
+          "sha256": "2eb716e7c554e09c1976fbc85ccf208a0a1ecd39a98272be3abe648b205e69c6"
+        },
+        {
+          "path": "electron/store.cjs",
+          "sha256": "e995e831e8ec32093595e4d0886783fc6fe32bf8e7dfa1cb6e08d5442b726800"
+        },
+        {
+          "path": "electron/validation.cjs",
+          "sha256": "77c7518bd63f7f8e6e936b8f55039910a18e76fc98c9504f9deb065ad2ec2106"
+        },
+        {
+          "path": "resources/icon.png",
+          "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706"
+        },
+        {
+          "path": "shared/terminal-themes.json",
+          "sha256": "4f05456012dfd2ad00c4a49d0d633df16e1adcb8f8dec8fdeeff0b9c63daf627"
+        },
+        {
+          "path": "dist/assets/index-C7EnujSW.css",
+          "sha256": "60997054e0b3fee3d139318e311d67188f6f50ed8a52a19c9c847f0e13ef8427"
+        },
+        {
+          "path": "dist/assets/index-Dxcy6fcZ.js",
+          "sha256": "ec7698ba2479d0878e8dc0e9879dc12c18805068d419c84c8d9ce7d0e2293c43"
+        },
+        {
+          "path": "dist/index.html",
+          "sha256": "79aeb37795b7358447f09279be35a55c30be6e9cf079755543d9a987438c596e"
+        }
+      ]
+    },
+    "runs": [
+      {
+        "step": "check",
+        "checkoutCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "driverCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+        "command": ["npm", "run", "check"],
+        "started": "2026-10-09T11:10:29.655Z",
+        "finished": "2026-10-09T11:10:32.807Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 3152,
+        "testExecutable": null,
+        "display": null
+      },
+      {
+        "step": "build",
+        "checkoutCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "driverCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+        "command": ["npm", "run", "build"],
+        "started": "2026-10-09T11:10:29.657Z",
+        "finished": "2026-10-09T11:10:32.676Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 3019,
+        "testExecutable": null,
+        "display": null
+      },
+      {
+        "step": "portable",
+        "checkoutCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "driverCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+        "command": [
+          "node",
+          "--test",
+          "tests/workspace.test.cjs",
+          "tests/local-files.test.cjs",
+          "tests/terminal-display.test.cjs"
+        ],
+        "started": "2026-10-09T11:10:29.654Z",
+        "finished": "2026-10-09T11:10:29.964Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 310,
+        "testExecutable": null,
+        "display": null
+      },
+      {
+        "step": "pack",
+        "checkoutCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "driverCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+        "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+        "command": ["npm", "run", "pack", "--", "--config.directories.output=.private/mac-shift-package"],
+        "started": "2026-10-09T11:11:49.013Z",
+        "finished": "2026-10-09T11:11:59.052Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 10039,
+        "testExecutable": null,
+        "display": null
+      },
+      {
+        "step": "source-smoke",
+        "checkoutCommit": "819108f2087d626f3884e0545af81a997877b7a2",
+        "driverCommit": "819108f2087d626f3884e0545af81a997877b7a2",
+        "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+        "command": [
+          "xvfb-run",
+          "-a",
+          "-s",
+          "-screen 0 1600x1000x24",
+          "npx",
+          "playwright",
+          "test",
+          "--config",
+          ".private/qa/linux-cross-platform-20261009-mac-shift-final/source-smoke.config.cjs",
+          "desktop-smoke.e2e.cjs"
+        ],
+        "started": "2026-10-09T11:17:54.436Z",
+        "finished": "2026-10-09T11:18:05.136Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 10700,
+        "testExecutable": null,
+        "display": "isolated Xvfb"
+      },
+      {
+        "step": "packaged-smoke",
+        "checkoutCommit": "819108f2087d626f3884e0545af81a997877b7a2",
+        "driverCommit": "819108f2087d626f3884e0545af81a997877b7a2",
+        "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+        "command": [
+          "xvfb-run",
+          "-a",
+          "-s",
+          "-screen 0 1600x1000x24",
+          "npx",
+          "playwright",
+          "test",
+          "--config",
+          ".private/qa/linux-cross-platform-20261009-mac-shift-final/packaged-smoke.config.cjs",
+          "desktop-smoke.e2e.cjs"
+        ],
+        "started": "2026-10-09T11:20:24.181Z",
+        "finished": "2026-10-09T11:20:34.843Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 10662,
+        "testExecutable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+        "display": "isolated Xvfb"
+      },
+      {
+        "step": "packaged-files",
+        "checkoutCommit": "819108f2087d626f3884e0545af81a997877b7a2",
+        "driverCommit": "819108f2087d626f3884e0545af81a997877b7a2",
+        "productCodeCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+        "command": [
+          "xvfb-run",
+          "-a",
+          "-s",
+          "-screen 0 1600x1000x24",
+          "npx",
+          "playwright",
+          "test",
+          "--config",
+          ".private/qa/linux-cross-platform-20261009-mac-shift-final/packaged-files.config.cjs",
+          "appearance-files.e2e.cjs",
+          "--grep",
+          "local file context|SFTP context|binary double-click|same-name uploads"
+        ],
+        "started": "2026-10-09T11:22:28.072Z",
+        "finished": "2026-10-09T11:23:13.641Z",
+        "exitCode": 0,
+        "signal": null,
+        "elapsedMs": 45569,
+        "testExecutable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+        "display": "isolated Xvfb"
+      }
+    ],
+    "portableSummary": {
+      "tests": 16,
+      "pass": 15,
+      "fail": 0,
+      "skipped": 1
+    },
+    "desktopResults": {
+      "source-smoke": {
+        "stats": {
+          "startTime": "2026-10-09T11:17:54.889Z",
+          "duration": 10231.615,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        },
+        "cases": [
+          {
+            "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "electron-launch",
+                "description": "{\"platform\":\"linux\",\"arch\":\"x64\",\"version\":\"0.2.2\",\"electron\":\"44.7.0\",\"isPackaged\":false,\"noSandbox\":true,\"useMockKeychain\":true,\"passwordStorePresent\":true,\"passwordStoreValue\":\"basic\",\"windows\":[{\"sandbox\":true,\"contextIsolation\":true,\"nodeIntegration\":false,\"webSecurity\":true}]}"
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 9855
+              }
+            ]
+          }
+        ]
+      },
+      "packaged-smoke": {
+        "stats": {
+          "startTime": "2026-10-09T11:20:24.664Z",
+          "duration": 10165.011999999999,
+          "expected": 1,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        },
+        "cases": [
+          {
+            "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "electron-launch",
+                "description": "{\"platform\":\"linux\",\"arch\":\"x64\",\"version\":\"0.2.2\",\"electron\":\"44.7.0\",\"isPackaged\":true,\"noSandbox\":false,\"useMockKeychain\":false,\"passwordStorePresent\":false,\"passwordStoreValue\":\"\",\"windows\":[{\"sandbox\":true,\"contextIsolation\":true,\"nodeIntegration\":false,\"webSecurity\":true}]}"
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 9858
+              }
+            ]
+          }
+        ]
+      },
+      "packaged-files": {
+        "stats": {
+          "startTime": "2026-10-09T11:22:28.565Z",
+          "duration": 45057.309,
+          "expected": 4,
+          "skipped": 0,
+          "unexpected": 0,
+          "flaky": 0
+        },
+        "cases": [
+          {
+            "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "serial",
+                "location": {
+                  "file": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/tests/appearance-files.e2e.cjs",
+                  "line": 0,
+                  "column": 0
+                }
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 8226
+              }
+            ]
+          },
+          {
+            "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "serial",
+                "location": {
+                  "file": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/tests/appearance-files.e2e.cjs",
+                  "line": 0,
+                  "column": 0
+                }
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 11882
+              }
+            ]
+          },
+          {
+            "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "serial",
+                "location": {
+                  "file": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/tests/appearance-files.e2e.cjs",
+                  "line": 0,
+                  "column": 0
+                }
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 17276
+              }
+            ]
+          },
+          {
+            "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+            "status": "expected",
+            "annotations": [
+              {
+                "type": "serial",
+                "location": {
+                  "file": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/tests/appearance-files.e2e.cjs",
+                  "line": 0,
+                  "column": 0
+                }
+              }
+            ],
+            "results": [
+              {
+                "status": "passed",
+                "durationMs": 6591
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "mouseModes": [1000, 1002, 1003],
+    "mouseCoverage": "Linux Shift selection/copy remains local; ordinary clicks still emit SSH mouse reports. Mac Option/Shift-specific claims belong to Mac evidence.",
+    "sourceRuntime": {
+      "isPackaged": false,
+      "appPath": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009",
+      "appVersion": "0.2.2",
+      "electronVersion": "44.7.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "hasNoSandboxSwitch": true,
+      "passwordStoreSwitch": "basic",
+      "useMockKeychainSwitch": true,
+      "rendererSandbox": true,
+      "contextIsolation": true,
+      "nodeIntegration": false
+    },
+    "packagedRuntime": {
+      "isPackaged": true,
+      "appPath": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/resources/app.asar",
+      "appVersion": "0.2.2",
+      "electronVersion": "44.7.0",
+      "platform": "linux",
+      "architecture": "x64",
+      "hasNoSandboxSwitch": false,
+      "passwordStoreSwitch": "",
+      "useMockKeychainSwitch": false,
+      "rendererSandbox": true,
+      "contextIsolation": true,
+      "nodeIntegration": false
+    },
+    "directLaunch": {
+      "started": "2026-10-09T11:17:55.801Z",
+      "artifactSha256": "e1cdf75c0c579d3d0979d87f6171ebb75120752403ba637c7de91c76d51bee86",
+      "artifactPath": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+      "productCommit": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+      "launch": "direct child_process.spawn, no Electron automation loader",
+      "args": ["--remote-debugging-address=127.0.0.1", "--remote-debugging-port=0"],
+      "display": "isolated Xvfb",
+      "defaultEnvironmentLimit": "loopback CDP debug port and temporary profile explicitly added; no installer or physical-desktop acceptance",
+      "state": {
+        "version": "0.2.2",
+        "platform": "linux",
+        "secureStorageAvailable": true,
+        "hostCount": 0,
+        "nodeInMainWorld": "undefined",
+        "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) QuayTerm/0.2.2 Chrome/152.0.7977.130 Electron/44.7.0 Safari/537.36"
+      },
+      "processes": [
+        {
+          "pid": 36222,
+          "parent": 36210,
+          "executable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm --remote-debugging-address=127.0.0.1 --remote-debugging-port=0"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "36210",
+            "NSpid": "36222",
+            "NoNewPrivs": "0",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 36226,
+          "parent": 36222,
+          "executable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm --type=zygote --no-zygote-sandbox"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "36222",
+            "NSpid": "36226",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 36227,
+          "parent": 36222,
+          "executable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm --type=zygote"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "36222",
+            "NSpid": "36227\t1",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 36229,
+          "parent": 36227,
+          "executable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm --type=zygote"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "36227",
+            "NSpid": "36229\t3",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 36259,
+          "parent": 36226,
+          "executable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm --type=gpu-process --ozone-platform=x11 --enable-crash-reporter=a267e4e0-df5d-44db-ab03-7c4291a1714b,no_channel --user-data-dir=/tmp/quayterm-direct-NCcPX7 --gpu-preferences=YAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAASAAAAAAAAAABAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAwAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAMAAAAAQAAAAAAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA== --shared-files --field-trial-handle=3,i,13006285274231700266,10908287168085055606,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,13661962201509998285,263584036439491451,4 --trace-process-track-uuid=3190708988185955192"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "36226",
+            "NSpid": "36259",
+            "NoNewPrivs": "1",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 36262,
+          "parent": 36222,
+          "executable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm --type=utility --utility-sub-type=network.mojom.NetworkService --lang=en-US --service-sandbox-type=none --enable-crash-reporter=a267e4e0-df5d-44db-ab03-7c4291a1714b,no_channel --user-data-dir=/tmp/quayterm-direct-NCcPX7 --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,13006285274231700266,10908287168085055606,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,13661962201509998285,263584036439491451,4 --trace-process-track-uuid=3190708989122997041"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "36222",
+            "NSpid": "36262",
+            "NoNewPrivs": "0",
+            "Seccomp": "0",
+            "Seccomp_filters": "0"
+          }
+        },
+        {
+          "pid": 36266,
+          "parent": 36229,
+          "executable": "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm",
+          "args": [
+            "/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/quayterm --type=renderer --enable-crash-reporter=a267e4e0-df5d-44db-ab03-7c4291a1714b,no_channel --user-data-dir=/tmp/quayterm-direct-NCcPX7 --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --app-path=/home/kk/workspace/ssh_client/quayterm-linux-cross-platform-20261009/.private/mac-shift-package/linux-unpacked/resources/app.asar --enable-sandbox --remote-debugging-port=0 --ozone-platform=x11 --lang=en-US --num-raster-threads=4 --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=7349545283 --shared-files=v8_context_snapshot_data:100 --field-trial-handle=3,i,13006285274231700266,10908287168085055606,262144 --enable-features=PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=7,i,13661962201509998285,263584036439491451,4 --trace-process-track-uuid=3190708990060038890"
+          ],
+          "security": {
+            "Name": "quayterm",
+            "PPid": "36229",
+            "NSpid": "36266\t4\t1",
+            "NoNewPrivs": "1",
+            "Seccomp": "2",
+            "Seccomp_filters": "1"
+          }
+        }
+      ],
+      "checks": {
+        "noAutomationSecurityOverrides": true,
+        "rendererEnableSandbox": true,
+        "rendererNoNewPrivs": 1,
+        "rendererSeccomp": 2
+      },
+      "result": "PASS",
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "finished": "2026-10-09T11:17:56.385Z"
+    },
+    "readonlyPackagedScript": {
+      "started": "2026-10-09T11:22:27.018Z",
+      "finished": "2026-10-09T11:22:29.549Z",
+      "exitCode": 0,
+      "valid": true,
+      "resultCount": 1,
+      "isPackaged": true,
+      "noSandbox": false,
+      "credentialsPersisted": false,
+      "peer": "generated loopback SSH/SFTP fixture; no shell commands or writes",
+      "artifactSha256": "e1cdf75c0c579d3d0979d87f6171ebb75120752403ba637c7de91c76d51bee86"
+    },
+    "cleanup": {
+      "remainingNewTempPaths": [],
+      "remainingWorktreeExecutables": [],
+      "rawToolsLogsAndLocalTestPackageRetained": true,
+      "businessHostsTouched": false
+    },
+    "limitations": [
+      "Xvfb rather than physical desktop",
+      "source automation includes no-sandbox/basic/mock switches; packaged automation uses public sandbox option and sampled flags",
+      "direct process adds only loopback CDP debugging flags and a temporary profile",
+      "no real default-viewer display or credential restart/decryption acceptance",
+      "not complete Linux platform acceptance"
+    ],
+    "evidenceHashes": [
+      {
+        "file": "check.log",
+        "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "build.log",
+        "sha256": "7d2c42f0c3d397cdd98304fb21a27420e547095b720f1ced2425b1faf0704de7",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "portable.log",
+        "sha256": "03c1361b13892517226d178530abd76d5726243d431905293f37de5c5eb8d8ac",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "pack.log",
+        "sha256": "50a013650632386bedd1d0e013f90bbe80da929cea04c7b0aea33d3a7568a6d0",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "artifact-verification.json",
+        "sha256": "49c8e1b485d42b0938017440db3f004442d1d69c87bcfba6cec3b955e8868ecd",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "source-smoke.log",
+        "sha256": "67928807874541162d1d53d8cbe6dd99de32a364608af275e293811f9df105ba",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "source-smoke-report.json",
+        "sha256": "fab7dd0b572415933581ed9008a41c69265137af27f7b161056871e472245f8c",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-smoke.log",
+        "sha256": "a770699a3222c1bfae1f897caea4377d175e7b7785e571f7e8af9738cb3f5e2e",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-smoke-report.json",
+        "sha256": "d639e9283cafe3b25b430238e4d5559fc3c5071294cace987306ef883e97e1b8",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-files.log",
+        "sha256": "d7a463010422ca72f70d7704dc99ec56e136e63f3569ee19447613fa61c08ca7",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "packaged-files-report.json",
+        "sha256": "754395ac6f92b19ee453b24148badf2344cd38f2f40fc98bde080e7c9d49480f",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "direct-start.json",
+        "sha256": "7382931cb7c4c80136255042fe1ae2a92f333fbcce36be4dae6f2c7b136326b6",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "direct-start.stderr.log",
+        "sha256": "fcb58c3ff060dde9b16fdc0a33be6349d257544b654dddc4dffbf53b58fc3ec8",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "readonly-script.log",
+        "sha256": "d78f80c411a35384fae98147a94e5bf214d85ce7146bfd5bac365b6fc44712d0",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "readonly-script-result.json",
+        "sha256": "c854f180f4335ff8ae953fd9cd191620571fb97ae1b17ab9edc1a2a47f3859b9",
+        "rawRetention": "local ignored QA directory"
+      },
+      {
+        "file": "context-menu.png",
+        "sha256": "ad55802ec37e2fa8277d96952199f86a5f7b3fca140d1f1dbf50a9b5592ca7cb",
+        "rawRetention": "local ignored QA directory"
+      }
+    ]
+  },
+  "intermediateCI": {
+    "url": "https://github.com/Kangede/quayterm/actions/runs/37922248994",
+    "headSha": "703ef3cf55dfbbb217beb2eca8f454ae32b7f2f7",
+    "conclusion": "success",
+    "scope": "intermediate commit only; final-head CI is recorded in PR #1 after all reports are integrated"
   }
 }
