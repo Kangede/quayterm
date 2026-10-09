@@ -19,11 +19,20 @@ async function main() {
   try {
     application = await _electron.launch({
       executablePath: path.resolve(executable),
+      chromiumSandbox: true,
       args: [],
       env: { ...process.env, QUAYTERM_DATA_DIR: directory },
       timeout: 30000
     })
     const page = await application.firstWindow()
+    const launch = await application.evaluate(({ app }) => ({
+      isPackaged: app.isPackaged,
+      noSandbox: app.commandLine.hasSwitch('no-sandbox')
+    }))
+    if (!launch.isPackaged || launch.noSandbox)
+      throw new Error('Expected a packaged application with its default sandbox enabled')
+    report.isPackaged = launch.isPackaged
+    report.noSandbox = launch.noSandbox
     await page.getByRole('button', { name: '远程主机', exact: true }).waitFor()
     report.version = await application.evaluate(({ app }) => app.getVersion())
     await page.evaluate(async (hosts) => {
