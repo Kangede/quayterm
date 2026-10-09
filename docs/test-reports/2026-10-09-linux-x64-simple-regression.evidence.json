@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-09",
+  "timezone": "Asia/Shanghai",
+  "scope": "Fresh Linux source simple regression; not complete platform acceptance or release-package validation",
+  "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+  "branch": "codex/linux-cross-platform-20261009",
+  "environment": {
+    "os": "Ubuntu 26.04.1 LTS",
+    "kernel": "7.0.0-38-generic",
+    "architecture": "x86_64",
+    "node": "22.23.2",
+    "npm": "10.9.8",
+    "electron": "44.7.0",
+    "playwright": "1.64.0",
+    "python": "3.14.4",
+    "gui": "isolated Xvfb 1600x1000x24",
+    "sourceElectronArguments": ["--no-sandbox"],
+    "defaultApplicationCalls": "mocked; real third-party application launch not tested"
+  },
+  "dependencyInstall": {
+    "command": ["npm", "ci"],
+    "exitCode": 0,
+    "packagesAdded": 442,
+    "auditNotice": "8 moderate advisories; no dependency upgrade performed"
+  },
+  "runs": [
+    {
+      "step": "check",
+      "codeSha": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "command": ["npm", "run", "check"],
+      "started": "2026-10-09T10:09:39.822Z",
+      "finished": "2026-10-09T10:09:42.464Z",
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 2642,
+      "scope": "source checkout"
+    },
+    {
+      "step": "build",
+      "codeSha": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "command": ["npm", "run", "build"],
+      "started": "2026-10-09T10:10:06.701Z",
+      "finished": "2026-10-09T10:10:09.007Z",
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 2306,
+      "scope": "source checkout"
+    },
+    {
+      "step": "unit",
+      "codeSha": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "command": ["npm", "test"],
+      "started": "2026-10-09T10:09:39.823Z",
+      "finished": "2026-10-09T10:10:00.593Z",
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 20770,
+      "scope": "source checkout"
+    },
+    {
+      "step": "desktop",
+      "codeSha": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "command": [
+        "xvfb-run",
+        "-a",
+        "-s",
+        "-screen 0 1600x1000x24",
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs",
+        "tests/appearance-files.e2e.cjs"
+      ],
+      "started": "2026-10-09T10:10:35.647Z",
+      "finished": "2026-10-09T10:11:44.438Z",
+      "exitCode": 0,
+      "signal": null,
+      "elapsedMs": 68791,
+      "scope": "source Electron in isolated Xvfb; default-app boundary mocked"
+    }
+  ],
+  "unitSummary": {
+    "tests": 30,
+    "pass": 29,
+    "fail": 0,
+    "skipped": 1,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "unitCases": [
+    {
+      "name": "host validation rejects invalid ports and excludes arbitrary SSH options",
+      "status": "PASS"
+    },
+    {
+      "name": "password stays out of disk and renderer without OS secure storage",
+      "status": "PASS"
+    },
+    {
+      "name": "encrypted credentials survive reload and never appear in public host objects",
+      "status": "PASS"
+    },
+    {
+      "name": "known host changed fingerprints are rejected; hashed OpenSSH host labels match",
+      "status": "PASS"
+    },
+    {
+      "name": "SSH sessions use independent PTYs and apply real window-change requests",
+      "status": "PASS"
+    },
+    {
+      "name": "SFTP lists real files, Unicode names, hidden files and symlinks without shell commands",
+      "status": "PASS"
+    },
+    {
+      "name": "separate connections to the same host cannot copy a directory into itself",
+      "status": "PASS"
+    },
+    {
+      "name": "text editor round trips Unicode and rejects stale saves and binary content",
+      "status": "PASS"
+    },
+    {
+      "name": "file creation, rename and deletion operate safely on SFTP including recursive folders",
+      "status": "PASS"
+    },
+    {
+      "name": "external opening streams a large SFTP binary into a private local snapshot without remote writes",
+      "status": "PASS"
+    },
+    {
+      "name": "local to SFTP and SFTP to local recursive transfers preserve content",
+      "status": "PASS"
+    },
+    {
+      "name": "transfer collision never silently overwrites; canceled queued transfers write nothing",
+      "status": "PASS"
+    },
+    {
+      "name": "SFTP to SFTP transfers stream between two independent hosts",
+      "status": "PASS"
+    },
+    {
+      "name": "authentication failure becomes a visible error without retaining a live connection",
+      "status": "PASS"
+    },
+    {
+      "name": "external-open classification preserves text and distinguishes binary from I/O failures",
+      "status": "PASS"
+    },
+    {
+      "name": "local program opening uses the existing local file and reports association failures",
+      "status": "PASS"
+    },
+    {
+      "name": "remote external opens isolate same-name snapshots and clean failed or canceled downloads",
+      "status": "PASS"
+    },
+    {
+      "name": "ssh2 write streams terminate when EOF arrives before their handle closes",
+      "status": "PASS"
+    },
+    {
+      "name": "a disconnected SFTP cleanup cannot keep a failed atomic write pending",
+      "status": "PASS"
+    },
+    {
+      "name": "Windows drive discovery tolerates unavailable volumes but preserves file operation errors",
+      "status": "SKIP"
+    },
+    {
+      "name": "rejected or canceled writes do not open the source stream",
+      "status": "PASS"
+    },
+    {
+      "name": "native paths, Unicode files, optimistic edits, local transfers and permission preservation",
+      "status": "PASS"
+    },
+    {
+      "name": "directory aliases return canonical paths that still identify the requested Unicode file",
+      "status": "PASS"
+    },
+    {
+      "name": "script ANSI palette, truecolor, bold and underline survive; highlights respect explicit colors",
+      "status": "PASS"
+    },
+    {
+      "name": "highlight cell positions account for CJK, emoji and combining characters",
+      "status": "PASS"
+    },
+    {
+      "name": "CR and erase update one progress row; newline and alternate screen retain VT semantics",
+      "status": "PASS"
+    },
+    {
+      "name": "theme and highlighting settings persist and reject unknown presets",
+      "status": "PASS"
+    },
+    {
+      "name": "layout changes and cross-pane moves preserve exactly one owner for every session",
+      "status": "PASS"
+    },
+    {
+      "name": "reordering within a pane and removing an active tab select a valid neighbor",
+      "status": "PASS"
+    },
+    {
+      "name": "quick connection parser covers SSH, ports, IPv6 and rejects shell command strings",
+      "status": "PASS"
+    }
+  ],
+  "desktopStats": {
+    "startTime": "2026-10-09T10:10:36.175Z",
+    "duration": 68242.59,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "desktopCases": [
+    {
+      "file": "appearance-files.e2e.cjs",
+      "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 8088
+        }
+      ]
+    },
+    {
+      "file": "appearance-files.e2e.cjs",
+      "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 12083
+        }
+      ]
+    },
+    {
+      "file": "appearance-files.e2e.cjs",
+      "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 18056
+        }
+      ]
+    },
+    {
+      "file": "appearance-files.e2e.cjs",
+      "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 5614
+        }
+      ]
+    },
+    {
+      "file": "appearance-files.e2e.cjs",
+      "title": "terminal sidebar right-click editing and six live themes work without reconnecting",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 11065
+        }
+      ]
+    },
+    {
+      "file": "appearance-files.e2e.cjs",
+      "title": "automatic highlights preserve ANSI colors, progress redraw and alternate screens over SSH",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1806
+        }
+      ]
+    },
+    {
+      "file": "desktop-smoke.e2e.cjs",
+      "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+      "ok": true,
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 8894
+        }
+      ]
+    }
+  ],
+  "cleanup": {
+    "newQuaytermTempPaths": [],
+    "remainingTestProcesses": [],
+    "testDisplay": "Xvfb process-scoped DISPLAY/XAUTHORITY, XDG_SESSION_TYPE=x11, WAYLAND_DISPLAY removed",
+    "releaseArtifactsCreated": false,
+    "credentialsUsed": "only repository fixtures; no LAN credentials loaded",
+    "remainingProcessesWithExecutablesInTestWorktree": []
+  },
+  "visualReview": {
+    "screenshot": "context-menu.png",
+    "observation": "New local-application menu item is visible; menu labels are not clipped in this screenshot"
+  },
+  "logAndScreenshotHashes": [
+    {
+      "file": "npm-ci.log",
+      "sha256": "61e239f98666a6125a7b84a0941fe0fbab3bcd453a8eb7a5b1d54a127039a5fd",
+      "retention": "raw file kept only in local ignored test workspace"
+    },
+    {
+      "file": "check.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113",
+      "retention": "raw file kept only in local ignored test workspace"
+    },
+    {
+      "file": "build.log",
+      "sha256": "75a3b38ffd1b39a0637bb076223f359d0bb0332465c097944ab80b3eb262d132",
+      "retention": "raw file kept only in local ignored test workspace"
+    },
+    {
+      "file": "unit.log",
+      "sha256": "223d31d33f860844dd56c9633ef7a1b1f3553f4d299c41441187f6d2bed782cb",
+      "retention": "raw file kept only in local ignored test workspace"
+    },
+    {
+      "file": "desktop.log",
+      "sha256": "4640ee7ca7bb8bd87bfbcb50e16ac934d353a8963c2bf78613c8beb364a37147",
+      "retention": "raw file kept only in local ignored test workspace"
+    },
+    {
+      "file": "e2e-report.json",
+      "sha256": "d09c1d19c357e9375c85de131af73326ab5e7aa73c421ffbd1d46f5ea0baea49",
+      "retention": "raw file kept only in local ignored test workspace"
+    },
+    {
+      "file": "context-menu.png",
+      "sha256": "78b56c7cbba9072e3a2d367b421160ea0de31f52da3b496fa71d0e607dda42b2",
+      "retention": "raw file kept only in local ignored test workspace"
+    }
+  ],
+  "uncovered": [
+    "release installers and packaged default sandbox",
+    "real OS default-file association and external viewer display",
+    "tests/app.e2e.cjs including full layout/multiplexer GUI coverage",
+    "real desktop clipboard, IME, DPI, sleep/wake",
+    "Windows and macOS execution"
+  ],
+  "productDefectsFound": [],
+  "projectVisibility": {
+    "queriedOnce": true,
+    "macProjectFound": false,
+    "visibleQuaytermParentProjectId": "01ca1cfd-9e32-4175-9380-45f29c0bc6b0",
+    "visibleQuaytermParentProjectPath": "/home/kk/workspace/ssh_client",
+    "laterCoordinationUpdate": "Mac execution chat has been created separately; no further project investigation needed"
+  }
+}
