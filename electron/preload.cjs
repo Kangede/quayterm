@@ -12,6 +12,7 @@ const allowed = new Set([
   'hostVerify',
   'filesList',
   'fileRead',
+  'fileOpenLocal',
   'fileWrite',
   'fileOperation',
   'transfer',

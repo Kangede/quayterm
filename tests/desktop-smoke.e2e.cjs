@@ -7,13 +7,24 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
   const probe = await nativeProbe()
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-native-'))
   const textFile = path.join(directory, 'BOM CRLF 中文.txt')
+  const binaryFile = path.join(directory, 'native-binary.png')
   fs.writeFileSync(textFile, '\ufeffline1\r\nline2\r\n')
+  fs.writeFileSync(binaryFile, Buffer.from([0, 255, 42]))
   const app = await electron.launch({
     args: [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
     env: { ...process.env, QUAYTERM_DATA_DIR: directory }
   })
   try {
     const page = await app.firstWindow()
+    // Exercise the native opening IPC without starting arbitrary third-party
+    // applications on CI. The SFTP download and local files remain real.
+    await app.evaluate(({ shell }) => {
+      global.__nativeOpened = []
+      shell.openPath = async (p) => {
+        global.__nativeOpened.push(p)
+        return ''
+      }
+    })
     const errors = []
     page.on('pageerror', (e) => errors.push(e.message))
     await expect(page.getByRole('button', { name: '远程主机', exact: true })).toBeVisible()
@@ -48,12 +59,26 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
       await expect.poll(() => fs.readFileSync(textFile, 'utf8')).toBe(`\ufeff中文 ${marker}\r\nline2\r\n`)
     }
     await page.getByRole('button', { name: '关闭', exact: true }).last().click()
+    const binaryRow = page.locator('.sftp-screen .file-row').filter({ hasText: 'native-binary.png' })
+    await binaryRow.dblclick()
+    await expect.poll(() => app.evaluate(() => global.__nativeOpened.length)).toBe(1)
+    expect(await app.evaluate(() => global.__nativeOpened[0])).toBe(fs.realpathSync.native(binaryFile))
+    await expect(page.locator('.file-editor-modal')).toHaveCount(0)
+    await binaryRow.click({ button: 'right' })
+    await page.getByRole('menuitem', { name: /用本地程序打开/ }).click()
+    await expect.poll(() => app.evaluate(() => global.__nativeOpened.length)).toBe(2)
     await page.getByRole('button', { name: '主机', exact: true }).click()
     await page.locator('.host-card').dblclick()
     await expect(page.locator('.verify-content')).toContainText(probe.fingerprint)
     await page.getByRole('button', { name: '信任并连接', exact: true }).click()
     await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('Native SSH ready 测试')
     await expect(page.locator('.terminal-files .file-row').filter({ hasText: 'info.txt' })).toBeVisible()
+    await page.locator('.terminal-files .file-row').filter({ hasText: 'info.txt' }).click({ button: 'right' })
+    await page.getByRole('menuitem', { name: /用本地程序打开/ }).click()
+    await expect.poll(() => app.evaluate(() => global.__nativeOpened.length)).toBe(3)
+    const snapshot = await app.evaluate(() => global.__nativeOpened[2])
+    expect(path.basename(snapshot)).toBe('info.txt')
+    expect(fs.readFileSync(snapshot, 'utf8')).toBe(probe.text)
     const firstLine = page.locator('.terminal-pane.focused .xterm-screen')
     const selectWord = async () => {
       await firstLine.click({ position: { x: 3, y: 7 } })
@@ -117,9 +142,13 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
     expect(await page.evaluate(() => typeof window.require)).toBe('undefined')
     expect(errors).toEqual([])
   } finally {
+    const opened = await app.evaluate(() => global.__nativeOpened || []).catch(() => [])
     await app.evaluate(({ app }) => app.exit())
     await app.close().catch(() => {})
     await probe.close()
     fs.rmSync(directory, { recursive: true, force: true })
+    for (const p of opened)
+      if (path.basename(path.dirname(p)).startsWith('quayterm-open-'))
+        fs.rmSync(path.dirname(p), { recursive: true, force: true })
   }
 })

@@ -84,7 +84,7 @@ function createWindow() {
     sessions.closeAll()
   })
   window.on('close', (e) => {
-    if (!quitting && (sessions.items.size || files.transfers.size)) {
+    if (!quitting && (sessions.items.size || files.transfers.size || files.openings.size)) {
       e.preventDefault()
       send({ type: 'quit-request' })
     }
@@ -145,7 +145,18 @@ app.whenReady().then(() => {
     sessionClose: ({ id }) => sessions.close(id),
     hostVerify: ({ challengeId, accept }) => sessions.respond(challengeId, accept === true),
     filesList: ({ endpoint, path }) => files.list(endpoint, path),
-    fileRead: ({ endpoint, path }) => files.readText(endpoint, path),
+    fileRead: async ({ endpoint, path }) => {
+      try {
+        return await files.readText(endpoint, path)
+      } catch (error) {
+        // contextBridge does not preserve custom properties on thrown Errors.
+        // Send the expected editor fallback as data; I/O failures still reject.
+        if (['FILE_BINARY', 'FILE_ENCODING'].includes(error.code))
+          return { external: true, reason: error.message }
+        throw error
+      }
+    },
+    fileOpenLocal: ({ endpoint, path }) => files.openLocal(endpoint, path, (p) => shell.openPath(p)),
     fileWrite: ({ endpoint, path, text, hash }) => files.writeText(endpoint, path, text, hash),
     fileOperation: (input) => files.operate(input),
     transfer: (input) => files.transfer(input),
@@ -226,7 +237,7 @@ app.on('window-all-closed', () => {
   app.quit()
 })
 app.on('before-quit', (event) => {
-  if (!quitting && (sessions?.items.size || files?.transfers.size)) {
+  if (!quitting && (sessions?.items.size || files?.transfers.size || files?.openings.size)) {
     event.preventDefault()
     send({ type: 'quit-request' })
   }

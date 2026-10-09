@@ -21,7 +21,8 @@ import {
   CopyOutlined,
   DownloadOutlined,
   DeleteOutlined,
-  InfoCircleOutlined
+  InfoCircleOutlined,
+  ExportOutlined
 } from '@ant-design/icons'
 import type { FileEntry, FileList, Host, Session } from '../types'
 import { HostIcon } from './HostManager'
@@ -31,11 +32,24 @@ export function formatSize(size: number) {
   if (size < 1073741824) return `${(size / 1048576).toFixed(1)} MiB`
   return `${(size / 1073741824).toFixed(1)} GiB`
 }
-export type FileOpen = { endpoint: string; path: string; name: string }
+export type FileOpen = { endpoint: string; path: string; name: string; editOnly?: boolean }
 export type TransferRequest = { source: string; destination: string; paths: string[]; directory: string }
 export type FileClipboard = { source: string; paths: string[] }
 export type TransferTarget = { endpoint: string; directory: string }
 type FileContext = { x: number; y: number; entry?: FileEntry; paths: string[]; directory: string }
+async function openLocalFile(file: FileOpen, message: ReturnType<typeof App.useApp>['message']) {
+  const hide = message.loading(
+    file.endpoint === 'local' ? `正在打开 ${file.name}…` : `正在下载并打开 ${file.name}…`,
+    0
+  )
+  try {
+    const result = await window.quay.invoke<{ path: string; temporary: boolean }>('fileOpenLocal', file)
+    if (result.temporary)
+      message.info('已用本地程序打开临时副本。修改不会自动上传到远端，需要保留时请另存。', 7)
+  } finally {
+    hide()
+  }
+}
 export function EndpointPicker({
   hosts,
   onSelect,
@@ -208,9 +222,9 @@ export function FilePane({
       setSelected((s) => (s.includes(e.path) ? s.filter((p) => p !== e.path) : [...s, e.path]))
     else setSelected([e.path])
   }
-  function open(e: FileEntry) {
+  function open(e: FileEntry, editOnly = false) {
     if (e.isDirectory) void load(e.path)
-    else if (endpoint) onOpen({ endpoint, path: e.path, name: e.name })
+    else if (endpoint) onOpen({ endpoint, path: e.path, name: e.name, editOnly })
   }
   async function expand(e: FileEntry) {
     if (expanded[e.path]) {
@@ -267,7 +281,9 @@ export function FilePane({
     try {
       if (key === 'refresh') await load(list?.path, false)
       else if (key === 'hidden') setHidden(!hidden)
-      else if (key === 'open' && entry && paths.length === 1) open(entry)
+      else if (key === 'open' && entry && paths.length === 1) open(entry, true)
+      else if (key === 'open-local' && entry && paths.length === 1 && endpoint && !entry.isDirectory)
+        await openLocalFile({ endpoint, path: entry.path, name: entry.name }, message)
       else if ((key === 'mkdir' || key === 'create') && directory)
         setOperation({ action: key, path: directory, name: '' })
       else if (key === 'rename' && paths.length === 1)
@@ -336,6 +352,16 @@ export function FilePane({
                 icon: context.entry?.isDirectory ? <FolderOpenOutlined /> : <EditOutlined />,
                 disabled: context.paths.length !== 1
               },
+              ...(!context.entry?.isDirectory
+                ? [
+                    {
+                      key: 'open-local',
+                      label: '用本地程序打开',
+                      icon: <ExportOutlined />,
+                      disabled: context.paths.length !== 1 || context.entry?.inaccessible
+                    }
+                  ]
+                : []),
               { key: 'copy', label: '复制文件', icon: <CopyOutlined />, disabled: !onCopy },
               { key: 'copy-name', label: '复制名称' },
               { key: 'copy-path', label: '复制路径' },
@@ -809,8 +835,16 @@ export function FileEditor({
     let alive = true
     window.quay
       .invoke('fileRead', file)
-      .then((result) => {
+      .then(async (result) => {
         if (alive) {
+          if (result.external) {
+            if (file.editOnly) setError(result.reason)
+            else {
+              await openLocalFile(file, message)
+              if (alive) onClose()
+            }
+            return
+          }
           format.current = {
             bom: result.text.startsWith('\ufeff'),
             newline: result.text.match(/\r\n|\r|\n/)?.[0] || '\n'

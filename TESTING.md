@@ -1,5 +1,30 @@
 # QuayTerm 验证记录
 
+## 2026-10-09：用本地程序打开（待发布）
+
+从 v0.2.2 的 `b2cf253a6152c311222c1c477c3bc2d27de13cdc` 接续，保留 Windows 原生测试的全部修复。本节测试的是后续源码及本地 Linux 构建；运行时版本号仍为 0.2.2，不是 GitHub 上既有 v0.2.2 Release 资产，本轮没有重新发布 Release。
+
+新增本地列表、双栏 SFTP 和终端文件树的“用本地程序打开”；远端文件流式下载到独立临时副本，本地文件打开原文件。二进制、PDF、非 UTF-8 文件双击外部打开，普通文本与 BOM/CRLF 连续保存行为保持。成功副本在客户端退出后保留，不自动上传；失败/取消清理该次下载。
+
+同名上传原本就默认不覆盖，每次传输确认将覆盖选项重置为关闭。本轮添加更明确的提示并通过 UI 验证拒绝、取消、显式允许以及下一次重置，未放宽后端覆盖检查。
+
+| 本机验证（Linux x64，Node 22.23.2） | 结果与范围                                                                                                                                  |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run check`、`npm run build`    | 通过                                                                                                                                        |
+| `npm test`                          | 30 项：29 PASS、0 FAIL、1 SKIP；跳过的是 Windows 专用不可用盘符测试                                                                         |
+| `npx playwright test`               | 15 / 15 通过；含既有快捷键、真实 PTY tmux/screen、50,000 行输出、新外部打开和覆盖确认                                                       |
+| Linux 已打包程序                    | 默认沙箱下 `appearance-files.e2e.cjs` 的 6 / 6 用例通过；下载真实执行，第三方程序调用使用替身                                               |
+| 真实默认程序调用                    | 同一 Linux 程序包通过真实 SFTP 下载 PNG，原始 `shell.openPath` 返回成功，启动系统默认 `org.gnome.Loupe.desktop` 的新进程，下载字节/哈希一致 |
+| 退出后副本                          | 退出该测试客户端后，副本内容不变、查看器仍运行；随后只清理本轮查看器进程、文件和 fixture                                                    |
+
+本地受测包 `app.asar` SHA-256：`02ae584447ddd543bb19c511e614c565f730b441f30cdcfe7049d85928594b01`。包中 `sandbox=true`、`contextIsolation=true`、`nodeIntegration=false`。真实默认程序测试样本为仓库自身 PNG 图标，19,777 字节，SHA-256 为 `5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706`；只通过 SFTP 读取本地隔离服务，没有在用户 LAN 主机上运行命令或写入文件。
+
+新增回归覆盖：小/大二进制与 ASCII PDF、UTF-8 采样跨字符边界、文本/空文件/读取错误的区别、远端同名副本隔离、Windows 保留文件名和路径字符、文件权限、取消和失败清理、系统无默认程序时的错误，以及上传覆盖选项不沿用上一次授权。
+
+首轮桌面测试暴露了 `contextBridge` 丢弃 Error 自定义属性导致二进制分流失败，改为返回结构化的外部打开结果后复测通过。另修正测试驱动中模态框退场后的焦点等待，以及 Ant Design 图标参与菜单可访问名称导致的精确定位失败；保留原失败日志，未删除功能断言。最终完整桌面运行为 15 / 15。
+
+本机日志在忽略目录 `.private/`：`core-external-open.log`、`e2e-external-open-final.log`、`packaged-external-open.log`、`real-default-open.json`；初次失败保留于 `e2e-external-open.log` 和 `e2e-external-open-rerun.log`。菜单截图已检查，无裁切。原生 Wayland 图片查看器的图像内容未做视觉自动化验收，不将进程启动写作第三方画面验证。Windows/macOS 的实际默认文件关联及外部程序显示仍需按新增 [F05 验收要求](docs/test-acceptance.md) 补测。
+
 ## v0.2.2：Windows 修复发布
 
 v0.2.2 将下方 Windows 测试发现的修复纳入发布版本，并按用户指令从 `main` 发布。该版本的构建提交、CI 结果、资产 SHA-256 和新包抽查记录见 [v0.2.2 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.2)。下面的 0.2.1 本地修复包报告仍绑定原有代码和哈希，不作为新版本二进制已经完成完整验收的证明。

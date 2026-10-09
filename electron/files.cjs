@@ -9,6 +9,23 @@ const { EventEmitter } = require('node:events')
 const { safePath, filename } = require('./validation.cjs')
 const hash = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
 const MAX_TEXT = 2 * 1024 * 1024
+const textError = (code, message) => Object.assign(new Error(message), { code })
+function decodeText(buffer, stream = false) {
+  // PDF can contain only ASCII bytes while still being unsuitable for a text editor.
+  if (buffer.includes(0) || buffer.subarray(0, 5).equals(Buffer.from('%PDF-')))
+    throw textError('FILE_BINARY', '这是二进制文件，请用本地程序打开')
+  try {
+    return new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(buffer, { stream })
+  } catch {
+    throw textError('FILE_ENCODING', '文件不是 UTF-8 文本，请用本地程序打开')
+  }
+}
+function localFilename(name) {
+  // A remote POSIX name may contain Windows separators, reserved names or ADS syntax.
+  let result = name.replace(/[<>:"/\\|?*\x00-\x1f]/g, '_').replace(/[. ]+$/g, '') || 'file'
+  if (/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(result)) result = '_' + result
+  return result
+}
 const isMissing = (error) => error?.code === 'ENOENT' || error?.code === 2
 const sftpClosed = (ftp) => ftp.readable === false || ftp.incoming?.state === 'closed'
 const disconnected = () => new Error('SFTP 连接已关闭，请重新连接')
@@ -44,6 +61,7 @@ class Files extends EventEmitter {
     super()
     this.sessions = sessions
     this.transfers = new Map()
+    this.openings = new Set()
     this.queue = Promise.resolve()
     this.locks = new Map()
   }
@@ -67,7 +85,7 @@ class Files extends EventEmitter {
               }
             })
           ),
-        read: (p) => fs.createReadStream(p),
+        read: (p, options) => fs.createReadStream(p, options),
         write: (p, mode) => fs.createWriteStream(p, { flags: 'wx', mode: mode || 0o600 }),
         mkdir: (p) => fsp.mkdir(p),
         unlink: (p) => fsp.unlink(p),
@@ -87,7 +105,7 @@ class Files extends EventEmitter {
       lstat: (p) => call(ftp, 'lstat', p),
       readdir: async (p) =>
         (await call(ftp, 'readdir', p)).map((e) => ({ name: e.filename, attrs: e.attrs })),
-      read: (p) => streams.createReadStream(p),
+      read: (p, options) => streams.createReadStream(p, options),
       write: (p, mode) => streams.createWriteStream(p, { flags: 'wx', mode: mode || 0o600 }),
       mkdir: (p) => call(ftp, 'mkdir', p),
       unlink: (p) => call(ftp, 'unlink', p),
@@ -179,15 +197,52 @@ class Files extends EventEmitter {
   async readText(endpoint, p) {
     safePath(p)
     const a = await this.adapter(endpoint)
-    const buffer = await this.buffer(a, p)
-    if (buffer.includes(0)) throw new Error('这是二进制文件，请通过传输功能下载')
-    let text
-    try {
-      text = new TextDecoder('utf-8', { fatal: true, ignoreBOM: true }).decode(buffer)
-    } catch {
-      throw new Error('文件不是 UTF-8 文本，请下载后打开')
+    const stat = await a.stat(p)
+    if (!stat.isFile()) throw new Error('只能打开普通文件')
+    if (stat.size > MAX_TEXT) {
+      // Classify large binary files without buffering the whole download. Leave
+      // the existing size limit in place for large, apparently UTF-8 text files.
+      const chunks = []
+      for await (const chunk of a.read(p, { start: 0, end: 8191 })) chunks.push(chunk)
+      decodeText(Buffer.concat(chunks), true)
     }
+    const buffer = await this.buffer(a, p)
+    const text = decodeText(buffer)
     return { text, hash: hash(buffer), size: buffer.length }
+  }
+  async openLocal(endpoint, p, openPath, tempRoot = os.tmpdir()) {
+    safePath(p)
+    const controller = new AbortController()
+    this.openings.add(controller)
+    let directory
+    try {
+      const a = await this.adapter(endpoint)
+      const resolved = await a.realpath(p)
+      const stat = await a.stat(resolved)
+      if (!stat.isFile()) throw new Error('只能用本地程序打开普通文件')
+      controller.signal.throwIfAborted()
+      let local = resolved
+      if (endpoint !== 'local') {
+        // Every invocation gets its own private snapshot, including repeat opens
+        // and identical basenames on different servers. Never overwrite edits.
+        directory = await fsp.mkdtemp(path.join(tempRoot, 'quayterm-open-'))
+        local = path.join(directory, localFilename(a.path.basename(p)))
+        await pipeline(a.read(resolved), fs.createWriteStream(local, { flags: 'wx', mode: 0o600 }), {
+          signal: controller.signal
+        })
+      }
+      controller.signal.throwIfAborted()
+      const error = await openPath(local)
+      if (error) throw new Error(`无法用本地程序打开文件，请检查默认程序设置：${error}`)
+      // Keep successful snapshots available after QuayTerm exits: the external
+      // application may still be reading or editing them. No automatic upload.
+      return { path: local, temporary: endpoint !== 'local' }
+    } catch (error) {
+      if (directory) await fsp.rm(directory, { recursive: true, force: true }).catch(() => {})
+      throw error
+    } finally {
+      this.openings.delete(controller)
+    }
   }
   async locked(key, operation) {
     const previous = this.locks.get(key) || Promise.resolve()
@@ -394,6 +449,7 @@ class Files extends EventEmitter {
   }
   cancelAll() {
     for (const id of this.transfers.keys()) this.cancel(id)
+    for (const controller of this.openings) controller.abort()
   }
 }
 module.exports = { Files, MAX_TEXT, hash }

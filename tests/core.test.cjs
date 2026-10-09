@@ -187,6 +187,29 @@ test('file creation, rename and deletion operate safely on SFTP including recurs
   await files.operate({ endpoint: id, action: 'delete', path: dir })
   assert.equal(fs.existsSync(dir), false)
 })
+test('external opening streams a large SFTP binary into a private local snapshot without remote writes', async () => {
+  const p = path.join(fx.root, '外部程序.png')
+  const bytes = Buffer.alloc(3 * 1024 * 1024, 42)
+  bytes.set(Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]))
+  fs.writeFileSync(p, bytes)
+  const local = path.join(dir, 'external-downloads')
+  fs.mkdirSync(local)
+  await assert.rejects(files.readText(id, p), { code: 'FILE_ENCODING' })
+  const result = await files.openLocal(
+    id,
+    p,
+    async (download) => {
+      assert.deepEqual(fs.readFileSync(download), bytes)
+      return ''
+    },
+    local
+  )
+  assert.equal(result.temporary, true)
+  assert.equal(path.basename(result.path), '外部程序.png')
+  assert.notEqual(result.path, p)
+  fs.writeFileSync(result.path, 'changed by the local program')
+  assert.deepEqual(fs.readFileSync(p), bytes)
+})
 test('local to SFTP and SFTP to local recursive transfers preserve content', async () => {
   const source = path.join(dir, 'upload')
   fs.mkdirSync(source)

@@ -777,6 +777,7 @@ export default function App() {
         <Checkbox checked={overwrite} onChange={(e) => setOverwrite(e.target.checked)}>
           允许覆盖目标中的同名文件
         </Checkbox>
+        <p className="muted">默认保留目标中的同名文件；未勾选时遇到同名文件会停止本次传输并提示。</p>
       </Modal>
       {openFile && (
         <FileEditor

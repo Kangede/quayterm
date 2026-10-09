@@ -3,9 +3,150 @@ const assert = require('node:assert/strict')
 const fs = require('node:fs')
 const path = require('node:path')
 const os = require('node:os')
-const { Files } = require('../electron/files.cjs')
+const { Files, MAX_TEXT } = require('../electron/files.cjs')
 const { Readable, Writable } = require('node:stream')
 const { SFTP } = require('@electerm/ssh2/lib/protocol/SFTP.js')
+
+test('external-open classification preserves text and distinguishes binary from I/O failures', async () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-file-kinds-'))
+  const files = new Files(null)
+  const put = (name, content) => {
+    const p = path.join(directory, name)
+    fs.writeFileSync(p, content)
+    return p
+  }
+  try {
+    const text = '\ufeff中文 🌏\r\ntext\r\n'
+    assert.equal((await files.readText('local', put('text.data', text))).text, text)
+    assert.equal((await files.readText('local', put('empty', ''))).text, '')
+    await assert.rejects(files.readText('local', put('small.bin', Buffer.from([0, 255, 10]))), {
+      code: 'FILE_BINARY'
+    })
+    await assert.rejects(files.readText('local', put('ascii.pdf', '%PDF-1.4\n%%EOF')), {
+      code: 'FILE_BINARY'
+    })
+    await assert.rejects(files.readText('local', put('legacy.txt', Buffer.from([0xff, 0xfe, 0x41]))), {
+      code: 'FILE_ENCODING'
+    })
+    await assert.rejects(files.readText('local', put('large.bin', Buffer.alloc(MAX_TEXT + 1))), {
+      code: 'FILE_BINARY'
+    })
+    // A sample may end in the middle of a multibyte character. It is still text.
+    await assert.rejects(files.readText('local', put('large.txt', '中'.repeat(MAX_TEXT))), /大于 2 MiB/)
+    await assert.rejects(files.readText('local', path.join(directory, 'missing')), { code: 'ENOENT' })
+    await assert.rejects(files.readText('local', directory), /普通文件/)
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true })
+  }
+})
+
+test('local program opening uses the existing local file and reports association failures', async () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-local-open-'))
+  const files = new Files(null)
+  const p = path.join(directory, '中文 space.png')
+  fs.writeFileSync(p, Buffer.from([0, 255, 4]))
+  let calls = 0
+  const open = async (file) => {
+    calls++
+    assert.equal(file, fs.realpathSync.native(p))
+    assert.deepEqual(fs.readFileSync(file), Buffer.from([0, 255, 4]))
+    return ''
+  }
+  try {
+    assert.deepEqual(await files.openLocal('local', p, open), {
+      path: fs.realpathSync.native(p),
+      temporary: false
+    })
+    await assert.rejects(files.openLocal('local', directory, open), /普通文件/)
+    await assert.rejects(
+      files.openLocal('local', p, async () => 'no default application'),
+      /默认程序/
+    )
+    assert.equal(calls, 1)
+    assert.deepEqual(fs.readdirSync(directory), ['中文 space.png'])
+    assert.equal(files.openings.size, 0)
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true })
+  }
+})
+
+test('remote external opens isolate same-name snapshots and clean failed or canceled downloads', async () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-open-snapshots-'))
+  const files = new Files(null)
+  const bytes = Buffer.from([0, 255, 17, 32])
+  let makeRead = () => Readable.from(bytes)
+  files.adapter = async () => ({
+    path: path.posix,
+    realpath: async (p) => p,
+    stat: async () => ({ isFile: () => true }),
+    read: () => makeRead()
+  })
+  let calls = 0
+  const open = async (p) => {
+    calls++
+    assert.deepEqual(fs.readFileSync(p), bytes)
+    if (process.platform !== 'win32') {
+      assert.equal(fs.statSync(p).mode & 0o777, 0o600)
+      assert.equal(fs.statSync(path.dirname(p)).mode & 0o777, 0o700)
+    }
+    return ''
+  }
+  try {
+    const first = await files.openLocal('remote-A', '/one/中文 space.png', open, directory)
+    fs.writeFileSync(first.path, 'external edit')
+    const second = await files.openLocal('remote-B', '/two/中文 space.png', open, directory)
+    assert.notEqual(first.path, second.path)
+    assert.equal(path.basename(second.path), '中文 space.png')
+    assert.equal(first.temporary, true)
+    assert.equal(fs.readFileSync(first.path, 'utf8'), 'external edit')
+    const reserved = await files.openLocal('remote-A', '/CON.pdf', open, directory)
+    assert.equal(path.basename(reserved.path), '_CON.pdf')
+    const unsafe = await files.openLocal('remote-A', '/folder/a\\b:stream.png', open, directory)
+    assert.equal(path.basename(unsafe.path), 'a_b_stream.png')
+    assert.equal(calls, 4)
+    const complete = fs.readdirSync(directory).sort()
+    let failedPath
+    await assert.rejects(
+      files.openLocal(
+        'remote-A',
+        '/failed.bin',
+        async (p) => {
+          failedPath = p
+          return 'no default application'
+        },
+        directory
+      ),
+      /默认程序/
+    )
+    assert.equal(fs.existsSync(path.dirname(failedPath)), false)
+    makeRead = () =>
+      new Readable({
+        read() {
+          this.push(bytes)
+          this.destroy(new Error('download interrupted'))
+        }
+      })
+    await assert.rejects(files.openLocal('remote-A', '/broken.bin', open, directory), /download interrupted/)
+    let started
+    const reading = new Promise((resolve) => (started = resolve))
+    makeRead = () =>
+      new Readable({
+        read() {
+          started()
+        }
+      })
+    const pending = files.openLocal('remote-A', '/cancel.bin', open, directory)
+    const canceled = assert.rejects(pending, { name: 'AbortError' })
+    await reading
+    files.cancelAll()
+    await canceled
+    assert.equal(calls, 4)
+    assert.deepEqual(fs.readdirSync(directory).sort(), complete)
+    assert.equal(files.openings.size, 0)
+  } finally {
+    fs.rmSync(directory, { recursive: true, force: true })
+  }
+})
 
 test(
   'ssh2 write streams terminate when EOF arrives before their handle closes',
