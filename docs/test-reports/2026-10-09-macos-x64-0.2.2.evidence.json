@@ -1,0 +1,3181 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-10-09-macos-x64-0.2.2",
+  "generatedAt": "2026-10-09T11:37:32.030Z",
+  "timezone": "Asia/Shanghai",
+  "environment": {
+    "date": "2026-10-09",
+    "timezone": "Asia/Shanghai",
+    "os": "ProductName:\t\tmacOS\nProductVersion:\t\t15.8.1\nBuildVersion:\t\t24H32",
+    "cpu": "Intel(R) Core(TM) i7-14700",
+    "reportedModel": "iMac19,2",
+    "arch": "x64",
+    "node": "v24.21.0",
+    "npm": "11.19.0",
+    "python": "Python 3.9.6",
+    "ssh": "OpenSSH_9.9p2, LibreSSL 3.3.6",
+    "screen": "Screen version 4.00.03 (FAU) 23-Oct-06",
+    "gui": "Logged-in macOS console; VMware framebuffer, 1718x918, scale factor 1; native computer-use APIs unavailable",
+    "virtualization": "VMware guest indicated by VMwareGfx/VMwareFramebuffer and vmhgfs; no Rosetta"
+  },
+  "code": {
+    "baselineApplication": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+    "fixedApplication": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+    "finalHarness": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+    "mouseMatrix": "2efad3c288d03a8b9f6acd4279bc02fb71823e74",
+    "sharedSandboxDriver": "3d28195012e5d124a2ae77eb59755ca37193d392",
+    "sharedSandboxOrigin": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+    "acceptanceDocumentSha256": "8751a5418eb6cacd9943e8834b396ffec460f82045b636be8b8738ffd99e5426",
+    "applicationFilesUnchangedBetweenFixAndFinalHarness": true
+  },
+  "artifacts": {
+    "checkedAt": "2026-10-09T11:01:23.070Z",
+    "applicationSourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+    "files": [
+      {
+        "file": "release/macos-shift-fix/QuayTerm-0.2.2.dmg",
+        "bytes": 133318379,
+        "sha256": "ec78001f744baa8baeddd140b0b44cbfb9eaf2dd49a30e261271aabc433c58c9"
+      },
+      {
+        "file": "release/macos-shift-fix/QuayTerm-0.2.2-mac.zip",
+        "bytes": 133397923,
+        "sha256": "e28dd6119db1fb93dfc0d1746a3cdd8b6e10e06135bce10410ac7196a6642b10"
+      },
+      {
+        "file": ".private/qa/2026-10-09-macos-x64/fixed-zip-install/QuayTerm.app/Contents/Resources/app.asar",
+        "bytes": 7393866,
+        "sha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450"
+      },
+      {
+        "file": ".private/qa/2026-10-09-macos-x64/fixed-dmg-install/QuayTerm.app/Contents/Resources/app.asar",
+        "bytes": 7393866,
+        "sha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450"
+      }
+    ],
+    "application": {
+      "name": "quayterm",
+      "version": "0.2.2"
+    },
+    "archiveEntries": 626,
+    "unexpectedPrivateOrTests": [],
+    "executable": ".private/qa/2026-10-09-macos-x64/fixed-zip-install/QuayTerm.app/Contents/MacOS/QuayTerm: Mach-O 64-bit executable x86_64"
+  },
+  "buildEnvironment": {
+    "CSC_IDENTITY_AUTO_DISCOVERY": "false",
+    "architectures": [
+      "x64"
+    ],
+    "releasePublished": false
+  },
+  "fixtureEnvironment": {
+    "network": "loopback only",
+    "QUAYTERM_SFTP_SERVER": "/usr/libexec/sftp-server",
+    "TMPDIR": "canonicalized with pwd -P",
+    "dataDirectory": "fresh QUAYTERM_DATA_DIR per run",
+    "credentials": "synthetic test credentials only, not included",
+    "thirdSftpPeer": "real SFTP v3 with OpenSSH extensions removed from VERSION advertisement"
+  },
+  "tmux": {
+    "version": "3.7c",
+    "url": "https://github.com/tmux/tmux-builds/releases/download/v3.7c/tmux-3.7c-macos-x86_64.tar.gz",
+    "archiveSha256": "1c21f9ade964e4a539be05ffe3a4e95854ab76a0a9c4c05d0ffbe7fc6c4d783f",
+    "binarySha256": "2e3a3db47d04cc1c990e0e562994bdb299a100514227e719f1c549e4a53712fd",
+    "licensesArchiveSha256": "094905d3ba42397c65fecd817dc29736dd14bd35e75600441403a365125f47d1",
+    "installScope": "<repo>/.private/tooling/tmux-3.7c only"
+  },
+  "launcherComparison": [
+    {
+      "mode": "source",
+      "packaged": false,
+      "version": "0.2.2",
+      "noSandbox": false,
+      "mockKeychain": true,
+      "passwordStore": "basic",
+      "webPreferences": [
+        {
+          "sandbox": true
+        }
+      ]
+    },
+    {
+      "mode": "packaged",
+      "packaged": true,
+      "version": "0.2.2",
+      "noSandbox": false,
+      "mockKeychain": false,
+      "passwordStore": "",
+      "webPreferences": [
+        {
+          "sandbox": true
+        }
+      ]
+    }
+  ],
+  "directRuntime": {
+    "packaged": true,
+    "version": "0.2.2",
+    "electron": "44.7.0",
+    "node": "24.21.0",
+    "arch": "x64",
+    "secureStorage": true,
+    "bounds": {
+      "x": 149,
+      "y": 25,
+      "width": 1420,
+      "height": 811
+    },
+    "trafficLights": {
+      "x": 14,
+      "y": 16
+    },
+    "sandbox": true,
+    "contextIsolation": true,
+    "nodeIntegration": false,
+    "menuRoles": [
+      "QuayTerm",
+      "editmenu",
+      "windowmenu"
+    ],
+    "switches": {
+      "noSandbox": false,
+      "mockKeychain": false,
+      "passwordStore": ""
+    },
+    "addedArguments": [
+      "--inspect=0",
+      "--remote-debugging-port=0"
+    ],
+    "debugEndpointsLoopbackOnly": true,
+    "rendererEnableSandbox": true,
+    "mainAndChildrenForbiddenSwitchesAbsent": true,
+    "fullProcessArgumentsPrivateFile": "real-open-direct-fixed-complete.json"
+  },
+  "signature": {
+    "startedAt": "2026-10-09T10:57:09.392Z",
+    "appAsarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+    "codesign": {
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": ".private/qa/2026-10-09-macos-x64/fixed-zip-install/QuayTerm.app: code object is not signed at all\nIn architecture: x86_64"
+    },
+    "gatekeeperAssessment": {
+      "exitCode": 3,
+      "stdout": "",
+      "stderr": ".private/qa/2026-10-09-macos-x64/fixed-zip-install/QuayTerm.app: rejected\nsource=no usable signature"
+    },
+    "quarantineAttribute": {
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": "xattr: .private/qa/2026-10-09-macos-x64/fixed-zip-install/QuayTerm.app: No such xattr: com.apple.quarantine"
+    },
+    "finishedAt": "2026-10-09T10:57:09.516Z"
+  },
+  "coreStatus": {
+    "A01": "PASS",
+    "R01": "BLOCKED",
+    "R02": "BLOCKED",
+    "R03": "PASS",
+    "H01": "PASS",
+    "H02": "PASS",
+    "P01": "PASS",
+    "T01": "PASS",
+    "T02": "BLOCKED",
+    "T03": "BLOCKED",
+    "T04": "PASS",
+    "T05": "PASS",
+    "F01": "PASS",
+    "F02": "BLOCKED",
+    "F03": "PASS",
+    "F04": "PASS",
+    "F05": "BLOCKED",
+    "N01": "BLOCKED",
+    "Q01": "PASS"
+  },
+  "coreCounts": {
+    "PASS": 12,
+    "FAIL": 0,
+    "BLOCKED": 7,
+    "NOT_RUN": 0,
+    "NA": 0
+  },
+  "portableAndCore": {
+    "pass": 29,
+    "fail": 0,
+    "skip": 1,
+    "skipReason": "Windows-only unavailable-drive regression",
+    "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+    "evidence": "fixed-core-all.log"
+  },
+  "finalMaintainedAssertions": [
+    {
+      "file": "final-source-smoke-integrated-report.json",
+      "startTime": "2026-10-09T11:24:29.456Z",
+      "duration": 13991.715,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    {
+      "file": "final-fixed-zip-smoke-report.json",
+      "startTime": "2026-10-09T10:56:36.691Z",
+      "duration": 14196.05,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    {
+      "file": "final-fixed-dmg-smoke-report.json",
+      "startTime": "2026-10-09T10:57:08.376Z",
+      "duration": 16833.046000000002,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    {
+      "file": "final-fixed-features-focus-report.json",
+      "startTime": "2026-10-09T11:00:41.872Z",
+      "duration": 51365.654,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  ],
+  "finalSupplementalEvidence": [
+    {
+      "file": "native-direct-fixed.json",
+      "startedAt": "2026-10-09T10:49:21.174Z",
+      "executable": ".private/qa/2026-10-09-macos-x64/fixed-zip-install/QuayTerm.app/Contents/MacOS/QuayTerm",
+      "results": [
+        {
+          "id": "runtime",
+          "startedAt": "2026-10-09T10:49:25.471Z",
+          "evidence": {
+            "packaged": true,
+            "version": "0.2.2",
+            "electron": "44.7.0",
+            "node": "24.21.0",
+            "arch": "x64",
+            "secureStorage": true,
+            "bounds": {
+              "x": 149,
+              "y": 25,
+              "width": 1420,
+              "height": 811
+            },
+            "trafficLights": {
+              "x": 14,
+              "y": 16
+            },
+            "sandbox": true,
+            "contextIsolation": true,
+            "nodeIntegration": false,
+            "menuRoles": [
+              "QuayTerm",
+              "editmenu",
+              "windowmenu"
+            ],
+            "switches": {
+              "noSandbox": false,
+              "mockKeychain": false,
+              "passwordStore": ""
+            }
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:49:25.600Z"
+        },
+        {
+          "id": "keychain-save",
+          "startedAt": "2026-10-09T10:49:25.601Z",
+          "evidence": {
+            "encryptedOnDisk": true,
+            "plaintextAbsent": true,
+            "mode": "600",
+            "firstPid": 26974
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:49:25.611Z"
+        },
+        {
+          "id": "keychain-new-process",
+          "startedAt": "2026-10-09T10:49:27.076Z",
+          "evidence": {
+            "newPid": 26983,
+            "authenticatedWithoutPasswordEntry": true,
+            "settingsRestored": true,
+            "fingerprintMatched": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:49:27.443Z"
+        },
+        {
+          "id": "command-terminal-edit-focus",
+          "startedAt": "2026-10-09T10:49:27.444Z",
+          "evidence": {
+            "terminal": [
+              "Cmd+A",
+              "Cmd+C",
+              "Cmd+F",
+              "Cmd+V"
+            ],
+            "normalInput": [
+              "Cmd+A",
+              "Cmd+C",
+              "Cmd+V"
+            ],
+            "bracketedBytesVerified": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:49:27.940Z"
+        },
+        {
+          "id": "app-quit-cancel",
+          "startedAt": "2026-10-09T10:49:27.941Z",
+          "evidence": {
+            "applicationSurvived": true,
+            "sameSessionAcceptsInput": true,
+            "method": "app.quit() lifecycle; native menu and physical Cmd+Q NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:49:28.929Z"
+        },
+        {
+          "id": "window-controls-api",
+          "startedAt": "2026-10-09T10:49:28.930Z",
+          "evidence": {
+            "minimizeRestoreMaximize": true,
+            "method": "BrowserWindow API; traffic-light clicks NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:49:33.654Z"
+        },
+        {
+          "id": "app-quit-confirm",
+          "startedAt": "2026-10-09T10:49:33.654Z",
+          "evidence": {
+            "normalExitCode": 0,
+            "inspectorDetachedAfterWindowClosed": true,
+            "debuggerState": {
+              "waitingForDebuggerDisconnect": false
+            }
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:49:34.038Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-09T10:49:35.495Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "pty-direct-fixed.json",
+      "startedAt": "2026-10-09T10:50:20.408Z",
+      "results": [
+        {
+          "id": "tmux-real-windows",
+          "startedAt": "2026-10-09T10:50:22.262Z",
+          "evidence": {
+            "version": "3.7c",
+            "first": "/dev/ttys002",
+            "second": "/dev/ttys003",
+            "previousNextVerified": true,
+            "before": "34 133",
+            "after": "29 95",
+            "reattached": "/dev/ttys002",
+            "mouseModeShiftSelectionAndCommandCopy": true,
+            "selectionDidNotSendMouseBytes": true,
+            "dedicatedSocket": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:50:27.665Z"
+        },
+        {
+          "id": "real-pty-resize",
+          "startedAt": "2026-10-09T10:50:27.666Z",
+          "evidence": {
+            "tty": "/dev/ttys000",
+            "before": "36 133",
+            "after": "30 95",
+            "method": "actual shell stty through SSH and Python PTY"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:50:28.865Z"
+        },
+        {
+          "id": "large-output",
+          "startedAt": "2026-10-09T10:50:28.865Z",
+          "evidence": {
+            "lines": 50000,
+            "finalTenContiguous": true,
+            "inputAfterOutput": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:50:30.084Z"
+        },
+        {
+          "id": "screen-real-windows",
+          "startedAt": "2026-10-09T10:50:30.084Z",
+          "evidence": {
+            "version": "4.00.03 (Apple system screen)",
+            "first": "/dev/ttys004",
+            "second": "/dev/ttys005",
+            "returned": "/dev/ttys004",
+            "before": "30 95",
+            "after": "35 124",
+            "attached": "/dev/ttys004",
+            "dedicatedSession": "quayterm-test",
+            "dedicatedSocketDirectory": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:50:32.735Z"
+        },
+        {
+          "id": "independent-layouts",
+          "startedAt": "2026-10-09T10:50:32.736Z",
+          "evidence": {
+            "ttys": [
+              "/dev/ttys000",
+              "/dev/ttys008",
+              "/dev/ttys006",
+              "/dev/ttys007"
+            ],
+            "independentShellProcesses": 4,
+            "layouts": 8,
+            "movedFromTwoPlusTwoToThreePlusOne": true,
+            "reconnected": false
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T10:50:40.770Z"
+        }
+      ],
+      "scope": "tmux-real-windows,real-pty-resize,large-output,screen-real-windows,independent-layouts",
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-09T10:50:41.142Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "pty-direct-final-layout-idle.json",
+      "startedAt": "2026-10-09T11:04:50.708Z",
+      "results": [
+        {
+          "id": "independent-layouts",
+          "startedAt": "2026-10-09T11:04:52.610Z",
+          "evidence": {
+            "ttys": [
+              "/dev/ttys000",
+              "/dev/ttys004",
+              "/dev/ttys002",
+              "/dev/ttys003"
+            ],
+            "independentShellProcesses": 4,
+            "layouts": 8,
+            "movedFromTwoPlusTwoToThreePlusOne": true,
+            "divider": {
+              "before": "35 64",
+              "after": "35 75",
+              "sameTty": "/dev/ttys002"
+            },
+            "reconnected": false
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:05:03.017Z"
+        },
+        {
+          "id": "idle-and-disconnect",
+          "startedAt": "2026-10-09T11:05:03.017Z",
+          "evidence": {
+            "idleMilliseconds": 300149,
+            "inputAfterIdle": true,
+            "gracefulFixtureStopMessage": "Mac PTY QA\n\nSSH 127.0.0.1:<ephemeral>\n\n连接已关闭\n\n重新连接\n关闭",
+            "sleepWake": "NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:10:03.168Z"
+        }
+      ],
+      "scope": "independent-layouts,idle-and-disconnect",
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-09T11:10:03.741Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "host-security-final.json",
+      "startedAt": "2026-10-09T11:10:12.407Z",
+      "results": [
+        {
+          "id": "H01-host-management",
+          "startedAt": "2026-10-09T11:10:14.027Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:10:36.416Z"
+        },
+        {
+          "id": "H02-host-trust",
+          "startedAt": "2026-10-09T11:10:36.417Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:10:36.796Z"
+        },
+        {
+          "id": "P01-storage-unavailable",
+          "startedAt": "2026-10-09T11:10:36.797Z",
+          "evidence": {
+            "method": "isEncryptionAvailable=false only in isolated process; system Keychain untouched",
+            "warningVisible": true,
+            "plaintextAbsent": true,
+            "noEncryptedSecretWritten": true,
+            "sameProcessAuthentication": true,
+            "passwordMissingAfterNewProcess": true,
+            "promptOnReconnect": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:10:41.158Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:10:41.229Z",
+      "failuresPreservedPrivately": [
+        "H01-host-management",
+        "H02-host-trust"
+      ],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "host-security-corrected.json",
+      "startedAt": "2026-10-09T11:11:41.388Z",
+      "results": [
+        {
+          "id": "H01-host-management",
+          "startedAt": "2026-10-09T11:11:42.946Z",
+          "evidence": {
+            "createEditDelete": true,
+            "groupSearchAndTagFilter": true,
+            "fourSorts": true,
+            "gridAndList": true,
+            "distinctHostEdits": true,
+            "newProcessPersistence": true,
+            "connectionPaths": "verified by H02"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:11:55.719Z"
+        },
+        {
+          "id": "H02-host-trust",
+          "startedAt": "2026-10-09T11:11:55.720Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:12:11.830Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:12:11.985Z",
+      "failuresPreservedPrivately": [
+        "H02-host-trust"
+      ],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "host-trust-final.json",
+      "startedAt": "2026-10-09T11:14:39.313Z",
+      "results": [
+        {
+          "id": "H02-host-trust",
+          "startedAt": "2026-10-09T11:14:41.265Z",
+          "evidence": {
+            "initialReject": true,
+            "fingerprintMatchedIndependentProbe": true,
+            "explicitTrustAndReconnect": true,
+            "samePortChangedKeyBlocked": true,
+            "knownDetailsAndDelete": true,
+            "explicitRetrust": true,
+            "hashedKnownHostsImport": true,
+            "wildcardAndMalformedRejected": true,
+            "importPicker": "stub points to a real dedicated file; native picker is covered by F02 BLOCKED",
+            "topPlusAndDoubleClick": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:14:47.325Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:14:47.584Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "files-faults-final.json",
+      "startedAt": "2026-10-09T11:11:15.438Z",
+      "results": [
+        {
+          "id": "F03-three-directions",
+          "startedAt": "2026-10-09T11:11:17.256Z",
+          "evidence": {
+            "directions": [
+              "local -> A",
+              "A -> B",
+              "B -> local"
+            ],
+            "independentEndpoints": true,
+            "files": [
+              {
+                "path": "child/中文 文件.txt",
+                "bytes": 17,
+                "sha256": "3faf541d715494b808054c70e48d38c80c218bc344766dedc6b9703b19a2da83"
+              },
+              {
+                "path": "sample.bin",
+                "bytes": 1048576,
+                "sha256": "de9a96090b4034590fd13992f813fb4c4b8a4359313d8b358ca71451e68d949e"
+              }
+            ],
+            "remoteShellInputBytes": 0
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:11:17.616Z"
+        },
+        {
+          "id": "F03-overwrite-self-link-cancel-disconnect",
+          "startedAt": "2026-10-09T11:11:17.617Z",
+          "evidence": {
+            "overwriteDeniedAndAllowed": true,
+            "sameHostTwoConnectionsSelfAndChildBlocked": true,
+            "symlinksRejected": true,
+            "canceledAfterBytes": 131072,
+            "canceledTotalBytes": 67108864,
+            "disconnectAfterBytes": 131072,
+            "originalTargetPreserved": true,
+            "disconnectedPartFilesCleaned": 1,
+            "userReconnectAndNewTransfer": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:11:18.802Z"
+        },
+        {
+          "id": "N01-auth-and-refused",
+          "startedAt": "2026-10-09T11:11:18.803Z",
+          "evidence": {
+            "wrongPasswordError": true,
+            "refusedConnectionError": true,
+            "failedSessionsClosable": true,
+            "methods": "actual packaged IPC and real loopback SSH; UI errors are separately exercised in host trust and idle tests"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:11:18.933Z"
+        },
+        {
+          "id": "F04-remote-editor-and-limits",
+          "startedAt": "2026-10-09T11:11:18.934Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:11:24.693Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:11:25.020Z",
+      "failuresPreservedPrivately": [
+        "F04-remote-editor-and-limits"
+      ],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "files-faults-formats.json",
+      "startedAt": "2026-10-09T11:13:56.128Z",
+      "results": [
+        {
+          "id": "F04-no-atomic-extension",
+          "startedAt": "2026-10-09T11:13:58.164Z",
+          "evidence": {
+            "method": "real SFTP v3 peer with OpenSSH extensions removed from VERSION advertisement",
+            "replacementRejected": true,
+            "originalPreserved": true,
+            "partialFilesRemoved": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:13:58.413Z"
+        },
+        {
+          "id": "F04-remote-editor-and-limits",
+          "startedAt": "2026-10-09T11:13:58.413Z",
+          "evidence": {
+            "remoteUtf8AndBomCrlf": true,
+            "consecutiveCommandS": 2,
+            "staleSavesRejectedForBothFormats": true,
+            "externalChangesPreserved": true,
+            "largeTextLimitBytes": 2097152,
+            "binaryPreservedAndRoutedExternally": true,
+            "externalCopyEditNotUploaded": true,
+            "systemApplication": "stub; real open evidence is separate"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:14:01.256Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:14:01.579Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "upgrade-profile-final.json",
+      "startedAt": "2026-10-09T11:12:47.107Z",
+      "format": "macOS standalone app",
+      "oldRelease": "v0.2.2",
+      "oldReleaseZipSha256": "a3e24677888d2eea52c1d4791e05d7f32339218472a89c18ba86cd326acf2c54",
+      "results": [
+        {
+          "id": "replace-with-fixed-ZIP",
+          "status": "PASS",
+          "pid": 39985,
+          "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+          "hostTrustPreferencesPreserved": true,
+          "authenticatedWithoutPasswordEntry": true,
+          "timestamp": "2026-10-09T11:12:57.006Z"
+        },
+        {
+          "id": "replace-with-fixed-DMG",
+          "status": "PASS",
+          "pid": 39996,
+          "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+          "hostTrustPreferencesPreserved": true,
+          "authenticatedWithoutPasswordEntry": true,
+          "timestamp": "2026-10-09T11:13:01.960Z"
+        },
+        {
+          "id": "remove-program-reinstall-keep-data",
+          "status": "PASS",
+          "pid": 40010,
+          "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+          "hostTrustPreferencesPreserved": true,
+          "authenticatedWithoutPasswordEntry": true,
+          "timestamp": "2026-10-09T11:13:06.454Z"
+        }
+      ],
+      "initial": {
+        "asarSha256": "03e5a4a43feb3d9e02d72d3f38f1dc2614fca262d934d5bd3b94ef57bec09feb",
+        "version": "0.2.2",
+        "pid": 39961,
+        "rememberedPassword": true,
+        "trustRecorded": true
+      },
+      "uninstaller": "N/A: DMG/ZIP contain standalone .app; only this temporary program bundle was removed, and dedicated profile was retained for reinstall",
+      "normalFinderInstall": "BLOCKED, tracked under R01; these replacements used ditto and direct executable launch",
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:13:06.654Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "ui-matrix-final.json",
+      "startedAt": "2026-10-09T11:18:06.869Z",
+      "results": [
+        {
+          "id": "T04-styles-and-unicode",
+          "startedAt": "2026-10-09T11:18:08.814Z",
+          "evidence": {
+            "styles": {
+              "BOLD": {
+                "color": "rgb(203, 212, 227)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "700",
+                "decoration": "none"
+              },
+              "UNDER": {
+                "color": "rgb(203, 212, 227)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "underline"
+              },
+              "INV": {
+                "color": "rgb(20, 24, 39)",
+                "background": "rgb(203, 212, 227)",
+                "weight": "400",
+                "decoration": "none"
+              },
+              "ANSI16": {
+                "color": "rgb(239, 125, 133)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "none"
+              },
+              "INDEX": {
+                "color": "rgb(255, 135, 0)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "none"
+              },
+              "RGB": {
+                "color": "rgb(12, 34, 56)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "none"
+              }
+            },
+            "positions": {
+              "cellWidth": 8.421875,
+              "endOffset": 126.359375,
+              "expectedCells": 15
+            },
+            "cjkEmojiCombining": true,
+            "remainingCoverage": "six themes, highlight semantics and 50000 lines are in final-fixed-features-focus and pty-direct-fixed"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:18:09.123Z"
+        },
+        {
+          "id": "F01-navigation-and-endpoints",
+          "startedAt": "2026-10-09T11:18:09.124Z",
+          "evidence": {
+            "sidebar": {
+              "before": 264,
+              "after": 342,
+              "hiddenAndRestored": true,
+              "followsFocusedSession": true
+            },
+            "endpointCases": [
+              {
+                "side": 0,
+                "endpoint": "本地",
+                "sample": "LOCAL_ONLY.txt"
+              },
+              {
+                "side": 0,
+                "endpoint": "UI Alpha",
+                "sample": "A_ONLY.txt"
+              },
+              {
+                "side": 0,
+                "endpoint": "UI Beta",
+                "sample": "B_ONLY.txt"
+              },
+              {
+                "side": 1,
+                "endpoint": "本地",
+                "sample": "LOCAL_ONLY.txt"
+              },
+              {
+                "side": 1,
+                "endpoint": "UI Alpha",
+                "sample": "A_ONLY.txt"
+              },
+              {
+                "side": 1,
+                "endpoint": "UI Beta",
+                "sample": "B_ONLY.txt"
+              }
+            ],
+            "hiddenFilteringSortingNavigation": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:18:13.579Z"
+        },
+        {
+          "id": "T02-selection-and-multiline",
+          "startedAt": "2026-10-09T11:18:13.579Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:18:22.318Z"
+        },
+        {
+          "id": "T03-keyboard-and-shell",
+          "startedAt": "2026-10-09T11:18:22.318Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:18:31.260Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:18:31.838Z",
+      "failuresPreservedPrivately": [
+        "T02-selection-and-multiline",
+        "T03-keyboard-and-shell"
+      ],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "ui-matrix-keyboard.json",
+      "startedAt": "2026-10-09T11:19:18.336Z",
+      "results": [
+        {
+          "id": "T02-selection-and-multiline",
+          "startedAt": "2026-10-09T11:19:20.242Z",
+          "evidence": {
+            "dragAndSelectAll": true,
+            "autoCopyInExistingAndNewSession": true,
+            "multilineCancelSendsNothing": true,
+            "multilineConfirmBracketedBytes": true,
+            "otherNativeTextApp": "BLOCKED",
+            "preferenceRestart": "native-direct-fixed proves saved setting restoration"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:19:24.689Z"
+        },
+        {
+          "id": "T03-keyboard-and-shell",
+          "startedAt": "2026-10-09T11:19:24.689Z",
+          "evidence": {
+            "newConnectionTAndK": true,
+            "altDigits": 9,
+            "tabNextPrevious": true,
+            "closeCancelConfirm": true,
+            "shellBytes": [
+              "Ctrl+A",
+              "Ctrl+B",
+              "Ctrl+C",
+              "Ctrl+K",
+              "Tab",
+              "four arrows"
+            ],
+            "foregroundStopAndInterrupt": true,
+            "ctrlDClosesOnlyFixtureShell": true,
+            "shellExitPid": 43063,
+            "nativeMenuAndPhysicalCmdQ": "BLOCKED"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:19:29.242Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:19:29.769Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "ui-matrix-files-restart.json",
+      "startedAt": "2026-10-09T11:21:53.963Z",
+      "results": [
+        {
+          "id": "F02-T03-file-keys",
+          "startedAt": "2026-10-09T11:21:55.972Z",
+          "evidence": {
+            "shiftRangeSelection": 3,
+            "commandSelectAll": 4,
+            "F2Rename": true,
+            "commandCopyPasteIntoFolder": true,
+            "deleteCancelAndConfirm": true,
+            "ShiftF10ContextAndCopyName": true,
+            "originalRetained": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:22:00.701Z"
+        },
+        {
+          "id": "N01-visible-errors-and-reconnect",
+          "startedAt": "2026-10-09T11:22:00.702Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:22:13.058Z"
+        },
+        {
+          "id": "T02-autocopy-after-restart",
+          "startedAt": "2026-10-09T11:22:13.059Z",
+          "status": "FAIL",
+          "finishedAt": "2026-10-09T11:22:14.338Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:22:14.957Z",
+      "failuresPreservedPrivately": [
+        "N01-visible-errors-and-reconnect",
+        "T02-autocopy-after-restart"
+      ],
+      "fatalRecordedPrivately": false
+    },
+    {
+      "file": "ui-matrix-recovery-restart.json",
+      "startedAt": "2026-10-09T11:23:27.692Z",
+      "results": [
+        {
+          "id": "N01-visible-errors-and-reconnect",
+          "startedAt": "2026-10-09T11:23:29.633Z",
+          "evidence": {
+            "incorrectPasswordVisible": true,
+            "correctedPasswordManualReconnect": true,
+            "refusedConnectionVisibleAndClosable": true,
+            "sleepWake": "BLOCKED"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:23:30.360Z"
+        },
+        {
+          "id": "T02-autocopy-after-restart",
+          "startedAt": "2026-10-09T11:23:30.360Z",
+          "evidence": {
+            "newPid": 44259,
+            "settingRestored": true,
+            "selectionCopiedWithoutRetoggling": true,
+            "clipboardRestoredBetweenProcesses": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-09T11:23:33.883Z"
+        }
+      ],
+      "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "clipboardRestored": true,
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-09T11:23:33.992Z",
+      "failuresPreservedPrivately": [],
+      "fatalRecordedPrivately": false
+    }
+  ],
+  "realExternalOpen": {
+    "startedAt": "2026-10-09T11:03:16.772Z",
+    "visualDisplay": "BLOCKED: native app observation is unavailable in this chat; process/file evidence does not prove displayed content",
+    "asarSha256": "9bcec8806b32d8efa6961821cbbb3ff0500d34abbabeca442f13ccb59a5af450",
+    "launchSwitches": {
+      "noSandbox": false,
+      "mockKeychain": false,
+      "passwordStore": ""
+    },
+    "debugEndpointsLoopbackOnly": true,
+    "local": {
+      "openedOriginal": true,
+      "sampleSha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706",
+      "bytes": 19777
+    },
+    "remote": {
+      "independentCopies": true,
+      "copies": [
+        {
+          "filename": "Remote independent.png",
+          "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706"
+        },
+        {
+          "filename": "Remote independent.png",
+          "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706"
+        }
+      ],
+      "remoteShellInputBytes": 0
+    },
+    "preview": {
+      "newlyStartedPids": [
+        35370
+      ],
+      "version": "11.0"
+    },
+    "copiesSurviveQuayTermExit": true,
+    "actualShellOpenPath": "PASS (unmodified Electron shell.openPath; native visual display still BLOCKED)",
+    "cleanedTestFiles": true,
+    "finishedAt": "2026-10-09T11:03:19.513Z"
+  },
+  "failureExplanations": {
+    "MAC01": {
+      "category": "product defect, fixed",
+      "baseline": "4e79d4a01790d93f7ea49e4d3f201458f71a877f89496d1f1afe9dc2a0c6b78e",
+      "originalEvidence": [
+        "tmux-acceptance-shell.json",
+        "shift-regression-old-package.log"
+      ],
+      "fix": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "finalEvidence": [
+        "pty-direct-fixed.json",
+        "final-fixed-zip-smoke-report.json",
+        "final-fixed-dmg-smoke-report.json"
+      ],
+      "description": "macOS Shift drag in remote mouse reporting mode did not select locally; xterm Option selection path now supports the Shift gesture. Modes 1000, 1002 and 1003, Option and ordinary mouse clicks passed."
+    },
+    "QA01": {
+      "category": "runtime preparation",
+      "description": "First source smoke included Electron binary download and timed out; unchanged runtime-ready rerun passed. First timeout resources were identified and removed.",
+      "evidence": [
+        "desktop-smoke-baseline.log",
+        "desktop-smoke-first-failure/report.json",
+        "cleanup-files.json"
+      ]
+    },
+    "QA02": {
+      "category": "test platform modifier",
+      "description": "Control-click opens context menu on macOS; changed only file multiselect to Meta. Original failure and successful final six-case suite retained.",
+      "fix": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19"
+    },
+    "QA03": {
+      "category": "test navigation and destination validation",
+      "description": "Failed overwrite run still showed parent directory. Wait for context menu exit and verify loaded row path plus every transfer destination; unchanged application package then passed all six cases. First run is not evidence of overwriting an existing target.",
+      "evidence": [
+        "final-fixed-features-first-failure/report.json",
+        "final-fixed-features-focus-report.json"
+      ],
+      "fix": "6a0d28f385d438717ec13e6ba462fe7d47aee67b"
+    },
+    "QA04": {
+      "category": "private driver corrections",
+      "description": "Corrected icon-inclusive accessible names, ambiguous modal buttons, macOS default tmux shell, asynchronous Clipboard API/ClipboardItem copying, save-error toast location and save completion, xterm LF-to-CR paste normalization, final closed-session message, and debugger disconnect before process exit. All final target groups passed; earlier JSON/logs are retained."
+    },
+    "QA05": {
+      "category": "evidence scope correction",
+      "description": "Actual macOS source launch had mock-keychain/basic flags; packaged Playwright launch did not. Direct fixed-package Keychain and child-process arguments supply system-storage/sandbox evidence. Do not infer flags solely from loader source."
+    },
+    "QA06": {
+      "category": "private cleanup timing",
+      "description": "First direct fixed external-open run failed during removal of an exiting app cache directory (ENOTEMPTY). Wait for process closure and allow bounded filesystem cleanup retries; completed rerun passed, and original leftover was explicitly removed.",
+      "evidence": [
+        "real-open-direct-fixed-command.log",
+        "real-open-direct-fixed-complete.json",
+        "cleanup-files.json"
+      ]
+    }
+  },
+  "limitations": [
+    "VMware x64 guest; not physical Intel Mac, Apple Silicon or Rosetta",
+    "Finder/quarantine normal launch, native menu/traffic lights/Cmd+Q and system picker/drag not observed",
+    "No other native text application paste, Preview displayed pixels, IME or sleep/wake validation",
+    "Disconnected SFTP destination retained one .part file; original target preserved and only owned partial was removed",
+    "Initial clipboard was not backed up; earlier private raw ClipboardItem restoration was not reliable; final supported copy restoration passed and recognized final smoke marker was cleared"
+  ],
+  "cleanup": {
+    "files": {
+      "checkedAt": "2026-10-09T11:26:42.028Z",
+      "activeAppOrFixtureProcesses": 0,
+      "firstTimeoutDirectoryOwnership": {
+        "name": "quayterm-native-RaYA0c",
+        "createdDuringFirstSmoke": true,
+        "binaryFixtureMatches": true,
+        "textMatchesKnownSmokeEdits": true,
+        "onlyFixtureHosts": true
+      },
+      "removedOwnedLeftovers": [
+        "quayterm-native-RaYA0c",
+        "quayterm-real-open-Q22Gn2"
+      ],
+      "remainingQuaytermTemporaryDirectories": []
+    },
+    "clipboard": {
+      "startedAt": "2026-10-09T11:28:30.985Z",
+      "clipboard": {
+        "recognizedFinalSmokeMarker": true,
+        "clearedOnlyIfRecognized": true,
+        "untouchedIfDifferent": false
+      },
+      "finishedAt": "2026-10-09T11:28:32.497Z"
+    },
+    "mounts": {
+      "checkedAt": "2026-10-09T11:28:32.693828+00:00",
+      "remainingOwnedImages": []
+    },
+    "final": {
+      "checkedAt": "2026-10-09T11:29:54.208Z",
+      "remainingAppFixtureOrViewerProcesses": 0,
+      "remainingQuaytermTemporaryDirectories": [],
+      "retained": [
+        "private evidence and scripts",
+        "local test packages and installation copies",
+        "official tmux binary with licenses",
+        "verified v0.2.2 upgrade source"
+      ],
+      "systemKeychainEntriesDeleted": false
+    }
+  },
+  "commandRuns": [
+    {
+      "label": "desktop-smoke-runtime-ready",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:13:31.720Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:13:43.541Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "desktop-smoke-runtime-ready.json",
+      "logSha256": "fa30bf3ca1e592ea6eeeeb02c44c78f2b7c2137d966c290b6f06d0c9a3d126a3"
+    },
+    {
+      "label": "package-baseline",
+      "command": [
+        "npm",
+        "run",
+        "dist:mac",
+        "--",
+        "--x64"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:13:40.631Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:14:48.608Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "package-baseline.json",
+      "logSha256": "c58e3b4c8e822f2f7d2486cec7d2a0ab2c7527d7d0518e8f63c537a30fe75391"
+    },
+    {
+      "label": "unpack-zip",
+      "command": [
+        "ditto",
+        "-x",
+        "-k",
+        "release/QuayTerm-0.2.2-mac.zip",
+        ".private/qa/2026-10-09-macos-x64/zip-install"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:15:38.936Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:15:39.928Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "unpack-zip.json",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "mount-dmg",
+      "command": [
+        "hdiutil",
+        "attach",
+        "-readonly",
+        "-nobrowse",
+        "-mountpoint",
+        ".private/qa/2026-10-09-macos-x64/dmg-mount",
+        "release/QuayTerm-0.2.2.dmg"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:15:40.004Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:15:44.199Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "mount-dmg.json",
+      "logSha256": "9be471e33203c6eeee2dfcc5a7a6f45da693fcbf352d2e308709bf57846f4144"
+    },
+    {
+      "label": "packaged-zip-smoke",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:16:22.380Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:16:35.332Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "packaged-zip-smoke.json",
+      "logSha256": "43afe5d7e2758a067d36b4dc257900f095679cd2052d2cc1ca1315f92cb65e4d"
+    },
+    {
+      "label": "packaged-dmg-smoke",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:17:00.858Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:17:14.475Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "packaged-dmg-smoke.json",
+      "logSha256": "8053c8206e5dac89b585c7b35d7747eb4ea4669798e3e5dd4900bc21356fd428"
+    },
+    {
+      "label": "native-acceptance-first",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/native-acceptance.cjs"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:19:03.484Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:19:05.891Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "native-acceptance-first.json",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "native-acceptance-second-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/native-acceptance.cjs"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:20:00.738Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:20:52.799Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "native-acceptance-second-command.json",
+      "logSha256": "abb0622579d414e0928390ceaf4d2300c74b566e56af9704b546d9b033c0d01f"
+    },
+    {
+      "label": "native-acceptance-third-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/native-acceptance.cjs"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:22:32.101Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:22:53.539Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "native-acceptance-third-command.json",
+      "logSha256": "6ffa5cac6a3c37c3ba5184a4b808f3f33182b2baa804dcc7608a1de71a55295b"
+    },
+    {
+      "label": "packaged-features-first",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/appearance-files.e2e.cjs"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:23:13.064Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:23:29.264Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "packaged-features-first.json",
+      "logSha256": "437f5061eb8ecd075c725d5fb427c70d2db75cbb8ac0e163ba1cf235d161d07c"
+    },
+    {
+      "label": "smoke-harness-check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "startedAt": "2026-10-09T10:24:24.048Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:24:27.872Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "smoke-harness-check.json",
+      "logSha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "label": "packaged-features-meta",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/appearance-files.e2e.cjs"
+      ],
+      "sourceCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+      "startedAt": "2026-10-09T10:24:59.380Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:25:56.107Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "packaged-features-meta.json",
+      "logSha256": "02c488d5c1dc2400bb6eb41aebafee4c1ff55ed2b3d81adec7980e4c096ff7c2"
+    },
+    {
+      "label": "native-acceptance-final-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/native-acceptance.cjs"
+      ],
+      "sourceCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+      "startedAt": "2026-10-09T10:26:45.983Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:26:56.428Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "native-acceptance-final-command.json",
+      "logSha256": "115f5e2c01eff7f580364939efee3df308ea652179a6488829fab856da7d53d4"
+    },
+    {
+      "label": "native-acceptance-corrected-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/native-acceptance.cjs"
+      ],
+      "sourceCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+      "startedAt": "2026-10-09T10:27:45.883Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:27:56.172Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "native-acceptance-corrected-command.json",
+      "logSha256": "af0ddf821264f02cd0a4b967b6af967c0f92c5d780081b700b8d5f462274ac52"
+    },
+    {
+      "label": "feature-harness-check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+      "startedAt": "2026-10-09T10:27:53.184Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:27:57.754Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "feature-harness-check.json",
+      "logSha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "label": "pty-acceptance-first-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/pty-acceptance.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:28:55.622Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:34:10.935Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "pty-acceptance-first-command.json",
+      "logSha256": "7b1da866ef8576032550211ee7f09f450e253777b6be57267f4559dd504ddc90"
+    },
+    {
+      "label": "real-open-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/real-open.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:30:45.487Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:30:45.857Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "real-open-command.json",
+      "logSha256": "7a32ce1ca1c2f58a1d68f7f5f70c52cc210368a10da8d5a63fd35478f5c4c290"
+    },
+    {
+      "label": "real-open-corrected-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/real-open.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:30:52.731Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:30:59.774Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "real-open-corrected-command.json",
+      "logSha256": "c1f861f4af2e2791560fcc81ed64d4da721433a684f9054c2b79056bf0cc1e9c"
+    },
+    {
+      "label": "tmux-download",
+      "command": [
+        "gh",
+        "release",
+        "download",
+        "v3.7c",
+        "--repo",
+        "tmux/tmux-builds",
+        "--pattern",
+        "tmux-3.7c-macos-x86_64.tar.gz",
+        "--pattern",
+        "LICENSES.tar.gz",
+        "--dir",
+        ".private/tooling/tmux-3.7c"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:36:38.454Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:36:41.417Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "tmux-download.json",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "tmux-acceptance-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/pty-acceptance.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:38:14.063Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:38:22.482Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "tmux-acceptance-command.json",
+      "logSha256": "ae4230bdf26552cfc54e80ebd2314022083a413b9aba407528d795e563ebd092"
+    },
+    {
+      "label": "tmux-acceptance-shell-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/pty-acceptance.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:39:14.550Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:39:26.545Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "tmux-acceptance-shell-command.json",
+      "logSha256": "ae4230bdf26552cfc54e80ebd2314022083a413b9aba407528d795e563ebd092"
+    },
+    {
+      "label": "shift-regression-before",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:41:39.410Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:42:01.507Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "shift-regression-before.json",
+      "logSha256": "eb90be33a06357507905a8e5722964b58efd66dda9fc905b184779156cd01efd"
+    },
+    {
+      "label": "shift-regression-old-package",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:43:28.740Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:43:51.380Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "shift-regression-old-package.json",
+      "logSha256": "62737ffa1fe80896a359421945db5644c49a4cbda623e5005ac8b246c2915274"
+    },
+    {
+      "label": "native-direct-baseline-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/native-acceptance.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:44:52.370Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:45:07.828Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "native-direct-baseline-command.json",
+      "logSha256": "106758f446f374129c6cecf4dbf7b52543355851acf2fd07ead8678d934b3565"
+    },
+    {
+      "label": "shift-fix-build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:45:10.289Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:45:15.210Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "shift-fix-build.json",
+      "logSha256": "10a841d64d38791cd2747ab53b0c066a33625613e59f2f1c3ebbf7c06a72f932"
+    },
+    {
+      "label": "shift-fix-check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:45:10.290Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:45:15.349Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "shift-fix-check.json",
+      "logSha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "label": "shift-fix-source-smoke",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+      "startedAt": "2026-10-09T10:45:58.354Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:46:09.304Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "shift-fix-source-smoke.json",
+      "logSha256": "1f45fd5f723cf88b9f9ae9652c34a4cb7be15eb993d6c18f4772e5f5d64753bf"
+    },
+    {
+      "label": "package-shift-fix",
+      "command": [
+        "npm",
+        "run",
+        "dist:mac",
+        "--",
+        "--x64",
+        "--config.directories.output=release/macos-shift-fix"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:46:46.455Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:47:23.742Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "package-shift-fix.json",
+      "logSha256": "ff9b7a07e66bd6a1914854ce3365c08c9f9f2986f96f57fdcbceceb0547ae9cf"
+    },
+    {
+      "label": "fixed-core-all",
+      "command": [
+        "node",
+        "--test",
+        "tests/core.test.cjs",
+        "tests/workspace.test.cjs",
+        "tests/local-files.test.cjs",
+        "tests/terminal-display.test.cjs"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:48:40.078Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:48:41.279Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "fixed-core-all.json",
+      "logSha256": "16113cef8e5f521eadbd002f29e27733cea52532a4d23a2f327e0bff80529279"
+    },
+    {
+      "label": "unpack-fixed-zip",
+      "command": [
+        "ditto",
+        "-x",
+        "-k",
+        "release/macos-shift-fix/QuayTerm-0.2.2-mac.zip",
+        ".private/qa/2026-10-09-macos-x64/fixed-zip-install"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:48:40.671Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:48:41.778Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "unpack-fixed-zip.json",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "mount-fixed-dmg",
+      "command": [
+        "hdiutil",
+        "attach",
+        "-readonly",
+        "-nobrowse",
+        "-mountpoint",
+        ".private/qa/2026-10-09-macos-x64/dmg-mount",
+        "release/macos-shift-fix/QuayTerm-0.2.2.dmg"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:48:41.844Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:48:44.594Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "mount-fixed-dmg.json",
+      "logSha256": "68a82f5fd43a258188bd2c5508ef411574b504d0e33b05455883ed0a1d9c6a90"
+    },
+    {
+      "label": "native-direct-fixed-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/native-acceptance.cjs"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:49:20.890Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:49:35.563Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "native-direct-fixed-command.json",
+      "logSha256": "af0ddf821264f02cd0a4b967b6af967c0f92c5d780081b700b8d5f462274ac52"
+    },
+    {
+      "label": "pty-direct-fixed-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/pty-acceptance.cjs"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:50:20.085Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:50:41.204Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "pty-direct-fixed-command.json",
+      "logSha256": "2f2cdef17abcf1a984b22837c601ec730bfaa1888f555a3f62da263a1696effc"
+    },
+    {
+      "label": "final-code-check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:50:50.697Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:50:54.661Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-code-check.json",
+      "logSha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "label": "final-source-mouse-matrix",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:55:40.625Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:55:55.416Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-source-mouse-matrix.json",
+      "logSha256": "a798b6a02f3086d00b499a9e3e2522364e34e84346ccabd9cf222c689f28dfd7"
+    },
+    {
+      "label": "final-matrix-check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "startedAt": "2026-10-09T10:56:03.302Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:56:06.691Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-matrix-check.json",
+      "logSha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "label": "final-fixed-zip-smoke",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "3d28195012e5d124a2ae77eb59755ca37193d392",
+      "startedAt": "2026-10-09T10:56:35.871Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:56:50.916Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-fixed-zip-smoke.json",
+      "logSha256": "fd04fe9fd29c452c143389cfb3b2dc2c65a3b506760e318665e4ff64c1873506"
+    },
+    {
+      "label": "final-fixed-dmg-smoke",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "3d28195012e5d124a2ae77eb59755ca37193d392",
+      "startedAt": "2026-10-09T10:57:07.746Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:57:25.248Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-fixed-dmg-smoke.json",
+      "logSha256": "748ccec35f69efeb8aef678ad5ab5732918f667e5d740569175dcab743865c07"
+    },
+    {
+      "label": "final-fixed-features",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/appearance-files.e2e.cjs"
+      ],
+      "sourceCommit": "3d28195012e5d124a2ae77eb59755ca37193d392",
+      "startedAt": "2026-10-09T10:58:11.076Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T10:58:57.988Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "final-fixed-features.json",
+      "logSha256": "83033a30a5012874ad42064a1c09c076fcd214646467c178b7e4e3c53b3fb47b"
+    },
+    {
+      "label": "final-fixed-features-focus",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/appearance-files.e2e.cjs"
+      ],
+      "sourceCommit": "3d28195012e5d124a2ae77eb59755ca37193d392",
+      "startedAt": "2026-10-09T11:00:41.243Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:01:33.312Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-fixed-features-focus.json",
+      "logSha256": "d800cad54fdb33385b5187e6f5513c953b14b26fdb200a6732079c1f86096300"
+    },
+    {
+      "label": "final-harness-check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "3d28195012e5d124a2ae77eb59755ca37193d392",
+      "startedAt": "2026-10-09T11:01:37.811Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:01:41.675Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-harness-check.json",
+      "logSha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "label": "real-open-direct-fixed-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/real-open.cjs"
+      ],
+      "sourceCommit": "3d28195012e5d124a2ae77eb59755ca37193d392",
+      "startedAt": "2026-10-09T11:01:50.181Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:01:53.430Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "real-open-direct-fixed-command.json",
+      "logSha256": "7682c8fc49a2c65081cf2651816096a0da76a2a2a65edd721309b1c0d60e91a4"
+    },
+    {
+      "label": "real-open-direct-fixed-complete-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/real-open.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:03:16.504Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:03:19.535Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "real-open-direct-fixed-complete-command.json",
+      "logSha256": "c1f861f4af2e2791560fcc81ed64d4da721433a684f9054c2b79056bf0cc1e9c"
+    },
+    {
+      "label": "pty-direct-final-layout-idle-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/pty-acceptance.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:04:50.421Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:10:03.773Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "pty-direct-final-layout-idle-command.json",
+      "logSha256": "8ba42e7a0e24211837e6aa6930fc4b0d4786a6e999eed505acf0539ce2a12ca2"
+    },
+    {
+      "label": "download-upgrade-release",
+      "command": [
+        "gh",
+        "release",
+        "download",
+        "v0.2.2",
+        "--repo",
+        "Kangede/quayterm",
+        "--pattern",
+        "QuayTerm-0.2.2-mac.zip",
+        "--pattern",
+        "SHA256SUMS",
+        "--dir",
+        ".private/qa/2026-10-09-macos-x64/release-upgrade"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:05:21.917Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:05:36.988Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "download-upgrade-release.json",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "host-security-final-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/host-security.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:10:12.137Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:10:41.248Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "host-security-final-command.json",
+      "logSha256": "906ce9209bb9f97d491411bb07358fa4ec3abdb37b7503fb9928d083502ae423"
+    },
+    {
+      "label": "unpack-upgrade-release",
+      "command": [
+        "ditto",
+        "-x",
+        "-k",
+        ".private/qa/2026-10-09-macos-x64/release-upgrade/QuayTerm-0.2.2-mac.zip",
+        ".private/qa/2026-10-09-macos-x64/release-upgrade/official"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:11:05.918Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:11:06.940Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "unpack-upgrade-release.json",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "files-faults-final-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/files-faults.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:11:15.154Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:11:25.038Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "files-faults-final-command.json",
+      "logSha256": "ca68f7157c872357ae3c598be393f0187ef2fff3dcd499ac512b3906a8aea968"
+    },
+    {
+      "label": "host-security-corrected-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/host-security.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:11:41.115Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:12:12.159Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "host-security-corrected-command.json",
+      "logSha256": "51201d766601b7a2d23c7f7b62a8f5fa892a4962e081289a71809ccc1b4db090"
+    },
+    {
+      "label": "upgrade-profile-final-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/upgrade-profile.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:12:46.837Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:13:06.676Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "upgrade-profile-final-command.json",
+      "logSha256": "b5febe303eca44b44be139399c6be3ba3c4ec194698ede4b0752b3609606692c"
+    },
+    {
+      "label": "files-faults-formats-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/files-faults.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:13:55.813Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:14:01.598Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "files-faults-formats-command.json",
+      "logSha256": "85aee0ab4b59423a6d19c1a48577c3484d4c75c5c221b3449e82c68f1528fafc"
+    },
+    {
+      "label": "host-trust-final-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/host-security.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:14:39.040Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:14:47.617Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "host-trust-final-command.json",
+      "logSha256": "4c7c6de104ee5f37b0e89f92698326e66ae4ccb2ac0c808aa7d41a415ab9c4a7"
+    },
+    {
+      "label": "ui-matrix-final-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/ui-matrix.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:18:06.582Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:18:31.873Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "ui-matrix-final-command.json",
+      "logSha256": "6ce213b59d213faa668e45d2ac0ef385c6d0a78c540d506c96ca229f766448e5"
+    },
+    {
+      "label": "ui-matrix-keyboard-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/ui-matrix.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:19:18.050Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:19:29.796Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "ui-matrix-keyboard-command.json",
+      "logSha256": "b17c0c9ecc4ffff56033372be2bdf9ad81f8b5b4baa48072307833513493fd24"
+    },
+    {
+      "label": "ui-matrix-files-restart-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/ui-matrix.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:21:53.692Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:22:14.983Z",
+      "exitCode": 1,
+      "signal": null,
+      "metadataFile": "ui-matrix-files-restart-command.json",
+      "logSha256": "6f652f88116cfce2b7e03e00ec2a0ace6524b2e5402e512198615bb7142a1d47"
+    },
+    {
+      "label": "ui-matrix-recovery-restart-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-09-macos-x64/ui-matrix.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:23:27.386Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:23:34.017Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "ui-matrix-recovery-restart-command.json",
+      "logSha256": "44b8bc0bb0108804bc866d6a4a64193490422a73787f7cde444a220c0f906f64"
+    },
+    {
+      "label": "final-source-smoke-integrated",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "startedAt": "2026-10-09T11:24:28.400Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-09T11:24:43.498Z",
+      "exitCode": 0,
+      "signal": null,
+      "metadataFile": "final-source-smoke-integrated.json",
+      "logSha256": "f4b024f4a198059ca44496a58896303b79340a2c8db93dc10ff71ecbb90776d4"
+    }
+  ],
+  "privateEvidence": [
+    {
+      "file": "build-baseline.log",
+      "sha256": "5d169fbe22e33ab0bcc25c6aa360cbd91997514b792c980ae2741cf70ef8c476"
+    },
+    {
+      "file": "check-baseline.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "file": "cleanup-clipboard-complete.json",
+      "sha256": "dbf59f1b6115b277954a731e34f981da84972f1082a06d208954547a026bb2e6"
+    },
+    {
+      "file": "cleanup-clipboard.json",
+      "sha256": "6abb20b8f99c49161cb015df0ddac200eb00df7b672e2de4c6c187d10ebb68fa"
+    },
+    {
+      "file": "cleanup-files.json",
+      "sha256": "467df3b6f7ed96f76e1b6a64fdee989f1d50116e46a6dd190fc84b8270b64a40"
+    },
+    {
+      "file": "cleanup-final.json",
+      "sha256": "e91fd6b8af026a35b083be8b90a94cb67c8e7efb101e05649ffc97dcd0602159"
+    },
+    {
+      "file": "cleanup-inventory-before.json",
+      "sha256": "deeff4b00a5ed001d56a07ac0b798379b536a143ecd4339bd237107148e28484"
+    },
+    {
+      "file": "cleanup-mounts.json",
+      "sha256": "a880f6d9c9eb9cdabd1a161caa58497febade2b617f446579962a9a4b4c795ae"
+    },
+    {
+      "file": "clipboard-cleanup.cjs",
+      "sha256": "0e14cc8ac5ff46bd52c16c715f1b23dce50a71ea92b047dcc42b1bfd572e9c57"
+    },
+    {
+      "file": "core-macos.log",
+      "sha256": "4a5f1f8b3e5df82c5f57362e6c905915e4cee1fc30daaf699bbd4faa6c73085a"
+    },
+    {
+      "file": "desktop-smoke-baseline.log",
+      "sha256": "51683d2df93fee412b44b84a59d1764dff37f37d52876112c6ea74b35da21d6d"
+    },
+    {
+      "file": "desktop-smoke-first-failure/error-context.md",
+      "sha256": "31dbaf5544f8ccd4c187824a144beef69cab3dd936507e6eb8776e7f88218c79"
+    },
+    {
+      "file": "desktop-smoke-first-failure/report.json",
+      "sha256": "3cc7c468c11dbe935472605a355a2ccc0e014f3cd97516f010389a5d42d50525"
+    },
+    {
+      "file": "desktop-smoke-first-failure/trace.zip",
+      "sha256": "1f65ce90c005e72f7a2bffe6e11a280740f2817334f5821b1fb3aab604d9b265"
+    },
+    {
+      "file": "desktop-smoke-runtime-ready.json",
+      "sha256": "bedfb73df124ddfdc11f6a2e08b3bc49fd1e953d787bdb7c494a13ab0b6ec8b5"
+    },
+    {
+      "file": "desktop-smoke-runtime-ready.log",
+      "sha256": "fa30bf3ca1e592ea6eeeeb02c44c78f2b7c2137d966c290b6f06d0c9a3d126a3"
+    },
+    {
+      "file": "direct-electron.cjs",
+      "sha256": "8cdd1cc7f1b06e3d00c57e89f488da3ec5218e474c8c839bad383b74c9074762"
+    },
+    {
+      "file": "download-upgrade-release.json",
+      "sha256": "56f75bf7cd03c96b0ab0570d0aa38dba8dfdc36d72c60849200f37f0823f2e5f"
+    },
+    {
+      "file": "download-upgrade-release.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "environment.json",
+      "sha256": "50ec52b87eaf24bf8c55599ec72d9b494008db53da9fc90767a9b780eb5a0304"
+    },
+    {
+      "file": "feature-harness-check.json",
+      "sha256": "a8c5ba92279199bc5b2eb6551e981bcc75fd115fa67556acbca6bf7a9a0370bd"
+    },
+    {
+      "file": "feature-harness-check.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "file": "files-faults-final-command.json",
+      "sha256": "92d9f845077c62efd814d3b625a1a607804893c5af94aa13ccd8c04bdd05b367"
+    },
+    {
+      "file": "files-faults-final-command.log",
+      "sha256": "ca68f7157c872357ae3c598be393f0187ef2fff3dcd499ac512b3906a8aea968"
+    },
+    {
+      "file": "files-faults-final-F04-remote-editor-and-limits-failed.png",
+      "sha256": "eb3af474b456116a8a582d60b2386d7712028a6a89f9e87a10b02c33e1e70291"
+    },
+    {
+      "file": "files-faults-final.json",
+      "sha256": "b432111940f25859f2634ef6bfec6cc915ee332c31a2cad0c863992397f5323d"
+    },
+    {
+      "file": "files-faults-formats-command.json",
+      "sha256": "f8a2db0385a89a4ca21eb3aac0968ec7fa6df3621287804aa32e040fcb47ec22"
+    },
+    {
+      "file": "files-faults-formats-command.log",
+      "sha256": "85aee0ab4b59423a6d19c1a48577c3484d4c75c5c221b3449e82c68f1528fafc"
+    },
+    {
+      "file": "files-faults-formats.json",
+      "sha256": "21d52ae81941ccd0a2c600fc7117d123d1ec61735432a208aa21b9016b030800"
+    },
+    {
+      "file": "files-faults.cjs",
+      "sha256": "7728e8d9708ae9c28c3368ebcb1e517932e70aeebdaba31fa2e5fe3db25a0193"
+    },
+    {
+      "file": "final-code-check.json",
+      "sha256": "f3a97f9d32de46aa040fc017cca906e4aecc28950ea1527927ff5234ce4e8f61"
+    },
+    {
+      "file": "final-code-check.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "file": "final-fixed-dmg-smoke-report.json",
+      "sha256": "20b460cf397a33a55072cb7e721cb45c526be1feda21142cae2eed45d952ba6c"
+    },
+    {
+      "file": "final-fixed-dmg-smoke.json",
+      "sha256": "c47f8613a2fed4fdbed2bb875308f37db42d64952fd07bbf23d63352133d9bd8"
+    },
+    {
+      "file": "final-fixed-dmg-smoke.log",
+      "sha256": "748ccec35f69efeb8aef678ad5ab5732918f667e5d740569175dcab743865c07"
+    },
+    {
+      "file": "final-fixed-features-first-failure/report.json",
+      "sha256": "8d0db68b460129df0a0dbbe209934c12e6ae461ac0a0ca14575f0088347dc255"
+    },
+    {
+      "file": "final-fixed-features-first-failure/screenshot.png",
+      "sha256": "1e49232a40fe2a3f5931bdbc36c352c71054f84bbd391eb0bb3bcef20f7ac71e"
+    },
+    {
+      "file": "final-fixed-features-first-failure/test-results/.last-run.json",
+      "sha256": "ca27ad0b712cc18c4b3ac61e920939821ae1cc79a0873a42fe7e646fa9dd0b9b"
+    },
+    {
+      "file": "final-fixed-features-first-failure/test-results/appearance-files.e2e.cjs-s-ab007--consent-for-every-transfer/error-context.md",
+      "sha256": "a044239180e46ea82455ee3b77906f6e21fbaa8b0377e990194a80321ea069cc"
+    },
+    {
+      "file": "final-fixed-features-first-failure/test-results/appearance-files.e2e.cjs-s-ab007--consent-for-every-transfer/trace.zip",
+      "sha256": "aafd5a1d11b42c99967c098178e87ac3384ec86a1709b329a8244559b32fa1f0"
+    },
+    {
+      "file": "final-fixed-features-focus-report.json",
+      "sha256": "f1461be0c46e3b6600ad853288be0d91659ee92996a7093c2988ab2eeec16c3c"
+    },
+    {
+      "file": "final-fixed-features-focus.json",
+      "sha256": "077ee91a6a39ddcab0954d4d7d0cc83357ba8e3d5e5fb827dfe757d41de8fa32"
+    },
+    {
+      "file": "final-fixed-features-focus.log",
+      "sha256": "d800cad54fdb33385b5187e6f5513c953b14b26fdb200a6732079c1f86096300"
+    },
+    {
+      "file": "final-fixed-features.json",
+      "sha256": "d0e1f181c9e49227f8dd0d0d6c799e4dda627a98ed34a78782a68d1537e78be0"
+    },
+    {
+      "file": "final-fixed-features.log",
+      "sha256": "83033a30a5012874ad42064a1c09c076fcd214646467c178b7e4e3c53b3fb47b"
+    },
+    {
+      "file": "final-fixed-zip-smoke-report.json",
+      "sha256": "fda485baf31ed2c4722fde5b55c736c213ef469c5140e9ae56e0dc9b9b95c1d8"
+    },
+    {
+      "file": "final-fixed-zip-smoke.json",
+      "sha256": "62a28fbcc451371c555ca637bf09682420757a06a9b7f25c7b0da000f9e07e41"
+    },
+    {
+      "file": "final-fixed-zip-smoke.log",
+      "sha256": "fd04fe9fd29c452c143389cfb3b2dc2c65a3b506760e318665e4ff64c1873506"
+    },
+    {
+      "file": "final-harness-check.json",
+      "sha256": "3feed08ea538cfd356542c5af440f05460cf3cbbec3cf59dc1d8bb16dce4f9db"
+    },
+    {
+      "file": "final-harness-check.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "file": "final-matrix-check.json",
+      "sha256": "3c69f4e00e938ab048f689ea517cde3d1ffec0189cdbd9f406d9ed6429c0712c"
+    },
+    {
+      "file": "final-matrix-check.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "file": "final-source-mouse-matrix-report.json",
+      "sha256": "e337f17db82557dc37d6583e09b674d16cc971dcc7154f8138d6df6754ec1ebc"
+    },
+    {
+      "file": "final-source-mouse-matrix.json",
+      "sha256": "0eafaec722d15415721ca911d3c988b6096bceda62234c871d43ccd64e56ac18"
+    },
+    {
+      "file": "final-source-mouse-matrix.log",
+      "sha256": "a798b6a02f3086d00b499a9e3e2522364e34e84346ccabd9cf222c689f28dfd7"
+    },
+    {
+      "file": "final-source-smoke-integrated-report.json",
+      "sha256": "899e62482672f5a39c82b1e4b4ba03f7af9077a216f094ecb11f2d47826e6126"
+    },
+    {
+      "file": "final-source-smoke-integrated.json",
+      "sha256": "324d25397bd57631d742b4174b28c8bb654a8218d8db7126a0566636abfa8fd6"
+    },
+    {
+      "file": "final-source-smoke-integrated.log",
+      "sha256": "f4b024f4a198059ca44496a58896303b79340a2c8db93dc10ff71ecbb90776d4"
+    },
+    {
+      "file": "fixed-core-all.json",
+      "sha256": "eb3c384295b0fb6875fa8465ae8e59dc73a324a6df5451471709ca1b747dd1c2"
+    },
+    {
+      "file": "fixed-core-all.log",
+      "sha256": "16113cef8e5f521eadbd002f29e27733cea52532a4d23a2f327e0bff80529279"
+    },
+    {
+      "file": "fixed-package-integrity.json",
+      "sha256": "0dfb0ddcb560616651fe3cd43822500f800a80617c44d6d0018d574f29d123ae"
+    },
+    {
+      "file": "fixed-signature.json",
+      "sha256": "440d52a9a9d378c0ee6fad5a1bbd37bb6556023fe8f21f20a13e5e97cf115a64"
+    },
+    {
+      "file": "fixture-no-atomic.cjs",
+      "sha256": "d21063dcac49d7a101cdca6e9f3ca444a15aa85606331d13516e6eba8f6f78c6"
+    },
+    {
+      "file": "host-security-corrected-command.json",
+      "sha256": "8e24c15f60ef7e533905e16c5e13ea3985661972f2428c6bdd664408147f59ca"
+    },
+    {
+      "file": "host-security-corrected-command.log",
+      "sha256": "51201d766601b7a2d23c7f7b62a8f5fa892a4962e081289a71809ccc1b4db090"
+    },
+    {
+      "file": "host-security-corrected-H02-host-trust-failed.png",
+      "sha256": "b06a00fa0f8f5cdb4d497a6f9362c7fc4334c6e4a43b9826a828a2efdb549a63"
+    },
+    {
+      "file": "host-security-corrected.json",
+      "sha256": "9d371e207ba0de960d86a0fb3358ba708f66641c38cd1b2faee76244df0bda66"
+    },
+    {
+      "file": "host-security-final-command.json",
+      "sha256": "1f6d2c07185490a545c903d638477154f0379466ed48a232374fa72db2bbffb0"
+    },
+    {
+      "file": "host-security-final-command.log",
+      "sha256": "906ce9209bb9f97d491411bb07358fa4ec3abdb37b7503fb9928d083502ae423"
+    },
+    {
+      "file": "host-security-final-H01-host-management-failed.png",
+      "sha256": "f554fdf97c568a2806ceb26cf0e369e5e473fbaee5b381fd0b7d0aa9b144314c"
+    },
+    {
+      "file": "host-security-final-H02-host-trust-failed.png",
+      "sha256": "367a44edee1e5ca0a38f400bc1fb6a80dfa16ca4241d0fee3069d18d914d2de7"
+    },
+    {
+      "file": "host-security-final.json",
+      "sha256": "d04946494a79c1d2037af2526a443544fdef276655489f6131bdbf2f0e068189"
+    },
+    {
+      "file": "host-security.cjs",
+      "sha256": "2adcc7664e75174d05f438d63cb04fae5fa031879e80783c7a7e6c8a165750f0"
+    },
+    {
+      "file": "host-trust-final-command.json",
+      "sha256": "c54bc22f27f00e8853440bd8fe5a3bb4b2156cf1fc2e8cdd408002c5d08205fe"
+    },
+    {
+      "file": "host-trust-final-command.log",
+      "sha256": "4c7c6de104ee5f37b0e89f92698326e66ae4ccb2ac0c808aa7d41a415ab9c4a7"
+    },
+    {
+      "file": "host-trust-final.json",
+      "sha256": "c0d089e10a9d8795050547a4a57b454e988ccaa8427c1921c471750549472bda"
+    },
+    {
+      "file": "mount-dmg.json",
+      "sha256": "8f4b157a0aa9a0ac6095d8def76048511299be2f369d722f535ddd61502200e9"
+    },
+    {
+      "file": "mount-dmg.log",
+      "sha256": "9be471e33203c6eeee2dfcc5a7a6f45da693fcbf352d2e308709bf57846f4144"
+    },
+    {
+      "file": "mount-fixed-dmg.json",
+      "sha256": "d1cbf09b3261c6943a030bfedb521d244fb2051a4bce6d1664e40f5c0f7d57dd"
+    },
+    {
+      "file": "mount-fixed-dmg.log",
+      "sha256": "68a82f5fd43a258188bd2c5508ef411574b504d0e33b05455883ed0a1d9c6a90"
+    },
+    {
+      "file": "native-acceptance-corrected-command.json",
+      "sha256": "53e1c9b58901c00dab23f4114f8e44f7617d01b5467059d97da86c0f96bee802"
+    },
+    {
+      "file": "native-acceptance-corrected-command.log",
+      "sha256": "af0ddf821264f02cd0a4b967b6af967c0f92c5d780081b700b8d5f462274ac52"
+    },
+    {
+      "file": "native-acceptance-corrected-startup.png",
+      "sha256": "5e83e70daa5debff6e7f363e6e008210ef5b8cc8b39fa3080d24c47d438f53c1"
+    },
+    {
+      "file": "native-acceptance-corrected.json",
+      "sha256": "77d3663f8ca9a14d461908313d5ca1e88c8fee44e63c75fc1d2332fa33f058d2"
+    },
+    {
+      "file": "native-acceptance-final-app-quit-cancel-failed.png",
+      "sha256": "71cd4cf770825ab24ec41c50bb4ee6ac83aa49a54309bbf7033bf71a4d67440a"
+    },
+    {
+      "file": "native-acceptance-final-app-quit-confirm-failed.png",
+      "sha256": "ee1363ecc26a2c5c5407846400bf87bcc0ed6b6d23f2c3d8d7114b578f433729"
+    },
+    {
+      "file": "native-acceptance-final-command.json",
+      "sha256": "61a0540c91b02ef4d1dbc39125f9adf4713e89a6a6419bc6dc7932ad2489d033"
+    },
+    {
+      "file": "native-acceptance-final-command.log",
+      "sha256": "115f5e2c01eff7f580364939efee3df308ea652179a6488829fab856da7d53d4"
+    },
+    {
+      "file": "native-acceptance-final-startup.png",
+      "sha256": "5e83e70daa5debff6e7f363e6e008210ef5b8cc8b39fa3080d24c47d438f53c1"
+    },
+    {
+      "file": "native-acceptance-final.json",
+      "sha256": "b908daa0d76222c1bba6f26e49006d93431f4976da66e4b0fffc227f9fd50e2d"
+    },
+    {
+      "file": "native-acceptance-first.json",
+      "sha256": "5e9776452c4c5357eb6d4754ab5d369072732406faf27555cdff1ac0839fa5b5"
+    },
+    {
+      "file": "native-acceptance-first.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "native-acceptance-second-command-quit-cancel-failed.png",
+      "sha256": "8dd039f0358a01360810be893f1f75274cd38a0671db9445071649d47fbf91e8"
+    },
+    {
+      "file": "native-acceptance-second-command-quit-confirm-failed.png",
+      "sha256": "9a1f6532d926c1c3e95b3c9c3197ef52bec60c927deff7ae741f954682860b9d"
+    },
+    {
+      "file": "native-acceptance-second-command-terminal-edit-focus-failed.png",
+      "sha256": "8dd039f0358a01360810be893f1f75274cd38a0671db9445071649d47fbf91e8"
+    },
+    {
+      "file": "native-acceptance-second-command.json",
+      "sha256": "47bc5c68d47dd74d9a6a9f66627ed0793f3dfc4eb884a53dc3523544fa85b1e4"
+    },
+    {
+      "file": "native-acceptance-second-command.log",
+      "sha256": "abb0622579d414e0928390ceaf4d2300c74b566e56af9704b546d9b033c0d01f"
+    },
+    {
+      "file": "native-acceptance-second-startup.png",
+      "sha256": "5e83e70daa5debff6e7f363e6e008210ef5b8cc8b39fa3080d24c47d438f53c1"
+    },
+    {
+      "file": "native-acceptance-second.json",
+      "sha256": "d051c54dff2f9274e42ab02243151cc23854f380fb580b51e5450090d612c54d"
+    },
+    {
+      "file": "native-acceptance-setup-error.json",
+      "sha256": "dd937823a10e62d7366736c4c2f17320518084d5bc628eae8699ca9c773abc1d"
+    },
+    {
+      "file": "native-acceptance-third-command.json",
+      "sha256": "75d81f0c73e129ea33c074752fe3e2fc259c12ec994a457f59795eb7c56bb77e"
+    },
+    {
+      "file": "native-acceptance-third-command.log",
+      "sha256": "6ffa5cac6a3c37c3ba5184a4b808f3f33182b2baa804dcc7608a1de71a55295b"
+    },
+    {
+      "file": "native-acceptance-third-menu-quit-cancel-failed.png",
+      "sha256": "04892b46a81a95d4972cb31d80d7bf0897379d438abf59c4f4a536aeb935cb15"
+    },
+    {
+      "file": "native-acceptance-third-menu-quit-confirm-failed.png",
+      "sha256": "9b542ba1d82ac8e53f6eec793c5dd69dca71faae9de20058d6bc567cc078f3cc"
+    },
+    {
+      "file": "native-acceptance-third-startup.png",
+      "sha256": "5e83e70daa5debff6e7f363e6e008210ef5b8cc8b39fa3080d24c47d438f53c1"
+    },
+    {
+      "file": "native-acceptance-third.json",
+      "sha256": "d53087128cfb2989dc374333956ded55a71582eed97950dd4c7debbc3ad5e9b1"
+    },
+    {
+      "file": "native-acceptance.cjs",
+      "sha256": "3e2db6fbcc89d77543c8f963749fc4ce22ac025d4e46cb51817576bcab720538"
+    },
+    {
+      "file": "native-acceptance.json",
+      "sha256": "dd937823a10e62d7366736c4c2f17320518084d5bc628eae8699ca9c773abc1d"
+    },
+    {
+      "file": "native-direct-baseline-command.json",
+      "sha256": "920a8adef8aac4ff85bae6a9d3bdfdc34dafcbad038a2af863fba2fd33efac75"
+    },
+    {
+      "file": "native-direct-baseline-command.log",
+      "sha256": "106758f446f374129c6cecf4dbf7b52543355851acf2fd07ead8678d934b3565"
+    },
+    {
+      "file": "native-direct-baseline-startup.png",
+      "sha256": "5e83e70daa5debff6e7f363e6e008210ef5b8cc8b39fa3080d24c47d438f53c1"
+    },
+    {
+      "file": "native-direct-baseline.json",
+      "sha256": "ca91edc8b6efbd8da2a3868489c90e39f9b9eaad0658c52f6932f5fb8b0673fe"
+    },
+    {
+      "file": "native-direct-fixed-command.json",
+      "sha256": "83f122c5cbfe27596a7ab76eb1a3e0bbf0eee44e7283b57ac0da18fda8205b15"
+    },
+    {
+      "file": "native-direct-fixed-command.log",
+      "sha256": "af0ddf821264f02cd0a4b967b6af967c0f92c5d780081b700b8d5f462274ac52"
+    },
+    {
+      "file": "native-direct-fixed-startup.png",
+      "sha256": "5e83e70daa5debff6e7f363e6e008210ef5b8cc8b39fa3080d24c47d438f53c1"
+    },
+    {
+      "file": "native-direct-fixed.json",
+      "sha256": "feda4c015f83c9f945c99a50206ad55ae714d3b681f6e8981a8bb4ec9c79b026"
+    },
+    {
+      "file": "npm-ci.log",
+      "sha256": "d723b63e5a3634970149253a5fdc7451d60f0bfeb0ada927fadbff2bd028cb56"
+    },
+    {
+      "file": "package-baseline.json",
+      "sha256": "d60a550b38e4c689c5fbd1dab0c47533b5f344f1cd8b8fdf44109bc39e9d3095"
+    },
+    {
+      "file": "package-baseline.log",
+      "sha256": "c58e3b4c8e822f2f7d2486cec7d2a0ab2c7527d7d0518e8f63c537a30fe75391"
+    },
+    {
+      "file": "package-shift-fix.json",
+      "sha256": "af9a35025d8143345d044c646e5bc2f5a0e636241dab1ff0bbbd033013212b0a"
+    },
+    {
+      "file": "package-shift-fix.log",
+      "sha256": "ff9b7a07e66bd6a1914854ce3365c08c9f9f2986f96f57fdcbceceb0547ae9cf"
+    },
+    {
+      "file": "packaged-dmg-smoke-report.json",
+      "sha256": "097eaa774ed9cd7e8b14caea614b4f62537bb8de6dd1de3564fafbf46c92c0f2"
+    },
+    {
+      "file": "packaged-dmg-smoke.json",
+      "sha256": "c5a642f334dae6f3080dfb33d97df298a9944e2822edff617826e28c3ccc4673"
+    },
+    {
+      "file": "packaged-dmg-smoke.log",
+      "sha256": "8053c8206e5dac89b585c7b35d7747eb4ea4669798e3e5dd4900bc21356fd428"
+    },
+    {
+      "file": "packaged-features-first-failure/report.json",
+      "sha256": "591ed4db39b9922490c750601b5e341c593eaf29ff45d40659618cfaf4db42da"
+    },
+    {
+      "file": "packaged-features-first-failure/screenshot.png",
+      "sha256": "dc342e3d0811a22011ca1c8fd21b1c4e528e336cbcd6808b9741cdcbae95078e"
+    },
+    {
+      "file": "packaged-features-first-failure/trace.zip",
+      "sha256": "a30b81c0973846e83bd4681e55707acfa5601950839846d2547808ad9fa46c97"
+    },
+    {
+      "file": "packaged-features-first.json",
+      "sha256": "360a0db41ac39d0841c925b6772c06b7c9576460a7ca9aa096501039c61fdb8f"
+    },
+    {
+      "file": "packaged-features-first.log",
+      "sha256": "437f5061eb8ecd075c725d5fb427c70d2db75cbb8ac0e163ba1cf235d161d07c"
+    },
+    {
+      "file": "packaged-features-meta-report.json",
+      "sha256": "d92f5cafc0d0aa29b80327bebda7b509849769e4516050d4aa87946a4b1f476d"
+    },
+    {
+      "file": "packaged-features-meta.json",
+      "sha256": "05cc14e2b82ffaccdce8299952aa796d74a16bca2d9b11b7d71a6a448ddbd060"
+    },
+    {
+      "file": "packaged-features-meta.log",
+      "sha256": "02c488d5c1dc2400bb6eb41aebafee4c1ff55ed2b3d81adec7980e4c096ff7c2"
+    },
+    {
+      "file": "packaged-zip-smoke-report.json",
+      "sha256": "b507ba59ab4f293c1989d91044cc1c61610150e8613c399ab939f1a909745c97"
+    },
+    {
+      "file": "packaged-zip-smoke.json",
+      "sha256": "47693b1e12fa03e44bc08a8661f4d2e9702a5c1136495aff59c9091f28f98aff"
+    },
+    {
+      "file": "packaged-zip-smoke.log",
+      "sha256": "43afe5d7e2758a067d36b4dc257900f095679cd2052d2cc1ca1315f92cb65e4d"
+    },
+    {
+      "file": "playwright-launch-switches.json",
+      "sha256": "c16511151540f5da655e1c044858941aff50ad2cfb13045100574dc32febe8a5"
+    },
+    {
+      "file": "portable-baseline.log",
+      "sha256": "9f2a6737945aa9d60339e32abfc388a256b7c5675ebe83000fcfd16f972e0204"
+    },
+    {
+      "file": "pty-acceptance-first-command.json",
+      "sha256": "e4212b76dc3920f61f1283c1eb03e9b5b78a150c6e0e8964e3479d52fc69e324"
+    },
+    {
+      "file": "pty-acceptance-first-command.log",
+      "sha256": "7b1da866ef8576032550211ee7f09f450e253777b6be57267f4559dd504ddc90"
+    },
+    {
+      "file": "pty-acceptance-large-output.png",
+      "sha256": "216846db150dc599481a6439d85bdaa4894b4c0b9b1b17f4dd4977388b52dda0"
+    },
+    {
+      "file": "pty-acceptance-three-plus-one.png",
+      "sha256": "d2706aa7fa797a3e09125bd2e1aa65c3823b01e013bffdc431a14e134df734c8"
+    },
+    {
+      "file": "pty-acceptance.cjs",
+      "sha256": "1d12173f42f57812c1b9aac77282950ce06109c1fe55af56932da206ffb2bc31"
+    },
+    {
+      "file": "pty-acceptance.json",
+      "sha256": "67ccd66956b82c39148e684207b5a3176ade991194dda8604e52afbf910aeebf"
+    },
+    {
+      "file": "pty-direct-final-layout-idle-command.json",
+      "sha256": "9bcbaf6204eeb1141963c612bd7c3d59dbafece75f62ad6c0f7ddca0ffd5086a"
+    },
+    {
+      "file": "pty-direct-final-layout-idle-command.log",
+      "sha256": "8ba42e7a0e24211837e6aa6930fc4b0d4786a6e999eed505acf0539ce2a12ca2"
+    },
+    {
+      "file": "pty-direct-final-layout-idle-three-plus-one.png",
+      "sha256": "e9520ff7b17551d17d9751be5a7838402b9891d70d4a2325d84dc1b4bf63ebc4"
+    },
+    {
+      "file": "pty-direct-final-layout-idle.json",
+      "sha256": "f95a6e0d36ae784a2cbae1d316d7534500b025ddcaf7d614a924c5c1fe96bc2d"
+    },
+    {
+      "file": "pty-direct-fixed-command.json",
+      "sha256": "48844be07660f9a193c37b917f61355b72b483ae9206d0bde5948b49e4fde74f"
+    },
+    {
+      "file": "pty-direct-fixed-command.log",
+      "sha256": "2f2cdef17abcf1a984b22837c601ec730bfaa1888f555a3f62da263a1696effc"
+    },
+    {
+      "file": "pty-direct-fixed-large-output.png",
+      "sha256": "620ff77f1604ea0149c88e1b052a5445ff4edcb00c5ece1defb8a677122d389d"
+    },
+    {
+      "file": "pty-direct-fixed-shift-selection.png",
+      "sha256": "f7e982d1f55225503f341c4b4b4b361f0a1dd5310a7da6928b66188e17935808"
+    },
+    {
+      "file": "pty-direct-fixed-three-plus-one.png",
+      "sha256": "388f7d609f7c7872c4d555aebab04f5a4b84d0e15b008418bb8504c91baba3d6"
+    },
+    {
+      "file": "pty-direct-fixed.json",
+      "sha256": "386f5fe3d83a349da7610a96952e875c6580b60ec330d5468f9460d3ad3ba464"
+    },
+    {
+      "file": "real-open-command.json",
+      "sha256": "68a30b04876105d91244ebad7bc710aa3bda77980cb54e198f5f425e1c265491"
+    },
+    {
+      "file": "real-open-command.log",
+      "sha256": "7a32ce1ca1c2f58a1d68f7f5f70c52cc210368a10da8d5a63fd35478f5c4c290"
+    },
+    {
+      "file": "real-open-corrected-command.json",
+      "sha256": "7cad5302958b8c15d495205327c5812c14a89efd17faf238eeed70b0224f4bfb"
+    },
+    {
+      "file": "real-open-corrected-command.log",
+      "sha256": "c1f861f4af2e2791560fcc81ed64d4da721433a684f9054c2b79056bf0cc1e9c"
+    },
+    {
+      "file": "real-open-direct-fixed-command.json",
+      "sha256": "1b59db2bfc809a78a7e407b2351e25c27b9b159712765879a9d494eb0dba1d59"
+    },
+    {
+      "file": "real-open-direct-fixed-command.log",
+      "sha256": "7682c8fc49a2c65081cf2651816096a0da76a2a2a65edd721309b1c0d60e91a4"
+    },
+    {
+      "file": "real-open-direct-fixed-complete-command.json",
+      "sha256": "1176ae264a166c60d6772e957cecb1ab092cd9199e3cc2d7621d934665ec40ec"
+    },
+    {
+      "file": "real-open-direct-fixed-complete-command.log",
+      "sha256": "c1f861f4af2e2791560fcc81ed64d4da721433a684f9054c2b79056bf0cc1e9c"
+    },
+    {
+      "file": "real-open-direct-fixed-complete.json",
+      "sha256": "cde017f7ed8ea7597bfe5ba8b93131e49deed7d160a28d65bdb02613c1cc24e0"
+    },
+    {
+      "file": "real-open.cjs",
+      "sha256": "8a02e150a56906f5e3f371daf41fe68c0847789f6dad6651f34fbdd703f30b8a"
+    },
+    {
+      "file": "real-open.json",
+      "sha256": "7315a17d0f4c4bca9f71a4c2ad01b78069b5de8d789a67788128eac18407b6a0"
+    },
+    {
+      "file": "run-command.cjs",
+      "sha256": "f43308685cec54d139acc4ef2e52245f21179fba2924ca687673e12f2aea82d4"
+    },
+    {
+      "file": "shift-fix-build.json",
+      "sha256": "6ee66189a59f3d74abe0c0eb33be4eb6d522871f553d484d775e2b5b71dbb8a2"
+    },
+    {
+      "file": "shift-fix-build.log",
+      "sha256": "10a841d64d38791cd2747ab53b0c066a33625613e59f2f1c3ebbf7c06a72f932"
+    },
+    {
+      "file": "shift-fix-check.json",
+      "sha256": "a6032408e2d79c121049ec85658a8cb3573f24b78437f85e0558e4cd7820d321"
+    },
+    {
+      "file": "shift-fix-check.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "file": "shift-fix-source-smoke.json",
+      "sha256": "a2607ef255aecdd5340b709cc5c953547ada7396bda1adf0a32598a866f68b3c"
+    },
+    {
+      "file": "shift-fix-source-smoke.log",
+      "sha256": "1f45fd5f723cf88b9f9ae9652c34a4cb7be15eb993d6c18f4772e5f5d64753bf"
+    },
+    {
+      "file": "shift-regression-before.json",
+      "sha256": "8c9d5150398868005564c132ac9014eb0383803e950cbc66f372db6bb512e78c"
+    },
+    {
+      "file": "shift-regression-before.log",
+      "sha256": "eb90be33a06357507905a8e5722964b58efd66dda9fc905b184779156cd01efd"
+    },
+    {
+      "file": "shift-regression-editor-close-error.json",
+      "sha256": "fbe429e5d0d6e33500ef01f13dbe9484e91298d8a7ca8a29920a9239ba0fdea8"
+    },
+    {
+      "file": "shift-regression-old-failure/report.json",
+      "sha256": "7807e3630517db542e01f2c6df4d6b777f8e4f2bd4e7a4c12e4426ef788ecfcb"
+    },
+    {
+      "file": "shift-regression-old-failure/trace.zip",
+      "sha256": "4f0c94384b44d558a33507fdfd737b4186e1f62c36d3c443e9f80f1ed0fa86c0"
+    },
+    {
+      "file": "shift-regression-old-package.json",
+      "sha256": "fe92fe17616ead20527b0883bc8bb6a08a2dd7603a93ba1e07ff65b8cb9203bf"
+    },
+    {
+      "file": "shift-regression-old-package.log",
+      "sha256": "62737ffa1fe80896a359421945db5644c49a4cbda623e5005ac8b246c2915274"
+    },
+    {
+      "file": "signature.json",
+      "sha256": "91f8f4ab57485c519a343b508d4b8cc5115e369518438a94ba811c6d77277dd4"
+    },
+    {
+      "file": "smoke-harness-check.json",
+      "sha256": "bb959b10f30715faa8f551999f29facbf4af118e88789476ecb85661568210b9"
+    },
+    {
+      "file": "smoke-harness-check.log",
+      "sha256": "7dff0499876f139debea4fecca05eaf90ce0180e072bc77052c5e032440a6113"
+    },
+    {
+      "file": "tmux-acceptance-command.json",
+      "sha256": "58dcbf85352a22a4559fae8b39f4ae654fc18e627622af93065fed495fc85d72"
+    },
+    {
+      "file": "tmux-acceptance-command.log",
+      "sha256": "ae4230bdf26552cfc54e80ebd2314022083a413b9aba407528d795e563ebd092"
+    },
+    {
+      "file": "tmux-acceptance-shell-command.json",
+      "sha256": "2d48a8c33739e4482420a0cc9ca663a261d8540daa03f7111a885395960a8c73"
+    },
+    {
+      "file": "tmux-acceptance-shell-command.log",
+      "sha256": "ae4230bdf26552cfc54e80ebd2314022083a413b9aba407528d795e563ebd092"
+    },
+    {
+      "file": "tmux-acceptance-shell-tmux-real-windows-failed.png",
+      "sha256": "6d9132dd5b12194ab6c50146b96da5de633d6a68d97928710d31c6471978c1f5"
+    },
+    {
+      "file": "tmux-acceptance-shell.json",
+      "sha256": "34e83703936cfc9ceda8ed0052f15461255a7fe59767a6f7301c8e5c97f6712d"
+    },
+    {
+      "file": "tmux-acceptance-tmux-real-windows-failed.png",
+      "sha256": "47fd17ed94c50b50668c88072ed87f640c02ae9318fae9ffaed39b95cf4546bd"
+    },
+    {
+      "file": "tmux-acceptance.json",
+      "sha256": "aa743f678974e03024f54dc3217450d4e9f73a2d04ed4ec4e82c21dbbbfdad44"
+    },
+    {
+      "file": "tmux-download.json",
+      "sha256": "e20035c50db3c76b2909ccb0b3d0064d387e312d183214c767c04962617310d3"
+    },
+    {
+      "file": "tmux-download.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "ui-matrix-files-restart-command.json",
+      "sha256": "1eb39647e795893a61ae2cc97deaa4d818f50b45d4cc7cd7bb49c5404964e5a9"
+    },
+    {
+      "file": "ui-matrix-files-restart-command.log",
+      "sha256": "6f652f88116cfce2b7e03e00ec2a0ace6524b2e5402e512198615bb7142a1d47"
+    },
+    {
+      "file": "ui-matrix-files-restart-N01-visible-errors-and-reconnect-failed.png",
+      "sha256": "9f5536542839b6130cdde5621880da6f366a3e7a1942f8f2298449616fb23c64"
+    },
+    {
+      "file": "ui-matrix-files-restart-T02-autocopy-after-restart-failed.png",
+      "sha256": "32e679b20cb756b038bcc34db54162e41accc4853ac32111fd702ab4426a4fe9"
+    },
+    {
+      "file": "ui-matrix-files-restart.json",
+      "sha256": "7b75f5e2e4dfc8ed3149dd03d763e305971dd50695ec2c46ecdbc1f787409419"
+    },
+    {
+      "file": "ui-matrix-final-command.json",
+      "sha256": "6b02bc25965b63a90248f0b3a3c49b45ce97a9bcaeb7f6ca95d5cb5fe03d8137"
+    },
+    {
+      "file": "ui-matrix-final-command.log",
+      "sha256": "6ce213b59d213faa668e45d2ac0ef385c6d0a78c540d506c96ca229f766448e5"
+    },
+    {
+      "file": "ui-matrix-final-T02-selection-and-multiline-failed.png",
+      "sha256": "c93ce2e48d897bbf0c433723e9936164a34447fab5c3941e0c71e36d4175080b"
+    },
+    {
+      "file": "ui-matrix-final-T03-keyboard-and-shell-failed.png",
+      "sha256": "56aa204a592450007ba49f2cec1421d98612a6ac563e4375b25ccf4489f957c3"
+    },
+    {
+      "file": "ui-matrix-final-unicode-styles.png",
+      "sha256": "0e310f36c9e37bf6f9889ee923924f26a802a0ba0b53b97948fb58819905aafd"
+    },
+    {
+      "file": "ui-matrix-final.json",
+      "sha256": "6595f1add8d3225e0d8db822462fc230da5be33ec724a3daa4f26e4596b4cfb8"
+    },
+    {
+      "file": "ui-matrix-keyboard-command.json",
+      "sha256": "f2a241794741baf1b7e5c74777288f252b72657822c596c9137fb197d7f8f6e4"
+    },
+    {
+      "file": "ui-matrix-keyboard-command.log",
+      "sha256": "b17c0c9ecc4ffff56033372be2bdf9ad81f8b5b4baa48072307833513493fd24"
+    },
+    {
+      "file": "ui-matrix-keyboard.json",
+      "sha256": "2f0d559812c81c0f0399251820c792fddafded47fc8919b5499722b963314e01"
+    },
+    {
+      "file": "ui-matrix-recovery-restart-command.json",
+      "sha256": "9cc1d8e86f656856c7a1d127e65b8baeffbe5294cd122cb9b29d488bfdde5a26"
+    },
+    {
+      "file": "ui-matrix-recovery-restart-command.log",
+      "sha256": "44b8bc0bb0108804bc866d6a4a64193490422a73787f7cde444a220c0f906f64"
+    },
+    {
+      "file": "ui-matrix-recovery-restart.json",
+      "sha256": "aa2adba69643afc5e2c68862d925c5a8b8b6e8af5c1862b0bcd2196bc06a6a3a"
+    },
+    {
+      "file": "ui-matrix.cjs",
+      "sha256": "9559ead8051beab41c66b64b7bd9ce184d925c7b07bd816d5233bdc991e94b34"
+    },
+    {
+      "file": "unpack-fixed-zip.json",
+      "sha256": "93e2bfda159194eaa004afeee311acbead6b94bfafc617b63b5335d6c7f18b6b"
+    },
+    {
+      "file": "unpack-fixed-zip.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "unpack-upgrade-release.json",
+      "sha256": "58e1a4e9b288a6a5686753a53f8faef41146a655479a69afb3492f6a618606ea"
+    },
+    {
+      "file": "unpack-upgrade-release.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "unpack-zip.json",
+      "sha256": "2bbd1221e16ccd0223a3feec09d5870c46e7a27393b4d7bd3ba9dccff835dfae"
+    },
+    {
+      "file": "unpack-zip.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "upgrade-profile-final-command.json",
+      "sha256": "cacfae414db394c7639668a2e038550851710ac65a8269b68b12524e9cfe99cc"
+    },
+    {
+      "file": "upgrade-profile-final-command.log",
+      "sha256": "b5febe303eca44b44be139399c6be3ba3c4ec194698ede4b0752b3609606692c"
+    },
+    {
+      "file": "upgrade-profile-final.json",
+      "sha256": "eb878f28e90376457ca95cbe90b7ed5ca80353676e15572f5286ec615c053d2f"
+    },
+    {
+      "file": "upgrade-profile.cjs",
+      "sha256": "77d98a5136e11462f81c7f875db60404f19e702a6b469646b4888e6da71dabd8"
+    }
+  ],
+  "evidenceNote": "Raw logs, screenshots, scripts and older failed attempts remain only on this Mac in .private/qa/2026-10-09-macos-x64. This file contains selected non-secret observations and content hashes. Private helper script hashes describe their final saved version, not every earlier debugging revision. No credentials, ciphertext, private keys or original clipboard values are exported."
+}

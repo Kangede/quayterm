@@ -1,5 +1,13 @@
 # QuayTerm 验证记录
 
+## 2026-10-09：macOS x64 修复包实测
+
+本轮 VMware macOS 15.8.1 x64 结果见 [测试报告](docs/test-reports/2026-10-09-macos-x64-0.2.2.md) 和 [脱敏证据](docs/test-reports/2026-10-09-macos-x64-0.2.2.evidence.json)。核心 19 项为 **12 PASS、0 FAIL、7 BLOCKED**，本平台验收尚未完成；不代表实体 Intel Mac 或 Apple Silicon。
+
+修复提交 `12456e9e395b62707d6b5d14f2ccd355c66f5817` 解决 macOS 鼠标报告模式下 Shift 拖选不能复制的问题。底层测试 29 PASS / 1 个 Windows 专用 SKIP，最终源码及实际 ZIP、DMG 各 1 项 smoke 通过，修复包功能套件 6/6 通过。另在直接启动的修复包上验证真实 Keychain 跨进程认证、tmux/screen 与 PTY、配置替换/重装、文件读写及传输故障；没有关闭沙箱或系统安全策略。
+
+剩余原生子项为正常 Finder/下载隔离入口、交通灯/菜单及物理 ⌘Q、另一文本应用粘贴、系统文件选择器/Finder 拖入、Preview 实际画面和睡眠唤醒。包未签名/公证。运行时版本仍为 0.2.2，产物哈希见报告；这是未发布的本地修复构建，本轮没有更新 main 或 Release。
+
 ## 2026-10-09：用本地程序打开（待发布）
 
 从 v0.2.2 的 `b2cf253a6152c311222c1c477c3bc2d27de13cdc` 接续，保留 Windows 原生测试的全部修复。本节测试的是后续源码及本地 Linux 构建；运行时版本号仍为 0.2.2，不是 GitHub 上既有 v0.2.2 Release 资产，本轮没有重新发布 Release。
