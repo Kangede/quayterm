@@ -6,7 +6,7 @@
 
 **后续补测：源码 smoke 1/1、安装后程序 smoke 1/1、多选关联用例最终 3/3 通过。** 首次专项执行的 1 项失败及测试适配错误均保留；失败轮次留下的两个临时目录清理被自动审批检查阻止，清理状态仍为 `BLOCKED`。
 
-这不是完整 Windows 验收，不将源码执行算作安装包测试，也不将外部程序替身调用算作真实第三方应用显示。上一轮未完成的图片/PDF、正常退出后副本保留等原生验证不因本轮通过而升级。
+这不是完整 Windows 验收，不将源码执行算作安装包测试，也不将外部程序替身调用算作真实第三方应用显示。Playwright 插桩启动不等于普通入口的默认安全启动或真实凭证存储验收，实际启动参数补充见文末。上一轮未完成的图片/PDF、正常退出后副本保留等原生验证不因本轮通过而升级。
 
 ## 环境与代码
 
@@ -19,7 +19,7 @@
 
 ## 实际命令与结果
 
-所有操作在仓库根目录进行。新增私有配置仅改变测试选择、日志与输出目录，保持原测试超时、单 worker 设置；Windows 未添加 `--no-sandbox`。
+所有操作在仓库根目录进行。新增私有配置仅改变测试选择、日志与输出目录，保持原测试超时、单 worker 设置；测试传入的 Windows `args` 未显式添加 `--no-sandbox`，不能仅凭这一点判断驱动注入参数或默认安全状态。
 
 | 命令 | 时间（UTC+08:00） | 退出码 | PASS / FAIL / SKIP |
 | --- | --- | ---: | --- |
@@ -81,7 +81,7 @@
 | 同一安装目录 `resources/app.asar` | `608192192f7d9773d1dae90f1680cca41b2dd1755bb33a8c59e73645da558924` |
 | 对应 CI 安装器 `QuayTerm Setup 0.2.2.exe` | `782f1372456ead3ed8e77cf993d66df597031c108dedf189c5e01e7e3978b88e` |
 
-本轮没有把安装器或便携启动器传给 Electron 驱动，没有重新安装或发布产物。源码 smoke 明确移除 `QUAYTERM_TEST_EXECUTABLE`；安装后 smoke 设置为上述实际程序，并通过 `app.isPackaged === true` 断言。Windows 两种启动方式均未添加 `--no-sandbox`。
+本轮没有把安装器或便携启动器传给 Electron 驱动，没有重新安装或发布产物。源码 smoke 明确移除 `QUAYTERM_TEST_EXECUTABLE`；安装后 smoke 设置为上述实际程序，并通过 `app.isPackaged === true` 断言。两种方式均由 Playwright 启动，测试传入的 `args` 不含 `--no-sandbox`；实际开关见文末补充，不据此宣称普通入口默认安全启动通过。
 
 ### 实际运行与首次失败
 
@@ -99,7 +99,7 @@
 
 复测只包含所需的三个串行用例：本地菜单/多选、建立 SFTP 并操作文件、二进制打开/远端多选。将私有清理中的剪贴板读取与清除改为 `await`，仅清除本 fixture 路径。未重跑可移植测试全套、其余 UI 套件或已通过的两种 smoke。
 
-文件专项副本从 **当前 `4b160b3` 的 `tests/appearance-files.e2e.cjs` 重新生成**；`multiSelectModifier` 定义及两处调用均保留，不是沿用旧版硬编码 Control 的副本。差异仅为 Windows 回环服务、相对导入/启动路径、默认沙箱、独立截图路径、远端 POSIX 路径转换及测试剪贴板清理。功能断言未删改，原始正文和适配文件的哈希、差异说明均在证据中。
+文件专项副本从 **当前 `4b160b3` 的 `tests/appearance-files.e2e.cjs` 重新生成**；`multiSelectModifier` 定义及两处调用均保留，不是沿用旧版硬编码 Control 的副本。差异仅为 Windows 回环服务、相对导入/启动路径、移除原测试显式传入的 Linux `--no-sandbox` 参数、独立截图路径、远端 POSIX 路径转换及测试剪贴板清理。功能断言未删改，原始正文和适配文件的哈希、差异说明均在证据中；移除显式参数不等于证明默认安全启动。
 
 ### 边界、保留与清理状态
 
@@ -109,3 +109,27 @@
 - **清理 `BLOCKED`：**首次专项收尾失败留下 `%TEMP%\quayterm-features-ZwZlv5` 和 `%TEMP%\quayterm-win-feature-peer-WpOwBA`。尝试仅删除这两个本轮目录时，自动审批检查在命令启动前拒绝，返回理由仅为 `blocked by policy`；只读复核确认目录仍存在。保留本机失败证据，不声称 Q01 或完整清理完成。
 - 已通过 smoke 的测试剪贴板内容已清除；成功复测的收尾完成。没有关闭用户原有查看器或会话，没有访问真实 LAN 主机或其凭证。
 - 原未提交的 external-open 报告仍保持 SHA-256 `41b9d8e629a69fbb592b44e1b68b35b4e0faed35eb46d76cf9eee51a2b20b299`，不暂存。新增提交仅包含这份报告及脱敏证据；前述两项测试修正以独立 cherry-pick 提交保留。推送限于 Windows 测试分支，不改 main/Release、不创建 PR。
+
+## 18:43 补充：实际启动参数与安全结论边界
+
+收到跨端对 Playwright 注入参数的核查结果后，在相同 Windows、Electron 44.7.0、Playwright 1.64.0、产品代码和已校验安装包上各做一次短暂启动采样。使用与 desktop smoke 相同的源码/安装后启动参数，`chromiumSandbox` 选项同样未传。采样命令 `node .private/qa/2026-10-09-windows-launch-flags/probe.cjs` 于 18:43:39–18:43:41 执行，退出 0；没有重跑已通过功能用例、连接主机或操作凭证/剪贴板。
+
+这些数值是**补充采样时**通过 `app.commandLine.hasSwitch()` / `getSwitchValue()` 读取的，不冒充先前已结束测试进程的同期记录：
+
+| 实际观察 | 源码启动 | 安装后程序启动 |
+| --- | --- | --- |
+| `app.isPackaged` | false | true |
+| `no-sandbox` | false | false |
+| `use-mock-keychain` | true | false |
+| `password-store` | true，值 `basic` | false，值为空 |
+| `disable-setuid-sandbox` | false | false |
+| `disable-web-security` | false | false |
+| 窗口 `sandbox` / `contextIsolation` / `webSecurity` | true / true / true | true / true / true |
+| 窗口 `nodeIntegration` | false | false |
+| `safeStorage.isEncryptionAvailable()` | true | true |
+
+本机 `playwright-core/lib/coreBundle.js:45666` 的 `--no-sandbox` 自动注入分支仅作用于 Linux，所以不能把 Linux 的观察值直接套用到 Windows。`server/electron/loader.js:74–75` 包含 `--password-store=basic` 和 `--use-mock-keychain`；本次实际观察在源码启动中出现，在安装后程序中未出现。依赖文件、采样脚本和原始结果的哈希见证据 JSON 的 `launchParameterFollowUp`。
+
+**修正结论：**保留全部功能通过结果，但本报告不再使用“默认沙箱”来概括 Playwright 运行。窗口配置 `sandbox=true` 不是普通入口实际安全状态的独立证明；`app.isPackaged=true` 只证明加载了打包应用。上述存储开关的有无，以及 Windows 上的 `isEncryptionAvailable=true`，也不证明真实 DPAPI 凭证保存/重启解密完成，不能据此认定明文后端或安全存储通过。本次没有进行相关凭证实验。
+
+源码与安装后程序均使用独立诊断配置，采样结束前后匹配进程数均为 0；配置及日志保留在本机忽略目录。原始失败证据和此前两个受阻清理目录继续保留，未再次尝试删除。未提交的 external-open 报告未修改；本补充只更新本报告和脱敏证据。

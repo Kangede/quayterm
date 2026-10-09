@@ -103,7 +103,8 @@
     "filePicker": "stub",
     "sshSftp": "real loopback protocol and real temporary filesystem writes",
     "pty": "echo peer; no real OS PTY or multiplexer test",
-    "productionHosts": "not contacted"
+    "productionHosts": "not contacted",
+    "launchSecurity": "Historical function tests used Playwright Electron instrumentation; no claim of ordinary-entry default security or native credential persistence. See launchParameterFollowUp for later observed Windows flags."
   },
   "preservation": {
     "priorReportPreserved": true,
@@ -214,7 +215,8 @@
       "isPackagedAssertion": true,
       "noSandboxFlagAdded": false,
       "installerOrPortableLauncherUsedAsElectronExecutable": false,
-      "hashesUnchangedBeforeAndAfter": true
+      "hashesUnchangedBeforeAndAfter": true,
+      "noSandboxFlagAddedScope": "Only the explicit args in the test driver; the later launchParameterFollowUp records actual runtime flags. This field alone proves no security boundary."
     },
     "commands": [
       {
@@ -407,14 +409,15 @@
         "changes": [
           "Windows loopback SSH/SFTP fixture",
           "relative imports and repository startup path",
-          "default Windows sandbox",
+          "Windows launch args omit an explicit --no-sandbox; actual runtime flags were measured separately",
           "isolated screenshot paths",
           "remote POSIX navigation only",
           "clear only clipboard paths from this fixture at shutdown"
         ],
         "currentModifierDefinitionRetained": true,
         "currentModifierCallSitesRetained": 2,
-        "functionalAssertionsChanged": false
+        "functionalAssertionsChanged": false,
+        "descriptionCorrection": "The historical private adaptation.json described default Windows sandbox. That wording is superseded here; the original private file and its recorded hash remain unchanged."
       }
     },
     "preservation": {
@@ -479,7 +482,9 @@
       "productionHostsContacted": false,
       "fullPortableOrUiSuiteRepeated": false,
       "fullPlatformAcceptance": false,
-      "cleanupComplete": false
+      "cleanupComplete": false,
+      "defaultSecurityLaunchAcceptance": false,
+      "nativeCredentialPersistenceAcceptance": false
     },
     "localOnlyEvidence": [
       {
@@ -653,6 +658,234 @@
       {
         "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/preservation.json",
         "sha256": "fa40e185d475ef98c19555a754eccd7bd47fb7725ccb3a6b186733576f960638"
+      }
+    ]
+  },
+  "launchParameterFollowUp": {
+    "scope": "Two short launch observations only, using the same dependency versions, product files and args as the prior smoke modes; no functional suite rerun and no credential operation",
+    "historicalRunCaveat": "These switches were observed during this follow-up, not retrospectively read from the earlier completed test processes.",
+    "provenance": {
+      "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "documentationCommit": "baa3b31509b74bf43bff22f071ba9f50a4fa698d",
+      "playwright": "1.64.0",
+      "electron": "44.7.0",
+      "relevantFiles": [
+        {
+          "file": "node_modules/playwright-core/lib/coreBundle.js",
+          "sha256": "2325ca4c1c83070e89dc49fb82525508f0a68e0cf12e2a624277968da216b7e0"
+        },
+        {
+          "file": "node_modules/playwright-core/lib/server/electron/loader.js",
+          "sha256": "3fd50baa5d6742970f2e15eedeabd6e615eda987afd72a8be0839607cac3712c"
+        },
+        {
+          "file": "tests/desktop-smoke.e2e.cjs",
+          "sha256": "bf50188f3072e1134ba04005360ef7ffa15584e0859744849b5c3669352e759e"
+        }
+      ],
+      "artifacts": [
+        {
+          "file": ".private/qa/2026-10-09-windows-external-open/installed/QuayTerm.exe",
+          "sha256": "ff51e3917a2559d1602f4267b058f9c9d88a5d0436612337cdb2535a4b485b17"
+        },
+        {
+          "file": ".private/qa/2026-10-09-windows-external-open/installed/resources/app.asar",
+          "sha256": "608192192f7d9773d1dae90f1680cca41b2dd1755bb33a8c59e73645da558924"
+        }
+      ]
+    },
+    "command": {
+      "command": "node .private/qa/2026-10-09-windows-launch-flags/probe.cjs",
+      "started": "2026-10-09T18:43:39.9650898+08:00",
+      "ended": "2026-10-09T18:43:41.4379284+08:00",
+      "exitCode": 0,
+      "purpose": "Observe launch flags only; no functional suite or credential persistence test repeated",
+      "before": {
+        "queriedAt": "2026-10-09T18:43:39.8871404+08:00",
+        "count": 0,
+        "file": "processes-before.json"
+      },
+      "after": {
+        "queriedAt": "2026-10-09T18:43:41.4382027+08:00",
+        "count": 0,
+        "file": "processes-after.json"
+      }
+    },
+    "source": {
+      "mode": "source",
+      "started": "2026-10-09T10:43:40.420Z",
+      "ended": "2026-10-09T10:43:40.784Z",
+      "launchOptions": {
+        "args": [
+          "<repository root>"
+        ],
+        "executablePath": "<local electron dependency>",
+        "chromiumSandboxOption": "omitted, matching existing smoke driver",
+        "explicitNoSandboxArgument": false
+      },
+      "observation": {
+        "observedAt": "2026-10-09T10:43:40.669Z",
+        "platform": "win32",
+        "arch": "x64",
+        "version": "0.2.2",
+        "electron": "44.7.0",
+        "isPackaged": false,
+        "switches": {
+          "no-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "use-mock-keychain": {
+            "present": true,
+            "value": ""
+          },
+          "password-store": {
+            "present": true,
+            "value": "basic"
+          },
+          "disable-setuid-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "disable-web-security": {
+            "present": false,
+            "value": ""
+          }
+        },
+        "windows": [
+          {
+            "sandbox": true,
+            "contextIsolation": true,
+            "nodeIntegration": false,
+            "webSecurity": true
+          }
+        ],
+        "safeStorageEncryptionAvailable": true
+      },
+      "profileRetainedLocally": true
+    },
+    "packaged": {
+      "mode": "packaged",
+      "started": "2026-10-09T10:43:40.785Z",
+      "ended": "2026-10-09T10:43:41.209Z",
+      "launchOptions": {
+        "args": [],
+        "executablePath": ".private/qa/2026-10-09-windows-external-open/installed/QuayTerm.exe",
+        "chromiumSandboxOption": "omitted, matching existing smoke driver",
+        "explicitNoSandboxArgument": false
+      },
+      "observation": {
+        "observedAt": "2026-10-09T10:43:41.051Z",
+        "platform": "win32",
+        "arch": "x64",
+        "version": "0.2.2",
+        "electron": "44.7.0",
+        "isPackaged": true,
+        "switches": {
+          "no-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "use-mock-keychain": {
+            "present": false,
+            "value": ""
+          },
+          "password-store": {
+            "present": false,
+            "value": ""
+          },
+          "disable-setuid-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "disable-web-security": {
+            "present": false,
+            "value": ""
+          }
+        },
+        "windows": [
+          {
+            "sandbox": true,
+            "contextIsolation": true,
+            "nodeIntegration": false,
+            "webSecurity": true
+          }
+        ],
+        "safeStorageEncryptionAvailable": true
+      },
+      "profileRetainedLocally": true
+    },
+    "dependencyInspection": {
+      "noSandboxInjection": {
+        "file": "node_modules/playwright-core/lib/coreBundle.js",
+        "line": 45666,
+        "condition": "Linux only, and chromiumSandbox option not true; this conditional does not inject --no-sandbox on Windows"
+      },
+      "loaderFlags": {
+        "file": "node_modules/playwright-core/lib/server/electron/loader.js",
+        "line": 74,
+        "switches": [
+          "--password-store=basic",
+          "--use-mock-keychain"
+        ]
+      }
+    },
+    "interpretation": {
+      "windowsNoSandboxPresentInEitherObservation": false,
+      "sourceUseMockKeychain": true,
+      "sourcePasswordStore": "basic",
+      "packagedUseMockKeychain": false,
+      "packagedPasswordStorePresent": false,
+      "webPreferencesAreNotRuntimeSandboxProof": true,
+      "safeStorageAvailabilityIsNotDpapiPersistenceProof": true,
+      "ordinaryEntryDefaultSecurityAcceptance": false,
+      "nativeCredentialPersistenceAcceptance": false,
+      "previousFunctionalResultsRetained": true
+    },
+    "preservation": {
+      "oldReportSha256": "41b9d8e629a69fbb592b44e1b68b35b4e0faed35eb46d76cf9eee51a2b20b299",
+      "previousDeniedDeletionRetried": false,
+      "previousFailedFixtureCleanupStatus": "BLOCKED_AUTO_REVIEW",
+      "diagnosticProfiles": "Retained only inside this ignored diagnostic directory, with no host credentials seeded",
+      "noProductionHostContact": true,
+      "noClipboardOperations": true
+    },
+    "localOnlyEvidence": [
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/probe.cjs",
+        "sha256": "62c8712c8ede4dc85d3a4d32f513ad4577f55902a46108ad77f0cdcdb63146ae"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/run.ps1",
+        "sha256": "de8d31691ccd65fab1e84678a8c92337d1aaae15aff53eb804cc39ff8a9b74c3"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/probe.log",
+        "sha256": "d83863baf439a1db404cdd00cb2fa6dfeacc95b303bd8af79374d1cb8380bddc"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/source.json",
+        "sha256": "cb74955a4614f77055b4632a5860204dab4fb7b89d0b5125489a54d186e28f8b"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/packaged.json",
+        "sha256": "e0c0fc637d76582eadd287478f4561945fcaca5f5ff7d7400e764ebbe5833e0f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/command.json",
+        "sha256": "79ce64dc3d0ee2827d783024d7c57f580030f4fdeddc135c4a0936c44d54acab"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/driver-provenance.json",
+        "sha256": "fc44b94aefbfb4ac10d50837f007731becd9aa85bfc02e14233ca874575efb42"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
       }
     ]
   }
