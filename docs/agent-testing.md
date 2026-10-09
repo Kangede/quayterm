@@ -79,7 +79,7 @@ npm run test:e2e
 | `scripts/test-lan.cjs`                                                          | 指定主机的密码认证、PTY、resize 请求、SFTP 列表                                                  | 指纹真实性、远端尺寸反查、文件写入、复用器                       |
 | `scripts/test-packaged.cjs`                                                     | 指定已打包可执行文件的只读登录/列表、预期指纹比对、临时配置                                      | 安装/卸载、密码保存后重启、完整功能                              |
 
-`tests/desktop-smoke.e2e.cjs` 默认从源码启动；设置 `QUAYTERM_TEST_EXECUTABLE` 为已安装/解包的实际 Electron 主程序路径时，会检查 `app.isPackaged` 并在默认沙箱下执行同一组断言。它不读取 `QUAYTERM_EXECUTABLE`。`appearance-files.e2e.cjs` 也使用 `QUAYTERM_TEST_EXECUTABLE`，仍需真实 PTY/SFTP fixture。首次运行前可执行 `node node_modules/electron/install.js` 下载锁定的 Electron 运行时，避免下载占用 smoke 的测试时限。发行包 smoke 仍不能替代正常入口、系统对话框及第三方程序显示验收。
+`tests/desktop-smoke.e2e.cjs` 默认从源码启动；设置 `QUAYTERM_TEST_EXECUTABLE` 为已安装/解包的实际 Electron 主程序路径时，会检查 `app.isPackaged` 并执行同一组功能断言。它不读取 `QUAYTERM_EXECUTABLE`。`appearance-files.e2e.cjs` 也使用 `QUAYTERM_TEST_EXECUTABLE`，仍需真实 PTY/SFTP fixture。**`args=[]` 不能单独证明安全状态；必须按源码/程序包的启动模式核对实际开关，凭证存储和默认环境由独立启动补测。** 首次运行前可执行 `node node_modules/electron/install.js` 下载锁定的 Electron 运行时，避免下载占用 smoke 的测试时限。发行包 smoke 仍不能替代正常入口、系统对话框及第三方程序显示验收。
 
 Linux 上 Playwright 会在未指定 `chromiumSandbox: true` 时自动添加 `--no-sandbox`，因此 `args: []` 不能证明默认沙箱。上述两个桌面驱动在程序包模式显式启用 sandbox 并核对运行时开关；`scripts/test-packaged.cjs` 同样处理。已有记录若只核对 `webPreferences.sandbox=true`，不能作为默认沙箱通过证据，需使用修正后的驱动重新验证；不要修改系统安全配置来绕过失败。
 
