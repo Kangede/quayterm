@@ -1,5 +1,11 @@
 # QuayTerm 验证记录
 
+## 2026-10-09：自动化启动证据的校正
+
+后续三平台协调回归发现，Playwright 1.64 的 Electron 启动器在 Linux 未指定 `chromiumSandbox: true` 时会自动添加 `--no-sandbox`。因此，以下历史已打包自动化记录中仅基于 `args: []` 或 `webPreferences.sandbox=true` 作出的“默认沙箱”判断不能作为该项通过证据；其功能断言结果保留，沙箱结论以新驱动和运行时实测为准。相关说明和补测结果记入 [Linux 简单回归报告](docs/test-reports/2026-10-09-linux-x64-simple-regression.md)。产品代码没有因此改动。
+
+源码模式的 Electron loader 含 `--password-store=basic`、`--use-mock-keychain`；指定包路径不走相同 loader 路径。必须按实际模式采集参数，不能将静态 loader 内容推广到所有已打包程序，也不能将带模拟参数的功能回归视为真实系统凭证存储验收。
+
 ## 2026-10-09：用本地程序打开（待发布）
 
 从 v0.2.2 的 `b2cf253a6152c311222c1c477c3bc2d27de13cdc` 接续，保留 Windows 原生测试的全部修复。本节测试的是后续源码及本地 Linux 构建；运行时版本号仍为 0.2.2，不是 GitHub 上既有 v0.2.2 Release 资产，本轮没有重新发布 Release。

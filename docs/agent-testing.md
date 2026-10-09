@@ -83,7 +83,7 @@ npm run test:e2e
 
 Linux 上 Playwright 会在未指定 `chromiumSandbox: true` 时自动添加 `--no-sandbox`，因此 `args: []` 不能证明默认沙箱。上述两个桌面驱动在程序包模式显式启用 sandbox 并核对运行时开关；`scripts/test-packaged.cjs` 同样处理。已有记录若只核对 `webPreferences.sandbox=true`，不能作为默认沙箱通过证据，需使用修正后的驱动重新验证；不要修改系统安全配置来绕过失败。
 
-Playwright Electron 的 loader 还注入 `--password-store=basic`、`--use-mock-keychain` 等参数。记录其结果时应写“自动化注入环境中的功能回归”，不能据此证明真实 Keychain/密钥环或完整默认启动环境。对应验收须直接启动实际包，在隔离配置下使用仅监听回环的公开调试连接/CDP、已有 IPC 或系统进程信息观察；记录主进程和相关子进程的实际参数，而非只看 `webPreferences.sandbox`。调试连接本身也应写入范围说明；若系统策略阻止默认启动，保留真实错误并记 BLOCKED。
+本项目锁定的 Playwright 1.64 在未指定 `executablePath` 的源码启动路径加载 Electron loader，其中包含 `--password-store=basic`、`--use-mock-keychain`。显式指定可执行文件走另一启动路径，不能仅看 loader 文件就把相同参数归给所有程序包。分别记录源码/包运行时的实际开关和存储后端；有上述参数的执行应标为自动化注入环境，不能证明真实 Keychain/密钥环。需要独立默认环境证据时直接启动实际包，在隔离配置下使用仅监听回环的公开调试连接/CDP、已有 IPC 或系统进程信息观察；记录主进程和相关子进程的实际参数，而非只看 `webPreferences.sandbox`。调试连接本身也应写入范围说明；若系统策略阻止默认启动，保留真实错误并记 BLOCKED。
 
 日志默认在控制台和 `.private/e2e-report.json`；部分套件写 `.private/*.png`。Electron 由测试手动启动，不保证 Playwright 默认配置自动产生 trace/截图，失败时检查实际文件并补采证据。每次运行前后归档到本机 `.private/qa/<运行编号>/`，避免报告被下一次覆盖；不要提交原始秘密数据。
 
