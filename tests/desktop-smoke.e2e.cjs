@@ -26,6 +26,27 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
       expect(await app.evaluate(({ app }) => app.commandLine.hasSwitch('no-sandbox'))).toBe(false)
     }
     const page = await app.firstWindow()
+    const launch = await app.evaluate(({ app, BrowserWindow }) => ({
+      platform: process.platform,
+      arch: process.arch,
+      version: app.getVersion(),
+      electron: process.versions.electron,
+      isPackaged: app.isPackaged,
+      noSandbox: app.commandLine.hasSwitch('no-sandbox'),
+      useMockKeychain: app.commandLine.hasSwitch('use-mock-keychain'),
+      passwordStorePresent: app.commandLine.hasSwitch('password-store'),
+      passwordStoreValue: app.commandLine.getSwitchValue('password-store'),
+      windows: BrowserWindow.getAllWindows().map((window) => {
+        const preferences = window.webContents.getLastWebPreferences()
+        return {
+          sandbox: preferences.sandbox,
+          contextIsolation: preferences.contextIsolation,
+          nodeIntegration: preferences.nodeIntegration,
+          webSecurity: preferences.webSecurity
+        }
+      })
+    }))
+    test.info().annotations.push({ type: 'electron-launch', description: JSON.stringify(launch) })
     // Exercise the native opening IPC without starting arbitrary third-party
     // applications on CI. The SFTP download and local files remain real.
     await app.evaluate(({ shell }) => {
