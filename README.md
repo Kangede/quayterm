@@ -2,7 +2,7 @@
 
 一个私有的 SSH + SFTP 桌面客户端。Quay 是码头：多个远程会话可以在自己的面板中停靠、切换。界面按需求中的 Termius / TermX 布局组织，采用 electerm 同类核心技术。
 
-当前发布版本为 **0.2.2**，安装包见 [v0.2.2 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.2)。`main` 中新增的“用本地程序打开”功能尚未发布，不包含在已有 v0.2.2 安装包内。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
+当前版本为 **0.2.3**，安装包见 [v0.2.3 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.3)，变更见 [CHANGELOG.md](CHANGELOG.md)。本版包含“用本地程序打开”和 macOS 鼠标报告模式下 Shift 拖选修复。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
 
 ## 启动
 
@@ -10,10 +10,10 @@
 
 | 平台                | 发布文件                                                   | 启动方式                         |
 | ------------------- | ---------------------------------------------------------- | -------------------------------- |
-| Linux x64           | `QuayTerm-0.2.2.AppImage`、`quayterm-0.2.2.tar.gz`         | AppImage 或解压后运行 `quayterm` |
-| Windows x64         | `QuayTerm.Setup.0.2.2.exe`、`QuayTerm.0.2.2.exe`           | 分别为安装器和便携程序           |
-| macOS Intel         | `QuayTerm-0.2.2.dmg`、`QuayTerm-0.2.2-mac.zip`             | 安装/解压 `QuayTerm.app`         |
-| macOS Apple Silicon | `QuayTerm-0.2.2-arm64.dmg`、`QuayTerm-0.2.2-arm64-mac.zip` | 安装/解压 `QuayTerm.app`         |
+| Linux x64           | `QuayTerm-0.2.3.AppImage`、`quayterm-0.2.3.tar.gz`         | AppImage 或解压后运行 `quayterm` |
+| Windows x64         | `QuayTerm.Setup.0.2.3.exe`、`QuayTerm.0.2.3.exe`           | 分别为安装器和便携程序           |
+| macOS Intel         | `QuayTerm-0.2.3.dmg`、`QuayTerm-0.2.3-mac.zip`             | 安装/解压 `QuayTerm.app`         |
+| macOS Apple Silicon | `QuayTerm-0.2.3-arm64.dmg`、`QuayTerm-0.2.3-arm64-mac.zip` | 安装/解压 `QuayTerm.app`         |
 
 Linux AppImage 需要系统的 FUSE 支持。也可以使用 tar.gz 包，或运行 AppImage 的 `--appimage-extract-and-run` 模式。当前 Windows 包未做发行签名，macOS 包未做发行签名/公证，首次启动可能出现系统提示。各版本源码 CI 与发行包实测范围分别记录，发行包完整原生验收仍有未完成项，具体范围见 [测试状态](TESTING.md) 和 [完成标准](docs/test-acceptance.md)。构建脚本默认输出到 `release/`；该目录及早期本地包不包含在 Git 仓库中。
 
@@ -159,4 +159,4 @@ npx playwright test tests/desktop-smoke.e2e.cjs
 
 文件保存使用临时文件加原子替换，尽量保留原文件权限和所有者。覆盖远端文件要求服务端支持 OpenSSH 的原子 rename 扩展；不支持时操作失败并保留原文件。网络中断时可能留下尚未清理的 `.quayterm-*.part` 文件。
 
-早期本地 Windows/macOS zip 为交叉构建包；v0.2.2 Release 使用三平台 CI 产物，具体运行与校验和见 Release 说明。macOS 两种架构由 Apple Silicon runner 构建，不能据此声称 Intel 原生运行已验证。发行签名、公证及其他待补测试分别记录，不把构建通过当作完整验收。
+早期本地 Windows/macOS zip 为交叉构建包；发布包使用三平台 CI 产物，具体运行与校验和见对应 Release 说明。macOS 两种架构由 Apple Silicon runner 构建，不能据此声称 Intel 原生运行已验证。发行签名、公证及其他待补测试分别记录，不把构建通过当作完整验收。

@@ -1,0 +1,1426 @@
+{
+  "scope": "Windows source and package functional regression: initial external-open baseline, driver follow-ups, and final mouse-selection product fix; not full platform acceptance",
+  "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+  "branch": "codex/windows-cross-platform-20261009",
+  "timeZone": "Asia/Shanghai",
+  "environment": {
+    "os": "Windows 10 Pro 10.0.19045",
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v24.21.0",
+    "npm": "11.19.0",
+    "electron": "44.7.0",
+    "playwright": "1.64.0"
+  },
+  "commands": [
+    {
+      "command": "npm run check",
+      "started": "2026-10-09T18:08:47.3811961+08:00",
+      "ended": "2026-10-09T18:08:54.0335174+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-09T18:08:54.0578605+08:00",
+      "ended": "2026-10-09T18:09:07.0865679+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-09T18:09:07.0983702+08:00",
+      "ended": "2026-10-09T18:09:07.8731333+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test --config .private/qa/2026-10-09-windows-cross-platform/native.config.cjs desktop-smoke.e2e.cjs",
+      "started": "2026-10-09T18:09:07.8830287+08:00",
+      "ended": "2026-10-09T18:09:24.9022584+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test --config .private/qa/2026-10-09-windows-cross-platform/features.config.cjs --grep \"local file context|SFTP context|binary double-click|same-name uploads\"",
+      "started": "2026-10-09T18:09:24.9106045+08:00",
+      "ended": "2026-10-09T18:09:56.0736479+08:00",
+      "exitCode": 0
+    }
+  ],
+  "portable": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0
+  },
+  "nativeSmoke": {
+    "stats": {
+      "startTime": "2026-10-09T10:09:15.389Z",
+      "duration": 9485.696,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+        "status": "passed",
+        "durationMs": 8678
+      }
+    ]
+  },
+  "focusedFiles": {
+    "stats": {
+      "startTime": "2026-10-09T10:09:25.951Z",
+      "duration": 30081.331000000002,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+        "status": "passed",
+        "durationMs": 8351
+      },
+      {
+        "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+        "status": "passed",
+        "durationMs": 7172
+      },
+      {
+        "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+        "status": "passed",
+        "durationMs": 8751
+      },
+      {
+        "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+        "status": "passed",
+        "durationMs": 4678
+      }
+    ]
+  },
+  "boundaries": {
+    "shellOpenPath": "stub; not proof of third-party application display",
+    "filePicker": "stub",
+    "sshSftp": "real loopback protocol and real temporary filesystem writes",
+    "pty": "echo peer; no real OS PTY or multiplexer test",
+    "productionHosts": "not contacted",
+    "launchSecurity": "Historical function tests used Playwright Electron instrumentation; no claim of ordinary-entry default security or native credential persistence. See launchParameterFollowUp for later observed Windows flags."
+  },
+  "preservation": {
+    "priorReportPreserved": true,
+    "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+    "baselineProcessSnapshot": "MISSING",
+    "beforeAfterComparisonPerformed": false,
+    "collectionError": "The initial collector did not guarantee a JSON file for empty pipeline output. Reading processes-before.json failed; the shell command still ended at exit 0 after later successful commands. No baseline process count is inferred.",
+    "afterQueryTime": "2026-10-09T18:20:35.0620569+08:00",
+    "afterMatchingProcessCount": 0,
+    "afterMatchingProcesses": [],
+    "cleanupConclusion": "At the recorded end-time query, no QuayTerm.exe, electron.exe or sftp-server.exe processes matched. This is an end-state observation, not a before/after comparison."
+  },
+  "localOnlyEvidence": [
+    {
+      "file": "01-check.log",
+      "sha256": "4f12b64f7d8e7ab12caabd0e9244fa0a24e01a7428e5128e843f1cd696151044"
+    },
+    {
+      "file": "02-build.log",
+      "sha256": "4d3705a6508e081641792e3651f1aa80371f05fbdfdbd66059b43b360e4d63a3"
+    },
+    {
+      "file": "03-portable.log",
+      "sha256": "d9994c0961dd6b460a51cfa9a3e43274f44e198d23b7f97237f6f7cf011ff10e"
+    },
+    {
+      "file": "04-native.log",
+      "sha256": "f3f381c2bb6e5e42a6a06ebdc6933abf0e8e6225df9b2ca2405ab80d66d8c5ed"
+    },
+    {
+      "file": "05-focused-files.log",
+      "sha256": "80e67f8c8f8699b556aeda150cf177e0ac43371101836c26460127a357e23f42"
+    },
+    {
+      "file": "native.config.cjs",
+      "sha256": "1ba1453d09e3b9e6619f839938b1427e42e653d9daf6a64c056b41a4fc3d9cb6"
+    },
+    {
+      "file": "features.config.cjs",
+      "sha256": "aa70bb77c9979e4769a0195b60eceab276262ff9a8472a39048cb783a399ddcb"
+    },
+    {
+      "file": "features.e2e.cjs",
+      "sha256": "46ee77d16698f6d3160a549f55b7c3c7a981606794f0069f112b06be7e67ce66"
+    },
+    {
+      "file": "windows-feature-fixture.cjs",
+      "sha256": "02efb19ec1f7339ef2cdac2758f93ea65588fb6e5c91cf5d2cc251aab1336f88"
+    },
+    {
+      "file": "windows-peer.cjs",
+      "sha256": "e3ce1ad6929eb81afbd0ec4f38f96de02c645e262732945feeaa3f7d421a5b78"
+    }
+  ],
+  "initialRegressionScope": "Windows simple source regression only; no complete platform acceptance or new package validation",
+  "targetedDriverRegression": {
+    "productSourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+    "testedDriverAndDocumentationCommit": "4b160b3bb721d314097c0fb112496857aed0faac",
+    "driverCommits": [
+      {
+        "original": "b8be37441fb165995df44c5ad37ba2a35a7123ce",
+        "windows": "c8f9fdd54a75d1ddf230d9c3355e583054d09216",
+        "purpose": "launch the specified installed executable and assert app.isPackaged"
+      },
+      {
+        "original": "58e9ef3c3ffc9f21dc5dab83eac6d2dd20688a19",
+        "windows": "4b160b3bb721d314097c0fb112496857aed0faac",
+        "purpose": "Meta on macOS, Control on other platforms for both file multi-selection call sites"
+      }
+    ],
+    "productFilesUnchanged": true,
+    "sourceBuild": "Reused successful 18:08:54-18:09:07 build of the unchanged 938d38f product files; no rebuild required for test/doc-only commits",
+    "maintainedTestHashes": [
+      {
+        "file": "tests/desktop-smoke.e2e.cjs",
+        "sha256": "bf50188f3072e1134ba04005360ef7ffa15584e0859744849b5c3669352e759e"
+      },
+      {
+        "file": "tests/appearance-files.e2e.cjs",
+        "sha256": "4071ce5fe1ab0a5e2871d61616cd897f2a9ecbb8cad563a5ad0948ff13d66247"
+      }
+    ],
+    "installedPackage": {
+      "origin": {
+        "conclusion": "success",
+        "headSha": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+        "status": "completed",
+        "url": "https://github.com/Kangede/quayterm/actions/runs/37889964253"
+      },
+      "version": "0.2.2",
+      "releaseAsset": false,
+      "note": "Post-v0.2.2 feature build from the fixed CI commit; existing v0.2.2 Release assets were not used or replaced",
+      "artifacts": [
+        {
+          "file": ".private/qa/2026-10-09-windows-external-open/installed/QuayTerm.exe",
+          "sha256": "FF51E3917A2559D1602F4267B058F9C9D88A5D0436612337CDB2535A4B485B17"
+        },
+        {
+          "file": ".private/qa/2026-10-09-windows-external-open/installed/resources/app.asar",
+          "sha256": "608192192F7D9773D1DAE90F1680CCA41B2DD1755BB33A8C59E73645DA558924"
+        },
+        {
+          "file": ".private/qa/2026-10-09-windows-external-open/ci-windows/QuayTerm Setup 0.2.2.exe",
+          "sha256": "782F1372456EAD3ED8E77CF993D66DF597031C108DEDF189C5E01E7E3978B88E"
+        }
+      ],
+      "executableEnvironment": "QUAYTERM_TEST_EXECUTABLE points to installed/QuayTerm.exe",
+      "isPackagedAssertion": true,
+      "noSandboxFlagAdded": false,
+      "installerOrPortableLauncherUsedAsElectronExecutable": false,
+      "hashesUnchangedBeforeAndAfter": true,
+      "noSandboxFlagAddedScope": "Only the explicit args in the test driver; the later launchParameterFollowUp records actual runtime flags. This field alone proves no security boundary."
+    },
+    "commands": [
+      {
+        "command": "npm run check",
+        "executableMode": "not applicable",
+        "started": "2026-10-09T18:33:47.0328095+08:00",
+        "ended": "2026-10-09T18:33:50.9305604+08:00",
+        "exitCode": 0,
+        "log": "01-check.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-packaged-driver/source.config.cjs desktop-smoke.e2e.cjs",
+        "executableMode": "QUAYTERM_TEST_EXECUTABLE unset",
+        "started": "2026-10-09T18:33:50.9404621+08:00",
+        "ended": "2026-10-09T18:33:57.9910897+08:00",
+        "exitCode": 0,
+        "log": "02-source-smoke.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-packaged-driver/packaged.config.cjs desktop-smoke.e2e.cjs",
+        "executableMode": "C:\\workspace\\quayterm\\.private\\qa\\2026-10-09-windows-external-open\\installed\\QuayTerm.exe",
+        "started": "2026-10-09T18:33:57.9941137+08:00",
+        "ended": "2026-10-09T18:34:05.5717240+08:00",
+        "exitCode": 0,
+        "log": "03-packaged-smoke.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-packaged-driver/features.config.cjs --grep \"local file context|binary double-click\"",
+        "executableMode": "QUAYTERM_TEST_EXECUTABLE unset; current maintained body with Windows fixture/path adapters",
+        "started": "2026-10-09T18:34:05.5834956+08:00",
+        "ended": "2026-10-09T18:34:45.9933229+08:00",
+        "exitCode": 1,
+        "log": "04-multiselect.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-packaged-driver-retry/features.config.cjs --grep \"local file context|SFTP context|binary double-click\"",
+        "executableMode": "QUAYTERM_TEST_EXECUTABLE unset",
+        "started": "2026-10-09T18:36:10.7677674+08:00",
+        "ended": "2026-10-09T18:36:37.1030174+08:00",
+        "exitCode": 0,
+        "log": "01-multiselect-with-prerequisites.log"
+      }
+    ],
+    "sourceSmoke": {
+      "stats": {
+        "startTime": "2026-10-09T10:33:51.981Z",
+        "duration": 5979.953,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 5531,
+              "started": "2026-10-09T10:33:52.385Z",
+              "errors": []
+            }
+          ]
+        }
+      ]
+    },
+    "installedPackageSmoke": {
+      "stats": {
+        "startTime": "2026-10-09T10:33:59.010Z",
+        "duration": 6524.835,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 6103,
+              "started": "2026-10-09T10:33:59.388Z",
+              "errors": []
+            }
+          ]
+        }
+      ]
+    },
+    "initialFocusedAttempt": {
+      "stats": {
+        "startTime": "2026-10-09T10:34:06.688Z",
+        "duration": 39270.912000000004,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 8093,
+              "started": "2026-10-09T10:34:07.145Z",
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+          "status": "unexpected",
+          "results": [
+            {
+              "status": "failed",
+              "durationMs": 30114,
+              "started": "2026-10-09T10:34:15.697Z",
+              "errors": [
+                "TimeoutError: locator.innerText: Timeout 30000ms exceeded.",
+                "Error: electronApplication.evaluate: TypeError: clipboard.readText(...).split is not a function"
+              ]
+            }
+          ]
+        }
+      ],
+      "classification": "Test selection and private adapter errors, not a demonstrated product regression",
+      "cause": "Selected local context and binary double-click tests while omitting the serial SFTP context test that establishes the remote connection. Binary test timed out before remote assertions.",
+      "cleanupError": "Private cleanup adapter treated Electron 44 clipboard.readText() Promise as a string; afterAll aborted before fixture cleanup.",
+      "evidencePreserved": true
+    },
+    "focusedRetry": {
+      "stats": {
+        "startTime": "2026-10-09T10:36:11.805Z",
+        "duration": 25257.485999999997,
+        "expected": 3,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 8030,
+              "started": "2026-10-09T10:36:12.279Z",
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 6693,
+              "started": "2026-10-09T10:36:20.783Z",
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+          "status": "expected",
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 9374,
+              "started": "2026-10-09T10:36:27.482Z",
+              "errors": []
+            }
+          ]
+        }
+      ],
+      "reason": "Include the serial local and SFTP prerequisites for binary/multi-selection; await asynchronous clipboard read and clear only this fixture clipboard paths.",
+      "unchangedFunctionalAssertions": true,
+      "latestMaintainedTestBody": true,
+      "adaptation": {
+        "source": "tests/appearance-files.e2e.cjs",
+        "sourceCommit": "4b160b3bb721d314097c0fb112496857aed0faac",
+        "sourceSha256": "4071ce5fe1ab0a5e2871d61616cd897f2a9ecbb8cad563a5ad0948ff13d66247",
+        "adaptedSha256": "fb8b96458372b3485f8bddb1023abd749987f7968bb49513d3aad8ec0f25a660",
+        "changes": [
+          "Windows loopback SSH/SFTP fixture",
+          "relative imports and repository startup path",
+          "Windows launch args omit an explicit --no-sandbox; actual runtime flags were measured separately",
+          "isolated screenshot paths",
+          "remote POSIX navigation only",
+          "clear only clipboard paths from this fixture at shutdown"
+        ],
+        "currentModifierDefinitionRetained": true,
+        "currentModifierCallSitesRetained": 2,
+        "functionalAssertionsChanged": false,
+        "descriptionCorrection": "The historical private adaptation.json described default Windows sandbox. That wording is superseded here; the original private file and its recorded hash remain unchanged."
+      }
+    },
+    "preservation": {
+      "originalRun": {
+        "before": {
+          "queriedAt": "2026-10-09T18:33:46.9521251+08:00",
+          "count": 0,
+          "file": "processes-before.json"
+        },
+        "after": {
+          "queriedAt": "2026-10-09T18:34:45.9942011+08:00",
+          "count": 0,
+          "file": "processes-after.json"
+        },
+        "beforeAfterComparisonPerformed": true,
+        "testClipboardCleared": true,
+        "hashesUnchanged": true
+      },
+      "retry": {
+        "before": {
+          "queriedAt": "2026-10-09T18:36:10.6945754+08:00",
+          "count": 0,
+          "file": "processes-before.json"
+        },
+        "after": {
+          "queriedAt": "2026-10-09T18:36:37.1060718+08:00",
+          "count": 0,
+          "file": "processes-after.json"
+        },
+        "beforeAfterComparisonPerformed": true
+      },
+      "previousUncommittedReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+      "previousUncommittedReportUnchanged": true,
+      "initialFailureFixtureCleanup": {
+        "recordedAt": "2026-10-09T18:37:30.2866634+08:00",
+        "status": "BLOCKED_AUTO_REVIEW",
+        "action": "Remove only two exact temporary fixture directories created by the first failed focused test",
+        "rejectionReason": "blocked by policy",
+        "commandStarted": false,
+        "retryByAnotherMechanism": false,
+        "targets": [
+          {
+            "rootName": "quayterm-features-ZwZlv5",
+            "exists": true
+          },
+          {
+            "rootName": "quayterm-win-feature-peer-WpOwBA",
+            "exists": true
+          }
+        ],
+        "evidenceRetained": true
+      },
+      "previousRunsEvidenceOverwritten": false,
+      "previousUserWindowsOrSessionsClosed": false
+    },
+    "boundaries": {
+      "nativeDefaultAppDisplay": "Not tested; shell.openPath stubbed",
+      "filePicker": "Stubbed in focused tests",
+      "nativeSmokeServer": "Real loopback SSH/SFTP protocol with echo PTY requests and an in-memory remote file; no real OS PTY",
+      "focusedSftpServer": "Real loopback SSH and Git for Windows sftp-server.exe with temporary filesystem",
+      "mainOrReleaseChanged": false,
+      "productionHostsContacted": false,
+      "fullPortableOrUiSuiteRepeated": false,
+      "fullPlatformAcceptance": false,
+      "cleanupComplete": false,
+      "defaultSecurityLaunchAcceptance": false,
+      "nativeCredentialPersistenceAcceptance": false
+    },
+    "localOnlyEvidence": [
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/01-check.log",
+        "sha256": "4f12b64f7d8e7ab12caabd0e9244fa0a24e01a7428e5128e843f1cd696151044"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/02-source-smoke.log",
+        "sha256": "e22bffd45e72847ec05c8b86804ab6c329c3d4c91ef566a024463c73a7165b23"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/03-packaged-smoke.log",
+        "sha256": "e33cbbbdd402a5d8ee2f6c35a7cfc542ab3e8900588b7d141263ea8b8ec3e669"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/04-multiselect.log",
+        "sha256": "28c1ed7460cf3162b7925b61fd23ef8bd339f2a211e1498341c9fcdec3eb9f01"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/commands.json",
+        "sha256": "b23779383561458bd1ecf77740da5a514383694f94c82d7609d8c9757cc851ee"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/source-report.json",
+        "sha256": "d4c026a4e5f730af743daf3b5a25b0b9107853bfda253c828733685edb1f2fe9"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/packaged-report.json",
+        "sha256": "6b4f9f063a484e6dfd7bd0b3a2d3b9c8352e5b03637f47f8b70012815cfdd49f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/features-report.json",
+        "sha256": "c0cc92eb9b016773119d6c773c7c297feac537d782ab4ce7e52b28af3f07c12f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/source.config.cjs",
+        "sha256": "375302e6f27aa0ea7fa4105192459a7c63dbcf16e4c7ded6dcc2c26e7132188e"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/packaged.config.cjs",
+        "sha256": "45431a2af7df39c6d17cc89f32685d7c9e91e020f130e93225663a13f1e8590c"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/features.config.cjs",
+        "sha256": "aa70bb77c9979e4769a0195b60eceab276262ff9a8472a39048cb783a399ddcb"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/features.e2e.cjs",
+        "sha256": "8d5ec543c461264dc4e8ef5629e59990a790c19f9b978879bccc02acec406136"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/windows-feature-fixture.cjs",
+        "sha256": "02efb19ec1f7339ef2cdac2758f93ea65588fb6e5c91cf5d2cc251aab1336f88"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/windows-peer.cjs",
+        "sha256": "e3ce1ad6929eb81afbd0ec4f38f96de02c645e262732945feeaa3f7d421a5b78"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/run.ps1",
+        "sha256": "84e95268ab0640ba2fb02a232cf97d8fb7a039800e5fc45c5fb72e93ba2fc4e4"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/prepare.cjs",
+        "sha256": "60f126b2f15865a052f3edfd0ea75bb98b7d2a3c12887e33b8285b925296718f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/prepare-retry.cjs",
+        "sha256": "3ea21f6fdddfcbcd1caa5efefd755e9b3c60917e6af90c6efa1acc67c1a1b92e"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/adaptation.json",
+        "sha256": "1e68e821f503096bfa0f1930c0fa56055d14ca96ebce66e690618240725a47d5"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/ci-source.json",
+        "sha256": "bcdf2a15d6950745e4fbe08daaa984faa5250bb88a786105d172f75687f1a677"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/hashes-before.json",
+        "sha256": "58920157e5e57d5d4c4b59d49db3c6b38ca64ef3a4994f1e747b572b36b47cb2"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/hashes-after.json",
+        "sha256": "58920157e5e57d5d4c4b59d49db3c6b38ca64ef3a4994f1e747b572b36b47cb2"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/preservation.json",
+        "sha256": "9155b5c9f8a32dc0360c461d74af0ed9cae9e65fd9e958a725f599d26552aeb9"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/features-failed.png",
+        "sha256": "3c418ab8716ce6dcac6d380e94e5792542fea659017976fd7121ffced025f621"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/features-output/features.e2e.cjs-binary-do-a964e-d-errors-stay-in-the-editor/trace.zip",
+        "sha256": "b22a8bf5bc923f53e55349453b23dd6e392f9b55a673ca68d0393b80782659ca"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/features-output/features.e2e.cjs-binary-do-a964e-d-errors-stay-in-the-editor/error-context.md",
+        "sha256": "6c212f02960c1634dcd96c688afb9f9145fe3e481b1de2340998bcf3d5a25776"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/failed-fixture-roots.json",
+        "sha256": "6ade684d70bcab8f93084322650e59d85b7d86e3f0d2a99c25c930cd01c5e90d"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver/failed-fixture-cleanup.json",
+        "sha256": "a4267a7888cbef7b4eaf2f03beef78b629e29ca2fd24b404e4e82495f0e59db8"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/01-multiselect-with-prerequisites.log",
+        "sha256": "6f972be2b12ba923d3ae3231b07cea94198cc4bdc3181d7f4a3f31c7eb4b2f28"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/command.json",
+        "sha256": "62bc23bb131a16deba41e9468a31d0290ab20b4e8482dce25e24cce191a5f079"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/features-report.json",
+        "sha256": "8c02ac0f2dfe2775adc1304ed1fe17b7e82191d9270dbdd5d373faef77443008"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/features.config.cjs",
+        "sha256": "aa70bb77c9979e4769a0195b60eceab276262ff9a8472a39048cb783a399ddcb"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/features.e2e.cjs",
+        "sha256": "fb8b96458372b3485f8bddb1023abd749987f7968bb49513d3aad8ec0f25a660"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/windows-feature-fixture.cjs",
+        "sha256": "02efb19ec1f7339ef2cdac2758f93ea65588fb6e5c91cf5d2cc251aab1336f88"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/windows-peer.cjs",
+        "sha256": "e3ce1ad6929eb81afbd0ec4f38f96de02c645e262732945feeaa3f7d421a5b78"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/run.ps1",
+        "sha256": "dd6c56819dad6cdc9717541a614e1add35ba18782b5c9785a4fa029eecc8507f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/prepare.cjs",
+        "sha256": "fd0f35bcadf84e0a780ebda43cfa3e115e8fded466cfe90fdff7132f55682c82"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/adaptation.json",
+        "sha256": "c787503b674eb6e2a8aeb1301884f0d868a0c4a4825da940768244dfd000b2e1"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/context-menu.png",
+        "sha256": "b0ddc98cf179b427b2b256beaaca8af5753aa160e512100d63ce7d20fbdb9606"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-packaged-driver-retry/preservation.json",
+        "sha256": "fa40e185d475ef98c19555a754eccd7bd47fb7725ccb3a6b186733576f960638"
+      }
+    ]
+  },
+  "launchParameterFollowUp": {
+    "scope": "Two short launch observations only, using the same dependency versions, product files and args as the prior smoke modes; no functional suite rerun and no credential operation",
+    "historicalRunCaveat": "These switches were observed during this follow-up, not retrospectively read from the earlier completed test processes.",
+    "provenance": {
+      "productCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+      "documentationCommit": "baa3b31509b74bf43bff22f071ba9f50a4fa698d",
+      "playwright": "1.64.0",
+      "electron": "44.7.0",
+      "relevantFiles": [
+        {
+          "file": "node_modules/playwright-core/lib/coreBundle.js",
+          "sha256": "2325ca4c1c83070e89dc49fb82525508f0a68e0cf12e2a624277968da216b7e0"
+        },
+        {
+          "file": "node_modules/playwright-core/lib/server/electron/loader.js",
+          "sha256": "3fd50baa5d6742970f2e15eedeabd6e615eda987afd72a8be0839607cac3712c"
+        },
+        {
+          "file": "tests/desktop-smoke.e2e.cjs",
+          "sha256": "bf50188f3072e1134ba04005360ef7ffa15584e0859744849b5c3669352e759e"
+        }
+      ],
+      "artifacts": [
+        {
+          "file": ".private/qa/2026-10-09-windows-external-open/installed/QuayTerm.exe",
+          "sha256": "ff51e3917a2559d1602f4267b058f9c9d88a5d0436612337cdb2535a4b485b17"
+        },
+        {
+          "file": ".private/qa/2026-10-09-windows-external-open/installed/resources/app.asar",
+          "sha256": "608192192f7d9773d1dae90f1680cca41b2dd1755bb33a8c59e73645da558924"
+        }
+      ]
+    },
+    "command": {
+      "command": "node .private/qa/2026-10-09-windows-launch-flags/probe.cjs",
+      "started": "2026-10-09T18:43:39.9650898+08:00",
+      "ended": "2026-10-09T18:43:41.4379284+08:00",
+      "exitCode": 0,
+      "purpose": "Observe launch flags only; no functional suite or credential persistence test repeated",
+      "before": {
+        "queriedAt": "2026-10-09T18:43:39.8871404+08:00",
+        "count": 0,
+        "file": "processes-before.json"
+      },
+      "after": {
+        "queriedAt": "2026-10-09T18:43:41.4382027+08:00",
+        "count": 0,
+        "file": "processes-after.json"
+      }
+    },
+    "source": {
+      "mode": "source",
+      "started": "2026-10-09T10:43:40.420Z",
+      "ended": "2026-10-09T10:43:40.784Z",
+      "launchOptions": {
+        "args": ["<repository root>"],
+        "executablePath": "<local electron dependency>",
+        "chromiumSandboxOption": "omitted, matching existing smoke driver",
+        "explicitNoSandboxArgument": false
+      },
+      "observation": {
+        "observedAt": "2026-10-09T10:43:40.669Z",
+        "platform": "win32",
+        "arch": "x64",
+        "version": "0.2.2",
+        "electron": "44.7.0",
+        "isPackaged": false,
+        "switches": {
+          "no-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "use-mock-keychain": {
+            "present": true,
+            "value": ""
+          },
+          "password-store": {
+            "present": true,
+            "value": "basic"
+          },
+          "disable-setuid-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "disable-web-security": {
+            "present": false,
+            "value": ""
+          }
+        },
+        "windows": [
+          {
+            "sandbox": true,
+            "contextIsolation": true,
+            "nodeIntegration": false,
+            "webSecurity": true
+          }
+        ],
+        "safeStorageEncryptionAvailable": true
+      },
+      "profileRetainedLocally": true
+    },
+    "packaged": {
+      "mode": "packaged",
+      "started": "2026-10-09T10:43:40.785Z",
+      "ended": "2026-10-09T10:43:41.209Z",
+      "launchOptions": {
+        "args": [],
+        "executablePath": ".private/qa/2026-10-09-windows-external-open/installed/QuayTerm.exe",
+        "chromiumSandboxOption": "omitted, matching existing smoke driver",
+        "explicitNoSandboxArgument": false
+      },
+      "observation": {
+        "observedAt": "2026-10-09T10:43:41.051Z",
+        "platform": "win32",
+        "arch": "x64",
+        "version": "0.2.2",
+        "electron": "44.7.0",
+        "isPackaged": true,
+        "switches": {
+          "no-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "use-mock-keychain": {
+            "present": false,
+            "value": ""
+          },
+          "password-store": {
+            "present": false,
+            "value": ""
+          },
+          "disable-setuid-sandbox": {
+            "present": false,
+            "value": ""
+          },
+          "disable-web-security": {
+            "present": false,
+            "value": ""
+          }
+        },
+        "windows": [
+          {
+            "sandbox": true,
+            "contextIsolation": true,
+            "nodeIntegration": false,
+            "webSecurity": true
+          }
+        ],
+        "safeStorageEncryptionAvailable": true
+      },
+      "profileRetainedLocally": true
+    },
+    "dependencyInspection": {
+      "noSandboxInjection": {
+        "file": "node_modules/playwright-core/lib/coreBundle.js",
+        "line": 45666,
+        "condition": "Linux only, and chromiumSandbox option not true; this conditional does not inject --no-sandbox on Windows"
+      },
+      "loaderFlags": {
+        "file": "node_modules/playwright-core/lib/server/electron/loader.js",
+        "line": 74,
+        "switches": ["--password-store=basic", "--use-mock-keychain"]
+      }
+    },
+    "interpretation": {
+      "windowsNoSandboxPresentInEitherObservation": false,
+      "sourceUseMockKeychain": true,
+      "sourcePasswordStore": "basic",
+      "packagedUseMockKeychain": false,
+      "packagedPasswordStorePresent": false,
+      "webPreferencesAreNotRuntimeSandboxProof": true,
+      "safeStorageAvailabilityIsNotDpapiPersistenceProof": true,
+      "ordinaryEntryDefaultSecurityAcceptance": false,
+      "nativeCredentialPersistenceAcceptance": false,
+      "previousFunctionalResultsRetained": true
+    },
+    "preservation": {
+      "oldReportSha256": "41b9d8e629a69fbb592b44e1b68b35b4e0faed35eb46d76cf9eee51a2b20b299",
+      "previousDeniedDeletionRetried": false,
+      "previousFailedFixtureCleanupStatus": "BLOCKED_AUTO_REVIEW",
+      "diagnosticProfiles": "Retained only inside this ignored diagnostic directory, with no host credentials seeded",
+      "noProductionHostContact": true,
+      "noClipboardOperations": true
+    },
+    "localOnlyEvidence": [
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/probe.cjs",
+        "sha256": "62c8712c8ede4dc85d3a4d32f513ad4577f55902a46108ad77f0cdcdb63146ae"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/run.ps1",
+        "sha256": "de8d31691ccd65fab1e84678a8c92337d1aaae15aff53eb804cc39ff8a9b74c3"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/probe.log",
+        "sha256": "d83863baf439a1db404cdd00cb2fa6dfeacc95b303bd8af79374d1cb8380bddc"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/source.json",
+        "sha256": "cb74955a4614f77055b4632a5860204dab4fb7b89d0b5125489a54d186e28f8b"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/packaged.json",
+        "sha256": "e0c0fc637d76582eadd287478f4561945fcaca5f5ff7d7400e764ebbe5833e0f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/command.json",
+        "sha256": "79ce64dc3d0ee2827d783024d7c57f580030f4fdeddc135c4a0936c44d54acab"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/driver-provenance.json",
+        "sha256": "fc44b94aefbfb4ac10d50837f007731becd9aa85bfc02e14233ca874575efb42"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-launch-flags/processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    ]
+  },
+  "sourceCommitScope": "The root sourceCommit remains the initial 938d38f baseline. Latest product/build/driver identities are recorded in finalMouseRegression.",
+  "latestBuildCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+  "latestDriverCommit": "8b06f89029aeea2bb2b5d96c4c74358ac8d71db0",
+  "finalMouseRegression": {
+    "scope": "Final Windows x64 check/build, portable subset, maintained source smoke and newly built local unpacked package smoke after the Mac terminal selection product fix",
+    "provenance": {
+      "sourceAndDriverCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+      "productFixUpstream": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "productFixWindows": "a8c0fdd2a1aa5e5b92422e4d66f0eea447a09068",
+      "mouseDriverUpstream": "2efad3c288d03a8b9f6acd4279bc02fb71823e74",
+      "mouseDriverWindows": "7fed70d6d97c87d6f45dc6d1a6836c4827907571",
+      "sandboxDriverUpstream": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+      "sandboxDriverWindows": "7d703402549c464a3ae74c4bcd466f2681b8a170",
+      "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+      "packageFormat": "win-unpacked, local build only",
+      "finalDriverCommit": "8b06f89029aeea2bb2b5d96c4c74358ac8d71db0",
+      "lateFileDriverUpstream": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "lateFileDriverWindows": "8b06f89029aeea2bb2b5d96c4c74358ac8d71db0",
+      "actualSmokeObservationCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+      "productContentMatchesUpstream12456e9": true,
+      "lateFileDriverChangesProductOrSmoke": false,
+      "noRebuildForPureFileDriver": true,
+      "testedFileHashes": [
+        {
+          "file": "src/lib/terminals.ts",
+          "sha256": "336b27a4d0d6a4289ca71fb97401975746f07957d1bf356be36a53cc8f603542"
+        },
+        {
+          "file": "tests/desktop-smoke.e2e.cjs",
+          "sha256": "99b3197ebc5bfc6867d4a16afe1baefdcba0460f621c83a4cb6b8a1af83da958"
+        },
+        {
+          "file": "tests/native-probe.cjs",
+          "sha256": "f1620531af0102dea7087d490f5ce1f53943ed3df9e93ad15875aaf12fb1342a"
+        },
+        {
+          "file": "tests/appearance-files.e2e.cjs",
+          "sha256": "932673119a2e37218eaf04b0455f925dc46067f51b0b54e0a0172b843e74006e"
+        },
+        {
+          "file": "package-lock.json",
+          "sha256": "653162db75ad01acd3fddc28b72bd14db76acd001ad179a471b32c75816231f7"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "f191c6af7c05571516c951a3d4ccb3ef383d60f01e2e4fa1586e8349dedd8959"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "npm run check",
+        "executableMode": "not applicable",
+        "started": "2026-10-09T19:03:39.9376297+08:00",
+        "ended": "2026-10-09T19:03:43.8445435+08:00",
+        "exitCode": 0,
+        "log": "01-check.log"
+      },
+      {
+        "command": "npm run build",
+        "executableMode": "not applicable",
+        "started": "2026-10-09T19:03:43.8544253+08:00",
+        "ended": "2026-10-09T19:03:47.7061653+08:00",
+        "exitCode": 0,
+        "log": "02-build.log"
+      },
+      {
+        "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+        "executableMode": "not applicable",
+        "started": "2026-10-09T19:03:47.7085396+08:00",
+        "ended": "2026-10-09T19:03:48.2272599+08:00",
+        "exitCode": 0,
+        "log": "03-portable.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-final-mouse/source.config.cjs desktop-smoke.e2e.cjs",
+        "executableMode": "QUAYTERM_TEST_EXECUTABLE unset",
+        "started": "2026-10-09T19:03:48.2322288+08:00",
+        "ended": "2026-10-09T19:03:56.6992538+08:00",
+        "exitCode": 0,
+        "log": "04-source-smoke.log"
+      },
+      {
+        "command": "npx electron-builder --win --x64 --dir --config.directories.output=.private/qa/2026-10-09-windows-final-mouse/package --publish never",
+        "executableMode": "fresh win-unpacked from current dist and committed notices",
+        "started": "2026-10-09T19:03:56.7008918+08:00",
+        "ended": "2026-10-09T19:04:21.6900005+08:00",
+        "exitCode": 0,
+        "log": "05-package.log"
+      },
+      {
+        "command": "node .private/qa/2026-10-09-windows-final-mouse/verify-package.cjs",
+        "executableMode": "compare asar bytes to fresh build; hash actual executable and archive",
+        "started": "2026-10-09T19:04:21.6922645+08:00",
+        "ended": "2026-10-09T19:04:21.7906941+08:00",
+        "exitCode": 1,
+        "log": "06-verify-package.log"
+      },
+      {
+        "command": "node .private/qa/2026-10-09-windows-final-mouse/verify-package-v2.cjs",
+        "executableMode": "same new package; use native Windows paths for asar API",
+        "started": "2026-10-09T19:06:38.3402514+08:00",
+        "ended": "2026-10-09T19:06:38.6322915+08:00",
+        "exitCode": 0,
+        "log": "07-verify-package-native-path.log"
+      },
+      {
+        "command": "npm run check",
+        "executableMode": "after pure file-test driver 6a0d28f; product and desktop smoke unchanged",
+        "started": "2026-10-09T19:06:38.6404734+08:00",
+        "ended": "2026-10-09T19:06:42.7487087+08:00",
+        "exitCode": 0,
+        "log": "08-check-final-driver.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-final-mouse/packaged.config.cjs desktop-smoke.e2e.cjs",
+        "executableMode": "C:\\workspace\\quayterm\\.private\\qa\\2026-10-09-windows-final-mouse\\package\\win-unpacked\\QuayTerm.exe",
+        "started": "2026-10-09T19:06:42.7523318+08:00",
+        "ended": "2026-10-09T19:06:51.9626020+08:00",
+        "exitCode": 0,
+        "log": "09-packaged-smoke.log"
+      }
+    ],
+    "portable": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "sourceSmoke": {
+      "stats": {
+        "startTime": "2026-10-09T11:03:49.275Z",
+        "duration": 7390.153,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "status": "expected",
+          "launch": {
+            "platform": "win32",
+            "arch": "x64",
+            "version": "0.2.2",
+            "electron": "44.7.0",
+            "isPackaged": false,
+            "noSandbox": false,
+            "useMockKeychain": true,
+            "passwordStorePresent": true,
+            "passwordStoreValue": "basic",
+            "windows": [
+              {
+                "sandbox": true,
+                "contextIsolation": true,
+                "nodeIntegration": false,
+                "webSecurity": true
+              }
+            ]
+          },
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 6911,
+              "started": "2026-10-09T11:03:49.709Z",
+              "mouseSteps": [
+                {
+                  "title": "mouse 1000: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 434
+                },
+                {
+                  "title": "mouse 1002: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 400
+                },
+                {
+                  "title": "mouse 1003: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 417
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "newPackageSmoke": {
+      "stats": {
+        "startTime": "2026-10-09T11:06:43.801Z",
+        "duration": 8131.804,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "status": "expected",
+          "launch": {
+            "platform": "win32",
+            "arch": "x64",
+            "version": "0.2.2",
+            "electron": "44.7.0",
+            "isPackaged": true,
+            "noSandbox": false,
+            "useMockKeychain": false,
+            "passwordStorePresent": false,
+            "passwordStoreValue": "",
+            "windows": [
+              {
+                "sandbox": true,
+                "contextIsolation": true,
+                "nodeIntegration": false,
+                "webSecurity": true
+              }
+            ]
+          },
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 7693,
+              "started": "2026-10-09T11:06:44.192Z",
+              "mouseSteps": [
+                {
+                  "title": "mouse 1000: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 412
+                },
+                {
+                  "title": "mouse 1002: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 416
+                },
+                {
+                  "title": "mouse 1003: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 403
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "mouseCoverage": {
+      "modes": [1000, 1002, 1003],
+      "forcedSelectionModifier": "Shift",
+      "copyShortcut": "Control+Shift+C",
+      "clipboardMarkerChecked": true,
+      "noMouseReportForLocalSelectionChecked": true,
+      "ordinaryClickForwardedToSshChecked": true,
+      "macShiftOrOptionBranchExecuted": false,
+      "realTmuxOrScreenExecuted": false
+    },
+    "package": {
+      "format": "Local electron-builder Windows x64 unpacked directory; not an NSIS/portable installer or Release asset",
+      "sourceAndDriverCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+      "verifiedAt": "2026-10-09T11:06:38.435Z",
+      "artifacts": [
+        {
+          "file": ".private/qa/2026-10-09-windows-final-mouse/package/win-unpacked/QuayTerm.exe",
+          "sha256": "b9f422aef1d8877341642e046c6f80ea371283e27bc7e5c80ab0b02364492209",
+          "size": 246302208
+        },
+        {
+          "file": ".private/qa/2026-10-09-windows-final-mouse/package/win-unpacked/resources/app.asar",
+          "sha256": "8b786aef3a04cb5655067feb26d9f4214db5cfbb84904dbe58942fb560f3e416",
+          "size": 7408920
+        }
+      ],
+      "packageMetadata": {
+        "name": "quayterm",
+        "version": "0.2.2",
+        "license": "UNLICENSED"
+      },
+      "privateOrTestFilesIncluded": false,
+      "files": [
+        {
+          "file": "dist/assets/index-C7EnujSW.css",
+          "sha256": "60997054e0b3fee3d139318e311d67188f6f50ed8a52a19c9c847f0e13ef8427",
+          "matchesPackage": true
+        },
+        {
+          "file": "dist/assets/index-Dxcy6fcZ.js",
+          "sha256": "ec7698ba2479d0878e8dc0e9879dc12c18805068d419c84c8d9ce7d0e2293c43",
+          "matchesPackage": true
+        },
+        {
+          "file": "dist/index.html",
+          "sha256": "e097e33e29ccebd82f21c28178a19dcf45094ff3a2a21c9cb2ca82b3b79020a2",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/files.cjs",
+          "sha256": "3d5b31e3a44a2ed32e7231b467d0bcbf3ac5946fc4be18d691b5b1f570f72192",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/known-hosts.cjs",
+          "sha256": "3faeb75197d48d7dfc18b53e303ce3e760179254e2c175e5e4902bfccf8ad8ec",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/main.cjs",
+          "sha256": "b39c54317b6fa9d75aa8e2f3e4509ec4e158a9b41804585f1d7f37976530360c",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/preload.cjs",
+          "sha256": "2d232171b0e16d69eb9d35892b9f7ee5fb2f02017d529dd996ef5c42168f2d4f",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/sessions.cjs",
+          "sha256": "2eb716e7c554e09c1976fbc85ccf208a0a1ecd39a98272be3abe648b205e69c6",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/store.cjs",
+          "sha256": "e995e831e8ec32093595e4d0886783fc6fe32bf8e7dfa1cb6e08d5442b726800",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/validation.cjs",
+          "sha256": "77c7518bd63f7f8e6e936b8f55039910a18e76fc98c9504f9deb065ad2ec2106",
+          "matchesPackage": true
+        },
+        {
+          "file": "shared/terminal-themes.json",
+          "sha256": "2c619014cb21f85bf8fd7eac122a889b78572755be9b29e0e5be9138b3971d35",
+          "matchesPackage": true
+        },
+        {
+          "file": "LICENSE",
+          "sha256": "566c2bc72ca6f5ce9f5945bfe34f8a303970337202e765dc5f7aaf559195015e",
+          "matchesPackage": true
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "f191c6af7c05571516c951a3d4ccb3ef383d60f01e2e4fa1586e8349dedd8959",
+          "matchesPackage": true
+        },
+        {
+          "file": "resources/icon.png",
+          "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706",
+          "matchesPackage": true
+        }
+      ],
+      "signature": {
+        "status": "NotSigned",
+        "checkedAt": "2026-10-09T19:06:52.9513863+08:00"
+      },
+      "artifactsStableDuringSmoke": true,
+      "fullBuildCount": 1,
+      "packageGenerationCount": 1,
+      "committedThirdPartyNoticesUsed": true,
+      "old938d38fPackageUsedForFinalSmoke": false,
+      "installerGeneratedOrInstalled": false,
+      "releasePublished": false
+    },
+    "verificationFailure": {
+      "commandIndex": 5,
+      "exitCode": 1,
+      "error": "dist/assets/index-C7EnujSW.css was not found in this archive",
+      "cause": "Private verifier passed forward-slash paths to the Windows asar extraction API. The file existed in the archive; path.normalize restored native path separators.",
+      "correction": "Both extraction call sites normalized; all original content equality checks preserved. Only verifier rerun; same package reused.",
+      "rerunExitCode": 0,
+      "originalScriptAndFailureLogRetained": true,
+      "productDefect": false
+    },
+    "preservation": {
+      "initialSegment": {
+        "before": {
+          "queriedAt": "2026-10-09T19:03:39.8497253+08:00",
+          "count": 0,
+          "file": "processes-before.json"
+        },
+        "after": {
+          "queriedAt": "2026-10-09T19:04:21.8087499+08:00",
+          "count": 0,
+          "file": "processes-after.json"
+        },
+        "beforeAfterComparisonPerformed": true,
+        "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+        "priorReportUnchanged": true,
+        "testClipboardCleared": true,
+        "priorDeniedDeletionRetried": false
+      },
+      "continuation": {
+        "before": {
+          "queriedAt": "2026-10-09T19:06:38.2613525+08:00",
+          "count": 0,
+          "file": "continuation-processes-before.json"
+        },
+        "after": {
+          "queriedAt": "2026-10-09T19:06:52.9586666+08:00",
+          "count": 0,
+          "file": "continuation-processes-after.json"
+        },
+        "beforeAfterComparisonPerformed": true,
+        "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+        "priorReportUnchanged": true,
+        "testClipboardCleared": true,
+        "priorDeniedDeletionRetried": false
+      },
+      "oldUncommittedReportSha256": "41b9d8e629a69fbb592b44e1b68b35b4e0faed35eb46d76cf9eee51a2b20b299",
+      "priorDeniedCleanupRetried": false,
+      "previousCleanupStatus": "BLOCKED_AUTO_REVIEW remains applicable to the two earlier temporary fixture roots",
+      "previousLogsOrReportsOverwritten": false,
+      "existingUserViewerWindowsClosed": false,
+      "productionHostsContacted": false
+    },
+    "boundaries": {
+      "launchFlagsCaptured": "Same actual smoke process, as electron-launch annotations; not a separate later launch observation",
+      "packagedChromiumSandboxOption": true,
+      "defaultOrdinaryLaunchAcceptance": false,
+      "nativeCredentialPersistenceAcceptance": false,
+      "defaultExternalApplicationDisplay": "stubbed shell.openPath; not verified",
+      "realPtyOrMultiplexers": "not run; native probe uses real loopback SSH/SFTP protocol and an echo channel",
+      "lateFileSuite": "6a0d28f included and format/type checked; final Windows task did not repeat appearance-files suite, so earlier file results are not relabeled as this driver",
+      "fullWindowsAcceptance": false,
+      "mainOrReleaseChanged": false
+    },
+    "localOnlyEvidence": [
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/source.config.cjs",
+        "sha256": "375302e6f27aa0ea7fa4105192459a7c63dbcf16e4c7ded6dcc2c26e7132188e"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/packaged.config.cjs",
+        "sha256": "45431a2af7df39c6d17cc89f32685d7c9e91e020f130e93225663a13f1e8590c"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/run.ps1",
+        "sha256": "b6fb126306df4c6fdbe4720a8652851296f2df9ca33def7d402c5393f1831c3a"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continue.ps1",
+        "sha256": "404bb78c6ce858e195c517b2409a8ac7628ff664b474341c729a359340ca5d94"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/verify-package.cjs",
+        "sha256": "b86348ae515cbd274f7ca7ba221735e35e01a2e7d4187669ba923cf819e14f5e"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/verify-package-v2.cjs",
+        "sha256": "e406d74231ff505abcea547a87910c3b72be1f297c5d5886f4c807205bbf109d"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/01-check.log",
+        "sha256": "4f12b64f7d8e7ab12caabd0e9244fa0a24e01a7428e5128e843f1cd696151044"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/02-build.log",
+        "sha256": "fe7feef64a5c906c3ce574eab2b4738dbf8be9887c473bfd1fca7a7dd1946a03"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/03-portable.log",
+        "sha256": "4e991d7de11f4a146209c6533a748fed328be48801735cfbb99dead5f5348333"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/04-source-smoke.log",
+        "sha256": "af6e24874bbd1606dbc7ab07a4d646a447450c432178c6b05b724237b4d869ba"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/05-package.log",
+        "sha256": "b8ce4c7f0314ff977c379d48caf7b474d125f31bc694cc0ca6801d593d5fef82"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/06-verify-package.log",
+        "sha256": "3db896ce688c4b1a75b491525051ebcb78700e3bf6022609695396163a35dec8"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/07-verify-package-native-path.log",
+        "sha256": "acf06a46750de9df533e40ad6e56de200c8f71f2f50faa3c8a2e516f690b0b56"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/08-check-final-driver.log",
+        "sha256": "4f12b64f7d8e7ab12caabd0e9244fa0a24e01a7428e5128e843f1cd696151044"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/09-packaged-smoke.log",
+        "sha256": "8ce3492086b5f81ab2001cdb938e468012d43fa2f9b8caad2fac478b208c7d94"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/commands.json",
+        "sha256": "0b9b18b21e537e8501a9d20f064e52e75721b6da2b29c350dc90b48f856a7485"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-commands.json",
+        "sha256": "ff5c97d7eac9a7bb091bb1c2d686e3bddad1e026905405005116d04560ec894d"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/source-report.json",
+        "sha256": "0b72b03416ab466e56b62715e72c8d99a8bf17175bb97762f07f1fdbc64e7956"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/packaged-report.json",
+        "sha256": "83d3782f2e37554e702656b2e2296f6cf78b0cec12d178a3dc0f88fb7c00b928"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/package-evidence.json",
+        "sha256": "fcfc4ff2a0a86ba4bbccb963526af65d4fd280b8a88c6e5f72e1aea7a5e35297"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/artifacts-after.json",
+        "sha256": "7799bae15442853c15b993f45f0d2c6b7806c9b72ea209d7d9894aeb5f1ccd1a"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/signature.json",
+        "sha256": "a5c767c35f04e70de388e61b2815bdda58e6304d0240bdb994da047159de8a3c"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/provenance.json",
+        "sha256": "9a5315ae306e4210c1949e3836813b1cbb6753768f657325d3b34eaa120a660f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/preservation.json",
+        "sha256": "fc255aacc745c8841fefe706feacb1b4f1d4a181fb5626b3808481ec709a6a28"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-preservation.json",
+        "sha256": "1e80428f69f20f8de61caa8b523999ffd04b5688fec0437c0c5e7c55c292948a"
+      }
+    ]
+  }
+}

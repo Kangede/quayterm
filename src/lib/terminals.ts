@@ -33,6 +33,7 @@ export class Terminals {
       allowProposedApi: true,
       screenReaderMode: false,
       rightClickSelectsWord: true,
+      macOptionClickForcesSelection: true,
       theme: this.theme.colors
     })
     const fit = new FitAddon()
@@ -92,6 +93,22 @@ export class Terminals {
     const element = document.createElement('div')
     element.className = 'terminal-mount'
     element.dataset.sessionId = id
+    element.addEventListener(
+      'mousedown',
+      (event) => {
+        // xterm reserves Option for forced selection on macOS. Let the
+        // cross-platform Shift gesture use that same local-selection path,
+        // without changing mouse reporting for ordinary clicks or the PTY.
+        if (
+          navigator.platform.startsWith('Mac') &&
+          event.button === 0 &&
+          event.shiftKey &&
+          term.modes.mouseTrackingMode !== 'none'
+        )
+          Object.defineProperty(event, 'altKey', { value: true })
+      },
+      true
+    )
     const highlights = new OutputHighlights(term, () => this.theme.colors, this.outputHighlights)
     this.records.set(id, { term, fit, search, element, opened: false, highlights })
   }

@@ -20,12 +20,22 @@ QuayTerm（泊岸）是私有、不开源的 SSH/SFTP 桌面客户端，使用 E
 
 本文件和交接文档不替代用户当前指令；发布新版本、扩大真实主机操作范围等，仍以用户实际授权为准。
 
+## 发布维护
+
+- v0.2.3 发布变更见 `CHANGELOG.md`。现有 `desktop.yml` 只有 main push 与手动派发入口；发布时核对本轮成功构建的实际 SHA 与新标签指向一致，使用同一次成功运行的三平台产物；没有标签专属构建条件时无需重复构建，不复用不同提交的旧安装包。
+- 新版本同步 `package.json` 与锁文件，使用未占用的新标签；不要移动已有标签或覆盖既有 Release。发布必须保留仓库私有与第三方许可，校验版本、架构、资产列表和 SHA256SUMS。
+- 历史测试报告保留真实版本/哈希与 BLOCKED，不因发布而升级为完整验收；发布授权不等于签名、公证或剩余系统交互已完成。最终发布记录在 Release 中补充，不为写回 Actions 结果反复改变已核实的标签提交。
+
 ## 2026-10-09 后续开发与文件打开约定
 
-- 本轮从 `main` 的 `b2cf253a6152c311222c1c477c3bc2d27de13cdc`（v0.2.2）接续。保留 Windows 修复：不可用盘符不影响目录浏览、SFTP 断连关闭流、BOM/CRLF 连续保存、盘符重复选择和 LF 检出。Windows 已有 [报告](docs/test-reports/2026-10-08-windows-x64-0.2.1.md)，其中未完成项仍需补测；macOS 真实桌面验收待后续进行。
+- 本轮从 `main` 的 `b2cf253a6152c311222c1c477c3bc2d27de13cdc`（v0.2.2）接续。保留 Windows 修复：不可用盘符不影响目录浏览、SFTP 断连关闭流、BOM/CRLF 连续保存、盘符重复选择和 LF 检出。Windows 历史 [报告](docs/test-reports/2026-10-08-windows-x64-0.2.1.md) 的未完成项仍需补测；后续三端修复构建结果见 TESTING.md，macOS x64 记录为 12 PASS / 7 BLOCKED，不能声称完整原生验收。
 - 文件右键的“用本地程序打开”使用系统默认程序。单个本地文件直接打开原文件；远端普通文件完整下载到系统临时目录 `quayterm-open-*` 后打开，每次生成独立副本。保留扩展名，处理 Windows 不合法/保留文件名，不执行远端命令、不自动回传外部修改。
 - 二进制/PDF、非 UTF-8 文件双击自动转到外部程序；UTF-8 文本保留内置编辑及 BOM/换行语义，大文本仍保留 2 MiB 的内置编辑限制。读取失败、权限错误和断连不能误当成二进制。显式“编辑文件”保持编辑器行为。
 - `fileRead` 对外部打开返回结构化的 `{ external: true, reason }`。不要依赖通过 Electron `contextBridge` 抛出的 Error 自定义属性，桥接会丢失这些属性；其他 I/O 错误仍应报错。`fileOpenLocal` 在主进程调用 `shell.openPath`，必须处理其非空错误字符串。
 - 下载失败/取消或默认程序打开失败，清理本次临时目录。成功打开的副本在退出客户端后保留，避免破坏仍在使用它的外部程序；由系统/用户清理临时文件。不要复用并覆盖旧副本，不把临时副本的修改视为已保存到远端。
 - 同名上传始终默认不覆盖：每次传输确认都重置 `overwrite=false`，只有明确勾选允许覆盖才可替换；后端保留传输前及原子写入前的冲突检查。不要因添加外部打开入口改变这一约定。
 - 相关回归在 `tests/local-files.test.cjs`、`core.test.cjs`、`appearance-files.e2e.cjs` 和 `desktop-smoke.e2e.cjs`。自动化中的默认程序调用使用替身以免启动 CI 上未知应用，实际下载/文件读写和界面路径仍真实执行；各目标 OS 的真实默认文件关联需要另做原生实测，不能把替身调用算作已打开第三方应用。
+- Playwright 的 Electron 启动器在 Linux 默认添加 `--no-sandbox`，即使 `args: []`。程序包测试必须设置 `chromiumSandbox: true`，并确认 `app.isPackaged === true` 且运行时没有 `no-sandbox` 开关；只看启动参数数组或 `webPreferences.sandbox` 不足以证明默认沙箱。源码测试可沿用现有的显式 `--no-sandbox`，不得冒充程序包验收。
+- 本项目锁定的 Playwright 在未指定 `executablePath` 的源码启动路径加载 Electron loader，其中包含 `--password-store=basic`、`--use-mock-keychain`；指定包路径不走同一 loader 路径。不要仅看 loader 文件就对所有程序包宣称注入这些参数，必须分别采集源码/包的实际开关与存储后端。真实默认环境需直接启动实际程序，以回环调试端口/公开 CDP 和现有 IPC 做观察，记录完整进程参数与隔离配置；系统策略阻止启动则记 BLOCKED，不放宽安全策略。
+
+- macOS 鼠标报告开启时，Shift 与 Option 均应可强制本地选择，普通鼠标事件仍应发送至 SSH。保留 `terminals.ts` 的平台限定适配和 smoke 的 1000/1002/1003 正反例；Linux/Windows 的 Shift 路径也需保持。三端报告与旧包基线不得混用。

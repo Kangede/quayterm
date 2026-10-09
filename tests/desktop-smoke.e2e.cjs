@@ -10,12 +10,43 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
   const binaryFile = path.join(directory, 'native-binary.png')
   fs.writeFileSync(textFile, '\ufeffline1\r\nline2\r\n')
   fs.writeFileSync(binaryFile, Buffer.from([0, 255, 42]))
+  const executable = process.env.QUAYTERM_TEST_EXECUTABLE
   const app = await electron.launch({
-    args: [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
+    // Playwright adds --no-sandbox on Linux unless explicitly opted out.
+    chromiumSandbox: Boolean(executable),
+    ...(executable ? { executablePath: path.resolve(executable) } : {}),
+    args: executable
+      ? []
+      : [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
     env: { ...process.env, QUAYTERM_DATA_DIR: directory }
   })
   try {
+    if (executable) {
+      expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
+      expect(await app.evaluate(({ app }) => app.commandLine.hasSwitch('no-sandbox'))).toBe(false)
+    }
     const page = await app.firstWindow()
+    const launch = await app.evaluate(({ app, BrowserWindow }) => ({
+      platform: process.platform,
+      arch: process.arch,
+      version: app.getVersion(),
+      electron: process.versions.electron,
+      isPackaged: app.isPackaged,
+      noSandbox: app.commandLine.hasSwitch('no-sandbox'),
+      useMockKeychain: app.commandLine.hasSwitch('use-mock-keychain'),
+      passwordStorePresent: app.commandLine.hasSwitch('password-store'),
+      passwordStoreValue: app.commandLine.getSwitchValue('password-store'),
+      windows: BrowserWindow.getAllWindows().map((window) => {
+        const preferences = window.webContents.getLastWebPreferences()
+        return {
+          sandbox: preferences.sandbox,
+          contextIsolation: preferences.contextIsolation,
+          nodeIntegration: preferences.nodeIntegration,
+          webSecurity: preferences.webSecurity
+        }
+      })
+    }))
+    test.info().annotations.push({ type: 'electron-launch', description: JSON.stringify(launch) })
     // Exercise the native opening IPC without starting arbitrary third-party
     // applications on CI. The SFTP download and local files remain real.
     await app.evaluate(({ shell }) => {
@@ -138,7 +169,44 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
       await page.keyboard.press('Meta+a')
       await page.keyboard.press('Meta+v')
       await expect(editor).toHaveValue('Native menu paste')
+      await editor.fill(probe.text)
     }
+    await page.getByRole('button', { name: '关闭', exact: true }).last().click()
+    await expect(page.locator('.file-editor-modal')).toHaveCount(0)
+    // Exercise local selection while a remote application owns mouse reporting.
+    probe.output('\x1b[?1049h')
+    const box = await page.locator('.terminal-pane.focused .xterm-screen').boundingBox()
+    for (const mode of [1000, 1002, 1003]) {
+      for (const modifier of process.platform === 'darwin' ? ['Shift', 'Alt'] : ['Shift']) {
+        await test.step(`mouse ${mode}: ${modifier} selects locally; ordinary click reaches SSH`, async () => {
+          const marker = `${modifier[0]}${mode}_OK`
+          // Position the pointer before enabling any-motion reporting (1003),
+          // so this assertion measures the drag rather than preceding hover.
+          probe.output(`\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[2J\x1b[HREADY_${marker}\r\n`)
+          await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText(`READY_${marker}`)
+          await page.mouse.move(box.x + 2, box.y + 7)
+          probe.output(`\x1b[?${mode}h\x1b[?1006h\x1b[2J\x1b[H${marker}\r\n`)
+          await expect(page.locator('.terminal-pane.focused .xterm-rows')).not.toContainText('READY_')
+          await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText(marker)
+          await app.evaluate(({ clipboard }) => clipboard.writeText('before-mouse-selection'))
+          const mouseOffset = probe.input.length
+          await page.keyboard.down(modifier)
+          await page.mouse.down()
+          await page.mouse.move(box.x + 125, box.y + 7, { steps: 12 })
+          await page.mouse.up()
+          await page.keyboard.up(modifier)
+          await page.keyboard.press(process.platform === 'darwin' ? 'Meta+c' : 'Control+Shift+c')
+          await expect.poll(() => app.evaluate(({ clipboard }) => clipboard.readText())).toContain(marker)
+          expect(Buffer.concat(probe.input.slice(mouseOffset)).toString()).not.toMatch(/\x1b\[(?:M|<)/)
+          const ordinaryMouseOffset = probe.input.length
+          await page.locator('.terminal-pane.focused .xterm-screen').click({ position: { x: 3, y: 7 } })
+          await expect
+            .poll(() => Buffer.concat(probe.input.slice(ordinaryMouseOffset)).toString())
+            .toMatch(/\x1b\[<0;/)
+        })
+      }
+    }
+    probe.output('\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1006l\x1b[?1049l')
     expect(await page.evaluate(() => typeof window.require)).toBe('undefined')
     expect(errors).toEqual([])
   } finally {

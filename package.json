@@ -1,7 +1,7 @@
 {
   "name": "quayterm",
   "productName": "QuayTerm",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "QuayTerm 泊岸 — SSH 与 SFTP 工作区",
   "private": true,
   "license": "UNLICENSED",

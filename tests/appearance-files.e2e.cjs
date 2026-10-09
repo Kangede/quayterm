@@ -4,6 +4,7 @@ const path = require('node:path')
 const os = require('node:os')
 const { fixture } = require('./fixture.cjs')
 const themes = require('../shared/terminal-themes.json')
+const multiSelectModifier = process.platform === 'darwin' ? 'Meta' : 'Control'
 let app, page, fx, directory, local, download
 const rgb = (hex) => `rgb(${[1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(', ')})`
 test.describe.configure({ mode: 'serial' })
@@ -21,6 +22,7 @@ test.beforeAll(async () => {
   const seed = path.join(directory, 'seed.json')
   fs.writeFileSync(seed, JSON.stringify([{ ...fx.host, name: '功能测试主机' }]))
   app = await electron.launch({
+    chromiumSandbox: Boolean(process.env.QUAYTERM_TEST_EXECUTABLE),
     ...(process.env.QUAYTERM_TEST_EXECUTABLE
       ? { executablePath: path.resolve(process.env.QUAYTERM_TEST_EXECUTABLE) }
       : {}),
@@ -29,6 +31,8 @@ test.beforeAll(async () => {
   })
   page = await app.firstWindow()
   if (process.env.QUAYTERM_TEST_EXECUTABLE) {
+    expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
+    expect(await app.evaluate(({ app }) => app.commandLine.hasSwitch('no-sandbox'))).toBe(false)
     await page.getByRole('button', { name: '远程主机', exact: true }).waitFor()
     await page.evaluate(
       (host) => window.quay.invoke('hostSave', { ...host, name: '功能测试主机', rememberPassword: false }),
@@ -86,6 +90,8 @@ async function blankMenu(pane) {
   await pane.locator('.file-rows').click({ button: 'right', position: { x: 100, y: 320 } })
 }
 async function location(pane, p) {
+  // A closing context menu can restore focus after fill() and consume Enter.
+  await expect(page.locator('.ant-dropdown:visible')).toHaveCount(0)
   await pane.getByRole('textbox', { name: '文件路径', exact: true }).fill(p)
   await pane.getByRole('textbox', { name: '文件路径', exact: true }).press('Enter')
 }
@@ -120,7 +126,7 @@ test('local file context menus target the clicked item, preserve multiple select
   const left = panel(0)
   await location(left, local)
   await row(left, 'first.txt').click()
-  await row(left, 'second.txt').click({ modifiers: ['Control'] })
+  await row(left, 'second.txt').click({ modifiers: [multiSelectModifier] })
   await row(left, 'first.txt').click({ button: 'right' })
   await expect(left.locator('.file-row.selected')).toHaveCount(2)
   await contextItem('复制路径')
@@ -267,7 +273,7 @@ test('binary double-click opens independent local snapshots while text and read 
   const textSnapshot = await app.evaluate(() => global.__quayExternalOpens[3])
   expect(fs.readFileSync(textSnapshot, 'utf8')).toBe('still editable\r\n')
   await row(right, 'plain.txt').click()
-  await row(right, 'report.pdf').click({ modifiers: ['Control'] })
+  await row(right, 'report.pdf').click({ modifiers: [multiSelectModifier] })
   await row(right, 'plain.txt').click({ button: 'right' })
   await expect(page.getByRole('menuitem', { name: /用本地程序打开/ })).toHaveAttribute(
     'aria-disabled',
@@ -300,12 +306,16 @@ test('same-name uploads require explicit overwrite and reset consent for every t
   fs.writeFileSync(source, 'replacement')
   fs.writeFileSync(target, 'original')
   await location(right, destination)
+  await expect(row(right, 'collision.txt')).toHaveAttribute('data-path', fs.realpathSync.native(target))
   await app.evaluate(({ dialog }, p) => {
     dialog.showOpenDialog = async () => ({ canceled: false, filePaths: [p] })
   }, source)
   const request = async () => {
     await blankMenu(right)
     await contextItem('上传文件…')
+    await expect(page.locator('.ant-modal:visible .path-preview')).toHaveText(
+      fs.realpathSync.native(destination)
+    )
     await expect(page.getByRole('checkbox', { name: '允许覆盖目标中的同名文件' })).not.toBeChecked()
   }
   await request()
