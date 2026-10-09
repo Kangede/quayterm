@@ -1,5 +1,5 @@
 {
-  "scope": "Windows initial simple source regression plus targeted source/installed-package smoke and maintained multi-selection driver regression; not full platform acceptance",
+  "scope": "Windows source and package functional regression: initial external-open baseline, driver follow-ups, and final mouse-selection product fix; not full platform acceptance",
   "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
   "branch": "codex/windows-cross-platform-20261009",
   "timeZone": "Asia/Shanghai",
@@ -886,6 +886,549 @@
       {
         "file": ".private/qa/2026-10-09-windows-launch-flags/processes-after.json",
         "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      }
+    ]
+  },
+  "sourceCommitScope": "The root sourceCommit remains the initial 938d38f baseline. Latest product/build/driver identities are recorded in finalMouseRegression.",
+  "latestBuildCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+  "latestDriverCommit": "8b06f89029aeea2bb2b5d96c4c74358ac8d71db0",
+  "finalMouseRegression": {
+    "scope": "Final Windows x64 check/build, portable subset, maintained source smoke and newly built local unpacked package smoke after the Mac terminal selection product fix",
+    "provenance": {
+      "sourceAndDriverCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+      "productFixUpstream": "12456e9e395b62707d6b5d14f2ccd355c66f5817",
+      "productFixWindows": "a8c0fdd2a1aa5e5b92422e4d66f0eea447a09068",
+      "mouseDriverUpstream": "2efad3c288d03a8b9f6acd4279bc02fb71823e74",
+      "mouseDriverWindows": "7fed70d6d97c87d6f45dc6d1a6836c4827907571",
+      "sandboxDriverUpstream": "75ef3c4fe6361b246df509599573b3dddb8b71b2",
+      "sandboxDriverWindows": "7d703402549c464a3ae74c4bcd466f2681b8a170",
+      "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+      "packageFormat": "win-unpacked, local build only",
+      "finalDriverCommit": "8b06f89029aeea2bb2b5d96c4c74358ac8d71db0",
+      "lateFileDriverUpstream": "6a0d28f385d438717ec13e6ba462fe7d47aee67b",
+      "lateFileDriverWindows": "8b06f89029aeea2bb2b5d96c4c74358ac8d71db0",
+      "actualSmokeObservationCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+      "productContentMatchesUpstream12456e9": true,
+      "lateFileDriverChangesProductOrSmoke": false,
+      "noRebuildForPureFileDriver": true,
+      "testedFileHashes": [
+        {
+          "file": "src/lib/terminals.ts",
+          "sha256": "336b27a4d0d6a4289ca71fb97401975746f07957d1bf356be36a53cc8f603542"
+        },
+        {
+          "file": "tests/desktop-smoke.e2e.cjs",
+          "sha256": "99b3197ebc5bfc6867d4a16afe1baefdcba0460f621c83a4cb6b8a1af83da958"
+        },
+        {
+          "file": "tests/native-probe.cjs",
+          "sha256": "f1620531af0102dea7087d490f5ce1f53943ed3df9e93ad15875aaf12fb1342a"
+        },
+        {
+          "file": "tests/appearance-files.e2e.cjs",
+          "sha256": "932673119a2e37218eaf04b0455f925dc46067f51b0b54e0a0172b843e74006e"
+        },
+        {
+          "file": "package-lock.json",
+          "sha256": "653162db75ad01acd3fddc28b72bd14db76acd001ad179a471b32c75816231f7"
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "f191c6af7c05571516c951a3d4ccb3ef383d60f01e2e4fa1586e8349dedd8959"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "npm run check",
+        "executableMode": "not applicable",
+        "started": "2026-10-09T19:03:39.9376297+08:00",
+        "ended": "2026-10-09T19:03:43.8445435+08:00",
+        "exitCode": 0,
+        "log": "01-check.log"
+      },
+      {
+        "command": "npm run build",
+        "executableMode": "not applicable",
+        "started": "2026-10-09T19:03:43.8544253+08:00",
+        "ended": "2026-10-09T19:03:47.7061653+08:00",
+        "exitCode": 0,
+        "log": "02-build.log"
+      },
+      {
+        "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+        "executableMode": "not applicable",
+        "started": "2026-10-09T19:03:47.7085396+08:00",
+        "ended": "2026-10-09T19:03:48.2272599+08:00",
+        "exitCode": 0,
+        "log": "03-portable.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-final-mouse/source.config.cjs desktop-smoke.e2e.cjs",
+        "executableMode": "QUAYTERM_TEST_EXECUTABLE unset",
+        "started": "2026-10-09T19:03:48.2322288+08:00",
+        "ended": "2026-10-09T19:03:56.6992538+08:00",
+        "exitCode": 0,
+        "log": "04-source-smoke.log"
+      },
+      {
+        "command": "npx electron-builder --win --x64 --dir --config.directories.output=.private/qa/2026-10-09-windows-final-mouse/package --publish never",
+        "executableMode": "fresh win-unpacked from current dist and committed notices",
+        "started": "2026-10-09T19:03:56.7008918+08:00",
+        "ended": "2026-10-09T19:04:21.6900005+08:00",
+        "exitCode": 0,
+        "log": "05-package.log"
+      },
+      {
+        "command": "node .private/qa/2026-10-09-windows-final-mouse/verify-package.cjs",
+        "executableMode": "compare asar bytes to fresh build; hash actual executable and archive",
+        "started": "2026-10-09T19:04:21.6922645+08:00",
+        "ended": "2026-10-09T19:04:21.7906941+08:00",
+        "exitCode": 1,
+        "log": "06-verify-package.log"
+      },
+      {
+        "command": "node .private/qa/2026-10-09-windows-final-mouse/verify-package-v2.cjs",
+        "executableMode": "same new package; use native Windows paths for asar API",
+        "started": "2026-10-09T19:06:38.3402514+08:00",
+        "ended": "2026-10-09T19:06:38.6322915+08:00",
+        "exitCode": 0,
+        "log": "07-verify-package-native-path.log"
+      },
+      {
+        "command": "npm run check",
+        "executableMode": "after pure file-test driver 6a0d28f; product and desktop smoke unchanged",
+        "started": "2026-10-09T19:06:38.6404734+08:00",
+        "ended": "2026-10-09T19:06:42.7487087+08:00",
+        "exitCode": 0,
+        "log": "08-check-final-driver.log"
+      },
+      {
+        "command": "npx playwright test --config .private/qa/2026-10-09-windows-final-mouse/packaged.config.cjs desktop-smoke.e2e.cjs",
+        "executableMode": "C:\\workspace\\quayterm\\.private\\qa\\2026-10-09-windows-final-mouse\\package\\win-unpacked\\QuayTerm.exe",
+        "started": "2026-10-09T19:06:42.7523318+08:00",
+        "ended": "2026-10-09T19:06:51.9626020+08:00",
+        "exitCode": 0,
+        "log": "09-packaged-smoke.log"
+      }
+    ],
+    "portable": {
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "sourceSmoke": {
+      "stats": {
+        "startTime": "2026-10-09T11:03:49.275Z",
+        "duration": 7390.153,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "status": "expected",
+          "launch": {
+            "platform": "win32",
+            "arch": "x64",
+            "version": "0.2.2",
+            "electron": "44.7.0",
+            "isPackaged": false,
+            "noSandbox": false,
+            "useMockKeychain": true,
+            "passwordStorePresent": true,
+            "passwordStoreValue": "basic",
+            "windows": [
+              {
+                "sandbox": true,
+                "contextIsolation": true,
+                "nodeIntegration": false,
+                "webSecurity": true
+              }
+            ]
+          },
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 6911,
+              "started": "2026-10-09T11:03:49.709Z",
+              "mouseSteps": [
+                {
+                  "title": "mouse 1000: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 434
+                },
+                {
+                  "title": "mouse 1002: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 400
+                },
+                {
+                  "title": "mouse 1003: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 417
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "newPackageSmoke": {
+      "stats": {
+        "startTime": "2026-10-09T11:06:43.801Z",
+        "duration": 8131.804,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "status": "expected",
+          "launch": {
+            "platform": "win32",
+            "arch": "x64",
+            "version": "0.2.2",
+            "electron": "44.7.0",
+            "isPackaged": true,
+            "noSandbox": false,
+            "useMockKeychain": false,
+            "passwordStorePresent": false,
+            "passwordStoreValue": "",
+            "windows": [
+              {
+                "sandbox": true,
+                "contextIsolation": true,
+                "nodeIntegration": false,
+                "webSecurity": true
+              }
+            ]
+          },
+          "results": [
+            {
+              "status": "passed",
+              "durationMs": 7693,
+              "started": "2026-10-09T11:06:44.192Z",
+              "mouseSteps": [
+                {
+                  "title": "mouse 1000: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 412
+                },
+                {
+                  "title": "mouse 1002: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 416
+                },
+                {
+                  "title": "mouse 1003: Shift selects locally; ordinary click reaches SSH",
+                  "duration": 403
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "mouseCoverage": {
+      "modes": [
+        1000,
+        1002,
+        1003
+      ],
+      "forcedSelectionModifier": "Shift",
+      "copyShortcut": "Control+Shift+C",
+      "clipboardMarkerChecked": true,
+      "noMouseReportForLocalSelectionChecked": true,
+      "ordinaryClickForwardedToSshChecked": true,
+      "macShiftOrOptionBranchExecuted": false,
+      "realTmuxOrScreenExecuted": false
+    },
+    "package": {
+      "format": "Local electron-builder Windows x64 unpacked directory; not an NSIS/portable installer or Release asset",
+      "sourceAndDriverCommit": "4f5e8a6504a986667f98cf1a1f430ce3b0a6588c",
+      "verifiedAt": "2026-10-09T11:06:38.435Z",
+      "artifacts": [
+        {
+          "file": ".private/qa/2026-10-09-windows-final-mouse/package/win-unpacked/QuayTerm.exe",
+          "sha256": "b9f422aef1d8877341642e046c6f80ea371283e27bc7e5c80ab0b02364492209",
+          "size": 246302208
+        },
+        {
+          "file": ".private/qa/2026-10-09-windows-final-mouse/package/win-unpacked/resources/app.asar",
+          "sha256": "8b786aef3a04cb5655067feb26d9f4214db5cfbb84904dbe58942fb560f3e416",
+          "size": 7408920
+        }
+      ],
+      "packageMetadata": {
+        "name": "quayterm",
+        "version": "0.2.2",
+        "license": "UNLICENSED"
+      },
+      "privateOrTestFilesIncluded": false,
+      "files": [
+        {
+          "file": "dist/assets/index-C7EnujSW.css",
+          "sha256": "60997054e0b3fee3d139318e311d67188f6f50ed8a52a19c9c847f0e13ef8427",
+          "matchesPackage": true
+        },
+        {
+          "file": "dist/assets/index-Dxcy6fcZ.js",
+          "sha256": "ec7698ba2479d0878e8dc0e9879dc12c18805068d419c84c8d9ce7d0e2293c43",
+          "matchesPackage": true
+        },
+        {
+          "file": "dist/index.html",
+          "sha256": "e097e33e29ccebd82f21c28178a19dcf45094ff3a2a21c9cb2ca82b3b79020a2",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/files.cjs",
+          "sha256": "3d5b31e3a44a2ed32e7231b467d0bcbf3ac5946fc4be18d691b5b1f570f72192",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/known-hosts.cjs",
+          "sha256": "3faeb75197d48d7dfc18b53e303ce3e760179254e2c175e5e4902bfccf8ad8ec",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/main.cjs",
+          "sha256": "b39c54317b6fa9d75aa8e2f3e4509ec4e158a9b41804585f1d7f37976530360c",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/preload.cjs",
+          "sha256": "2d232171b0e16d69eb9d35892b9f7ee5fb2f02017d529dd996ef5c42168f2d4f",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/sessions.cjs",
+          "sha256": "2eb716e7c554e09c1976fbc85ccf208a0a1ecd39a98272be3abe648b205e69c6",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/store.cjs",
+          "sha256": "e995e831e8ec32093595e4d0886783fc6fe32bf8e7dfa1cb6e08d5442b726800",
+          "matchesPackage": true
+        },
+        {
+          "file": "electron/validation.cjs",
+          "sha256": "77c7518bd63f7f8e6e936b8f55039910a18e76fc98c9504f9deb065ad2ec2106",
+          "matchesPackage": true
+        },
+        {
+          "file": "shared/terminal-themes.json",
+          "sha256": "2c619014cb21f85bf8fd7eac122a889b78572755be9b29e0e5be9138b3971d35",
+          "matchesPackage": true
+        },
+        {
+          "file": "LICENSE",
+          "sha256": "566c2bc72ca6f5ce9f5945bfe34f8a303970337202e765dc5f7aaf559195015e",
+          "matchesPackage": true
+        },
+        {
+          "file": "THIRD-PARTY-NOTICES.txt",
+          "sha256": "f191c6af7c05571516c951a3d4ccb3ef383d60f01e2e4fa1586e8349dedd8959",
+          "matchesPackage": true
+        },
+        {
+          "file": "resources/icon.png",
+          "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706",
+          "matchesPackage": true
+        }
+      ],
+      "signature": {
+        "status": "NotSigned",
+        "checkedAt": "2026-10-09T19:06:52.9513863+08:00"
+      },
+      "artifactsStableDuringSmoke": true,
+      "fullBuildCount": 1,
+      "packageGenerationCount": 1,
+      "committedThirdPartyNoticesUsed": true,
+      "old938d38fPackageUsedForFinalSmoke": false,
+      "installerGeneratedOrInstalled": false,
+      "releasePublished": false
+    },
+    "verificationFailure": {
+      "commandIndex": 5,
+      "exitCode": 1,
+      "error": "dist/assets/index-C7EnujSW.css was not found in this archive",
+      "cause": "Private verifier passed forward-slash paths to the Windows asar extraction API. The file existed in the archive; path.normalize restored native path separators.",
+      "correction": "Both extraction call sites normalized; all original content equality checks preserved. Only verifier rerun; same package reused.",
+      "rerunExitCode": 0,
+      "originalScriptAndFailureLogRetained": true,
+      "productDefect": false
+    },
+    "preservation": {
+      "initialSegment": {
+        "before": {
+          "queriedAt": "2026-10-09T19:03:39.8497253+08:00",
+          "count": 0,
+          "file": "processes-before.json"
+        },
+        "after": {
+          "queriedAt": "2026-10-09T19:04:21.8087499+08:00",
+          "count": 0,
+          "file": "processes-after.json"
+        },
+        "beforeAfterComparisonPerformed": true,
+        "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+        "priorReportUnchanged": true,
+        "testClipboardCleared": true,
+        "priorDeniedDeletionRetried": false
+      },
+      "continuation": {
+        "before": {
+          "queriedAt": "2026-10-09T19:06:38.2613525+08:00",
+          "count": 0,
+          "file": "continuation-processes-before.json"
+        },
+        "after": {
+          "queriedAt": "2026-10-09T19:06:52.9586666+08:00",
+          "count": 0,
+          "file": "continuation-processes-after.json"
+        },
+        "beforeAfterComparisonPerformed": true,
+        "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+        "priorReportUnchanged": true,
+        "testClipboardCleared": true,
+        "priorDeniedDeletionRetried": false
+      },
+      "oldUncommittedReportSha256": "41b9d8e629a69fbb592b44e1b68b35b4e0faed35eb46d76cf9eee51a2b20b299",
+      "priorDeniedCleanupRetried": false,
+      "previousCleanupStatus": "BLOCKED_AUTO_REVIEW remains applicable to the two earlier temporary fixture roots",
+      "previousLogsOrReportsOverwritten": false,
+      "existingUserViewerWindowsClosed": false,
+      "productionHostsContacted": false
+    },
+    "boundaries": {
+      "launchFlagsCaptured": "Same actual smoke process, as electron-launch annotations; not a separate later launch observation",
+      "packagedChromiumSandboxOption": true,
+      "defaultOrdinaryLaunchAcceptance": false,
+      "nativeCredentialPersistenceAcceptance": false,
+      "defaultExternalApplicationDisplay": "stubbed shell.openPath; not verified",
+      "realPtyOrMultiplexers": "not run; native probe uses real loopback SSH/SFTP protocol and an echo channel",
+      "lateFileSuite": "6a0d28f included and format/type checked; final Windows task did not repeat appearance-files suite, so earlier file results are not relabeled as this driver",
+      "fullWindowsAcceptance": false,
+      "mainOrReleaseChanged": false
+    },
+    "localOnlyEvidence": [
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/source.config.cjs",
+        "sha256": "375302e6f27aa0ea7fa4105192459a7c63dbcf16e4c7ded6dcc2c26e7132188e"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/packaged.config.cjs",
+        "sha256": "45431a2af7df39c6d17cc89f32685d7c9e91e020f130e93225663a13f1e8590c"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/run.ps1",
+        "sha256": "b6fb126306df4c6fdbe4720a8652851296f2df9ca33def7d402c5393f1831c3a"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continue.ps1",
+        "sha256": "404bb78c6ce858e195c517b2409a8ac7628ff664b474341c729a359340ca5d94"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/verify-package.cjs",
+        "sha256": "b86348ae515cbd274f7ca7ba221735e35e01a2e7d4187669ba923cf819e14f5e"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/verify-package-v2.cjs",
+        "sha256": "e406d74231ff505abcea547a87910c3b72be1f297c5d5886f4c807205bbf109d"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/01-check.log",
+        "sha256": "4f12b64f7d8e7ab12caabd0e9244fa0a24e01a7428e5128e843f1cd696151044"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/02-build.log",
+        "sha256": "fe7feef64a5c906c3ce574eab2b4738dbf8be9887c473bfd1fca7a7dd1946a03"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/03-portable.log",
+        "sha256": "4e991d7de11f4a146209c6533a748fed328be48801735cfbb99dead5f5348333"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/04-source-smoke.log",
+        "sha256": "af6e24874bbd1606dbc7ab07a4d646a447450c432178c6b05b724237b4d869ba"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/05-package.log",
+        "sha256": "b8ce4c7f0314ff977c379d48caf7b474d125f31bc694cc0ca6801d593d5fef82"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/06-verify-package.log",
+        "sha256": "3db896ce688c4b1a75b491525051ebcb78700e3bf6022609695396163a35dec8"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/07-verify-package-native-path.log",
+        "sha256": "acf06a46750de9df533e40ad6e56de200c8f71f2f50faa3c8a2e516f690b0b56"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/08-check-final-driver.log",
+        "sha256": "4f12b64f7d8e7ab12caabd0e9244fa0a24e01a7428e5128e843f1cd696151044"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/09-packaged-smoke.log",
+        "sha256": "8ce3492086b5f81ab2001cdb938e468012d43fa2f9b8caad2fac478b208c7d94"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/commands.json",
+        "sha256": "0b9b18b21e537e8501a9d20f064e52e75721b6da2b29c350dc90b48f856a7485"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-commands.json",
+        "sha256": "ff5c97d7eac9a7bb091bb1c2d686e3bddad1e026905405005116d04560ec894d"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/source-report.json",
+        "sha256": "0b72b03416ab466e56b62715e72c8d99a8bf17175bb97762f07f1fdbc64e7956"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/packaged-report.json",
+        "sha256": "83d3782f2e37554e702656b2e2296f6cf78b0cec12d178a3dc0f88fb7c00b928"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/package-evidence.json",
+        "sha256": "fcfc4ff2a0a86ba4bbccb963526af65d4fd280b8a88c6e5f72e1aea7a5e35297"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/artifacts-after.json",
+        "sha256": "7799bae15442853c15b993f45f0d2c6b7806c9b72ea209d7d9894aeb5f1ccd1a"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/signature.json",
+        "sha256": "a5c767c35f04e70de388e61b2815bdda58e6304d0240bdb994da047159de8a3c"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/provenance.json",
+        "sha256": "9a5315ae306e4210c1949e3836813b1cbb6753768f657325d3b34eaa120a660f"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/preservation.json",
+        "sha256": "fc255aacc745c8841fefe706feacb1b4f1d4a181fb5626b3808481ec709a6a28"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-processes-before.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-processes-after.json",
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      {
+        "file": ".private/qa/2026-10-09-windows-final-mouse/continuation-preservation.json",
+        "sha256": "1e80428f69f20f8de61caa8b523999ffd04b5688fec0437c0c5e7c55c292948a"
       }
     ]
   }
