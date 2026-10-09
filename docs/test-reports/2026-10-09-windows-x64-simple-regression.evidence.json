@@ -1,0 +1,161 @@
+{
+  "scope": "Windows simple source regression only; no complete platform acceptance or new package validation",
+  "sourceCommit": "938d38f4c480f9836f51b3da2432a8532adbd7d3",
+  "branch": "codex/windows-cross-platform-20261009",
+  "timeZone": "Asia/Shanghai",
+  "environment": {
+    "os": "Windows 10 Pro 10.0.19045",
+    "platform": "win32",
+    "arch": "x64",
+    "node": "v24.21.0",
+    "npm": "11.19.0",
+    "electron": "44.7.0",
+    "playwright": "1.64.0"
+  },
+  "commands": [
+    {
+      "command": "npm run check",
+      "started": "2026-10-09T18:08:47.3811961+08:00",
+      "ended": "2026-10-09T18:08:54.0335174+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run build",
+      "started": "2026-10-09T18:08:54.0578605+08:00",
+      "ended": "2026-10-09T18:09:07.0865679+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs",
+      "started": "2026-10-09T18:09:07.0983702+08:00",
+      "ended": "2026-10-09T18:09:07.8731333+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test --config .private/qa/2026-10-09-windows-cross-platform/native.config.cjs desktop-smoke.e2e.cjs",
+      "started": "2026-10-09T18:09:07.8830287+08:00",
+      "ended": "2026-10-09T18:09:24.9022584+08:00",
+      "exitCode": 0
+    },
+    {
+      "command": "npx playwright test --config .private/qa/2026-10-09-windows-cross-platform/features.config.cjs --grep \"local file context|SFTP context|binary double-click|same-name uploads\"",
+      "started": "2026-10-09T18:09:24.9106045+08:00",
+      "ended": "2026-10-09T18:09:56.0736479+08:00",
+      "exitCode": 0
+    }
+  ],
+  "portable": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0
+  },
+  "nativeSmoke": {
+    "stats": {
+      "startTime": "2026-10-09T10:09:15.389Z",
+      "duration": 9485.696,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+        "status": "passed",
+        "durationMs": 8678
+      }
+    ]
+  },
+  "focusedFiles": {
+    "stats": {
+      "startTime": "2026-10-09T10:09:25.951Z",
+      "duration": 30081.331000000002,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+        "status": "passed",
+        "durationMs": 8351
+      },
+      {
+        "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+        "status": "passed",
+        "durationMs": 7172
+      },
+      {
+        "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+        "status": "passed",
+        "durationMs": 8751
+      },
+      {
+        "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+        "status": "passed",
+        "durationMs": 4678
+      }
+    ]
+  },
+  "boundaries": {
+    "shellOpenPath": "stub; not proof of third-party application display",
+    "filePicker": "stub",
+    "sshSftp": "real loopback protocol and real temporary filesystem writes",
+    "pty": "echo peer; no real OS PTY or multiplexer test",
+    "productionHosts": "not contacted"
+  },
+  "preservation": {
+    "priorReportPreserved": true,
+    "priorReportSha256": "41B9D8E629A69FBB592B44E1B68B35B4E0FAED35EB46D76CF9EEE51A2B20B299",
+    "baselineProcessSnapshot": "MISSING",
+    "beforeAfterComparisonPerformed": false,
+    "collectionError": "The initial collector did not guarantee a JSON file for empty pipeline output. Reading processes-before.json failed; the shell command still ended at exit 0 after later successful commands. No baseline process count is inferred.",
+    "afterQueryTime": "2026-10-09T18:20:35.0620569+08:00",
+    "afterMatchingProcessCount": 0,
+    "afterMatchingProcesses": [],
+    "cleanupConclusion": "At the recorded end-time query, no QuayTerm.exe, electron.exe or sftp-server.exe processes matched. This is an end-state observation, not a before/after comparison."
+  },
+  "localOnlyEvidence": [
+    {
+      "file": "01-check.log",
+      "sha256": "4f12b64f7d8e7ab12caabd0e9244fa0a24e01a7428e5128e843f1cd696151044"
+    },
+    {
+      "file": "02-build.log",
+      "sha256": "4d3705a6508e081641792e3651f1aa80371f05fbdfdbd66059b43b360e4d63a3"
+    },
+    {
+      "file": "03-portable.log",
+      "sha256": "d9994c0961dd6b460a51cfa9a3e43274f44e198d23b7f97237f6f7cf011ff10e"
+    },
+    {
+      "file": "04-native.log",
+      "sha256": "f3f381c2bb6e5e42a6a06ebdc6933abf0e8e6225df9b2ca2405ab80d66d8c5ed"
+    },
+    {
+      "file": "05-focused-files.log",
+      "sha256": "80e67f8c8f8699b556aeda150cf177e0ac43371101836c26460127a357e23f42"
+    },
+    {
+      "file": "native.config.cjs",
+      "sha256": "1ba1453d09e3b9e6619f839938b1427e42e653d9daf6a64c056b41a4fc3d9cb6"
+    },
+    {
+      "file": "features.config.cjs",
+      "sha256": "aa70bb77c9979e4769a0195b60eceab276262ff9a8472a39048cb783a399ddcb"
+    },
+    {
+      "file": "features.e2e.cjs",
+      "sha256": "46ee77d16698f6d3160a549f55b7c3c7a981606794f0069f112b06be7e67ce66"
+    },
+    {
+      "file": "windows-feature-fixture.cjs",
+      "sha256": "02efb19ec1f7339ef2cdac2758f93ea65588fb6e5c91cf5d2cc251aab1336f88"
+    },
+    {
+      "file": "windows-peer.cjs",
+      "sha256": "e3ce1ad6929eb81afbd0ec4f38f96de02c645e262732945feeaa3f7d421a5b78"
+    }
+  ]
+}
