@@ -148,21 +148,39 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
     await page.getByRole('button', { name: '关闭', exact: true }).last().click()
     await expect(page.locator('.file-editor-modal')).toHaveCount(0)
     // Exercise local selection while a remote application owns mouse reporting.
-    probe.output('\x1b[?1049h\x1b[?1002h\x1b[?1006h\x1b[2J\x1b[HSHIFT_SELECT\r\n')
-    await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('SHIFT_SELECT')
-    await app.evaluate(({ clipboard }) => clipboard.writeText('before-mouse-selection'))
-    const mouseOffset = probe.input.length
+    probe.output('\x1b[?1049h')
     const box = await page.locator('.terminal-pane.focused .xterm-screen').boundingBox()
-    await page.keyboard.down('Shift')
-    await page.mouse.move(box.x + 2, box.y + 7)
-    await page.mouse.down()
-    await page.mouse.move(box.x + 125, box.y + 7, { steps: 12 })
-    await page.mouse.up()
-    await page.keyboard.up('Shift')
-    await page.keyboard.press(process.platform === 'darwin' ? 'Meta+c' : 'Control+Shift+c')
-    await expect.poll(() => app.evaluate(({ clipboard }) => clipboard.readText())).toContain('SHIFT_SELECT')
-    expect(Buffer.concat(probe.input.slice(mouseOffset)).toString()).not.toMatch(/\x1b\[(?:M|<)/)
-    probe.output('\x1b[?1002l\x1b[?1006l\x1b[?1049l')
+    for (const mode of [1000, 1002, 1003]) {
+      for (const modifier of process.platform === 'darwin' ? ['Shift', 'Alt'] : ['Shift']) {
+        await test.step(`mouse ${mode}: ${modifier} selects locally; ordinary click reaches SSH`, async () => {
+          const marker = `${modifier[0]}${mode}_OK`
+          // Position the pointer before enabling any-motion reporting (1003),
+          // so this assertion measures the drag rather than preceding hover.
+          probe.output(`\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[2J\x1b[HREADY_${marker}\r\n`)
+          await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText(`READY_${marker}`)
+          await page.mouse.move(box.x + 2, box.y + 7)
+          probe.output(`\x1b[?${mode}h\x1b[?1006h\x1b[2J\x1b[H${marker}\r\n`)
+          await expect(page.locator('.terminal-pane.focused .xterm-rows')).not.toContainText('READY_')
+          await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText(marker)
+          await app.evaluate(({ clipboard }) => clipboard.writeText('before-mouse-selection'))
+          const mouseOffset = probe.input.length
+          await page.keyboard.down(modifier)
+          await page.mouse.down()
+          await page.mouse.move(box.x + 125, box.y + 7, { steps: 12 })
+          await page.mouse.up()
+          await page.keyboard.up(modifier)
+          await page.keyboard.press(process.platform === 'darwin' ? 'Meta+c' : 'Control+Shift+c')
+          await expect.poll(() => app.evaluate(({ clipboard }) => clipboard.readText())).toContain(marker)
+          expect(Buffer.concat(probe.input.slice(mouseOffset)).toString()).not.toMatch(/\x1b\[(?:M|<)/)
+          const ordinaryMouseOffset = probe.input.length
+          await page.locator('.terminal-pane.focused .xterm-screen').click({ position: { x: 3, y: 7 } })
+          await expect
+            .poll(() => Buffer.concat(probe.input.slice(ordinaryMouseOffset)).toString())
+            .toMatch(/\x1b\[<0;/)
+        })
+      }
+    }
+    probe.output('\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1006l\x1b[?1049l')
     expect(await page.evaluate(() => typeof window.require)).toBe('undefined')
     expect(errors).toEqual([])
   } finally {
