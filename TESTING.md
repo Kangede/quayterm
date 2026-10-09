@@ -1,10 +1,30 @@
 # QuayTerm 验证记录
 
+## 2026-10-09：三平台协调回归汇总
+
+本轮修复 macOS 鼠标报告模式下 Shift 拖选失败的问题（产品修复 `12456e9`），并明确区分源码、修复包、自动化启动参数和直接启动证据。下列报告均保留原失败、复测、产物哈希和未完成项，不代表三平台完整验收：
+
+| 平台                    | 本轮修复后主要结果                                                                                                                 | 报告                                                                          |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Linux x64 / Xvfb        | portable 15 PASS / 1 Windows 专用 SKIP；源码/新包 smoke 各 1 PASS；新包文件专项 4 PASS；直接启动的实际参数及 renderer 隔离检查通过 | [Linux 报告](docs/test-reports/2026-10-09-linux-x64-simple-regression.md)     |
+| Windows 10 x64          | portable 16 PASS；源码/新包 smoke 各 1 PASS，含三种鼠标模式；此前两目录清理仍 BLOCKED                                              | [Windows 报告](docs/test-reports/2026-10-09-windows-x64-simple-regression.md) |
+| VMware macOS 15.8.1 x64 | 源码、ZIP、DMG smoke 及修复包文件套件通过；核心 19 项为 12 PASS / 7 BLOCKED                                                        | [Mac 报告](docs/test-reports/2026-10-09-macos-x64-0.2.2.md)                   |
+
+产品包均是版本字符串仍为 0.2.2 的后续修复构建，不是新 Release，也不能用旧 `938d38f` 包替代。各平台和测试层级的数字不相加作为核心验收总数。最终固定 HEAD 的 CI 结果在 [草稿 PR #1](https://github.com/Kangede/quayterm/pull/1) 正文更新；中间提交的绿色结果不自动适用于后续 HEAD。
+
 ## 2026-10-09：自动化启动证据的校正
 
 后续三平台协调回归发现，Playwright 1.64 的 Electron 启动器在 Linux 未指定 `chromiumSandbox: true` 时会自动添加 `--no-sandbox`。因此，以下历史已打包自动化记录中仅基于 `args: []` 或 `webPreferences.sandbox=true` 作出的“默认沙箱”判断不能作为该项通过证据；其功能断言结果保留，沙箱结论以新驱动和运行时实测为准。相关说明和补测结果记入 [Linux 简单回归报告](docs/test-reports/2026-10-09-linux-x64-simple-regression.md)。产品代码没有因此改动。
 
 源码模式的 Electron loader 含 `--password-store=basic`、`--use-mock-keychain`；指定包路径不走相同 loader 路径。必须按实际模式采集参数，不能将静态 loader 内容推广到所有已打包程序，也不能将带模拟参数的功能回归视为真实系统凭证存储验收。
+
+## 2026-10-09：macOS x64 修复包实测
+
+本轮 VMware macOS 15.8.1 x64 结果见 [测试报告](docs/test-reports/2026-10-09-macos-x64-0.2.2.md) 和 [脱敏证据](docs/test-reports/2026-10-09-macos-x64-0.2.2.evidence.json)。核心 19 项为 **12 PASS、0 FAIL、7 BLOCKED**，本平台验收尚未完成；不代表实体 Intel Mac 或 Apple Silicon。
+
+修复提交 `12456e9e395b62707d6b5d14f2ccd355c66f5817` 解决 macOS 鼠标报告模式下 Shift 拖选不能复制的问题。底层测试 29 PASS / 1 个 Windows 专用 SKIP，最终源码及实际 ZIP、DMG 各 1 项 smoke 通过，修复包功能套件 6/6 通过。另在直接启动的修复包上验证真实 Keychain 跨进程认证、tmux/screen 与 PTY、配置替换/重装、文件读写及传输故障；没有关闭沙箱或系统安全策略。
+
+剩余原生子项为正常 Finder/下载隔离入口、交通灯/菜单及物理 ⌘Q、另一文本应用粘贴、系统文件选择器/Finder 拖入、Preview 实际画面和睡眠唤醒。包未签名/公证。运行时版本仍为 0.2.2，产物哈希见报告；这是未发布的本地修复构建，本轮没有更新 main 或 Release。
 
 ## 2026-10-09：用本地程序打开（待发布）
 
