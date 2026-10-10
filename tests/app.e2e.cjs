@@ -21,11 +21,23 @@ test.beforeAll(async () => {
     ])
   )
   app = await electron.launch({
-    args: [path.resolve(__dirname, '..'), '--no-sandbox'],
+    chromiumSandbox: Boolean(process.env.QUAYTERM_TEST_EXECUTABLE),
+    ...(process.env.QUAYTERM_TEST_EXECUTABLE
+      ? { executablePath: path.resolve(process.env.QUAYTERM_TEST_EXECUTABLE) }
+      : {}),
+    args: process.env.QUAYTERM_TEST_EXECUTABLE ? [] : [path.resolve(__dirname, '..'), '--no-sandbox'],
     env: { ...process.env, QUAYTERM_DATA_DIR: data, QUAYTERM_TEST_SEED: seed }
   })
   page = await app.firstWindow()
   page.on('pageerror', (e) => errors.push(e.message))
+  if (process.env.QUAYTERM_TEST_EXECUTABLE) {
+    expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
+    expect(await app.evaluate(({ app }) => app.commandLine.hasSwitch('no-sandbox'))).toBe(false)
+    await page.getByRole('button', { name: '远程主机', exact: true }).waitFor()
+    for (const host of JSON.parse(fs.readFileSync(seed, 'utf8')))
+      await page.evaluate((host) => window.quay.invoke('hostSave', host), host)
+    await page.reload()
+  }
   await expect(page.locator('.host-card')).toHaveCount(2)
 })
 test.afterEach(async ({}, info) => {

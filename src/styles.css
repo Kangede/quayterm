@@ -849,20 +849,13 @@ kbd {
   background: #739dae;
 }
 .terminal-grid {
-  display: grid;
+  display: block;
   flex: 1;
   min-width: 0;
   min-height: 0;
-  gap: 4px;
   background: #30384c;
   position: relative;
   overflow: hidden;
-}
-.terminal-grid.layout-right > .terminal-pane:first-child {
-  grid-row: span 2;
-}
-.terminal-grid.layout-bottom > .terminal-pane:first-child {
-  grid-column: span 2;
 }
 .terminal-pane {
   background: #141827;
@@ -877,6 +870,9 @@ kbd {
 }
 .terminal-pane.focused {
   outline-color: #586c88;
+}
+.terminal-grid > .terminal-pane {
+  position: absolute;
 }
 .pane-tabs {
   height: 36px;
@@ -1114,6 +1110,18 @@ kbd {
   pointer-events: none;
   z-index: 10;
 }
+.drop-left {
+  right: 50%;
+}
+.drop-right {
+  left: 50%;
+}
+.drop-top {
+  bottom: 50%;
+}
+.drop-bottom {
+  top: 50%;
+}
 .grid-resizer {
   position: absolute;
   z-index: 12;
@@ -1136,12 +1144,6 @@ kbd {
   height: 7px;
   transform: translateY(-50%);
   cursor: row-resize;
-}
-.grid-resizer.vertical.lower {
-  top: 50%;
-}
-.grid-resizer.horizontal.right-half {
-  left: 50%;
 }
 .layout-label {
   display: flex;

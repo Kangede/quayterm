@@ -15,11 +15,17 @@ import {
   SearchOutlined,
   BgColorsOutlined
 } from '@ant-design/icons'
-import type { Host, Pane, Session, Workspace, LayoutName, Settings } from '../types'
+import type { DockSide, Host, Pane, Session, Workspace, LayoutName, Settings } from '../types'
 import { getTerminalTheme, terminalThemes } from '../lib/terminal-themes'
-import { layouts } from '../lib/workspace'
+import { layouts, workspaceGeometry, type PaneBounds } from '../lib/workspace'
 import type { Terminals } from '../lib/terminals'
-import { FilePane, type FileOpen, type TransferRequest, type FileClipboard } from './Files'
+import {
+  FilePane,
+  type FileOpen,
+  type TransferRequest,
+  type FileClipboard,
+  type FilePaneSnapshot
+} from './Files'
 import { HostIcon } from './HostManager'
 function TerminalView({ id, pool }: { id: string; pool: Terminals }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -39,6 +45,10 @@ function TerminalPane({
   onClose,
   onAdd,
   onMove,
+  onDock,
+  onDragSession,
+  draggedSession,
+  bounds,
   onReconnect
 }: {
   pane: Pane
@@ -51,10 +61,17 @@ function TerminalPane({
   onClose: (id: string) => void
   onAdd: () => void
   onMove: (id: string, before?: string) => void
+  onDock: (id: string, side: DockSide) => void
+  onDragSession: (id: string | null) => void
+  draggedSession: string | null
+  bounds: PaneBounds
   onReconnect: (id: string) => void
 }) {
   const { message } = App.useApp()
-  const [dragging, setDragging] = useState(false)
+  const [dragging, setDragging] = useState<DockSide | 'center' | null>(null)
+  useEffect(() => {
+    if (!draggedSession) setDragging(null)
+  }, [draggedSession])
   const [finding, setFinding] = useState(false)
   const [query, setQuery] = useState('')
   const [match, setMatch] = useState(true)
@@ -81,30 +98,58 @@ function TerminalPane({
       pool.records.get(pane.active)?.term.focus()
     }
   }
+  function dropSide(e: React.DragEvent): DockSide | 'center' {
+    if (
+      (e.target as HTMLElement).closest('.pane-tabs') ||
+      !pane.tabs.length ||
+      (pane.tabs.length === 1 && pane.tabs[0] === draggedSession)
+    )
+      return 'center'
+    const rect = e.currentTarget.getBoundingClientRect()
+    const x = (e.clientX - rect.left) / rect.width
+    const y = (e.clientY - rect.top - 36) / Math.max(1, rect.height - 36)
+    const edges: [DockSide, number][] = [
+      ['left', x],
+      ['right', 1 - x],
+      ['top', y],
+      ['bottom', 1 - y]
+    ]
+    edges.sort((a, b) => a[1] - b[1])
+    return edges[0][1] < 0.25 ? edges[0][0] : 'center'
+  }
   function drop(e: React.DragEvent, before?: string) {
     const id = e.dataTransfer.getData('application/x-quay-session')
     if (!id) return
     e.preventDefault()
     e.stopPropagation()
-    onMove(id, before)
-    setDragging(false)
+    const side = before ? 'center' : dropSide(e)
+    if (side === 'center') onMove(id, before)
+    else onDock(id, side)
+    setDragging(null)
+    onDragSession(null)
   }
   return (
     <section
       className={`terminal-pane ${focused ? 'focused' : ''} ${dragging ? 'drag-over' : ''}`}
       data-pane={pane.id}
+      style={{
+        left: `calc(${bounds.left * 100}% + ${bounds.left ? 2 : 0}px)`,
+        top: `calc(${bounds.top * 100}% + ${bounds.top ? 2 : 0}px)`,
+        width: `calc(${bounds.width * 100}% - ${(bounds.left ? 2 : 0) + (bounds.left + bounds.width < 0.99999 ? 2 : 0)}px)`,
+        height: `calc(${bounds.height * 100}% - ${(bounds.top ? 2 : 0) + (bounds.top + bounds.height < 0.99999 ? 2 : 0)}px)`
+      }}
       onPointerDown={() => {
         if (pane.active) onFocus(pane.active)
       }}
       onDragOver={(e) => {
         if (e.dataTransfer.types.includes('application/x-quay-session')) {
           e.preventDefault()
-          setDragging(true)
+          setDragging(dropSide(e))
           e.dataTransfer.dropEffect = 'move'
         }
       }}
       onDragLeave={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node)) setDragging(false)
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setDragging(null)
       }}
       onDrop={(e) => drop(e)}
     >
@@ -124,8 +169,12 @@ function TerminalPane({
                 onDragStart={(e) => {
                   e.dataTransfer.setData('application/x-quay-session', id)
                   e.dataTransfer.effectAllowed = 'move'
+                  onDragSession(id)
                 }}
-                onDragEnd={() => setDragging(false)}
+                onDragEnd={() => {
+                  setDragging(null)
+                  onDragSession(null)
+                }}
                 onDrop={(e) => drop(e, id)}
                 onClick={() => onFocus(id)}
                 onKeyDown={(e) => {
@@ -297,7 +346,13 @@ function TerminalPane({
           </Button>
         </div>
       )}
-      {dragging && <div className="drop-hint">松开以移动会话到此面板</div>}
+      {dragging && (
+        <div className={`drop-hint drop-${dragging}`} data-drop-side={dragging}>
+          {dragging === 'center'
+            ? '松开以移动会话到此面板'
+            : `松开以在${{ left: '左', right: '右', top: '上', bottom: '下' }[dragging]}方分屏`}
+        </div>
+      )}
     </section>
   )
 }
@@ -317,6 +372,8 @@ export function TerminalWorkspace({
   onClose,
   onAdd,
   onMove,
+  onDock,
+  onResize,
   onReconnect,
   onOpenFile,
   onTransfer,
@@ -337,6 +394,8 @@ export function TerminalWorkspace({
   onClose: (id: string) => void
   onAdd: (pane: string) => void
   onMove: (id: string, pane: string, before?: string) => void
+  onDock: (id: string, pane: string, side: DockSide) => void
+  onResize: (id: string, ratio: number) => void
   onReconnect: (id: string) => void
   onOpenFile: (file: FileOpen) => void
   onTransfer: (request: TransferRequest) => void
@@ -346,32 +405,26 @@ export function TerminalWorkspace({
   const theme = getTerminalTheme(appearance.terminalTheme)
   const gridRef = useRef<HTMLDivElement>(null)
   const [sideWidth, setSideWidth] = useState(264)
-  const [x, setX] = useState<number[]>([])
-  const [y, setY] = useState<number[]>([])
-  const layout = layouts.find((l) => l.id === workspace.layout)!
+  const [draggedSession, setDraggedSession] = useState<string | null>(null)
+  const fileStates = useRef(new Map<string, FilePaneSnapshot>())
+  const geometry = workspaceGeometry(workspace.tree)
   useEffect(() => {
-    setX(Array.from({ length: layout.columns - 1 }, (_, i) => (i + 1) / layout.columns))
-    setY(Array.from({ length: layout.rows - 1 }, (_, i) => (i + 1) / layout.rows))
-  }, [layout.id])
+    for (const id of fileStates.current.keys()) if (!sessions[id]) fileStates.current.delete(id)
+  }, [sessions])
   const activePane = workspace.panes.find((p) => p.id === workspace.focused) || workspace.panes[0]
   const activeSession = activePane.active ? sessions[activePane.active] : undefined
-  function resize(e: React.PointerEvent, axis: 'x' | 'y', index: number) {
+  function resize(e: React.PointerEvent, divider: (typeof geometry.splits)[number]) {
     e.preventDefault()
     e.currentTarget.setPointerCapture(e.pointerId)
     const element = e.currentTarget as HTMLElement
     const bounds = gridRef.current!.getBoundingClientRect()
-    const boundaries = axis === 'x' ? x : y
+    const { axis, bounds: area, id } = divider
     const move = (event: PointerEvent) => {
       const value =
         axis === 'x'
-          ? (event.clientX - bounds.left) / bounds.width
-          : (event.clientY - bounds.top) / bounds.height
-      const next = [...boundaries]
-      next[index] = Math.max(
-        (boundaries[index - 1] || 0) + 0.12,
-        Math.min((boundaries[index + 1] || 1) - 0.12, value)
-      )
-      ;(axis === 'x' ? setX : setY)(next)
+          ? ((event.clientX - bounds.left) / bounds.width - area.left) / area.width
+          : ((event.clientY - bounds.top) / bounds.height - area.top) / area.height
+      onResize(id, value)
     }
     const up = () => {
       element.removeEventListener('pointermove', move)
@@ -381,14 +434,6 @@ export function TerminalWorkspace({
     element.addEventListener('pointermove', move)
     element.addEventListener('pointerup', up)
     element.addEventListener('pointercancel', up)
-  }
-  const sizes = (boundaries: number[], count: number) => {
-    if (boundaries.length !== count - 1) return `repeat(${count}, minmax(0, 1fr))`
-    const b = [0, ...boundaries, 1]
-    return b
-      .slice(1)
-      .map((v, i) => `minmax(0, ${v - b[i]}fr)`)
-      .join(' ')
   }
   return (
     <div className="workspace" data-terminal-theme={theme.id} style={theme.style}>
@@ -407,7 +452,7 @@ export function TerminalWorkspace({
           个会话
         </span>
         <span className="toolbar-spacer" />
-        <span className="workspace-drag-tip">拖动标签，在面板间移动会话</span>
+        <span className="workspace-drag-tip">拖到边缘分屏，拖到中间合并会话</span>
         <Dropdown
           trigger={['click']}
           menu={{
@@ -487,6 +532,8 @@ export function TerminalWorkspace({
           <>
             <aside className="terminal-files" style={{ width: sideWidth }}>
               <FilePane
+                key={activeSession?.id || 'empty'}
+                stateCache={fileStates.current}
                 endpoint={activeSession?.id || null}
                 session={activeSession}
                 hosts={hosts}
@@ -520,11 +567,7 @@ export function TerminalWorkspace({
             />
           </>
         )}
-        <div
-          className={`terminal-grid layout-${layout.id}`}
-          ref={gridRef}
-          style={{ gridTemplateColumns: sizes(x, layout.columns), gridTemplateRows: sizes(y, layout.rows) }}
-        >
+        <div className={`terminal-grid layout-${workspace.layout}`} ref={gridRef}>
           {workspace.panes.map((p) => (
             <TerminalPane
               key={p.id}
@@ -538,31 +581,35 @@ export function TerminalWorkspace({
               onClose={onClose}
               onAdd={() => onAdd(p.id)}
               onMove={(id, before) => onMove(id, p.id, before)}
+              onDock={(id, side) => onDock(id, p.id, side)}
+              onDragSession={setDraggedSession}
+              draggedSession={draggedSession}
+              bounds={geometry.panes.get(p.id)!}
               onReconnect={onReconnect}
             />
           ))}
-          {x.map((value, i) => (
+          {geometry.splits.map((divider) => (
             <div
-              key={`x${i}`}
-              className={`grid-resizer vertical ${layout.id === 'bottom' ? 'lower' : ''}`}
+              key={divider.id}
+              className={`grid-resizer ${divider.axis === 'x' ? 'vertical' : 'horizontal'}`}
               role="separator"
-              style={{
-                left: `${value * 100}%`,
-                top: layout.id === 'bottom' ? `${(y[0] ?? 0.5) * 100}%` : undefined
-              }}
-              onPointerDown={(e) => resize(e, 'x', i)}
-            />
-          ))}
-          {y.map((value, i) => (
-            <div
-              key={`y${i}`}
-              className={`grid-resizer horizontal ${layout.id === 'right' ? 'right-half' : ''}`}
-              role="separator"
-              style={{
-                top: `${value * 100}%`,
-                left: layout.id === 'right' ? `${(x[0] ?? 0.5) * 100}%` : undefined
-              }}
-              onPointerDown={(e) => resize(e, 'y', i)}
+              aria-label={divider.axis === 'x' ? '调整左右面板' : '调整上下面板'}
+              style={
+                divider.axis === 'x'
+                  ? {
+                      left: `${(divider.bounds.left + divider.bounds.width * divider.ratio) * 100}%`,
+                      top: `${divider.bounds.top * 100}%`,
+                      height: `${divider.bounds.height * 100}%`,
+                      bottom: 'auto'
+                    }
+                  : {
+                      top: `${(divider.bounds.top + divider.bounds.height * divider.ratio) * 100}%`,
+                      left: `${divider.bounds.left * 100}%`,
+                      width: `${divider.bounds.width * 100}%`,
+                      right: 'auto'
+                    }
+              }
+              onPointerDown={(e) => resize(e, divider)}
             />
           ))}
         </div>

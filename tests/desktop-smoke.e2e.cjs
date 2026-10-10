@@ -203,6 +203,21 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
           await expect
             .poll(() => Buffer.concat(probe.input.slice(ordinaryMouseOffset)).toString())
             .toMatch(/\x1b\[<0;/)
+          // Portable coverage for tmux-style selection writes on all platforms.
+          await toggleAutoCopy()
+          await app.evaluate(({ clipboard }) => clipboard.writeText('selection-pending'))
+          await page.mouse.move(box.x + 2, box.y + 7)
+          await page.mouse.down()
+          await page.mouse.move(box.x + 125, box.y + 7, { steps: 12 })
+          await page.mouse.up()
+          probe.output(`\x1b]52;c;${Buffer.from(`AUTO_${marker}`).toString('base64')}\x07`)
+          await expect
+            .poll(() => app.evaluate(({ clipboard }) => clipboard.readText()))
+            .toBe(`AUTO_${marker}`)
+          probe.output('\x1b]52;c;VU5TT0xJQ0lURUQ=\x07\x1b]52;c;?\x07COPY_GUARD_DONE')
+          await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('COPY_GUARD_DONE')
+          expect(await app.evaluate(({ clipboard }) => clipboard.readText())).toBe(`AUTO_${marker}`)
+          await toggleAutoCopy()
         })
       }
     }

@@ -5,6 +5,7 @@ import { Unicode11Addon } from '@xterm/addon-unicode11'
 import type { Host, Settings } from '../types'
 import { getTerminalTheme } from './terminal-themes'
 import { OutputHighlights } from './output-highlights'
+import { SelectionClipboard } from './selection-clipboard'
 export type TerminalRecord = {
   term: Terminal
   fit: FitAddon
@@ -12,6 +13,8 @@ export type TerminalRecord = {
   element: HTMLDivElement
   opened: boolean
   highlights: OutputHighlights
+  clipboard: SelectionClipboard
+  disposeClipboard: () => void
   observer?: ResizeObserver
 }
 export class Terminals {
@@ -43,14 +46,24 @@ export class Terminals {
     term.loadAddon(search)
     term.loadAddon(unicode)
     term.unicode.activeVersion = '11'
-    // Remote applications cannot read or replace the local clipboard through OSC 52.
-    term.parser.registerOscHandler(52, () => true)
+    const clipboard = new SelectionClipboard()
+    const localFocus = () =>
+      Boolean(term.element?.isConnected && term.element.contains(document.activeElement))
+    term.parser.registerOscHandler(52, (data) => {
+      if (this.copyOnSelect && localFocus()) {
+        const text = clipboard.read(data)
+        if (text) this.writeClipboard(text)
+      } else clipboard.cancel()
+      return true
+    })
     term.onData((data) => window.quay.terminal('write', { id, data }))
     term.onBinary((data) => window.quay.terminal('write', { id, data, binary: true }))
     term.onResize(({ cols, rows }) => window.quay.terminal('resize', { id, cols, rows }))
     // xterm fires this after a mouse selection is completed (or Select All).
     // Empty selections must never replace the user's clipboard.
+    let selectionVersion = 0
     term.onSelectionChange(() => {
+      selectionVersion++
       if (this.copyOnSelect && term.element?.isConnected) this.copy(id)
     })
     term.attachCustomKeyEventHandler((event) => {
@@ -93,9 +106,69 @@ export class Terminals {
     const element = document.createElement('div')
     element.className = 'terminal-mount'
     element.dataset.sessionId = id
+    const events = new AbortController()
+    let gesture:
+      { x: number; y: number; moved: boolean; clicks: number; remote: boolean; revision: number } | undefined
+    const cancel = () => {
+      gesture = undefined
+      clipboard.cancel()
+    }
+    element.addEventListener('keydown', cancel, { capture: true, signal: events.signal })
+    element.addEventListener('focusout', cancel, { signal: events.signal })
+    window.addEventListener('blur', cancel, { signal: events.signal })
+    document.addEventListener(
+      'mousemove',
+      (event) => {
+        if (
+          gesture &&
+          event.isTrusted &&
+          Math.hypot(event.clientX - gesture.x, event.clientY - gesture.y) >= 4
+        )
+          gesture.moved = true
+      },
+      { capture: true, signal: events.signal }
+    )
+    document.addEventListener(
+      'mouseup',
+      (event) => {
+        if (event.button !== 0) return
+        if (
+          event.isTrusted &&
+          gesture &&
+          (gesture.moved || gesture.clicks >= 2 || event.shiftKey) &&
+          this.copyOnSelect &&
+          localFocus()
+        ) {
+          if (gesture.remote) clipboard.arm()
+          else {
+            const revision = gesture.revision
+            requestAnimationFrame(() => {
+              // xterm does not emit SelectionChange when the same range is
+              // selected twice. Copy again after completing that gesture too.
+              if (selectionVersion === revision && this.copyOnSelect && localFocus()) this.copy(id)
+            })
+          }
+        }
+        gesture = undefined
+      },
+      { capture: true, signal: events.signal }
+    )
     element.addEventListener(
       'mousedown',
       (event) => {
+        cancel()
+        if (event.isTrusted && event.button === 0 && this.copyOnSelect)
+          gesture = {
+            x: event.clientX,
+            y: event.clientY,
+            moved: false,
+            clicks: event.detail,
+            revision: selectionVersion,
+            remote:
+              term.modes.mouseTrackingMode !== 'none' &&
+              !event.shiftKey &&
+              !(navigator.platform.startsWith('Mac') && event.altKey)
+          }
         // xterm reserves Option for forced selection on macOS. Let the
         // cross-platform Shift gesture use that same local-selection path,
         // without changing mouse reporting for ordinary clicks or the PTY.
@@ -110,7 +183,19 @@ export class Terminals {
       true
     )
     const highlights = new OutputHighlights(term, () => this.theme.colors, this.outputHighlights)
-    this.records.set(id, { term, fit, search, element, opened: false, highlights })
+    this.records.set(id, {
+      term,
+      fit,
+      search,
+      element,
+      opened: false,
+      highlights,
+      clipboard,
+      disposeClipboard: () => {
+        cancel()
+        events.abort()
+      }
+    })
   }
   attach(id: string, container: HTMLElement) {
     const r = this.records.get(id)
@@ -136,6 +221,7 @@ export class Terminals {
       r.highlights.schedule()
     })
     return () => {
+      r.clipboard.cancel()
       cancelAnimationFrame(raf)
       r.observer?.disconnect()
       if (r.element.parentElement === container) r.element.remove()
@@ -152,10 +238,12 @@ export class Terminals {
   }
   copy(id: string) {
     const text = this.records.get(id)?.term.getSelection()
-    if (text)
-      void window.quay
-        .invoke('clipboardWrite', { text })
-        .catch((error) => this.onClipboardError(error?.message || '无法复制到剪贴板'))
+    if (text) this.writeClipboard(text)
+  }
+  private writeClipboard(text: string) {
+    void window.quay
+      .invoke('clipboardWrite', { text })
+      .catch((error) => this.onClipboardError(error?.message || '无法复制到剪贴板'))
   }
   async paste(id: string) {
     const text = await window.quay.invoke<string>('clipboardRead')
@@ -171,6 +259,7 @@ export class Terminals {
     if (settings.outputHighlights !== undefined) this.outputHighlights = settings.outputHighlights
     if (settings.copyOnSelect !== undefined) this.copyOnSelect = settings.copyOnSelect
     for (const record of this.records.values()) {
+      if (!this.copyOnSelect) record.clipboard.cancel()
       record.term.options.theme = this.theme.colors
       record.highlights.update(this.outputHighlights)
     }
@@ -185,6 +274,7 @@ export class Terminals {
   close(id: string) {
     const r = this.records.get(id)
     r?.observer?.disconnect()
+    r?.disposeClipboard()
     r?.highlights.dispose()
     r?.term.dispose()
     r?.element.remove()

@@ -118,3 +118,60 @@ test('theme and highlighting settings persist and reject unknown presets', () =>
     fs.rmSync(directory, { recursive: true, force: true })
   }
 })
+
+const clipboardFilename = path.resolve(__dirname, '../src/lib/selection-clipboard.ts')
+const clipboardModule = new Module(clipboardFilename, module)
+clipboardModule._compile(
+  ts.transpileModule(fs.readFileSync(clipboardFilename, 'utf8'), {
+    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 }
+  }).outputText,
+  clipboardFilename
+)
+const { SelectionClipboard } = clipboardModule.exports
+
+test('remote clipboard permits one UTF-8 write after selection, rejects reads, stale and malformed data', () => {
+  let now = 1000
+  const clipboard = new SelectionClipboard(() => now)
+  const data = 'c;' + Buffer.from('你好 🌏\nsecond line').toString('base64')
+  assert.equal(clipboard.read(data), undefined)
+  clipboard.arm()
+  assert.equal(clipboard.read('c;?'), undefined)
+  assert.equal(clipboard.read('c;'), undefined)
+  assert.equal(clipboard.read('c;%%%'), undefined)
+  assert.equal(clipboard.read('c;/w=='), undefined)
+  assert.equal(clipboard.read('unknown;YQ=='), undefined)
+  assert.equal(clipboard.read('c;' + Buffer.alloc(1048577).toString('base64')), undefined)
+  assert.equal(clipboard.read(data), '你好 🌏\nsecond line')
+  assert.equal(clipboard.read(data), undefined)
+  clipboard.arm()
+  now += 1501
+  assert.equal(clipboard.read(data), undefined)
+  clipboard.arm()
+  clipboard.cancel()
+  assert.equal(clipboard.read(data), undefined)
+})
+test('OSC 52 selection writes work across SSH chunks without answering clipboard queries', async () => {
+  const term = create()
+  const clipboard = new SelectionClipboard()
+  const copies = [],
+    replies = []
+  term.onData((data) => replies.push(data))
+  term.parser.registerOscHandler(52, (data) => {
+    const text = clipboard.read(data)
+    if (text) copies.push(text)
+    return true
+  })
+  try {
+    await write(term, '\x1b]52;c;?\x07\x1b]52;c;aWdub3JlZA==\x07')
+    assert.deepEqual(copies, [])
+    clipboard.arm()
+    await write(term, '\x1b]52;c;5L2g5aW9')
+    await write(term, 'IOa1i+ivlQ==\x1b\\')
+    assert.deepEqual(copies, ['你好 测试'])
+    await write(term, '\x1b]52;c;?\x07\x1b]52;c;aWdub3JlZA==\x07')
+    assert.deepEqual(copies, ['你好 测试'])
+    assert.deepEqual(replies, [])
+  } finally {
+    term.dispose()
+  }
+})

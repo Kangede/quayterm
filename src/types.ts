@@ -24,10 +24,14 @@ export type KnownHost = {
   publicKey: string
 }
 export type Session = { id: string; host: Host; state: string; message: string; sftpOnly?: boolean }
-export type Pane = { id: string; tabs: string[]; active: string | null }
+export type Pane = { id: string; tabs: string[]; active: string | null; keepEmpty: boolean }
 export type LayoutName =
   'single' | 'columns' | 'three-columns' | 'rows' | 'three-rows' | 'grid' | 'right' | 'bottom'
-export type Workspace = { layout: LayoutName; panes: Pane[]; focused: string }
+export type DockSide = 'left' | 'right' | 'top' | 'bottom'
+export type PaneTree =
+  | { type: 'pane'; pane: string }
+  | { type: 'split'; id: string; axis: 'x' | 'y'; ratio: number; first: PaneTree; second: PaneTree }
+export type Workspace = { layout: LayoutName | 'custom'; tree: PaneTree; panes: Pane[]; focused: string }
 export type FileEntry = {
   name: string
   path: string

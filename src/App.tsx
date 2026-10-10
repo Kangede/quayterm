@@ -30,10 +30,18 @@ import {
 } from './components/Files'
 import { TerminalWorkspace } from './components/TerminalWorkspace'
 import { Terminals } from './lib/terminals'
-import { addTab, changeLayout, initialWorkspace, moveTab, removeTab } from './lib/workspace'
+import {
+  addTab,
+  changeLayout,
+  dockTab,
+  initialWorkspace,
+  moveTab,
+  removeTab,
+  resizeSplit
+} from './lib/workspace'
 import type { Host, HostDraft, KnownHost, Session, Settings, Transfer, Verification } from './types'
 type View = 'hosts' | 'sftp' | 'terminal' | 'new'
-type ConnectOptions = { pane?: string; side?: 'left' | 'right'; sftpOnly?: boolean }
+type ConnectOptions = { pane?: string; side?: 'left' | 'right'; sftpOnly?: boolean; replace?: string }
 export default function App() {
   const { modal, message } = AntApp.useApp()
   const [hosts, setHosts] = useState<Host[]>([])
@@ -205,6 +213,9 @@ export default function App() {
       setWorkspace((w) => addTab(w, id, options.pane))
       setView('terminal')
     }
+    // Add the replacement before removing the old tab so reconnecting the last
+    // session in a pane preserves that pane and its split proportions.
+    if (options.replace) disconnect(options.replace)
     setSessions((s) => ({
       ...s,
       [id]: { id, host, state: 'connecting', message: '正在连接 SSH 服务…', sftpOnly: options.sftpOnly }
@@ -257,8 +268,7 @@ export default function App() {
     const s = current.current.sessions[id]
     const p = current.current.workspace.panes.find((p) => p.tabs.includes(id))
     if (!s) return
-    disconnect(id)
-    start(s.host, { pane: p?.id })
+    start(s.host, { pane: p?.id, replace: id })
   }
   function newConnection(pane?: string) {
     setTargetPane(pane || current.current.workspace.focused)
@@ -508,6 +518,8 @@ export default function App() {
             onClose={closeSession}
             onAdd={newConnection}
             onMove={(id, pane, before) => setWorkspace((w) => moveTab(w, id, pane, before))}
+            onDock={(id, pane, side) => setWorkspace((w) => dockTab(w, id, pane, side))}
+            onResize={(id, ratio) => setWorkspace((w) => resizeSplit(w, id, ratio))}
             onReconnect={reconnect}
             onOpenFile={setOpenFile}
             onTransfer={requestTransfer}

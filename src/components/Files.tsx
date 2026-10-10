@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { App, Button, Checkbox, Dropdown, Input, Modal, Select, Tooltip } from 'antd'
 import type { MenuProps } from 'antd'
 import {
@@ -36,6 +36,19 @@ export type FileOpen = { endpoint: string; path: string; name: string; editOnly?
 export type TransferRequest = { source: string; destination: string; paths: string[]; directory: string }
 export type FileClipboard = { source: string; paths: string[] }
 export type TransferTarget = { endpoint: string; directory: string }
+export type FilePaneSnapshot = {
+  list: FileList | null
+  pathInput: string
+  selected: string[]
+  filter: string
+  filtering: boolean
+  hidden: boolean
+  expanded: Record<string, FileEntry[]>
+  sort: string
+  history: string[]
+  scrollTop: number
+  refreshToken?: number
+}
 type FileContext = { x: number; y: number; entry?: FileEntry; paths: string[]; directory: string }
 async function openLocalFile(file: FileOpen, message: ReturnType<typeof App.useApp>['message']) {
   const hide = message.loading(
@@ -112,6 +125,7 @@ export function FilePane({
   transferTarget,
   onLocation,
   refreshToken,
+  stateCache,
   showHiddenDefault = false
 }: {
   endpoint: string | null
@@ -126,27 +140,57 @@ export function FilePane({
   transferTarget?: TransferTarget | null
   onLocation?: (location: string) => void
   refreshToken?: number
+  stateCache?: Map<string, FilePaneSnapshot>
   showHiddenDefault?: boolean
 }) {
   const { modal, message } = App.useApp()
+  const saved = useRef(endpoint ? stateCache?.get(endpoint) : undefined).current
   const [choosing, setChoosing] = useState(false)
-  const [list, setList] = useState<FileList | null>(null)
-  const [pathInput, setPathInput] = useState('')
+  const [list, setList] = useState<FileList | null>(saved?.list || null)
+  const [pathInput, setPathInput] = useState(saved?.pathInput || '')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [selected, setSelected] = useState<string[]>([])
-  const [filter, setFilter] = useState('')
-  const [filtering, setFiltering] = useState(false)
-  const [hidden, setHidden] = useState(showHiddenDefault)
-  const [expanded, setExpanded] = useState<Record<string, FileEntry[]>>({})
-  const [sort, setSort] = useState('name')
+  const [selected, setSelected] = useState<string[]>(saved?.selected || [])
+  const [filter, setFilter] = useState(saved?.filter || '')
+  const [filtering, setFiltering] = useState(saved?.filtering || false)
+  const [hidden, setHidden] = useState(saved?.hidden ?? showHiddenDefault)
+  const [expanded, setExpanded] = useState<Record<string, FileEntry[]>>(saved?.expanded || {})
+  const [sort, setSort] = useState(saved?.sort || 'name')
   const [operation, setOperation] = useState<{ action: string; name: string; path: string } | null>(null)
   const [opBusy, setOpBusy] = useState(false)
-  const [history, setHistory] = useState<string[]>([])
+  const [history, setHistory] = useState<string[]>(saved?.history || [])
   const [context, setContext] = useState<FileContext | null>(null)
   const generation = useRef(0)
   const current = useRef(list)
   current.current = list
+  const rowsRef = useRef<HTMLDivElement>(null)
+  const scrollTop = useRef(saved?.scrollTop || 0)
+  const loadedRefresh = useRef(saved?.refreshToken ?? refreshToken)
+  const snapshot = useRef<FilePaneSnapshot>(null!)
+  useLayoutEffect(() => {
+    snapshot.current = {
+      list,
+      pathInput,
+      selected,
+      filter,
+      filtering,
+      hidden,
+      expanded,
+      sort,
+      history,
+      scrollTop: scrollTop.current,
+      refreshToken: loadedRefresh.current
+    }
+  })
+  useLayoutEffect(() => {
+    if (rowsRef.current) rowsRef.current.scrollTop = scrollTop.current
+    return () => {
+      if (endpoint && stateCache)
+        stateCache.set(endpoint, { ...snapshot.current, scrollTop: scrollTop.current })
+    }
+  }, [endpoint, stateCache])
+  const restored = useRef(Boolean(saved?.list))
+  const lastRefresh = useRef(saved?.refreshToken ?? refreshToken)
   const canLoad = endpoint === 'local' || session?.state === 'ready'
   async function load(p?: string, remember = true) {
     if (!endpoint || !canLoad) return
@@ -156,13 +200,39 @@ export function FilePane({
     try {
       const result = await window.quay.invoke<FileList>('filesList', { endpoint, path: p })
       if (gen !== generation.current) return
+      const sameDirectory = current.current?.path === result.path
       if (remember && current.current && current.current.path !== result.path)
         setHistory((h) => [...h, current.current!.path])
       setList(result)
       setPathInput(result.path)
       setSelected([])
-      setExpanded({})
+      if (!sameDirectory) setExpanded({})
       onLocation?.(result.path)
+      // Refresh open branches in place. A save/transfer in another session can
+      // invalidate this cached listing, but must not collapse its directory tree.
+      if (sameDirectory && Object.keys(expanded).length) {
+        const branches = await Promise.all(
+          Object.keys(expanded).map(async (path) => {
+            try {
+              const list = await window.quay.invoke<FileList>('filesList', { endpoint, path })
+              return { path, entries: list.entries }
+            } catch {
+              return { path, entries: null }
+            }
+          })
+        )
+        if (gen !== generation.current) return
+        setExpanded((old) => {
+          const next = { ...old }
+          for (const { path, entries } of branches) {
+            if (!old[path]) continue
+            if (entries) next[path] = entries
+            else delete next[path]
+          }
+          return next
+        })
+      }
+      loadedRefresh.current = refreshToken
     } catch (e: any) {
       if (gen === generation.current) setError(e.message)
     } finally {
@@ -171,6 +241,12 @@ export function FilePane({
   }
   useEffect(() => {
     generation.current++
+    if (restored.current) {
+      restored.current = false
+      return () => {
+        generation.current++
+      }
+    }
     setList(null)
     setPathInput('')
     setContext(null)
@@ -186,7 +262,8 @@ export function FilePane({
     }
   }, [endpoint, canLoad])
   useEffect(() => {
-    if (refreshToken && current.current) void load(current.current.path, false)
+    if (refreshToken !== lastRefresh.current && current.current) void load(current.current.path, false)
+    lastRefresh.current = refreshToken
   }, [refreshToken])
   useEffect(() => {
     if (!context) return
@@ -235,11 +312,13 @@ export function FilePane({
       })
       return
     }
+    const gen = generation.current
     try {
       const next = await window.quay.invoke<FileList>('filesList', { endpoint, path: e.path })
+      if (gen !== generation.current) return
       setExpanded((old) => ({ ...old, [e.path]: next.entries }))
     } catch (e: any) {
-      message.error(e.message)
+      if (gen === generation.current) message.error(e.message)
     }
   }
   function remove(paths = selected) {
@@ -693,6 +772,10 @@ export function FilePane({
           )}
           <div
             className="file-rows"
+            ref={rowsRef}
+            onScroll={(e) => {
+              scrollTop.current = e.currentTarget.scrollTop
+            }}
             role="table"
             aria-label={`${label}文件列表`}
             tabIndex={0}
