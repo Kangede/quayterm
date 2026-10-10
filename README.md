@@ -1,12 +1,12 @@
 # QuayTerm · 泊岸
 
-一个私有的 SSH + SFTP 桌面客户端。Quay 是码头：多个远程会话可以在自己的面板中停靠、切换。界面按需求中的 Termius / TermX 布局组织，采用 electerm 同类核心技术。
+一个 SSH + SFTP 桌面客户端。Quay 是码头：多个远程会话可以在自己的面板中停靠、切换。界面按需求中的 Termius / TermX 布局组织，采用 electerm 同类核心技术。
 
 当前版本为 **0.2.3**，安装包见 [v0.2.3 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.3)，变更见 [CHANGELOG.md](CHANGELOG.md)。本版包含“用本地程序打开”和 macOS 鼠标报告模式下 Shift 拖选修复。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
 
 ## 启动
 
-从私有 Release 下载对应系统的程序包与 `SHA256SUMS`，核对哈希后运行。关闭旧版窗口后再打开新版，现有主机配置会沿用：
+从 GitHub Release 下载对应系统的程序包与 `SHA256SUMS`，核对哈希后运行。关闭旧版窗口后再打开新版，现有主机配置会沿用：
 
 | 平台                | 发布文件                                                   | 启动方式                         |
 | ------------------- | ---------------------------------------------------------- | -------------------------------- |
@@ -121,11 +121,11 @@ Ctrl+A、Ctrl+B、Ctrl+C、Ctrl+D、Ctrl+Z、Tab、方向键和普通 Ctrl+K 保
 - `src/lib/output-highlights.ts`：不改写数据的显示层高亮。
 - `tests/`：网络集成、文件安全、桌面交互与真实 PTY 测试。
 - `scripts/test-lan.cjs`：只读的局域网连接测试。
-- `.github/workflows/desktop.yml`：Linux / Windows / macOS 原生构建与验证流程，可用于私有仓库。
+- `.github/workflows/desktop.yml`：Linux / Windows / macOS 原生构建与验证流程。
 
 渲染进程启用 context isolation 和 sandbox，不开放 Node.js。界面通过白名单 IPC 访问主进程；不在本地开放 Web 服务端口。远端文件按文本显示。远端 OSC 52 始终不能读取本机剪贴板；仅在开启自动复制、当前终端完成真实鼠标选取后的 1.5 秒内，允许一次有效 UTF-8 文本写入（最多 1 MiB）。内容由远端程序提供；普通点击、后台会话、失焦、取消、超时和未启用自动复制时的写入均被阻止。
 
-技术参考检出：`../electerm-reference`，提交 `b4a2dc7b6da9fa012fe1ad62df1c851594e7849f`。原项目为 MIT；新项目为私有代码，第三方许可见 `THIRD-PARTY-NOTICES.txt` 和 `LICENSE`。
+技术参考检出：`../electerm-reference`，提交 `b4a2dc7b6da9fa012fe1ad62df1c851594e7849f`。原项目为 MIT；本项目公开托管，但保留现有许可，公开可见不等于采用开源许可。项目许可与第三方许可见 `LICENSE` 和 `THIRD-PARTY-NOTICES.txt`。
 
 ## 测试与打包
 

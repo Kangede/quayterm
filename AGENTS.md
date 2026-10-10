@@ -1,6 +1,6 @@
 # QuayTerm agent 入口
 
-QuayTerm（泊岸）是私有、不开源的 SSH/SFTP 桌面客户端，使用 Electron、React、Ant Design、xterm.js 和 `@electerm/ssh2`。保持仓库私有及现有许可，不发布源码、测试凭证或用户配置。
+QuayTerm（泊岸）是 SSH/SFTP 桌面客户端，使用 Electron、React、Ant Design、xterm.js 和 `@electerm/ssh2`。用户于 2026-10-10 明确确认保持 GitHub 仓库公开并推送。保持当前仓库可见性及现有许可；公开托管不改变 `LICENSE`。不上传测试凭证、用户配置或本机私有证据。
 
 ## 接手测试
 
@@ -23,7 +23,7 @@ QuayTerm（泊岸）是私有、不开源的 SSH/SFTP 桌面客户端，使用 E
 ## 发布维护
 
 - v0.2.3 发布变更见 `CHANGELOG.md`。现有 `desktop.yml` 只有 main push 与手动派发入口；发布时核对本轮成功构建的实际 SHA 与新标签指向一致，使用同一次成功运行的三平台产物；没有标签专属构建条件时无需重复构建，不复用不同提交的旧安装包。
-- 新版本同步 `package.json` 与锁文件，使用未占用的新标签；不要移动已有标签或覆盖既有 Release。发布必须保留仓库私有与第三方许可，校验版本、架构、资产列表和 SHA256SUMS。
+- 新版本同步 `package.json` 与锁文件，使用未占用的新标签；不要移动已有标签或覆盖既有 Release。发布必须保留当前仓库可见性、现有许可与第三方许可，校验版本、架构、资产列表和 SHA256SUMS。
 - 历史测试报告保留真实版本/哈希与 BLOCKED，不因发布而升级为完整验收；发布授权不等于签名、公证或剩余系统交互已完成。最终发布记录在 Release 中补充，不为写回 Actions 结果反复改变已核实的标签提交。
 
 ## 2026-10-09 后续开发与文件打开约定
