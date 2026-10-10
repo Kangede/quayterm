@@ -1,5 +1,16 @@
 # QuayTerm 验证记录
 
+## 2026-10-10：终端自动复制、文件侧栏与拖动布局
+
+本轮修复 tmux 鼠标模式自动复制、每会话文件侧栏状态、四向拖动分屏，以及已使用空面板的自动收起；保留手动布局预留空位。完整记录、首次失败与复测、最终源码清单和本地修复包哈希见 [Linux 工作区报告](docs/test-reports/2026-10-10-linux-x64-workspace.md)。
+
+- 类型/格式检查、生产构建通过；底层与集成测试 35 PASS / 1 Windows 专用 SKIP。
+- 最终源码及默认沙箱下的 Linux 修复包各 20 / 20 桌面用例通过，覆盖真实回环 SSH/PTY、tmux/screen、文件操作、50,000 行输出和新增交互；未使用用户 LAN 主机。
+- tar.gz 实际解压程序、AppImage 解包运行均完成直接启动和正常退出；本机缺少 FUSE 2 库，AppImage 默认启动保持 BLOCKED。
+- Windows x64、macOS x64/arm64 ZIP 交叉构建和格式检查通过，共享可移植测试在 Linux 通过；原生桌面补测留待对应平台执行。
+
+本地修复包保留 0.2.3 版本字符串，位于 `release/workspace-20261010-final/`，不是原 v0.2.3 Release。各平台 `app.asar` SHA-256 同为 `cfe0bc5588b92b877ed95a51b1f4e1e17084de8e7e780cacb0d69a46e96a1ee8`。本轮没有发布新版本，不将全量自动化通过扩展为所有平台、所有原生验收项目完成。
+
 ## v0.2.3 发布验证与历史证据
 
 v0.2.3 汇总 v0.2.2 正式标签之后的外部程序打开功能、macOS Shift 拖选修复及三端回归记录。发布以新版本提交的 main 验证/打包运行及指向同一提交的新标签作为本轮证据，具体 commit、Actions 和资产 SHA-256 记录在 [v0.2.3 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.3)。旧绿色运行不替代本轮验证。
