@@ -1,0 +1,781 @@
+{
+  "date": "2026-10-10",
+  "platform": "Windows 10 x64 10.0.19045",
+  "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+  "artifacts": [
+    {
+      "file": "QuayTerm Setup 0.2.3.exe",
+      "bytes": 112500038,
+      "sha256": "6df15747fb7f6ec15c25bd7d6e56ed9abf5df13767dc6ed89386c2bce442c1d5"
+    },
+    {
+      "file": "QuayTerm 0.2.3.exe",
+      "bytes": 112259973,
+      "sha256": "9bb215deded7b2e8ef78c4a2d37f821ec4ec3be559420137a9d6adcd9a3cad2c"
+    },
+    {
+      "file": "win-unpacked/resources/app.asar",
+      "bytes": 7399388,
+      "sha256": "07ff56b48c94133a447774aec799b4834ed75ad0eeae36942463ac9b6ba99aef"
+    }
+  ],
+  "sourceManifest": [
+    {
+      "file": "electron/files.cjs",
+      "sha256": "3d5b31e3a44a2ed32e7231b467d0bcbf3ac5946fc4be18d691b5b1f570f72192"
+    },
+    {
+      "file": "electron/known-hosts.cjs",
+      "sha256": "3faeb75197d48d7dfc18b53e303ce3e760179254e2c175e5e4902bfccf8ad8ec"
+    },
+    {
+      "file": "electron/main.cjs",
+      "sha256": "b39c54317b6fa9d75aa8e2f3e4509ec4e158a9b41804585f1d7f37976530360c"
+    },
+    {
+      "file": "electron/preload.cjs",
+      "sha256": "2d232171b0e16d69eb9d35892b9f7ee5fb2f02017d529dd996ef5c42168f2d4f"
+    },
+    {
+      "file": "electron/sessions.cjs",
+      "sha256": "2eb716e7c554e09c1976fbc85ccf208a0a1ecd39a98272be3abe648b205e69c6"
+    },
+    {
+      "file": "electron/store.cjs",
+      "sha256": "e995e831e8ec32093595e4d0886783fc6fe32bf8e7dfa1cb6e08d5442b726800"
+    },
+    {
+      "file": "electron/validation.cjs",
+      "sha256": "77c7518bd63f7f8e6e936b8f55039910a18e76fc98c9504f9deb065ad2ec2106"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "11c9f4b5b2de04c9b3d0b5d123c236f3d6f57409e3f42c88c0f7aff393830f18"
+    },
+    {
+      "file": "package.json",
+      "sha256": "da14c142ac1f422010259042e03eba778a1e5785bc0ccfd84872036741f7b1b2"
+    },
+    {
+      "file": "playwright.config.cjs",
+      "sha256": "7701b255e0fc2f0360f50d53688b11ffeb2cc4d6c7cab04e3b255d9e9820a92b"
+    },
+    {
+      "file": "shared/terminal-themes.json",
+      "sha256": "2c619014cb21f85bf8fd7eac122a889b78572755be9b29e0e5be9138b3971d35"
+    },
+    {
+      "file": "src/App.tsx",
+      "sha256": "fc40f40bae2e0fd3d536db857797aa9ca9199b45becb876421457ce13bfc8c50"
+    },
+    {
+      "file": "src/components/Files.tsx",
+      "sha256": "3270afb428066c9f9b4309520565eabdc1788a929c86526dd445e5865d9adef8"
+    },
+    {
+      "file": "src/components/HostManager.tsx",
+      "sha256": "06cf0426a1ac7355dee6d942deb603f4025c051cf316280576df8923d2bf8eca"
+    },
+    {
+      "file": "src/components/Icons.tsx",
+      "sha256": "d37c7a9406d55925208268732989a5825e3569bb60849458fbdf884fede2c030"
+    },
+    {
+      "file": "src/components/TerminalWorkspace.tsx",
+      "sha256": "a0a3b86a90224a44eaa301b88423adc5f96bbff41cff1985c51e1b2a71f5032a"
+    },
+    {
+      "file": "src/lib/output-highlights.ts",
+      "sha256": "93bd9d4d7e3206f55c168ce973b166d0b78e5a22b9041aed3f28407c94e9a3dd"
+    },
+    {
+      "file": "src/lib/quick-connect.ts",
+      "sha256": "4a30bbe89dbfa094a975a01b97e5db97de57ee805692029f94e88e014d85857c"
+    },
+    {
+      "file": "src/lib/selection-clipboard.ts",
+      "sha256": "90796ae4ec985d27baa93f8e15eb693c44957ac4cbe4a83b3a03f44e1e59bb5f"
+    },
+    {
+      "file": "src/lib/terminal-themes.ts",
+      "sha256": "10c18de3bba80f148e08c085ac68a83dd9165de22490a928700dc0cbf4f344d0"
+    },
+    {
+      "file": "src/lib/terminals.ts",
+      "sha256": "1d1442dff427fac8c2ae32043e2ff50afb7cd92ca8ab0518c779521acf7e8c47"
+    },
+    {
+      "file": "src/lib/workspace.ts",
+      "sha256": "c04e93df3b0479ae1b7ca0da82cf01102ed8999622f0928b0dfe141e0dae2820"
+    },
+    {
+      "file": "src/main.tsx",
+      "sha256": "99e6fb2ec3110836a61f84e698402f78ca0524e6a1913326d3fc0a640f4be95f"
+    },
+    {
+      "file": "src/styles.css",
+      "sha256": "e6cf483a5109df8b9a756f144988ed892252253280ee4d8823ad563608c96ef0"
+    },
+    {
+      "file": "src/types.ts",
+      "sha256": "2cde846f4c3af98fe9059b4c8505e93322d98b4461222ef87d07f3d4c91d4d50"
+    },
+    {
+      "file": "tests/app.e2e.cjs",
+      "sha256": "9bc73fa60707ea73c15b8af9e62ab65948eabcb428933ba73cc755ff47c33a3b"
+    },
+    {
+      "file": "tests/appearance-files.e2e.cjs",
+      "sha256": "932673119a2e37218eaf04b0455f925dc46067f51b0b54e0a0172b843e74006e"
+    },
+    {
+      "file": "tests/core.test.cjs",
+      "sha256": "c569b08a886d9bde36d8ac93edb5dc22f298cb7345068d962e35f73e318c69e3"
+    },
+    {
+      "file": "tests/desktop-smoke.e2e.cjs",
+      "sha256": "58bd459f53d42ca72b7c1ad9d1e45e2b9b21f43c77381f555e52715771031c39"
+    },
+    {
+      "file": "tests/fixture.cjs",
+      "sha256": "c0d34bbd5b4230cc23289e447757a96d38d535550351e201075d328baa7c7329"
+    },
+    {
+      "file": "tests/local-files.test.cjs",
+      "sha256": "e803b3dbf859a4dfee4794ca7955ccc6c6248afc6d8678fb3b2ea01509fb89a0"
+    },
+    {
+      "file": "tests/native-probe.cjs",
+      "sha256": "f1620531af0102dea7087d490f5ce1f53943ed3df9e93ad15875aaf12fb1342a"
+    },
+    {
+      "file": "tests/pty-fixture.py",
+      "sha256": "9cae50507e479fcc4d5fd53bc11b270541067cde823328e962762adc5c2bfd21"
+    },
+    {
+      "file": "tests/terminal-display.test.cjs",
+      "sha256": "c4625c6af83310acc1ba62ddf9637e4c022f6e180fed9c321f075afffc7f902b"
+    },
+    {
+      "file": "tests/workspace-interactions.e2e.cjs",
+      "sha256": "ba7c5ea3492d181c897fa09b276974c23c77cae5918736e723b27a5ecfa5852b"
+    },
+    {
+      "file": "tests/workspace.test.cjs",
+      "sha256": "3b86ba4d10b43af8bbf15e0aa314106f37949e661da19ffad12dd1b0616d92ae"
+    },
+    {
+      "file": "vite.config.mts",
+      "sha256": "cdc7d3b2a50acf6b1fadd2d2a973cc4747704cba8e1a19b60b573f665849baaf"
+    }
+  ],
+  "checks": [
+    {
+      "exitCode": 0,
+      "start": "2026-10-10T10:19:44.9179132Z",
+      "end": "2026-10-10T10:19:49.9014482Z",
+      "name": "02-check"
+    },
+    {
+      "exitCode": 0,
+      "start": "2026-10-10T10:19:49.9320258Z",
+      "end": "2026-10-10T10:20:02.1454746Z",
+      "name": "03-build"
+    },
+    {
+      "exitCode": 0,
+      "start": "2026-10-10T10:20:02.1556704Z",
+      "end": "2026-10-10T10:20:02.8459757Z",
+      "name": "04-portable"
+    }
+  ],
+  "portable": {
+    "pass": 22,
+    "fail": 0,
+    "skip": 0
+  },
+  "sourceSmoke": {
+    "stats": {
+      "startTime": "2026-10-10T10:21:30.222Z",
+      "duration": 14281.916,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+        "status": "passed",
+        "duration": 13242
+      }
+    ]
+  },
+  "sourceFeatures": {
+    "stats": {
+      "startTime": "2026-10-10T10:24:16.754Z",
+      "duration": 61292.127,
+      "expected": 10,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+        "status": "passed",
+        "duration": 8298
+      },
+      {
+        "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+        "status": "passed",
+        "duration": 7647
+      },
+      {
+        "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+        "status": "passed",
+        "duration": 8595
+      },
+      {
+        "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+        "status": "passed",
+        "duration": 5052
+      },
+      {
+        "title": "terminal sidebar right-click editing and six live themes work without reconnecting",
+        "status": "passed",
+        "duration": 8576
+      },
+      {
+        "title": "automatic highlights preserve ANSI colors, progress redraw and alternate screens over SSH",
+        "status": "passed",
+        "duration": 1811
+      },
+      {
+        "title": "file sidebar remembers each SSH session, nested expansions, scroll and navigation across hiding and moves",
+        "status": "passed",
+        "duration": 4409
+      },
+      {
+        "title": "edge docking covers four directions, nested layouts, resizing, tab order and original SSH identities",
+        "status": "passed",
+        "duration": 9145
+      },
+      {
+        "title": "closing or moving the last session removes used panes while manual vacancies remain",
+        "status": "passed",
+        "duration": 4619
+      },
+      {
+        "title": "reconnecting a sole session preserves its pane and split size",
+        "status": "passed",
+        "duration": 1845
+      }
+    ]
+  },
+  "packageSmoke": {
+    "stats": {
+      "startTime": "2026-10-10T10:25:32.520Z",
+      "duration": 12513.676000000001,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+        "status": "passed",
+        "duration": 12070
+      }
+    ]
+  },
+  "packageFeatures": {
+    "stats": {
+      "startTime": "2026-10-10T10:25:46.127Z",
+      "duration": 59461.553,
+      "expected": 10,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+        "status": "passed",
+        "duration": 8040
+      },
+      {
+        "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+        "status": "passed",
+        "duration": 7416
+      },
+      {
+        "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+        "status": "passed",
+        "duration": 8655
+      },
+      {
+        "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+        "status": "passed",
+        "duration": 5052
+      },
+      {
+        "title": "terminal sidebar right-click editing and six live themes work without reconnecting",
+        "status": "passed",
+        "duration": 8418
+      },
+      {
+        "title": "automatic highlights preserve ANSI colors, progress redraw and alternate screens over SSH",
+        "status": "passed",
+        "duration": 2076
+      },
+      {
+        "title": "file sidebar remembers each SSH session, nested expansions, scroll and navigation across hiding and moves",
+        "status": "passed",
+        "duration": 3902
+      },
+      {
+        "title": "edge docking covers four directions, nested layouts, resizing, tab order and original SSH identities",
+        "status": "passed",
+        "duration": 8603
+      },
+      {
+        "title": "closing or moving the last session removes used panes while manual vacancies remain",
+        "status": "passed",
+        "duration": 4112
+      },
+      {
+        "title": "reconnecting a sole session preserves its pane and split size",
+        "status": "passed",
+        "duration": 1816
+      }
+    ]
+  },
+  "packageLaunches": [
+    {
+      "platform": "win32",
+      "arch": "x64",
+      "version": "0.2.3",
+      "electron": "44.7.0",
+      "isPackaged": true,
+      "noSandbox": false,
+      "useMockKeychain": false,
+      "passwordStorePresent": false,
+      "passwordStoreValue": "",
+      "windows": [
+        {
+          "sandbox": true,
+          "contextIsolation": true,
+          "nodeIntegration": false,
+          "webSecurity": true
+        }
+      ]
+    }
+  ],
+  "packageContents": {
+    "entries": 626,
+    "privateOrTestEntries": 0
+  },
+  "direct": {
+    "checks": [
+      {
+        "name": "direct default launch and renderer isolation",
+        "status": "PASS",
+        "detail": {
+          "loader": "none",
+          "loopbackCDP": true,
+          "secureStorage": true
+        }
+      },
+      {
+        "name": "DPAPI test password saved without plaintext",
+        "status": "PASS",
+        "detail": {
+          "authenticated": true,
+          "plaintextAbsent": true
+        }
+      },
+      {
+        "name": "window resize maximize restore and canceled close keeps connection",
+        "status": "PASS",
+        "detail": {
+          "cancelKeptSession": true,
+          "dimensionsRecorded": 4
+        }
+      },
+      {
+        "name": "new process decrypts DPAPI password and retains preferences",
+        "status": "PASS",
+        "detail": {
+          "newProcess": true,
+          "authenticated": true,
+          "knownHostReused": true,
+          "settings": {
+            "terminalTheme": "paper",
+            "showHidden": true,
+            "outputHighlights": false,
+            "copyOnSelect": true
+          }
+        }
+      },
+      {
+        "name": "portable real launcher starts and closes normally",
+        "status": "PASS",
+        "detail": {
+          "launchedPortable": true
+        }
+      }
+    ],
+    "errors": [],
+    "started": "2026-10-10T10:26:46.134Z",
+    "ended": "2026-10-10T10:26:54.466Z"
+  },
+  "multiplexers": {
+    "versions": [
+      "x86_64",
+      "tmux 3.6",
+      "Screen version 4.09.01 (GNU) 20-Aug-23"
+    ],
+    "checks": [
+      {
+        "name": "tmux real PTYs, prefix windows, switching and resize",
+        "status": "PASS",
+        "detail": {
+          "tty0": "/dev/pts/0:35 145",
+          "tty1": "/dev/pts/2:35 145",
+          "resized": "/dev/pts/0:27 110"
+        }
+      },
+      {
+        "name": "tmux ordinary drag automatically copies to Windows clipboard",
+        "status": "PASS",
+        "detail": {
+          "bufferMatches": true,
+          "mouseReports": true
+        }
+      },
+      {
+        "name": "Shift selection repeats and works with tmux clipboard disabled",
+        "status": "PASS",
+        "detail": {
+          "repetitions": 4,
+          "noSSHMouseReports": true
+        }
+      },
+      {
+        "name": "disabled auto-copy preserves clipboard",
+        "status": "PASS",
+        "detail": {
+          "ordinaryDrag": true
+        }
+      },
+      {
+        "name": "tmux wheel reports and detach/reattach",
+        "status": "PASS",
+        "detail": {
+          "samePTY": true
+        }
+      },
+      {
+        "name": "screen real PTYs prefix windows resize detach and reattach",
+        "status": "PASS",
+        "detail": {
+          "screen0": "/dev/pts/3:28 110",
+          "screen1": "/dev/pts/4:28 110",
+          "screenSize": "/dev/pts/3:32 130"
+        }
+      },
+      {
+        "name": "50000 lines complete and terminal remains responsive",
+        "status": "PASS",
+        "detail": {
+          "lastLine": 49999,
+          "tailContiguous": true
+        }
+      }
+    ],
+    "errors": [],
+    "cleanup": {
+      "exitCode": 0,
+      "stderr": ""
+    },
+    "started": "2026-10-10T10:34:42.868Z",
+    "ended": "2026-10-10T10:34:57.867Z"
+  },
+  "initialDriverFailures": [
+    {
+      "area": "Windows SFTP paths",
+      "count": 2,
+      "resolution": "Exact POSIX initial and navigated paths retained; 10/10 assertions passed on rerun"
+    },
+    {
+      "area": "Remote multiplexer observation",
+      "resolution": "Fixed Electron evaluate argument position, canceled tmux copy mode on the test socket, and waited for actual attach/detach state before sending commands; all seven groups passed"
+    }
+  ],
+  "initialSourceFeatures": {
+    "stats": {
+      "startTime": "2026-10-10T10:22:39.751Z",
+      "duration": 69109.136,
+      "expected": 6,
+      "skipped": 2,
+      "unexpected": 2,
+      "flaky": 0
+    },
+    "tests": [
+      {
+        "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+        "status": "passed",
+        "duration": 8340
+      },
+      {
+        "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+        "status": "passed",
+        "duration": 7154
+      },
+      {
+        "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+        "status": "passed",
+        "duration": 8963
+      },
+      {
+        "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+        "status": "failed",
+        "duration": 12439
+      },
+      {
+        "title": "terminal sidebar right-click editing and six live themes work without reconnecting",
+        "status": "skipped",
+        "duration": 0
+      },
+      {
+        "title": "automatic highlights preserve ANSI colors, progress redraw and alternate screens over SSH",
+        "status": "skipped",
+        "duration": 0
+      },
+      {
+        "title": "file sidebar remembers each SSH session, nested expansions, scroll and navigation across hiding and moves",
+        "status": "failed",
+        "duration": 14095
+      },
+      {
+        "title": "edge docking covers four directions, nested layouts, resizing, tab order and original SSH identities",
+        "status": "passed",
+        "duration": 8802
+      },
+      {
+        "title": "closing or moving the last session removes used panes while manual vacancies remain",
+        "status": "passed",
+        "duration": 5056
+      },
+      {
+        "title": "reconnecting a sole session preserves its pane and split size",
+        "status": "passed",
+        "duration": 2289
+      }
+    ]
+  },
+  "remoteHostTrust": {
+    "existingLocalKnownHostsMatched": true,
+    "userAuthorizedMultiplexerTest": true,
+    "credentialsPublished": false
+  },
+  "nativeExternal": {
+    "notepadVersion": "10.0.19041.4522",
+    "photosVersion": "2026.11090.22001.0",
+    "edgeVersion": "155.0.4283.45",
+    "localOriginal": {
+      "status": "PASS",
+      "actualTextControl": true,
+      "utf8BOM": true,
+      "crlf": true
+    },
+    "remoteSnapshot": {
+      "status": "PASS",
+      "downloadHashMatches": true,
+      "editedInNotepad": true,
+      "originalUnchanged": true
+    },
+    "utf16": {
+      "status": "PASS",
+      "actualTextControl": true,
+      "encoding": "UTF-16 LE"
+    },
+    "nativeClipboardPaste": {
+      "status": "PASS",
+      "terminalSelectionToNotepad": true,
+      "contentsSaved": true
+    },
+    "png": {
+      "status": "BLOCKED",
+      "systemOpenReturnedSuccess": true,
+      "downloadHashMatches": true,
+      "photosWindowCreated": true,
+      "visualCapture": "timeout",
+      "humanConfirmation": false
+    },
+    "pdf": {
+      "status": "BLOCKED",
+      "systemOpenReturnedSuccess": true,
+      "downloadHashMatches": true,
+      "association": "MSEdgePDF",
+      "viewerRendering": "NOT_RUN; existing Edge is unavailable to the browser connector"
+    },
+    "afterQuit": [
+      {
+        "name": "QuayTerm-QA-20261010-local.txt",
+        "exists": true,
+        "hashUnchanged": true
+      },
+      {
+        "name": "QuayTerm-QA-20261010-remote.txt",
+        "exists": true,
+        "hashUnchanged": true
+      },
+      {
+        "name": "QuayTerm-QA-20261010-utf16.txt",
+        "exists": true,
+        "hashUnchanged": true
+      },
+      {
+        "name": "QuayTerm-QA-20261010-image.png",
+        "exists": true,
+        "hashUnchanged": true
+      },
+      {
+        "name": "QuayTerm-QA-20261010-document.pdf",
+        "exists": true,
+        "hashUnchanged": true
+      }
+    ],
+    "cleanup": [
+      {
+        "name": "QuayTerm-QA-20261010-remote.txt",
+        "deleted": true
+      },
+      {
+        "name": "QuayTerm-QA-20261010-utf16.txt",
+        "deleted": true
+      },
+      {
+        "name": "QuayTerm-QA-20261010-image.png",
+        "deleted": true
+      },
+      {
+        "name": "QuayTerm-QA-20261010-document.pdf",
+        "deleted": true
+      }
+    ]
+  },
+  "directProcessArguments": [
+    {
+      "name": "QuayTerm.exe",
+      "commandLine": "\"<REPOSITORY>\\release\\windows-workspace-20261010\\win-unpacked\\QuayTerm.exe\" --remote-debugging-address=127.0.0.1 --remote-debugging-port=51905"
+    },
+    {
+      "name": "QuayTerm.exe",
+      "commandLine": "\"<REPOSITORY>\\release\\windows-workspace-20261010\\win-unpacked\\QuayTerm.exe\" --type=gpu-process --user-data-dir=\"<REPOSITORY>\\.private\\qa\\20261010-windows-workspace\\real-open\\profile\" --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAAAAGAAQAAAAAAAAAADAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAoAAAAAAAAAAgAAAAAAAAAEAAAAAIAAAABAAAAAAAAAAgAAAAAAAAACAAAAAAAAAA= --field-trial-handle=1820,i,10247388846624842210,12476843249760965287,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1824,i,18055935017536510363,7847195853089196107,4 --trace-process-track-uuid=3190708988185955192 --mojo-platform-channel-handle=1816 /prefetch:2"
+    },
+    {
+      "name": "QuayTerm.exe",
+      "commandLine": "\"<REPOSITORY>\\release\\windows-workspace-20261010\\win-unpacked\\QuayTerm.exe\" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir=\"<REPOSITORY>\\.private\\qa\\20261010-windows-workspace\\real-open\\profile\" --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --field-trial-handle=1820,i,10247388846624842210,12476843249760965287,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1824,i,18055935017536510363,7847195853089196107,4 --trace-process-track-uuid=3190708989122997041 --mojo-platform-channel-handle=2036 /prefetch:3"
+    },
+    {
+      "name": "QuayTerm.exe",
+      "commandLine": "\"<REPOSITORY>\\release\\windows-workspace-20261010\\win-unpacked\\QuayTerm.exe\" --type=renderer --user-data-dir=\"<REPOSITORY>\\.private\\qa\\20261010-windows-workspace\\real-open\\profile\" --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --app-path=\"<REPOSITORY>\\release\\windows-workspace-20261010\\win-unpacked\\resources\\app.asar\" --enable-sandbox --remote-debugging-port=51905 --video-capture-use-gpu-memory-buffer --lang=zh-CN --device-scale-factor=1.75 --num-raster-threads=3 --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=3874002677 --field-trial-handle=1820,i,10247388846624842210,12476843249760965287,262144 --enable-features=AllowWindowCaptureExclusionInRemoteSessions,PdfUseShowSaveFilePicker --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,NetworkServiceSandbox,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1824,i,18055935017536510363,7847195853089196107,4 --trace-process-track-uuid=3190708990060038890 --mojo-platform-channel-handle=2624 /prefetch:1"
+    },
+    {
+      "name": "notepad.exe",
+      "commandLine": "\"C:\\Windows\\system32\\NOTEPAD.EXE\" <REPOSITORY>\\.private\\qa\\20261010-windows-workspace\\real-open\\QuayTerm-QA-20261010-local.txt"
+    }
+  ],
+  "directForbiddenSwitches": 0,
+  "remoteCleanup": {
+    "checked": 5,
+    "absent": true
+  },
+  "rawEvidencePolicy": "Raw logs, screenshots, isolated profiles, credentials and generated binaries remain in local ignored directories because automatic approval rejected removal with blocked by policy. No alternative deletion was attempted.",
+  "rawLogHashes": [
+    {
+      "file": "01-install.log",
+      "sha256": "fbb48477020022e9af12b8e95f3d9a5d6b4cb96a063ff7d63ec9ca3585ef9a11"
+    },
+    {
+      "file": "02-check.log",
+      "sha256": "8a480807340267712ee7d6c040e2caa297ddd9da8d6f21a04795029eb8921e2a"
+    },
+    {
+      "file": "03-build.log",
+      "sha256": "78cdaedb2734472138e98f1e53c15c0dfc2f630194d510478f53e635b0397b9c"
+    },
+    {
+      "file": "04-portable.log",
+      "sha256": "f9dd331d8c28beea1f0b0fc5ee8e3f311cc5e4e6d358f18e531d25c5ae36222c"
+    },
+    {
+      "file": "05-source-smoke.log",
+      "sha256": "c23e62c16866dbe32fb4a5dab88350c517aff76168b9d22eef56c1a3bb2d7cc0"
+    },
+    {
+      "file": "06-licenses.log",
+      "sha256": "8dde736548ad14f6d24b1a1d0b2bc327a23cfec19aebdf6794a78bb30370c698"
+    },
+    {
+      "file": "07-package.log",
+      "sha256": "aee0a1b69efc84c0ad57252c2a824fa976bdcff2bb977165098c14a6e7b6a655"
+    },
+    {
+      "file": "08-source-features-initial.log",
+      "sha256": "81dde71f70f82b64957ff910d13a2c27ccceac335ccf63bb27857ef823bb55a9"
+    },
+    {
+      "file": "08-source-features.log",
+      "sha256": "890e165c49ef4e9f6860b1664fe0fb0d1fc5012fa9055da4c41af08d9d522b06"
+    },
+    {
+      "file": "09-package-smoke.log",
+      "sha256": "655897307bf2f58598ca36f28cde1a923abe5978a27cd127828cfe2e877814c7"
+    },
+    {
+      "file": "10-package-features.log",
+      "sha256": "539f4cf5f97d63b06d2bce11e7a8860b855af6f336169981fc64448fae2581a6"
+    },
+    {
+      "file": "11-direct-check.log",
+      "sha256": "38e2a50041c39f172908e2001329a44d4b3a62243eb084cdbc1b3e5b1bf3ef94"
+    },
+    {
+      "file": "12-multiplexers.log",
+      "sha256": "ffb8e4551ea92154d6c160e34ff40806bda3d12d75c28314d8a79b7b9247335f"
+    },
+    {
+      "file": "13-multiplexers-final.log",
+      "sha256": "77ff50c16ad4f37b15fc20077eb8b2e5b29ec8e68b5998d56e4e3407092e279d"
+    },
+    {
+      "file": "14-multiplexers-final2.log",
+      "sha256": "ed1d010edfa65de83b58f1f21165c0c578166ab4d0c0210455d7c64ecc94262b"
+    },
+    {
+      "file": "15-multiplexers-final3.log",
+      "sha256": "d5a07c87c1ccaceb0b90ee81d231789f15a5f3a0da3dfbb4762340aaabda469a"
+    },
+    {
+      "file": "16-multiplexers-final4.log",
+      "sha256": "301e7bb3373a6d39296473afcffc0be8387cf0a17a7e9a43dfc51ead3a25d4ce"
+    }
+  ],
+  "workspaceCleanup": {
+    "status": "BLOCKED",
+    "reason": "Automatic approval rejected recursive removal; only reason provided: blocked by policy",
+    "remainingDirectories": [
+      ".private/qa/20261010-windows-workspace",
+      "release/windows-workspace-20261010"
+    ],
+    "privateCredentialFileRetained": true,
+    "externalSnapshotDirectoriesDeleted": 4,
+    "remoteDirectoriesCheckedAbsent": 5,
+    "existingUserReportPreserved": true
+  }
+}
