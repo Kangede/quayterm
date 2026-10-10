@@ -1,0 +1,3427 @@
+{
+  "generatedAt": "2026-10-10T09:58:42.302562+00:00",
+  "timezone": "Asia/Shanghai",
+  "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+  "featureCommit": "f92ec7cb5c57c98a1a6df7ba287440c3344912d2",
+  "testDriverCommit": "13da8024ced3edd7d9980ae37d74af5560f20325",
+  "applicationSourceUnchanged": true,
+  "environment": {
+    "os": "macOS 15.8.1",
+    "build": "24H32",
+    "arch": "x64",
+    "virtualMachine": "VMware",
+    "display": "1718x918",
+    "node": "24.21.0",
+    "npm": "11.19.0",
+    "electron": "44.7.0",
+    "bash": "3.2.57",
+    "tmux": "3.7c",
+    "screen": "4.00.03",
+    "sftpServer": "/usr/libexec/sftp-server",
+    "nativeComputerControlAvailable": false
+  },
+  "applicationManifest": {
+    "electron/files.cjs": "3d5b31e3a44a2ed32e7231b467d0bcbf3ac5946fc4be18d691b5b1f570f72192",
+    "electron/known-hosts.cjs": "3faeb75197d48d7dfc18b53e303ce3e760179254e2c175e5e4902bfccf8ad8ec",
+    "electron/main.cjs": "b39c54317b6fa9d75aa8e2f3e4509ec4e158a9b41804585f1d7f37976530360c",
+    "electron/preload.cjs": "2d232171b0e16d69eb9d35892b9f7ee5fb2f02017d529dd996ef5c42168f2d4f",
+    "electron/sessions.cjs": "2eb716e7c554e09c1976fbc85ccf208a0a1ecd39a98272be3abe648b205e69c6",
+    "electron/store.cjs": "e995e831e8ec32093595e4d0886783fc6fe32bf8e7dfa1cb6e08d5442b726800",
+    "electron/validation.cjs": "77c7518bd63f7f8e6e936b8f55039910a18e76fc98c9504f9deb065ad2ec2106",
+    "package-lock.json": "11c9f4b5b2de04c9b3d0b5d123c236f3d6f57409e3f42c88c0f7aff393830f18",
+    "package.json": "da14c142ac1f422010259042e03eba778a1e5785bc0ccfd84872036741f7b1b2",
+    "resources/electerm-MIT.txt": "a9b7ccf11bec7796b217a7575d3324c16613a46bfc899e72ec2c11da28d0991e",
+    "resources/icon.png": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706",
+    "resources/icon.svg": "fc5bd75a18f37c67ef57bd9745306773007aef3e7fc8bad250f41d67835e5ea4",
+    "shared/terminal-themes.json": "4f05456012dfd2ad00c4a49d0d633df16e1adcb8f8dec8fdeeff0b9c63daf627",
+    "src/App.tsx": "fc40f40bae2e0fd3d536db857797aa9ca9199b45becb876421457ce13bfc8c50",
+    "src/components/Files.tsx": "3270afb428066c9f9b4309520565eabdc1788a929c86526dd445e5865d9adef8",
+    "src/components/HostManager.tsx": "06cf0426a1ac7355dee6d942deb603f4025c051cf316280576df8923d2bf8eca",
+    "src/components/Icons.tsx": "d37c7a9406d55925208268732989a5825e3569bb60849458fbdf884fede2c030",
+    "src/components/TerminalWorkspace.tsx": "a0a3b86a90224a44eaa301b88423adc5f96bbff41cff1985c51e1b2a71f5032a",
+    "src/lib/output-highlights.ts": "93bd9d4d7e3206f55c168ce973b166d0b78e5a22b9041aed3f28407c94e9a3dd",
+    "src/lib/quick-connect.ts": "4a30bbe89dbfa094a975a01b97e5db97de57ee805692029f94e88e014d85857c",
+    "src/lib/selection-clipboard.ts": "90796ae4ec985d27baa93f8e15eb693c44957ac4cbe4a83b3a03f44e1e59bb5f",
+    "src/lib/terminal-themes.ts": "10c18de3bba80f148e08c085ac68a83dd9165de22490a928700dc0cbf4f344d0",
+    "src/lib/terminals.ts": "1d1442dff427fac8c2ae32043e2ff50afb7cd92ca8ab0518c779521acf7e8c47",
+    "src/lib/workspace.ts": "c04e93df3b0479ae1b7ca0da82cf01102ed8999622f0928b0dfe141e0dae2820",
+    "src/main.tsx": "99e6fb2ec3110836a61f84e698402f78ca0524e6a1913326d3fc0a640f4be95f",
+    "src/styles.css": "e6cf483a5109df8b9a756f144988ed892252253280ee4d8823ad563608c96ef0",
+    "src/types.ts": "2cde846f4c3af98fe9059b4c8505e93322d98b4461222ef87d07f3d4c91d4d50"
+  },
+  "testDriverManifest": {
+    "tests/fixture.cjs": "1d1eb322f45c5d1be3971e312f79833bc395e5ad75294cb1314bf17b1e03cb30",
+    "tests/app.e2e.cjs": "d17e6827e35899a3ba4e52251f636bd84842e53ba93a04be843acbf45f2a2471",
+    "tests/appearance-files.e2e.cjs": "4cff421a4745dcf83fa8c709906e7c8ece54ee229781773c3fb7d688d4367d84",
+    "tests/workspace-interactions.e2e.cjs": "7e9402458b43e149df2135abef4abd404ccbb32db516759c83561f4ad5ed348f"
+  },
+  "artifacts": {
+    "release/macos-new-features-20261010/QuayTerm-0.2.3.dmg": {
+      "bytes": 133317845,
+      "sha256": "04cc8102ff1b0400988a55166595a2cde8e8afb613ddb415deee732b5fcda57b"
+    },
+    "release/macos-new-features-20261010/QuayTerm-0.2.3-mac.zip": {
+      "bytes": 133400734,
+      "sha256": "d8ffb28223a5dae79a0fbf6d744765ff965e937e3677edbbb73eaaec2137a724"
+    },
+    "release/macos-new-features-20261010/mac/QuayTerm.app/Contents/Resources/app.asar": {
+      "bytes": 7400451,
+      "sha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c"
+    }
+  },
+  "installation": {
+    "startedAt": "2026-10-10T09:42:34.800787+00:00",
+    "steps": [
+      {
+        "command": [
+          "hdiutil",
+          "verify",
+          "<repo>/release/macos-new-features-20261010/QuayTerm-0.2.3.dmg"
+        ],
+        "exitCode": 0,
+        "stdout": "正在检查“Protective Master Boot Record（MBR：0）”的校验和…\nProtective Master Boot Record（MBR：0）：已验证CRC32 $7326ACEA\n正在检查“GPT Header（Primary GPT Header：1）”的校验和…\n    GPT Header（Primary GPT Header：1）：已验证CRC32 $584339E1\n正在检查“GPT Partition Data（Primary GPT Table：2）”的校验和…\nGPT Partition Data（Primary GPT Table：已验证CRC32 $DF04C7B0\n正在检查“（Apple_Free：3）”的校验和…\n                      （Apple_Free：3）：已验证CRC32 $00000000\n正在检查“disk image（Apple_HFS：4）”的校验和…\n             disk image（Apple_HFS：4）：已验证CRC32 $CBD72E31\n正在检查“（Apple_Free：5）”的校验和…\n                      （Apple_Free：5）：已验证CRC32 $00000000\n正在检查“GPT Partition Data（Backup GPT Table：6）”的校验和…\nGPT Partition Data（Backup GPT Table：：已验证CRC32 $DF04C7B0\n正在检查“GPT Header（Backup GPT Header：7）”的校验和…\n     GPT Header（Backup GPT Header：7）：已验证CRC32 $981580FF\n已验证CRC32 $74955EA9\n",
+        "stderr": "hdiutil: verify: checksum of \"<repo>/release/macos-new-features-20261010/QuayTerm-0.2.3.dmg\" is VALID\n"
+      },
+      {
+        "command": [
+          "hdiutil",
+          "attach",
+          "-readonly",
+          "-nobrowse",
+          "-plist",
+          "<repo>/release/macos-new-features-20261010/QuayTerm-0.2.3.dmg"
+        ],
+        "exitCode": 0,
+        "stdout": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n<plist version=\"1.0\">\n<dict>\n\t<key>system-entities</key>\n\t<array>\n\t\t<dict>\n\t\t\t<key>content-hint</key>\n\t\t\t<string>Apple_HFS</string>\n\t\t\t<key>dev-entry</key>\n\t\t\t<string>/dev/disk6s1</string>\n\t\t\t<key>mount-point</key>\n\t\t\t<string>/Volumes/QuayTerm 0.2.3</string>\n\t\t\t<key>potentially-mountable</key>\n\t\t\t<true/>\n\t\t\t<key>unmapped-content-hint</key>\n\t\t\t<string>48465300-0000-11AA-AA11-00306543ECAC</string>\n\t\t\t<key>volume-kind</key>\n\t\t\t<string>hfs</string>\n\t\t</dict>\n\t\t<dict>\n\t\t\t<key>content-hint</key>\n\t\t\t<string>GUID_partition_scheme</string>\n\t\t\t<key>dev-entry</key>\n\t\t\t<string>/dev/disk6</string>\n\t\t\t<key>potentially-mountable</key>\n\t\t\t<false/>\n\t\t\t<key>unmapped-content-hint</key>\n\t\t\t<string>GUID_partition_scheme</string>\n\t\t</dict>\n\t</array>\n</dict>\n</plist>\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ditto",
+          "/Volumes/QuayTerm 0.2.3/QuayTerm.app",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "hdiutil",
+          "detach",
+          "/dev/disk6s1"
+        ],
+        "exitCode": 0,
+        "stdout": "\"disk6\" ejected.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ditto",
+          "-x",
+          "-k",
+          "<repo>/release/macos-new-features-20261010/QuayTerm-0.2.3-mac.zip",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "file",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/MacOS/QuayTerm"
+        ],
+        "exitCode": 0,
+        "stdout": "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/MacOS/QuayTerm: Mach-O 64-bit executable x86_64\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "codesign",
+          "--verify",
+          "--deep",
+          "--strict",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app: code object is not signed at all\nIn architecture: x86_64\n"
+      },
+      {
+        "command": [
+          "spctl",
+          "--assess",
+          "--type",
+          "execute",
+          "-v",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app"
+        ],
+        "exitCode": 3,
+        "stdout": "",
+        "stderr": "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app: rejected\nsource=no usable signature\n"
+      },
+      {
+        "command": [
+          "xattr",
+          "-p",
+          "com.apple.quarantine",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "xattr: <repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app: No such xattr: com.apple.quarantine\n"
+      },
+      {
+        "command": [
+          "file",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app/Contents/MacOS/QuayTerm"
+        ],
+        "exitCode": 0,
+        "stdout": "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app/Contents/MacOS/QuayTerm: Mach-O 64-bit executable x86_64\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "codesign",
+          "--verify",
+          "--deep",
+          "--strict",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app: code object is not signed at all\nIn architecture: x86_64\n"
+      },
+      {
+        "command": [
+          "spctl",
+          "--assess",
+          "--type",
+          "execute",
+          "-v",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app"
+        ],
+        "exitCode": 3,
+        "stdout": "",
+        "stderr": "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app: rejected\nsource=no usable signature\n"
+      },
+      {
+        "command": [
+          "xattr",
+          "-p",
+          "com.apple.quarantine",
+          "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app"
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "xattr: <repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app: No such xattr: com.apple.quarantine\n"
+      }
+    ],
+    "bundles": [
+      {
+        "format": "zip",
+        "version": "0.2.3",
+        "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+        "architecture": "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/MacOS/QuayTerm: Mach-O 64-bit executable x86_64"
+      },
+      {
+        "format": "dmg",
+        "version": "0.2.3",
+        "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+        "architecture": "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app/Contents/MacOS/QuayTerm: Mach-O 64-bit executable x86_64"
+      }
+    ],
+    "status": "PASS unpack, consistency and architecture; native Finder entry untested",
+    "finishedAt": "2026-10-10T09:42:47.786016+00:00"
+  },
+  "packageAudit": {
+    "version": "0.2.3",
+    "license": "UNLICENSED",
+    "privatePackage": true,
+    "archiveEntries": 626,
+    "forbiddenEntries": [],
+    "matchedLocalProductFiles": [
+      "electron/files.cjs",
+      "electron/known-hosts.cjs",
+      "electron/main.cjs",
+      "electron/preload.cjs",
+      "electron/sessions.cjs",
+      "electron/store.cjs",
+      "electron/validation.cjs",
+      "dist/index.html",
+      "dist/assets/index-BrcOmvZk.css",
+      "dist/assets/index-CYrFYRw4.js"
+    ],
+    "sha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c"
+  },
+  "commands": [
+    {
+      "label": "npm-ci",
+      "command": [
+        "npm",
+        "ci"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:36:56.110Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:37:27.158Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "check",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:37:38.437Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:37:47.813Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "portable",
+      "command": [
+        "node",
+        "--test",
+        "tests/workspace.test.cjs",
+        "tests/local-files.test.cjs",
+        "tests/terminal-display.test.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:37:38.453Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:37:39.834Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "electron-runtime",
+      "command": [
+        "node",
+        "node_modules/electron/install.js"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:37:52.546Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:37:55.589Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:38:07.936Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:38:21.904Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "core",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:38:07.937Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:38:10.633Z",
+      "exitCode": 1,
+      "signal": null
+    },
+    {
+      "label": "core-canonical",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:38:33.084Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:38:35.218Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "source-smoke",
+      "command": [
+        "npx",
+        "playwright",
+        "test",
+        "tests/desktop-smoke.e2e.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:38:58.291Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:39:29.647Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "source-full",
+      "command": [
+        "npx",
+        "playwright",
+        "test"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:39:37.330Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:41:18.238Z",
+      "exitCode": 1,
+      "signal": null
+    },
+    {
+      "label": "audit-runtime",
+      "command": [
+        "npm",
+        "audit",
+        "--omit=dev"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:39:38.495Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:39:40.198Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "package-mac",
+      "command": [
+        "zsh",
+        "-c",
+        "npm run licenses && npx electron-builder --mac --x64 --config.directories.output=release/macos-new-features-20261010"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:39:52.199Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:40:48.980Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "source-full-portable",
+      "command": [
+        "npx",
+        "playwright",
+        "test"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:42:09.586Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:44:56.824Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "install-artifacts",
+      "command": [
+        "python3",
+        ".private/qa/2026-10-10-macos-new-features/install-artifacts.py"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:42:34.694Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:42:47.796Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "check-portable",
+      "command": [
+        "npm",
+        "run",
+        "check"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:42:35.829Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:42:47.673Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "packaged-full",
+      "command": [
+        "npx",
+        "playwright",
+        "test"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:45:11.148Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:47:46.336Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-clipboard-boundaries-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/clipboard-boundaries.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:48:45.721Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:48:55.495Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-native-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/native-acceptance.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:48:55.610Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:49:07.472Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-pty-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/pty-acceptance.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:49:07.615Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:49:35.498Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-files-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/files-faults.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:49:35.599Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:49:43.741Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-ui-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/ui-matrix.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:49:43.872Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:50:10.305Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-trust-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/host-security.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:50:10.391Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:50:37.569Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-real-open-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/real-open.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:50:37.673Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:50:45.049Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "dmg-native-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/native-acceptance.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:50:45.159Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:51:01.323Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "upgrade-profile-command",
+      "command": [
+        "node",
+        "<repo>/.private/qa/2026-10-10-macos-new-features/upgrade-profile.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:51:01.453Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:51:28.436Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "label": "zip-idle-command",
+      "command": [
+        "node",
+        ".private/qa/2026-10-10-macos-new-features/pty-acceptance.cjs"
+      ],
+      "sourceCommit": "ba8e022dd87b324ae1d9efd6c2257515a44e410c",
+      "startedAt": "2026-10-10T09:51:57.881Z",
+      "platform": "darwin",
+      "arch": "x64",
+      "node": "v24.21.0",
+      "finishedAt": "2026-10-10T09:57:01.814Z",
+      "exitCode": 0,
+      "signal": null
+    }
+  ],
+  "automation": [
+    {
+      "label": "source-smoke",
+      "stats": {
+        "startTime": "2026-10-10T09:39:00.762Z",
+        "duration": 28842.716,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "file": "desktop-smoke.e2e.cjs",
+          "line": 6,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "electron-launch",
+              "description": "{\"platform\":\"darwin\",\"arch\":\"x64\",\"version\":\"0.2.3\",\"electron\":\"44.7.0\",\"isPackaged\":false,\"noSandbox\":false,\"useMockKeychain\":true,\"passwordStorePresent\":true,\"passwordStoreValue\":\"basic\",\"windows\":[{\"sandbox\":true,\"contextIsolation\":true,\"nodeIntegration\":false,\"webSecurity\":true}]}"
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 27921,
+              "errors": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "source-first",
+      "stats": {
+        "startTime": "2026-10-10T09:39:38.875Z",
+        "duration": 99278.84,
+        "expected": 7,
+        "skipped": 11,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "host grid, right editor, display controls and persisted changes",
+          "file": "app.e2e.cjs",
+          "line": 98,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1845,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "real SSH renders Unicode, ANSI color, control keys, clipboard and search",
+          "file": "app.e2e.cjs",
+          "line": 114,
+          "status": "unexpected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "failed",
+              "durationMs": 12919,
+              "errors": [
+                "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"\u001b[200~\"\u001b[39m\nReceived string:    \u001b[31m\"printf \\\"PASTE_OK\\\\n\\\"\r\"\u001b[39m\n\nCall Log:\n- Timeout 12000ms exceeded while waiting on the predicate\n\n  141 |   await press('Enter')\n  142 |   await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('PASTE_OK')\n> 143 |   await expect.poll(() => Buffer.concat(fx.inputs.slice(pasteOffset)).toString()).toContain('\\x1b[200~')\n      |                                                                                   ^\n  144 |   await press('Control+Shift+F')\n  145 |   await page.getByRole('textbox', { name: '终端搜索词' }).fill('PASTE_OK')\n  146 |   await page.getByRole('button', { name: '关闭终端查找' }).click()\n    at <repo>/tests/app.e2e.cjs:143:83"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "independent pane tabs, new connection shortcut, drag movement and layout folding preserve sessions",
+          "file": "app.e2e.cjs",
+          "line": 153,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "screen alternate buffer, terminal resizing and tmux prefixes work through actual PTYs",
+          "file": "app.e2e.cjs",
+          "line": 191,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "terminal file tree edits text and dual SFTP panes can both switch endpoints",
+          "file": "app.e2e.cjs",
+          "line": 222,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "file drag upload, remote rename, download and confirmed deletion work in the desktop UI",
+          "file": "app.e2e.cjs",
+          "line": 249,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "large terminal output survives flow control and scrollback limits",
+          "file": "app.e2e.cjs",
+          "line": 285,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "known-host fingerprints, application isolation, and no renderer errors",
+          "file": "app.e2e.cjs",
+          "line": 296,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+          "file": "appearance-files.e2e.cjs",
+          "line": 124,
+          "status": "unexpected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "failed",
+              "durationMs": 2268,
+              "errors": [
+                "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[32m- <tmp>/quayterm-features-9mXokN/local/first.txt\u001b[39m\n\u001b[31m+ \u001b[7m/private\u001b[27m<tmp>/quayterm-features-9mXokN/local/first.txt\u001b[39m\n\u001b[32m- <tmp>/quayterm-features-9mXokN/local/second.txt\u001b[39m\n\u001b[31m+ \u001b[7m/private\u001b[27m<tmp>/quayterm-features-9mXokN/local/second.txt\u001b[39m\n\n  131 |   await expect(left.locator('.file-row.selected')).toHaveCount(2)\n  132 |   await contextItem('复制路径')\n> 133 |   expect(await app.evaluate(({ clipboard }) => clipboard.readText())).toBe(\n      |                                                                       ^\n  134 |     [path.join(local, 'first.txt'), path.join(local, 'second.txt')].join('\\n')\n  135 |   )\n  136 |   await row(left, 'folder').click({ button: 'right' })\n    at <repo>/tests/appearance-files.e2e.cjs:133:71"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+          "file": "appearance-files.e2e.cjs",
+          "line": 171,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+          "file": "appearance-files.e2e.cjs",
+          "line": 229,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+          "file": "appearance-files.e2e.cjs",
+          "line": 300,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "terminal sidebar right-click editing and six live themes work without reconnecting",
+          "file": "appearance-files.e2e.cjs",
+          "line": 339,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "automatic highlights preserve ANSI colors, progress redraw and alternate screens over SSH",
+          "file": "appearance-files.e2e.cjs",
+          "line": 385,
+          "status": "skipped",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "skipped",
+              "durationMs": 0,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "file": "desktop-smoke.e2e.cjs",
+          "line": 6,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "electron-launch",
+              "description": "{\"platform\":\"darwin\",\"arch\":\"x64\",\"version\":\"0.2.3\",\"electron\":\"44.7.0\",\"isPackaged\":false,\"noSandbox\":false,\"useMockKeychain\":true,\"passwordStorePresent\":true,\"passwordStoreValue\":\"basic\",\"windows\":[{\"sandbox\":true,\"contextIsolation\":true,\"nodeIntegration\":false,\"webSecurity\":true}]}"
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 29586,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "file sidebar remembers each SSH session, nested expansions, scroll and navigation across hiding and moves",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 117,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 6824,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "edge docking covers four directions, nested layouts, resizing, tab order and original SSH identities",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 169,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 14050,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "closing or moving the last session removes used panes while manual vacancies remain",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 235,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 7791,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "reconnecting a sole session preserves its pane and split size",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 263,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 4095,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "real tmux mouse selections auto-copy without modifiers and preserve reporting; unsolicited OSC 52 stays blocked",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 280,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 11288,
+              "errors": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "source-final",
+      "stats": {
+        "startTime": "2026-10-10T09:42:10.569Z",
+        "duration": 166161.915,
+        "expected": 20,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "host grid, right editor, display controls and persisted changes",
+          "file": "app.e2e.cjs",
+          "line": 100,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1604,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "real SSH renders Unicode, ANSI color, control keys, clipboard and search",
+          "file": "app.e2e.cjs",
+          "line": 116,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1316,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "independent pane tabs, new connection shortcut, drag movement and layout folding preserve sessions",
+          "file": "app.e2e.cjs",
+          "line": 166,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 5477,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "screen alternate buffer, terminal resizing and tmux prefixes work through actual PTYs",
+          "file": "app.e2e.cjs",
+          "line": 204,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 18868,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "terminal file tree edits text and dual SFTP panes can both switch endpoints",
+          "file": "app.e2e.cjs",
+          "line": 235,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 2586,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "file drag upload, remote rename, download and confirmed deletion work in the desktop UI",
+          "file": "app.e2e.cjs",
+          "line": 262,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 4413,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "large terminal output survives flow control and scrollback limits",
+          "file": "app.e2e.cjs",
+          "line": 298,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1250,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "known-host fingerprints, application isolation, and no renderer errors",
+          "file": "app.e2e.cjs",
+          "line": 309,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 682,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+          "file": "appearance-files.e2e.cjs",
+          "line": 124,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 11077,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+          "file": "appearance-files.e2e.cjs",
+          "line": 171,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 9789,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+          "file": "appearance-files.e2e.cjs",
+          "line": 229,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 7407,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+          "file": "appearance-files.e2e.cjs",
+          "line": 300,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 7238,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "terminal sidebar right-click editing and six live themes work without reconnecting",
+          "file": "appearance-files.e2e.cjs",
+          "line": 339,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 14123,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "automatic highlights preserve ANSI colors, progress redraw and alternate screens over SSH",
+          "file": "appearance-files.e2e.cjs",
+          "line": 385,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 3040,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "file": "desktop-smoke.e2e.cjs",
+          "line": 6,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "electron-launch",
+              "description": "{\"platform\":\"darwin\",\"arch\":\"x64\",\"version\":\"0.2.3\",\"electron\":\"44.7.0\",\"isPackaged\":false,\"noSandbox\":false,\"useMockKeychain\":true,\"passwordStorePresent\":true,\"passwordStoreValue\":\"basic\",\"windows\":[{\"sandbox\":true,\"contextIsolation\":true,\"nodeIntegration\":false,\"webSecurity\":true}]}"
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 29220,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "file sidebar remembers each SSH session, nested expansions, scroll and navigation across hiding and moves",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 117,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 5441,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "edge docking covers four directions, nested layouts, resizing, tab order and original SSH identities",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 169,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 13570,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "closing or moving the last session removes used panes while manual vacancies remain",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 235,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 7872,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "reconnecting a sole session preserves its pane and split size",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 263,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 3511,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "real tmux mouse selections auto-copy without modifiers and preserve reporting; unsolicited OSC 52 stays blocked",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 280,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 11671,
+              "errors": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "packaged-final",
+      "stats": {
+        "startTime": "2026-10-10T09:45:13.014Z",
+        "duration": 153252.744,
+        "expected": 20,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "tests": [
+        {
+          "title": "host grid, right editor, display controls and persisted changes",
+          "file": "app.e2e.cjs",
+          "line": 100,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1551,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "real SSH renders Unicode, ANSI color, control keys, clipboard and search",
+          "file": "app.e2e.cjs",
+          "line": 116,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1516,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "independent pane tabs, new connection shortcut, drag movement and layout folding preserve sessions",
+          "file": "app.e2e.cjs",
+          "line": 166,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 5609,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "screen alternate buffer, terminal resizing and tmux prefixes work through actual PTYs",
+          "file": "app.e2e.cjs",
+          "line": 204,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 8382,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "terminal file tree edits text and dual SFTP panes can both switch endpoints",
+          "file": "app.e2e.cjs",
+          "line": 235,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1492,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "file drag upload, remote rename, download and confirmed deletion work in the desktop UI",
+          "file": "app.e2e.cjs",
+          "line": 262,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 4049,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "large terminal output survives flow control and scrollback limits",
+          "file": "app.e2e.cjs",
+          "line": 298,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 1280,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "known-host fingerprints, application isolation, and no renderer errors",
+          "file": "app.e2e.cjs",
+          "line": 309,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/app.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 641,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "local file context menus target the clicked item, preserve multiple selection and paste into folders",
+          "file": "appearance-files.e2e.cjs",
+          "line": 124,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 11197,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "SFTP context menus download, upload files/folders and transfer to the other pane",
+          "file": "appearance-files.e2e.cjs",
+          "line": 171,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 9783,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "binary double-click opens independent local snapshots while text and read errors stay in the editor",
+          "file": "appearance-files.e2e.cjs",
+          "line": 229,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 7233,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "same-name uploads require explicit overwrite and reset consent for every transfer",
+          "file": "appearance-files.e2e.cjs",
+          "line": 300,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 6796,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "terminal sidebar right-click editing and six live themes work without reconnecting",
+          "file": "appearance-files.e2e.cjs",
+          "line": 339,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 11904,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "automatic highlights preserve ANSI colors, progress redraw and alternate screens over SSH",
+          "file": "appearance-files.e2e.cjs",
+          "line": 385,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "serial",
+              "location": {
+                "file": "<repo>/tests/appearance-files.e2e.cjs",
+                "line": 0,
+                "column": 0
+              }
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 2507,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "native desktop SSH, SFTP, shortcuts, credentials isolation and window startup",
+          "file": "desktop-smoke.e2e.cjs",
+          "line": 6,
+          "status": "expected",
+          "annotations": [
+            {
+              "type": "electron-launch",
+              "description": "{\"platform\":\"darwin\",\"arch\":\"x64\",\"version\":\"0.2.3\",\"electron\":\"44.7.0\",\"isPackaged\":true,\"noSandbox\":false,\"useMockKeychain\":false,\"passwordStorePresent\":false,\"passwordStoreValue\":\"\",\"windows\":[{\"sandbox\":true,\"contextIsolation\":true,\"nodeIntegration\":false,\"webSecurity\":true}]}"
+            }
+          ],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 27007,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "file sidebar remembers each SSH session, nested expansions, scroll and navigation across hiding and moves",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 117,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 5520,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "edge docking covers four directions, nested layouts, resizing, tab order and original SSH identities",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 169,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 13620,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "closing or moving the last session removes used panes while manual vacancies remain",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 235,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 8289,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "reconnecting a sole session preserves its pane and split size",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 263,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 3675,
+              "errors": []
+            }
+          ]
+        },
+        {
+          "title": "real tmux mouse selections auto-copy without modifiers and preserve reporting; unsolicited OSC 52 stays blocked",
+          "file": "workspace-interactions.e2e.cjs",
+          "line": 280,
+          "status": "expected",
+          "annotations": [],
+          "runs": [
+            {
+              "status": "passed",
+              "durationMs": 11278,
+              "errors": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "directChecks": {
+    "zip-clipboard-boundaries": {
+      "startedAt": "2026-10-10T09:48:46.200Z",
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "results": [
+        {
+          "id": "one-valid-write-and-no-read",
+          "status": "PASS",
+          "evidence": {
+            "unicodeAccepted": true,
+            "secondWriteDenied": true,
+            "readQueryUnanswered": true
+          }
+        },
+        {
+          "id": "focusout",
+          "status": "PASS",
+          "evidence": {
+            "clipboardUnchanged": true,
+            "millisecondsAfterSelection": 12
+          }
+        },
+        {
+          "id": "keydown",
+          "status": "PASS",
+          "evidence": {
+            "clipboardUnchanged": true,
+            "millisecondsAfterSelection": 5
+          }
+        },
+        {
+          "id": "background-session",
+          "status": "PASS",
+          "evidence": {
+            "clipboardUnchanged": true,
+            "millisecondsAfterSelection": 83
+          }
+        },
+        {
+          "id": "expired",
+          "status": "PASS",
+          "evidence": {
+            "clipboardUnchanged": true,
+            "millisecondsAfterSelection": 1603
+          }
+        },
+        {
+          "id": "untrusted-dom",
+          "status": "PASS",
+          "evidence": {
+            "clipboardUnchanged": true,
+            "millisecondsAfterSelection": 0
+          }
+        }
+      ],
+      "launch": {
+        "isPackaged": true,
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": "",
+        "sandbox": true
+      },
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-10T09:48:55.473Z"
+    },
+    "zip-native": {
+      "startedAt": "2026-10-10T09:48:56.073Z",
+      "executable": ".private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/MacOS/QuayTerm",
+      "results": [
+        {
+          "id": "runtime",
+          "startedAt": "2026-10-10T09:48:57.750Z",
+          "evidence": {
+            "packaged": true,
+            "version": "0.2.3",
+            "electron": "44.7.0",
+            "node": "24.21.0",
+            "arch": "x64",
+            "secureStorage": true,
+            "bounds": {
+              "x": 149,
+              "y": 25,
+              "width": 1420,
+              "height": 816
+            },
+            "trafficLights": {
+              "x": 14,
+              "y": 16
+            },
+            "sandbox": true,
+            "contextIsolation": true,
+            "nodeIntegration": false,
+            "menuRoles": [
+              "QuayTerm",
+              "editmenu",
+              "windowmenu"
+            ],
+            "switches": {
+              "noSandbox": false,
+              "mockKeychain": false,
+              "passwordStore": ""
+            },
+            "argv": [
+              "<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/MacOS/QuayTerm",
+              "--inspect=0",
+              "--remote-debugging-port=0"
+            ]
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:48:57.872Z"
+        },
+        {
+          "id": "keychain-save",
+          "startedAt": "2026-10-10T09:48:57.872Z",
+          "evidence": {
+            "encryptedOnDisk": true,
+            "plaintextAbsent": true,
+            "mode": "600",
+            "firstPid": 4051
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:48:57.885Z"
+        },
+        {
+          "id": "keychain-new-process",
+          "startedAt": "2026-10-10T09:48:59.761Z",
+          "evidence": {
+            "newPid": 4068,
+            "authenticatedWithoutPasswordEntry": true,
+            "settingsRestored": true,
+            "fingerprintMatched": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:00.248Z"
+        },
+        {
+          "id": "command-terminal-edit-focus",
+          "startedAt": "2026-10-10T09:49:00.249Z",
+          "evidence": {
+            "terminal": [
+              "Cmd+A",
+              "Cmd+C",
+              "Cmd+F",
+              "Cmd+V"
+            ],
+            "normalInput": [
+              "Cmd+A",
+              "Cmd+C",
+              "Cmd+V"
+            ],
+            "bracketedBytesVerified": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:00.866Z"
+        },
+        {
+          "id": "app-quit-cancel",
+          "startedAt": "2026-10-10T09:49:00.867Z",
+          "evidence": {
+            "applicationSurvived": true,
+            "sameSessionAcceptsInput": true,
+            "method": "app.quit() lifecycle; native menu and physical Cmd+Q NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:01.857Z"
+        },
+        {
+          "id": "window-controls-api",
+          "startedAt": "2026-10-10T09:49:01.857Z",
+          "evidence": {
+            "minimizeRestoreMaximize": true,
+            "method": "BrowserWindow API; traffic-light clicks NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:05.156Z"
+        },
+        {
+          "id": "app-quit-confirm",
+          "startedAt": "2026-10-10T09:49:05.157Z",
+          "evidence": {
+            "normalExitCode": 0,
+            "inspectorDetachedAfterWindowClosed": true,
+            "debuggerState": {
+              "waitingForDebuggerDisconnect": false
+            }
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:05.516Z"
+        }
+      ],
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-10T09:49:07.439Z"
+    },
+    "zip-pty": {
+      "startedAt": "2026-10-10T09:49:08.125Z",
+      "results": [
+        {
+          "id": "tmux-real-windows",
+          "startedAt": "2026-10-10T09:49:10.405Z",
+          "evidence": {
+            "version": "3.7c",
+            "first": "/dev/ttys002",
+            "second": "/dev/ttys003",
+            "previousNextVerified": true,
+            "before": "35 133",
+            "after": "29 95",
+            "reattached": "/dev/ttys002",
+            "mouseModeShiftSelectionAndCommandCopy": true,
+            "selectionDidNotSendMouseBytes": true,
+            "dedicatedSocket": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:17.847Z"
+        },
+        {
+          "id": "real-pty-resize",
+          "startedAt": "2026-10-10T09:49:17.848Z",
+          "evidence": {
+            "tty": "/dev/ttys000",
+            "before": "36 133",
+            "after": "30 95",
+            "method": "actual shell stty through SSH and Python PTY"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:19.471Z"
+        },
+        {
+          "id": "large-output",
+          "startedAt": "2026-10-10T09:49:19.472Z",
+          "evidence": {
+            "lines": 50000,
+            "finalTenContiguous": true,
+            "inputAfterOutput": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:20.855Z"
+        },
+        {
+          "id": "screen-real-windows",
+          "startedAt": "2026-10-10T09:49:20.856Z",
+          "evidence": {
+            "version": "4.00.03 (Apple system screen)",
+            "first": "/dev/ttys004",
+            "second": "/dev/ttys005",
+            "returned": "/dev/ttys004",
+            "before": "30 95",
+            "after": "35 124",
+            "attached": "/dev/ttys004",
+            "dedicatedSession": "quayterm-test",
+            "dedicatedSocketDirectory": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:24.577Z"
+        },
+        {
+          "id": "independent-layouts",
+          "startedAt": "2026-10-10T09:49:24.578Z",
+          "evidence": {
+            "ttys": [
+              "/dev/ttys000",
+              "/dev/ttys008",
+              "/dev/ttys006",
+              "/dev/ttys007"
+            ],
+            "independentShellProcesses": 4,
+            "layouts": 8,
+            "movedFromTwoPlusTwoToThreePlusOne": true,
+            "divider": {
+              "before": "35 60",
+              "after": "35 71",
+              "sameTty": "/dev/ttys006"
+            },
+            "reconnected": false
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:34.874Z"
+        }
+      ],
+      "scope": "tmux-real-windows,real-pty-resize,large-output,screen-real-windows,independent-layouts",
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-10T09:49:35.471Z"
+    },
+    "zip-files": {
+      "startedAt": "2026-10-10T09:49:36.138Z",
+      "results": [
+        {
+          "id": "F03-three-directions",
+          "startedAt": "2026-10-10T09:49:38.307Z",
+          "evidence": {
+            "directions": [
+              "local -> A",
+              "A -> B",
+              "B -> local"
+            ],
+            "independentEndpoints": true,
+            "files": [
+              {
+                "path": "child/中文 文件.txt",
+                "bytes": 17,
+                "sha256": "3faf541d715494b808054c70e48d38c80c218bc344766dedc6b9703b19a2da83"
+              },
+              {
+                "path": "sample.bin",
+                "bytes": 1048576,
+                "sha256": "974df4c70b17cdfe3054cccac3578d0c10ab6131b0dbf0bc91883167268c1913"
+              }
+            ],
+            "remoteShellInputBytes": 0
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:38.928Z"
+        },
+        {
+          "id": "F03-overwrite-self-link-cancel-disconnect",
+          "startedAt": "2026-10-10T09:49:38.929Z",
+          "evidence": {
+            "overwriteDeniedAndAllowed": true,
+            "sameHostTwoConnectionsSelfAndChildBlocked": true,
+            "symlinksRejected": true,
+            "canceledAfterBytes": 196608,
+            "canceledTotalBytes": 67108864,
+            "disconnectAfterBytes": 196608,
+            "originalTargetPreserved": true,
+            "disconnectedPartFilesCleaned": 1,
+            "userReconnectAndNewTransfer": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:39.950Z"
+        },
+        {
+          "id": "N01-auth-and-refused",
+          "startedAt": "2026-10-10T09:49:39.950Z",
+          "evidence": {
+            "wrongPasswordError": true,
+            "refusedConnectionError": true,
+            "failedSessionsClosable": true,
+            "methods": "actual packaged IPC and real loopback SSH; UI errors are separately exercised in host trust and idle tests"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:40.077Z"
+        },
+        {
+          "id": "F04-no-atomic-extension",
+          "startedAt": "2026-10-10T09:49:40.077Z",
+          "evidence": {
+            "method": "real SFTP v3 peer with OpenSSH extensions removed from VERSION advertisement",
+            "replacementRejected": true,
+            "originalPreserved": true,
+            "partialFilesRemoved": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:40.207Z"
+        },
+        {
+          "id": "F04-remote-editor-and-limits",
+          "startedAt": "2026-10-10T09:49:40.208Z",
+          "evidence": {
+            "remoteUtf8AndBomCrlf": true,
+            "consecutiveCommandS": 2,
+            "staleSavesRejectedForBothFormats": true,
+            "externalChangesPreserved": true,
+            "largeTextLimitBytes": 2097152,
+            "binaryPreservedAndRoutedExternally": true,
+            "externalCopyEditNotUploaded": true,
+            "systemApplication": "stub; real open evidence is separate"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:43.351Z"
+        }
+      ],
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-10T09:49:43.706Z"
+    },
+    "zip-ui": {
+      "startedAt": "2026-10-10T09:49:44.364Z",
+      "results": [
+        {
+          "id": "T04-styles-and-unicode",
+          "startedAt": "2026-10-10T09:49:46.867Z",
+          "evidence": {
+            "styles": {
+              "BOLD": {
+                "color": "rgb(203, 212, 227)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "700",
+                "decoration": "none"
+              },
+              "UNDER": {
+                "color": "rgb(203, 212, 227)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "underline"
+              },
+              "INV": {
+                "color": "rgb(20, 24, 39)",
+                "background": "rgb(203, 212, 227)",
+                "weight": "400",
+                "decoration": "none"
+              },
+              "ANSI16": {
+                "color": "rgb(239, 125, 133)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "none"
+              },
+              "INDEX": {
+                "color": "rgb(255, 135, 0)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "none"
+              },
+              "RGB": {
+                "color": "rgb(12, 34, 56)",
+                "background": "rgba(0, 0, 0, 0)",
+                "weight": "400",
+                "decoration": "none"
+              }
+            },
+            "positions": {
+              "cellWidth": 8.421875,
+              "endOffset": 126.359375,
+              "expectedCells": 15
+            },
+            "cjkEmojiCombining": true,
+            "remainingCoverage": "six themes, highlight semantics and 50000 lines are in this run packaged-full and zip-pty"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:47.175Z"
+        },
+        {
+          "id": "F01-navigation-and-endpoints",
+          "startedAt": "2026-10-10T09:49:47.176Z",
+          "evidence": {
+            "sidebar": {
+              "before": 264,
+              "after": 334.1875,
+              "hiddenAndRestored": true,
+              "followsFocusedSession": true
+            },
+            "endpointCases": [
+              {
+                "side": 0,
+                "endpoint": "本地",
+                "sample": "LOCAL_ONLY.txt"
+              },
+              {
+                "side": 0,
+                "endpoint": "UI Alpha",
+                "sample": "A_ONLY.txt"
+              },
+              {
+                "side": 0,
+                "endpoint": "UI Beta",
+                "sample": "B_ONLY.txt"
+              },
+              {
+                "side": 1,
+                "endpoint": "本地",
+                "sample": "LOCAL_ONLY.txt"
+              },
+              {
+                "side": 1,
+                "endpoint": "UI Alpha",
+                "sample": "A_ONLY.txt"
+              },
+              {
+                "side": 1,
+                "endpoint": "UI Beta",
+                "sample": "B_ONLY.txt"
+              }
+            ],
+            "hiddenFilteringSortingNavigation": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:52.194Z"
+        },
+        {
+          "id": "T02-selection-and-multiline",
+          "startedAt": "2026-10-10T09:49:52.195Z",
+          "evidence": {
+            "dragAndSelectAll": true,
+            "autoCopyInExistingAndNewSession": true,
+            "multilineCancelSendsNothing": true,
+            "multilineConfirmBracketedBytes": true,
+            "otherNativeTextApp": "BLOCKED",
+            "preferenceRestart": "zip-native proves saved setting restoration"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:49:56.004Z"
+        },
+        {
+          "id": "T03-keyboard-and-shell",
+          "startedAt": "2026-10-10T09:49:56.005Z",
+          "evidence": {
+            "newConnectionTAndK": true,
+            "altDigits": 9,
+            "tabNextPrevious": true,
+            "closeCancelConfirm": true,
+            "shellBytes": [
+              "Ctrl+A",
+              "Ctrl+B",
+              "Ctrl+C",
+              "Ctrl+K",
+              "Tab",
+              "four arrows"
+            ],
+            "foregroundStopAndInterrupt": true,
+            "ctrlDClosesOnlyFixtureShell": true,
+            "shellExitPid": 4402,
+            "nativeMenuAndPhysicalCmdQ": "BLOCKED"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:00.970Z"
+        },
+        {
+          "id": "F02-T03-file-keys",
+          "startedAt": "2026-10-10T09:50:00.971Z",
+          "evidence": {
+            "shiftRangeSelection": 3,
+            "commandSelectAll": 4,
+            "F2Rename": true,
+            "commandCopyPasteIntoFolder": true,
+            "deleteCancelAndConfirm": true,
+            "ShiftF10ContextAndCopyName": true,
+            "originalRetained": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:05.582Z"
+        },
+        {
+          "id": "N01-visible-errors-and-reconnect",
+          "startedAt": "2026-10-10T09:50:05.583Z",
+          "evidence": {
+            "incorrectPasswordVisible": true,
+            "correctedPasswordManualReconnect": true,
+            "refusedConnectionVisibleAndClosable": true,
+            "sleepWake": "BLOCKED"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:06.275Z"
+        },
+        {
+          "id": "T02-autocopy-after-restart",
+          "startedAt": "2026-10-10T09:50:06.275Z",
+          "evidence": {
+            "newPid": 4451,
+            "settingRestored": true,
+            "selectionCopiedWithoutRetoggling": true,
+            "clipboardRestoredBetweenProcesses": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:10.108Z"
+        }
+      ],
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "clipboardRestored": true,
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-10T09:50:10.280Z"
+    },
+    "zip-trust": {
+      "startedAt": "2026-10-10T09:50:10.969Z",
+      "results": [
+        {
+          "id": "H01-host-management",
+          "startedAt": "2026-10-10T09:50:12.704Z",
+          "evidence": {
+            "createEditDelete": true,
+            "groupSearchAndTagFilter": true,
+            "fourSorts": true,
+            "gridAndList": true,
+            "distinctHostEdits": true,
+            "newProcessPersistence": true,
+            "connectionPaths": "verified by H02"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:24.962Z"
+        },
+        {
+          "id": "H02-host-trust",
+          "startedAt": "2026-10-10T09:50:24.963Z",
+          "evidence": {
+            "initialReject": true,
+            "fingerprintMatchedIndependentProbe": true,
+            "explicitTrustAndReconnect": true,
+            "samePortChangedKeyBlocked": true,
+            "knownDetailsAndDelete": true,
+            "explicitRetrust": true,
+            "hashedKnownHostsImport": true,
+            "wildcardAndMalformedRejected": true,
+            "importPicker": "stub points to a real dedicated file; native picker is covered by F02 BLOCKED",
+            "topPlusAndDoubleClick": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:31.959Z"
+        },
+        {
+          "id": "P01-storage-unavailable",
+          "startedAt": "2026-10-10T09:50:31.959Z",
+          "evidence": {
+            "method": "isEncryptionAvailable=false only in isolated process; system Keychain untouched",
+            "warningVisible": true,
+            "plaintextAbsent": true,
+            "noEncryptedSecretWritten": true,
+            "sameProcessAuthentication": true,
+            "passwordMissingAfterNewProcess": true,
+            "promptOnReconnect": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:37.409Z"
+        }
+      ],
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-10T09:50:37.526Z"
+    },
+    "zip-real-open": {
+      "startedAt": "2026-10-10T09:50:38.322Z",
+      "visualDisplay": "BLOCKED: native app observation is unavailable in this chat; process/file evidence does not prove displayed content",
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "processArguments": [
+        "4613  4603 <repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/MacOS/QuayTerm --inspect=0 --remote-debugging-port=0",
+        "4615  4613 <repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/Frameworks/QuayTerm Helper.app/Contents/MacOS/QuayTerm Helper --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN --service-sandbox-type=network --user-data-dir=<tmp>/quayterm-real-open-9pZDVn --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --shared-files --field-trial-handle=1718379636,r,9982267416213275655,244144391610407696,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,177287360116994152,12560374361763308203,4 --trace-process-track-uuid=3190708989122997041 --seatbelt-client=36",
+        "4617  4613 <repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/Frameworks/QuayTerm Helper (Renderer).app/Contents/MacOS/QuayTerm Helper (Renderer) --type=renderer --user-data-dir=<tmp>/quayterm-real-open-9pZDVn --standard-schemes=quay --secure-schemes=quay --fetch-schemes=quay --streaming-schemes=quay --app-path=<repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/Resources/app.asar --enable-sandbox --remote-debugging-port=0 --lang=zh-CN --num-raster-threads=2 --enable-zero-copy --enable-gpu-memory-buffer-compositor-resources --enable-main-frame-before-activation --renderer-client-id=4 --launch-time-ticks=99011483366 --shared-files --field-trial-handle=1718379636,r,9982267416213275655,244144391610407696,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,177287360116994152,12560374361763308203,4 --trace-process-track-uuid=3190708990060038890 --seatbelt-client=56",
+        "4624  4613 <repo>/.private/qa/2026-10-10-macos-new-features/zip-install/QuayTerm.app/Contents/Frameworks/QuayTerm Helper.app/Contents/MacOS/QuayTerm Helper --type=gpu-process --user-data-dir=<tmp>/quayterm-real-open-9pZDVn --gpu-preferences=WAAAAAAAAAAgAQAEAAAAAAAAAAAAAGAAQAAAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAAgAAAAAAAAA --use-gl=disabled --shared-files --field-trial-handle=1718379636,r,9982267416213275655,244144391610407696,262144 --enable-features=PdfUseShowSaveFilePicker,ScreenCaptureKitPickerScreen,ScreenCaptureKitStreamPickerSonoma --disable-features=DropInputEventsWhilePaintHolding,LocalNetworkAccessChecks,ScreenAIOCREnabled,SpareRendererForSitePerProcess,TimeoutHangingVideoCaptureStarts,TraceSiteInstanceGetProcessCreation --variations-seed-version --pseudonymization-salt-handle=1935764596,r,177287360116994152,12560374361763308203,4 --trace-process-track-uuid=3190708991934122588 --seatbelt-client=34"
+      ],
+      "debugEndpointsLoopbackOnly": true,
+      "local": {
+        "openedOriginal": true,
+        "sampleSha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706",
+        "bytes": 19777
+      },
+      "remote": {
+        "independentCopies": true,
+        "copies": [
+          {
+            "filename": "Remote independent.png",
+            "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706"
+          },
+          {
+            "filename": "Remote independent.png",
+            "sha256": "5b47a174460df56ac8e1e79cdaca0f8adb390e55f28ba251af1a3609456c0706"
+          }
+        ],
+        "remoteShellInputBytes": 0
+      },
+      "preview": {
+        "newlyStartedPids": [
+          4665
+        ],
+        "version": "11.0"
+      },
+      "copiesSurviveQuayTermExit": true,
+      "actualShellOpenPath": "PASS (unmodified Electron shell.openPath; native visual display still BLOCKED)",
+      "cleanedTestFiles": true,
+      "finishedAt": "2026-10-10T09:50:45.030Z"
+    },
+    "dmg-native": {
+      "startedAt": "2026-10-10T09:50:45.702Z",
+      "executable": ".private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app/Contents/MacOS/QuayTerm",
+      "results": [
+        {
+          "id": "runtime",
+          "startedAt": "2026-10-10T09:50:51.188Z",
+          "evidence": {
+            "packaged": true,
+            "version": "0.2.3",
+            "electron": "44.7.0",
+            "node": "24.21.0",
+            "arch": "x64",
+            "secureStorage": true,
+            "bounds": {
+              "x": 149,
+              "y": 25,
+              "width": 1420,
+              "height": 816
+            },
+            "trafficLights": {
+              "x": 14,
+              "y": 16
+            },
+            "sandbox": true,
+            "contextIsolation": true,
+            "nodeIntegration": false,
+            "menuRoles": [
+              "QuayTerm",
+              "editmenu",
+              "windowmenu"
+            ],
+            "switches": {
+              "noSandbox": false,
+              "mockKeychain": false,
+              "passwordStore": ""
+            },
+            "argv": [
+              "<repo>/.private/qa/2026-10-10-macos-new-features/dmg-install/QuayTerm.app/Contents/MacOS/QuayTerm",
+              "--inspect=0",
+              "--remote-debugging-port=0"
+            ]
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:51.324Z"
+        },
+        {
+          "id": "keychain-save",
+          "startedAt": "2026-10-10T09:50:51.324Z",
+          "evidence": {
+            "encryptedOnDisk": true,
+            "plaintextAbsent": true,
+            "mode": "600",
+            "firstPid": 4728
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:51.335Z"
+        },
+        {
+          "id": "keychain-new-process",
+          "startedAt": "2026-10-10T09:50:53.327Z",
+          "evidence": {
+            "newPid": 4745,
+            "authenticatedWithoutPasswordEntry": true,
+            "settingsRestored": true,
+            "fingerprintMatched": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:53.720Z"
+        },
+        {
+          "id": "command-terminal-edit-focus",
+          "startedAt": "2026-10-10T09:50:53.721Z",
+          "evidence": {
+            "terminal": [
+              "Cmd+A",
+              "Cmd+C",
+              "Cmd+F",
+              "Cmd+V"
+            ],
+            "normalInput": [
+              "Cmd+A",
+              "Cmd+C",
+              "Cmd+V"
+            ],
+            "bracketedBytesVerified": true
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:54.259Z"
+        },
+        {
+          "id": "app-quit-cancel",
+          "startedAt": "2026-10-10T09:50:54.259Z",
+          "evidence": {
+            "applicationSurvived": true,
+            "sameSessionAcceptsInput": true,
+            "method": "app.quit() lifecycle; native menu and physical Cmd+Q NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:55.240Z"
+        },
+        {
+          "id": "window-controls-api",
+          "startedAt": "2026-10-10T09:50:55.241Z",
+          "evidence": {
+            "minimizeRestoreMaximize": true,
+            "method": "BrowserWindow API; traffic-light clicks NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:58.856Z"
+        },
+        {
+          "id": "app-quit-confirm",
+          "startedAt": "2026-10-10T09:50:58.857Z",
+          "evidence": {
+            "normalExitCode": 0,
+            "inspectorDetachedAfterWindowClosed": true,
+            "debuggerState": {
+              "waitingForDebuggerDisconnect": false
+            }
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:50:59.376Z"
+        }
+      ],
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-10T09:51:01.288Z"
+    },
+    "upgrade-profile": {
+      "startedAt": "2026-10-10T09:51:01.984Z",
+      "format": "macOS standalone app",
+      "oldRelease": "v0.2.2",
+      "oldReleaseZipSha256": "a3e24677888d2eea52c1d4791e05d7f32339218472a89c18ba86cd326acf2c54",
+      "results": [
+        {
+          "id": "replace-with-fixed-ZIP",
+          "status": "PASS",
+          "pid": 4829,
+          "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+          "hostTrustPreferencesPreserved": true,
+          "authenticatedWithoutPasswordEntry": true,
+          "timestamp": "2026-10-10T09:51:15.928Z"
+        },
+        {
+          "id": "replace-with-fixed-DMG",
+          "status": "PASS",
+          "pid": 4848,
+          "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+          "hostTrustPreferencesPreserved": true,
+          "authenticatedWithoutPasswordEntry": true,
+          "timestamp": "2026-10-10T09:51:22.454Z"
+        },
+        {
+          "id": "remove-program-reinstall-keep-data",
+          "status": "PASS",
+          "pid": 4865,
+          "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+          "hostTrustPreferencesPreserved": true,
+          "authenticatedWithoutPasswordEntry": true,
+          "timestamp": "2026-10-10T09:51:28.256Z"
+        }
+      ],
+      "initial": {
+        "asarSha256": "03e5a4a43feb3d9e02d72d3f38f1dc2614fca262d934d5bd3b94ef57bec09feb",
+        "version": "0.2.2",
+        "pid": 4800,
+        "rememberedPassword": true,
+        "trustRecorded": true
+      },
+      "uninstaller": "N/A: DMG/ZIP contain standalone .app; only this temporary program bundle was removed, and dedicated profile was retained for reinstall",
+      "normalFinderInstall": "BLOCKED, tracked under R01; these replacements used ditto and direct executable launch",
+      "cleaned": true,
+      "rendererErrors": [],
+      "finishedAt": "2026-10-10T09:51:28.409Z"
+    },
+    "zip-idle": {
+      "startedAt": "2026-10-10T09:51:58.417Z",
+      "results": [
+        {
+          "id": "idle-and-disconnect",
+          "startedAt": "2026-10-10T09:52:00.920Z",
+          "evidence": {
+            "idleMilliseconds": 300087,
+            "inputAfterIdle": true,
+            "gracefulFixtureStopMessage": "Mac PTY QA\n\nSSH 127.0.0.1:63578\n\n连接已关闭\n\n重新连接\n关闭",
+            "sleepWake": "NOT_RUN"
+          },
+          "status": "PASS",
+          "finishedAt": "2026-10-10T09:57:01.008Z"
+        }
+      ],
+      "scope": "idle-and-disconnect",
+      "asarSha256": "ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c",
+      "launchSwitches": {
+        "noSandbox": false,
+        "mockKeychain": false,
+        "passwordStore": ""
+      },
+      "rendererErrors": [],
+      "cleaned": true,
+      "finishedAt": "2026-10-10T09:57:01.772Z"
+    }
+  },
+  "rawEvidence": "Files listed below remain only in the ignored local QA directory; hashes are not a replacement for the result summaries. No credentials or ciphertext are included.",
+  "localEvidenceFiles": [
+    {
+      "path": "application-source-manifest.json",
+      "bytes": 2570,
+      "sha256": "a96e9765fc770c56a77361800bfc296dd10d1f9722e4e2791c0041b58c08862a"
+    },
+    {
+      "path": "audit-runtime.json",
+      "bytes": 338,
+      "sha256": "3fcf40b6962ed4acd48167db7a0eb75727084db9356b78632ca5ee47f64d44be"
+    },
+    {
+      "path": "audit-runtime.log",
+      "bytes": 24,
+      "sha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "path": "build-artifacts.json",
+      "bytes": 546,
+      "sha256": "a77903cdc81c6970e4a4ab5fa0ccf39f701bf1a6c1ebeed349ea1322ed893ed3"
+    },
+    {
+      "path": "build-evidence.py",
+      "bytes": 3953,
+      "sha256": "9d41fd7a12e734e9b48b54ae0c30d7feabdfc78319c1606644ceedb8fdb5e531"
+    },
+    {
+      "path": "build.json",
+      "bytes": 323,
+      "sha256": "da1992031aeafc49dbabe71ce812831414b71cd882c1a88bedb68b76e8935e94"
+    },
+    {
+      "path": "build.log",
+      "bytes": 413,
+      "sha256": "b8f96abcf7909ce563eb2db4b9a8a43a136ab49ae37abdf04c0904297b5f0bbb"
+    },
+    {
+      "path": "check-portable.json",
+      "bytes": 332,
+      "sha256": "d4159dff58bb4259ddc42dc9e27bad1ddb0897f259f755d395381e155b765d41"
+    },
+    {
+      "path": "check-portable.log",
+      "bytes": 153,
+      "sha256": "a4ce8948938f5f5cbf716249c9ad828b6462bdf378bbbee87f9d2edb6b1bad20"
+    },
+    {
+      "path": "check.json",
+      "bytes": 323,
+      "sha256": "d05edd4491efd32d851f81426e69221c053713bbd0c735d7470716c20e9191f5"
+    },
+    {
+      "path": "check.log",
+      "bytes": 153,
+      "sha256": "a4ce8948938f5f5cbf716249c9ad828b6462bdf378bbbee87f9d2edb6b1bad20"
+    },
+    {
+      "path": "cleanup.json",
+      "bytes": 700,
+      "sha256": "5a6eff40745b642a0910191f5b2d11b30070b8a8e9e88008466f8682443880ac"
+    },
+    {
+      "path": "clipboard-boundaries.cjs",
+      "bytes": 6512,
+      "sha256": "670819cf656c47fdb860ffd36ce316ff5c3341c7d7d90ffdcc1d806b0712de5a"
+    },
+    {
+      "path": "clipboard-boundaries.png",
+      "bytes": 35891,
+      "sha256": "ab9de38363e3ed50e27e660931d43a265cc5863339edb909611ed9053264f1b6"
+    },
+    {
+      "path": "clipboard-guard-ready.json",
+      "bytes": 73,
+      "sha256": "9aeaf1f720cbc8d98b77e822fd3ed98807f338bda326f0847bbc3cdf709dcd0f"
+    },
+    {
+      "path": "clipboard-guard.cjs",
+      "bytes": 1209,
+      "sha256": "5a7c9c1c09ab69a631100587a219b162e783a88de933648c1ed1efa944ac8ca0"
+    },
+    {
+      "path": "clipboard-restored.json",
+      "bytes": 57,
+      "sha256": "93fb45b21827edeaccf1f026de32a9f35909d75349bc11e175a8a0f308acd1ce"
+    },
+    {
+      "path": "core-canonical.json",
+      "bytes": 320,
+      "sha256": "40bd046c18f1f9c94cbc8ac0cffde9d29f198b3e9d2d1f827f742ed70cb13bfd"
+    },
+    {
+      "path": "core-canonical.log",
+      "bytes": 3718,
+      "sha256": "ed3d2344a0df9ddbc581f4d535aa6f59e20e3d9265738c0cd18f02b9cb1c54d4"
+    },
+    {
+      "path": "core.json",
+      "bytes": 310,
+      "sha256": "3e4cb4e071ced4daa8d59c8da11961a894fb7d84a39d1c0571de14f6e28bf7a4"
+    },
+    {
+      "path": "core.log",
+      "bytes": 4776,
+      "sha256": "22b30a3953c108b52c5a9983c095ebad0b66fd151af910b69c348ada819ac0d8"
+    },
+    {
+      "path": "direct-electron.cjs",
+      "bytes": 4171,
+      "sha256": "8cdd1cc7f1b06e3d00c57e89f488da3ec5218e474c8c839bad383b74c9074762"
+    },
+    {
+      "path": "direct-suite.json",
+      "bytes": 1464,
+      "sha256": "db9289f5c9f795cf6bc17b3a1ddde31be1bfd631a40191784d99b01c99cd5b28"
+    },
+    {
+      "path": "direct-suite.py",
+      "bytes": 1487,
+      "sha256": "acd599227cc2368fd01473b5aeb023bdd3ec83ef51c75948da6ff6b3733c274c"
+    },
+    {
+      "path": "dmg-native-command.json",
+      "bytes": 418,
+      "sha256": "d366937ce3d75be4a1b91711a49aa35b07281188a7a0f4023cac62a5da5e5ef1"
+    },
+    {
+      "path": "dmg-native-command.log",
+      "bytes": 159,
+      "sha256": "af0ddf821264f02cd0a4b967b6af967c0f92c5d780081b700b8d5f462274ac52"
+    },
+    {
+      "path": "dmg-native-startup.png",
+      "bytes": 47382,
+      "sha256": "b484fdcaa5122fe6d079795971c05690dfda617ad58545880df105dc29067586"
+    },
+    {
+      "path": "dmg-native.json",
+      "bytes": 3533,
+      "sha256": "735cdc3c5044d20d77fcd6c882a97874c3d7d8d66cae29e88cb651f48a2f9e57"
+    },
+    {
+      "path": "electron-runtime.json",
+      "bytes": 351,
+      "sha256": "4d0b626eaf4b6f1804b47b23dcae0256a5ab586fbbb91d244d417c36ea7f476a"
+    },
+    {
+      "path": "electron-runtime.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "files-faults.cjs",
+      "bytes": 16274,
+      "sha256": "7728e8d9708ae9c28c3368ebcb1e517932e70aeebdaba31fa2e5fe3db25a0193"
+    },
+    {
+      "path": "fixture-no-atomic.cjs",
+      "bytes": 6032,
+      "sha256": "d21063dcac49d7a101cdca6e9f3ca444a15aa85606331d13516e6eba8f6f78c6"
+    },
+    {
+      "path": "host-security.cjs",
+      "bytes": 14098,
+      "sha256": "2adcc7664e75174d05f438d63cb04fae5fa031879e80783c7a7e6c8a165750f0"
+    },
+    {
+      "path": "install-artifacts.json",
+      "bytes": 385,
+      "sha256": "13b0710aff5e8d467492f6030c642a1bd4490faf1590ec912ce48fe60fc0c9d8"
+    },
+    {
+      "path": "install-artifacts.log",
+      "bytes": 773,
+      "sha256": "17f5e27371c51050b993c1f32cce080ece2d061bf48953e900b9fb8423ab6fdb"
+    },
+    {
+      "path": "install-artifacts.py",
+      "bytes": 2183,
+      "sha256": "1e393bc731f03f481ca2372d01c6d34ad0c93633ccee5cda761e2afb9597415d"
+    },
+    {
+      "path": "installed-artifacts.json",
+      "bytes": 7964,
+      "sha256": "1abe79c13b9aef1f35d75034c060bbd6a1d26920178a9bcd686b8c318591e522"
+    },
+    {
+      "path": "native-acceptance.cjs",
+      "bytes": 12075,
+      "sha256": "b118a046fc3312ab8e678e3080403728be1b4fa0a7891f5443109b9ee5d0e2af"
+    },
+    {
+      "path": "npm-ci.json",
+      "bytes": 310,
+      "sha256": "7e82b4681d3a3b686f4b0ed655f65d5a2e14c8c308d0125b0cb676df1f54602a"
+    },
+    {
+      "path": "npm-ci.log",
+      "bytes": 1405,
+      "sha256": "02a6fa8f51722248cec468f2c656056439dca3e6594b7dec343a2029e92d82b3"
+    },
+    {
+      "path": "package-audit.json",
+      "bytes": 539,
+      "sha256": "229901a7d46e958e1e3a147297de22652790d176b519cad41d7f0b5c425de989"
+    },
+    {
+      "path": "package-mac.json",
+      "bytes": 439,
+      "sha256": "8b9edd0c7a520643f3796c08538fae42587f28cc853a978f81d52ca90681d7cb"
+    },
+    {
+      "path": "package-mac.log",
+      "bytes": 1206,
+      "sha256": "6a9273c912d55fc37209df702e6b181b1233bb756c960c19e7ffbdee762d9f93"
+    },
+    {
+      "path": "packaged-full-playwright.json",
+      "bytes": 35226,
+      "sha256": "5be7be0d3abfd462243bc718fcc6b48ed10cd09a8e9435b4a47d9a3dea1d0e86"
+    },
+    {
+      "path": "packaged-full.json",
+      "bytes": 337,
+      "sha256": "beeece5a19e140280e0660f3cc1b73aaf29b44ef55d8828241e9c4a6e71300e7"
+    },
+    {
+      "path": "packaged-full.log",
+      "bytes": 3007,
+      "sha256": "9093f9d617a39f6f32ac8c35a514231a5a065a3411fda18474c247e21c67c455"
+    },
+    {
+      "path": "packaged-workspace-screenshots/nested-docking.png",
+      "bytes": 146983,
+      "sha256": "fadd873bf862db7ecde10ca73bfda000df437833269255105371abefcbc3fa13"
+    },
+    {
+      "path": "packaged-workspace-screenshots/sidebar-state.png",
+      "bytes": 73797,
+      "sha256": "fe17584d42c5cbb0d4ec2612d7d688a29e0ab3790532cc2700fb5751fd66ffa7"
+    },
+    {
+      "path": "packaged-workspace-screenshots/tmux-selection.png",
+      "bytes": 44377,
+      "sha256": "a279eb3e8b4193137083a48a9e0dacfe498010ed9f04dd3d7dd0e08fdd02c15c"
+    },
+    {
+      "path": "portable.json",
+      "bytes": 422,
+      "sha256": "66e39de2a00cdfe25eafaccbcb58950cf33efce2cfeca2517cc74ff47a9b6f29"
+    },
+    {
+      "path": "portable.log",
+      "bytes": 2326,
+      "sha256": "894d8d8f0e0169f0065478e191847f9a31be1cde5bc9a8fcd6fcac7f2f382673"
+    },
+    {
+      "path": "pty-acceptance.cjs",
+      "bytes": 13794,
+      "sha256": "1d12173f42f57812c1b9aac77282950ce06109c1fe55af56932da206ffb2bc31"
+    },
+    {
+      "path": "real-open.cjs",
+      "bytes": 6947,
+      "sha256": "8a02e150a56906f5e3f371daf41fe68c0847789f6dad6651f34fbdd703f30b8a"
+    },
+    {
+      "path": "run-command.cjs",
+      "bytes": 1281,
+      "sha256": "f43308685cec54d139acc4ef2e52245f21179fba2924ca687673e12f2aea82d4"
+    },
+    {
+      "path": "source-final-workspace-screenshots/nested-docking.png",
+      "bytes": 146983,
+      "sha256": "fadd873bf862db7ecde10ca73bfda000df437833269255105371abefcbc3fa13"
+    },
+    {
+      "path": "source-final-workspace-screenshots/sidebar-state.png",
+      "bytes": 73797,
+      "sha256": "fe17584d42c5cbb0d4ec2612d7d688a29e0ab3790532cc2700fb5751fd66ffa7"
+    },
+    {
+      "path": "source-final-workspace-screenshots/tmux-selection.png",
+      "bytes": 44385,
+      "sha256": "54022fe7b9394cce94b653298a6af84e271f1d8a32014219086070a929385871"
+    },
+    {
+      "path": "source-first-workspace-screenshots/nested-docking.png",
+      "bytes": 146983,
+      "sha256": "fadd873bf862db7ecde10ca73bfda000df437833269255105371abefcbc3fa13"
+    },
+    {
+      "path": "source-first-workspace-screenshots/sidebar-state.png",
+      "bytes": 73797,
+      "sha256": "fe17584d42c5cbb0d4ec2612d7d688a29e0ab3790532cc2700fb5751fd66ffa7"
+    },
+    {
+      "path": "source-first-workspace-screenshots/tmux-selection.png",
+      "bytes": 44344,
+      "sha256": "500600f3a9b30a773b5dd8fa801b35e9e43f01d0715ea30b56ca8d0dc309bca5"
+    },
+    {
+      "path": "source-full-e2e-failed.png",
+      "bytes": 70174,
+      "sha256": "68b9bcddf5624265eb45b622edb09564a7fbf166fc07f92a97390b99c9aabcc5"
+    },
+    {
+      "path": "source-full-features-failed.png",
+      "bytes": 52851,
+      "sha256": "00e77a09d8e39de433f1dbf757ea1b16e33386f53fe5bc5ad5ef8e70b4c8ce4c"
+    },
+    {
+      "path": "source-full-playwright.json",
+      "bytes": 42250,
+      "sha256": "ecefd7ea27c2df95feb9e3eca6068486940e87c1763e84bc516e13aa17fb36b0"
+    },
+    {
+      "path": "source-full-portable-playwright.json",
+      "bytes": 35235,
+      "sha256": "a59c82c3aa7d7b8ee1f310f104ec3aa18018791a2afddff6366e68b0c5b066f5"
+    },
+    {
+      "path": "source-full-portable.json",
+      "bytes": 344,
+      "sha256": "4fd39de025877728689aee171c3e6a51a48498a742a953d0c3494f295aa4c1a6"
+    },
+    {
+      "path": "source-full-portable.log",
+      "bytes": 3008,
+      "sha256": "26ab2c679d61027b4dce39b47c4e75cf69052b26a577b4692a1f7de1e4b379f8"
+    },
+    {
+      "path": "source-full-traces/.last-run.json",
+      "bytes": 684,
+      "sha256": "fe3838613cba38647cb613db449e9faaa4b761b1c00386854ec60ce6eb1fb9e8"
+    },
+    {
+      "path": "source-full-traces/app.e2e.cjs-real-SSH-rende-ce6f3-l-keys-clipboard-and-search/trace.zip",
+      "bytes": 12346,
+      "sha256": "26c6361dcdedfc5ed421b88b0474bdd033f569e5fa9953d0068acd1893fe9b65"
+    },
+    {
+      "path": "source-full-traces/appearance-files.e2e.cjs-l-9d961-tion-and-paste-into-folders/trace.zip",
+      "bytes": 12174,
+      "sha256": "59bdf324295381725ca31a9405b19ab1b6a8e13b0570af7c1499fcb13ed06d87"
+    },
+    {
+      "path": "source-full.json",
+      "bytes": 335,
+      "sha256": "c7d93a11fe2b5ce48b4ab12269ec41cb3402e6171e75d57fa042121e7d29ccd2"
+    },
+    {
+      "path": "source-full.log",
+      "bytes": 8581,
+      "sha256": "adebc728caeeeaf77e2f252c27a6dc386b6884696858c0ef802c7ad93e1a74b0"
+    },
+    {
+      "path": "source-smoke-playwright.json",
+      "bytes": 5748,
+      "sha256": "cf328f7f171f4afdd7acaced60818d3fe96b2051c4221391df4e644ee54dbdda"
+    },
+    {
+      "path": "source-smoke.json",
+      "bytes": 371,
+      "sha256": "676662828d85fa7c5f5491458d87d979d26582750e0bffc7d64453e5505a2ce2"
+    },
+    {
+      "path": "source-smoke.log",
+      "bytes": 346,
+      "sha256": "add9da4c6e34496d8ce16d2a272aa468e85b4c32f38f94a9a250cce56a456265"
+    },
+    {
+      "path": "test-driver-manifest.json",
+      "bytes": 398,
+      "sha256": "9431d08211c9b6e9eaaa34cbdc87e973b9f9b2ca45d7e29d665e9d4f36eb5432"
+    },
+    {
+      "path": "ui-matrix.cjs",
+      "bytes": 23898,
+      "sha256": "8a4ef14c1c8f0590e766719832d7b7126354b0a985e0adc81adc8f7e5ff7bc81"
+    },
+    {
+      "path": "upgrade-profile-command.json",
+      "bytes": 421,
+      "sha256": "acf9d129021e169809af973100eded0d61701f09cf3b3410e26008d5f0c7a6a5"
+    },
+    {
+      "path": "upgrade-profile-command.log",
+      "bytes": 56,
+      "sha256": "b5febe303eca44b44be139399c6be3ba3c4ec194698ede4b0752b3609606692c"
+    },
+    {
+      "path": "upgrade-profile.cjs",
+      "bytes": 5735,
+      "sha256": "13a8b5583e52caa8acbbd20c5ee78bba8aeab2ce72af86372503eaf2de7b82ee"
+    },
+    {
+      "path": "upgrade-profile.json",
+      "bytes": 1759,
+      "sha256": "183143cdd14dc91c8c9aba49315e6444dd425b34f54fcb9ac5d646fc291d8067"
+    },
+    {
+      "path": "zip-clipboard-boundaries-command.json",
+      "bytes": 435,
+      "sha256": "004825ccdba7661e5b3218e039c4f91a1bf472f6e21398fba9630e8c0824e83b"
+    },
+    {
+      "path": "zip-clipboard-boundaries-command.log",
+      "bytes": 44,
+      "sha256": "2f5821cd1091341cd3914a078cdd43ab5ce51726c40a4344c329d911e65df38d"
+    },
+    {
+      "path": "zip-clipboard-boundaries.json",
+      "bytes": 1429,
+      "sha256": "8e5e93aee1fe061829f683fdfbadc31a2fc970e1b62cafb530a196ec624f1db8"
+    },
+    {
+      "path": "zip-files-command.json",
+      "bytes": 412,
+      "sha256": "f7d090c183a23898f3f2d27c8fcc1de4ab07d0581940d0f170b9045ef968470f"
+    },
+    {
+      "path": "zip-files-command.log",
+      "bytes": 162,
+      "sha256": "352e5d6c70b5fba2819ae021b8990dd11bd3390bfb4320e68a33477ccfd2886e"
+    },
+    {
+      "path": "zip-files.json",
+      "bytes": 3118,
+      "sha256": "7f2c3da2b01199e9306b928aae9822d5b1945824cc68a9027844c94ebf2329d3"
+    },
+    {
+      "path": "zip-idle-command.json",
+      "bytes": 379,
+      "sha256": "486f5d503d8bf95e53450bfda658aa52cd310ddcf4e76895f465762028459ec2"
+    },
+    {
+      "path": "zip-idle-command.log",
+      "bytes": 25,
+      "sha256": "6e0a529b11e76163fc5ed7ddac5c8c6dd872b96a2833d1b97a40279ae3cd9fbe"
+    },
+    {
+      "path": "zip-idle.json",
+      "bytes": 783,
+      "sha256": "ab95766d8e132242f764f0cf9b0a80830176e1a5838be6c35a9559250bbd995f"
+    },
+    {
+      "path": "zip-native-command.json",
+      "bytes": 418,
+      "sha256": "3db2563583cf57f167c222933c2d371bad1d271716e6d03df68b665149acbdab"
+    },
+    {
+      "path": "zip-native-command.log",
+      "bytes": 159,
+      "sha256": "af0ddf821264f02cd0a4b967b6af967c0f92c5d780081b700b8d5f462274ac52"
+    },
+    {
+      "path": "zip-native-startup.png",
+      "bytes": 47382,
+      "sha256": "b484fdcaa5122fe6d079795971c05690dfda617ad58545880df105dc29067586"
+    },
+    {
+      "path": "zip-native.json",
+      "bytes": 3533,
+      "sha256": "ed735d44348bd78aaec1f372344b26ac07c578566f48b0ac410efe1a24d4c95f"
+    },
+    {
+      "path": "zip-pty-command.json",
+      "bytes": 412,
+      "sha256": "615c9122584aa27101b4c88374c2bee35114cd9f99f72b4dc78129288a9dd0cd"
+    },
+    {
+      "path": "zip-pty-command.log",
+      "bytes": 112,
+      "sha256": "2f2cdef17abcf1a984b22837c601ec730bfaa1888f555a3f62da263a1696effc"
+    },
+    {
+      "path": "zip-pty-large-output.png",
+      "bytes": 89648,
+      "sha256": "620ff77f1604ea0149c88e1b052a5445ff4edcb00c5ece1defb8a677122d389d"
+    },
+    {
+      "path": "zip-pty-shift-selection.png",
+      "bytes": 38211,
+      "sha256": "030d5424514b6aedd3ea11b8bc97b1cfcd086ed4bc0e55e389c527b99da78ba9"
+    },
+    {
+      "path": "zip-pty-three-plus-one.png",
+      "bytes": 187864,
+      "sha256": "d19a799d36aec03ecea669a12f12a61f20bddbf6ca3ca3291126423e58c1d929"
+    },
+    {
+      "path": "zip-pty.json",
+      "bytes": 2731,
+      "sha256": "bee6546c38d24cf2c09340162d8b508f53ae5145443dd58757dd3dd9e1a77187"
+    },
+    {
+      "path": "zip-real-open-command.json",
+      "bytes": 413,
+      "sha256": "ddba3010e3ca1d0dbe29cac42e97c01a31de4464e4508ef54e42f2faca7cd69a"
+    },
+    {
+      "path": "zip-real-open-command.log",
+      "bytes": 406,
+      "sha256": "c1f861f4af2e2791560fcc81ed64d4da721433a684f9054c2b79056bf0cc1e9c"
+    },
+    {
+      "path": "zip-real-open.json",
+      "bytes": 4995,
+      "sha256": "4b9193472cf04f2e53eba13889e4838055f171252db13e78fab771a63b2da15f"
+    },
+    {
+      "path": "zip-trust-command.json",
+      "bytes": 413,
+      "sha256": "7b95044b0f17b3b77ae8862e9be6b18056a25b1ec7819e5796c5d10301138d61"
+    },
+    {
+      "path": "zip-trust-command.log",
+      "bytes": 74,
+      "sha256": "60e686a32ad864c70bf110fab2aa3d5f913d732f68d46f699a4b37926f728dba"
+    },
+    {
+      "path": "zip-trust.json",
+      "bytes": 1974,
+      "sha256": "a6ca1e0185a11db394bc5186770f005d3934446b7b03ae2f9abbae568c68c0ac"
+    },
+    {
+      "path": "zip-ui-command.json",
+      "bytes": 406,
+      "sha256": "0c2ff9ce1289f10e94d81b9862187d193f85d2abed10655d967ba5e30e3f8110"
+    },
+    {
+      "path": "zip-ui-command.log",
+      "bytes": 216,
+      "sha256": "311406f23d78e1bc3f8caeb054ecc910a084f17f6fab95dcbf59e49c136ca57f"
+    },
+    {
+      "path": "zip-ui-unicode-styles.png",
+      "bytes": 40899,
+      "sha256": "c644fdfe552b8a85681e1e4af0c907f27a369c2f8ba9700f7ff1effeff2f3c2f"
+    },
+    {
+      "path": "zip-ui.json",
+      "bytes": 5488,
+      "sha256": "f98367cb0664af126a95b63c228b3c5bd82d69ec078973b3c33f5b80dddea64f"
+    }
+  ],
+  "clipboard-restored": {
+    "restored": true,
+    "finishedAt": "2026-10-10T09:57:37.173Z"
+  },
+  "cleanup": {
+    "checkedAt": "2026-10-10T09:57:37.578608+00:00",
+    "clipboardRestore": {
+      "restored": true,
+      "finishedAt": "2026-10-10T09:57:37.173Z"
+    },
+    "remainingRelevantProcesses": [],
+    "remainingQuaytermTemporaryDirectories": [
+      {
+        "name": "quayterm-open-XIXY5p",
+        "modifiedAt": "2026-10-09T15:01:16.675084+00:00",
+        "createdAt": "2026-10-09T15:01:16.674131+00:00",
+        "predatesThisRun": true,
+        "action": "preserved; not created by this run"
+      }
+    ],
+    "remainingThisRunMounts": [],
+    "ownedClipboardHelperProfileRemoved": true,
+    "userConfigurationsAndSessionsUntouched": true,
+    "testEvidenceAndInstallCopiesRetained": true,
+    "remainingThisRunNodeOrPtyProcesses": []
+  }
+}

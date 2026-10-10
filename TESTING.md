@@ -1,5 +1,15 @@
 # QuayTerm 验证记录
 
+## 2026-10-10：macOS x64 最新工作区新功能与回归
+
+拉取 `ba8e022dd87b324ae1d9efd6c2257515a44e410c` 后，在 VMware macOS 15.8.1 x64 上重新构建并测试 main 的后续工作区功能。详见 [测试报告](docs/test-reports/2026-10-10-macos-x64-new-features.md) 与 [脱敏证据](docs/test-reports/2026-10-10-macos-x64-new-features.evidence.json)。本地程序版本仍为 0.2.3，不是原 v0.2.3 Release。
+
+- 底层最终 35 PASS / 1 Windows 专用 SKIP；源码和实际 ZIP 程序包完整桌面套件各 20/20 PASS，类型/格式与构建通过。
+- tmux 直接拖选自动复制、Shift/Option 回退、每会话文件侧栏、四向/嵌套拖动分屏、已用空面板收起和重连状态均通过；另检查失焦、后台会话、按键、超时和伪造事件的 OSC 52 边界。
+- ZIP/DMG 均直接启动，真实 Keychain 新进程认证、配置升级/替换、真实 PTY/tmux/screen、传输故障、外部打开调用及 300 秒空闲通过。两格式 asar 相同：`ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c`。
+- 未修改业务代码。首次路径比较和 Bash 3.2 bracketed paste 假设造成的测试失败已保留，测试驱动修正及相关复测通过。
+- 核心仍为 **12 PASS / 0 FAIL / 7 BLOCKED**：正常 Finder/系统许可入口、交通灯/菜单、其他应用粘贴、系统选择器/Finder 拖入、Preview 画面、睡眠唤醒等原生子项待补；未签名/公证，未覆盖 Apple Silicon 或实体 Intel Mac。未发布新版本或推送远端。
+
 ## 2026-10-10：终端自动复制、文件侧栏与拖动布局
 
 本轮修复 tmux 鼠标模式自动复制、每会话文件侧栏状态、四向拖动分屏，以及已使用空面板的自动收起；保留手动布局预留空位。完整记录、首次失败与复测、最终源码清单和本地修复包哈希见 [Linux 工作区报告](docs/test-reports/2026-10-10-linux-x64-workspace.md)。
