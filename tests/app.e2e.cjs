@@ -3,6 +3,8 @@ const fs = require('node:fs')
 const path = require('node:path')
 const os = require('node:os')
 const { fixture } = require('./fixture.cjs')
+const commandModifier = process.platform === 'darwin' ? 'Meta' : 'Control'
+const terminalModifier = process.platform === 'darwin' ? 'Meta' : 'Control+Shift'
 let app,
   page,
   fx,
@@ -11,7 +13,7 @@ let app,
 test.describe.configure({ mode: 'serial' })
 test.beforeAll(async () => {
   fx = await fixture()
-  data = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-e2e-'))
+  data = fs.mkdtempSync(path.join(fs.realpathSync.native(os.tmpdir()), 'quayterm-e2e-'))
   const seed = path.join(data, 'seed.json')
   fs.writeFileSync(
     seed,
@@ -136,17 +138,28 @@ test('real SSH renders Unicode, ANSI color, control keys, clipboard and search',
   expect(bytes.includes(9)).toBeTruthy()
   expect(bytes.toString()).toContain('\x1b[A')
   await app.evaluate(({ clipboard }) => clipboard.writeText('printf "PASTE_OK\\n"'))
-  const pasteOffset = fx.inputs.length
-  await press('Control+Shift+V')
+  await press(`${terminalModifier}+V`)
   await press('Enter')
   await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('PASTE_OK')
-  await expect.poll(() => Buffer.concat(fx.inputs.slice(pasteOffset)).toString()).toContain('\x1b[200~')
-  await press('Control+Shift+F')
+  // macOS ships Bash 3.2, which does not negotiate bracketed paste. Enable
+  // the protocol explicitly, verify the actual SSH bytes, then discard the
+  // probe without asking that older shell to interpret the wrapper.
+  fx.output('\x1b[?2004hBRACKETED_PASTE_READY\r\n')
+  await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('BRACKETED_PASTE_READY')
+  await app.evaluate(({ clipboard }) => clipboard.writeText('BRACKETED_PASTE_PROBE'))
+  const pasteOffset = fx.inputs.length
+  await press(`${terminalModifier}+V`)
+  await expect
+    .poll(() => Buffer.concat(fx.inputs.slice(pasteOffset)).toString())
+    .toContain('\x1b[200~BRACKETED_PASTE_PROBE\x1b[201~')
+  await press('Control+c')
+  fx.output('\x1b[?2004l')
+  await press(`${terminalModifier}+F`)
   await page.getByRole('textbox', { name: '终端搜索词' }).fill('PASTE_OK')
   await page.getByRole('button', { name: '关闭终端查找' }).click()
-  await press('Control+Shift+B')
+  await press(`${commandModifier}+Shift+B`)
   await expect(page.locator('.terminal-files')).toHaveCount(0)
-  await press('Control+Shift+B')
+  await press(`${commandModifier}+Shift+B`)
   await expect(page.locator('.terminal-files')).toBeVisible()
   await page.screenshot({ path: '.private/terminal.png' })
 })
@@ -157,7 +170,7 @@ test('independent pane tabs, new connection shortcut, drag movement and layout f
   await page.locator('.terminal-pane').nth(1).getByRole('button', { name: '面板添加会话' }).click()
   await page.locator('.recent-hosts button').filter({ hasText: 'Beta' }).click()
   await expect(page.locator('.terminal-pane').nth(1).locator('.connection-overlay')).toHaveCount(0)
-  await press('Control+Shift+T')
+  await press(`${commandModifier}+Shift+T`)
   await expect(page.locator('.new-screen')).toBeVisible()
   await page.locator('.recent-hosts button').filter({ hasText: 'Alpha' }).click()
   await expect(page.locator('.terminal-pane').nth(1).locator('.pane-tab')).toHaveCount(2)
@@ -224,7 +237,7 @@ test('terminal file tree edits text and dual SFTP panes can both switch endpoint
   await page.locator('.terminal-files .file-row').filter({ hasText: 'hello.txt' }).dblclick()
   await expect(page.getByRole('textbox', { name: '文件编辑器' })).toHaveValue(/QuayTerm fixture/)
   await page.getByRole('textbox', { name: '文件编辑器' }).fill('Saved through UI 你好\n')
-  await page.getByRole('textbox', { name: '文件编辑器' }).press('Control+s')
+  await page.getByRole('textbox', { name: '文件编辑器' }).press(`${commandModifier}+s`)
   await expect
     .poll(() => fs.readFileSync(path.join(fx.root, 'hello.txt'), 'utf8'))
     .toBe('Saved through UI 你好\n')
@@ -289,7 +302,7 @@ test('large terminal output survives flow control and scrollback limits', async 
     timeout: 30000
   })
   await expect(page.locator('.terminal-pane.focused .xterm-rows')).toContainText('FLOW_DONE')
-  await press('Control+Shift+W')
+  await press(`${commandModifier}+Shift+W`)
   await page.getByRole('button', { name: '断开', exact: true }).click()
   await expect(page.locator('.pane-tab')).toHaveCount(3)
 })

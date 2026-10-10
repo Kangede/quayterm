@@ -10,7 +10,7 @@ const rgb = (hex) => `rgb(${[1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 1
 test.describe.configure({ mode: 'serial' })
 test.beforeAll(async () => {
   fx = await fixture()
-  directory = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-features-'))
+  directory = fs.mkdtempSync(path.join(fs.realpathSync.native(os.tmpdir()), 'quayterm-features-'))
   local = path.join(directory, 'local')
   download = path.join(directory, 'download')
   fs.mkdirSync(local)

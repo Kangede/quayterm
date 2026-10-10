@@ -8,7 +8,7 @@ const SFTP_SERVER =
   process.env.QUAYTERM_SFTP_SERVER ||
   path.resolve(__dirname, '../.private/tooling/usr/lib/openssh/sftp-server')
 async function fixture() {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'quayterm-fixture-'))
+  const root = fs.mkdtempSync(path.join(fs.realpathSync.native(os.tmpdir()), 'quayterm-fixture-'))
   fs.mkdirSync(path.join(root, 'screen'), { mode: 0o700 })
   fs.writeFileSync(
     path.join(root, 'tmux.conf'),

@@ -143,7 +143,7 @@ test('file sidebar remembers each SSH session, nested expansions, scroll and nav
   await side.locator('.file-row[data-path$="/hello.txt"]').dblclick()
   const editor = page.getByRole('textbox', { name: '文件编辑器' })
   await editor.fill('changed from Beta\n')
-  await editor.press('Control+s')
+  await editor.press(process.platform === 'darwin' ? 'Meta+s' : 'Control+s')
   await expect
     .poll(() => fs.readFileSync(path.join(fx.root, 'hello.txt'), 'utf8'))
     .toBe('changed from Beta\n')
@@ -324,6 +324,21 @@ test('real tmux mouse selections auto-copy without modifiers and preserve report
   await writeClipboard('repeat-same-range')
   await select('Shift')
   await expect.poll(readClipboard).toContain('TMUX_SELECT_你好_12345')
+  if (process.platform === 'darwin') {
+    await writeClipboard('option-before')
+    const optionOffset = fx.inputs.length
+    await select('Alt')
+    await expect.poll(readClipboard).toContain('TMUX_SELECT_你好_12345')
+    expect(Buffer.concat(fx.inputs.slice(optionOffset)).toString()).not.toMatch(/\x1b\[(?:M|<)/)
+  }
+  // Local selection remains available even if tmux disables OSC 52.
+  ctl('set-option', '-s', 'set-clipboard', 'off')
+  await writeClipboard('tmux-clipboard-off')
+  const localOffset = fx.inputs.length
+  await select('Shift')
+  await expect.poll(readClipboard).toContain('TMUX_SELECT_你好_12345')
+  expect(Buffer.concat(fx.inputs.slice(localOffset)).toString()).not.toMatch(/\x1b\[(?:M|<)/)
+  ctl('set-option', '-s', 'set-clipboard', 'external')
   // No active gesture: a server cannot overwrite or read the system clipboard.
   await writeClipboard('guarded-sentinel')
   const forbidden = '\x1b]52;c;' + Buffer.from('UNSOLICITED').toString('base64') + '\x07'
