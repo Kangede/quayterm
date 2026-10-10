@@ -8,7 +8,7 @@
 - tmux 直接拖选自动复制、Shift/Option 回退、每会话文件侧栏、四向/嵌套拖动分屏、已用空面板收起和重连状态均通过；另检查失焦、后台会话、按键、超时和伪造事件的 OSC 52 边界。
 - ZIP/DMG 均直接启动，真实 Keychain 新进程认证、配置升级/替换、真实 PTY/tmux/screen、传输故障、外部打开调用及 300 秒空闲通过。两格式 asar 相同：`ca3a4604e6f1e834c6013d66431966d17dfb3623de8ac02b95250fd4f2fe2a3c`。
 - 未修改业务代码。首次路径比较和 Bash 3.2 bracketed paste 假设造成的测试失败已保留，测试驱动修正及相关复测通过。
-- 核心仍为 **12 PASS / 0 FAIL / 7 BLOCKED**：正常 Finder/系统许可入口、交通灯/菜单、其他应用粘贴、系统选择器/Finder 拖入、Preview 画面、睡眠唤醒等原生子项待补；未签名/公证，未覆盖 Apple Silicon 或实体 Intel Mac。未发布新版本或推送远端。
+- 核心仍为 **12 PASS / 0 FAIL / 7 BLOCKED**：正常 Finder/系统许可入口、交通灯/菜单、其他应用粘贴、系统选择器/Finder 拖入、Preview 画面、睡眠唤醒等原生子项待补；未签名/公证，未覆盖 Apple Silicon 或实体 Intel Mac。测试分支已按用户后续指令推送，约 1.23 GB 本轮产物已清理，日志、trace 和截图保留；未发布新版本。
 
 ## 2026-10-10：终端自动复制、文件侧栏与拖动布局
 

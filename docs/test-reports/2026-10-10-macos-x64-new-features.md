@@ -9,12 +9,12 @@
 - 日期/时区：2026-10-10，Asia/Shanghai；各次执行的 UTC 起止时间及退出码见证据 JSON。
 - 已执行 `git fetch --prune origin`、`git switch main`、`git pull --ff-only origin main`，并阅读更新后的 AGENTS.md、TESTING.md、交接指南、验收清单、报告模板、README、工作流与测试源码。
 - 最新文档/应用提交：`ba8e022dd87b324ae1d9efd6c2257515a44e410c`；本轮新功能提交：`f92ec7cb5c57c98a1a6df7ba287440c3344912d2`。程序版本仍为 **0.2.3**，是 main 上后续新功能的本地构建，**不是原 v0.2.3 Release 资产**。
-- 本地测试分支：`codex/macos-new-features-20261010`。应用源码、依赖和资源没有修改；4 个测试文件已固化到本地提交 `13da8024ced3edd7d9980ae37d74af5560f20325`，最终文件 SHA-256 单列在证据中。未发布新版本、移动标签或推送远端；GitHub 当前公开状态保持原样。
+- 测试分支：`codex/macos-new-features-20261010`。应用源码、依赖和资源没有修改；4 个测试文件已固化到提交 `13da8024ced3edd7d9980ae37d74af5560f20325`，最终文件 SHA-256 单列在证据中。测试结束后，按用户后续指令推送该分支；未发布新版本或移动标签，GitHub 当前公开状态保持原样。
 - 系统：macOS 15.8.1 / build 24H32，x86_64；Electron/Node 为 x64，非 Rosetta。VMware 客机，4 个逻辑 CPU、8 GiB，图形设备 Vendor ID `0x15ad`，单屏 1718×918。不能据此推断实体 Mac 的硬件兼容性。
 - 工具：Node 24.21.0、npm 11.19.0、Electron 44.7.0、系统 Bash 3.2.57、Python 3.9.6、tmux 3.7c、系统 screen 4.00.03、`/usr/libexec/sftp-server`。
 - 所有应用使用独立 `QUAYTERM_DATA_DIR`；SSH/SFTP、故障注入、文件写入及 tmux/screen 仅使用本轮回环服务、临时目录和专用 socket。未连接或扫描用户 LAN 主机，未操作日常配置或会话。主机信任检查使用本轮协议 fixture 独立生成的预期指纹。
 - 原生应用控制接口不可用；未使用 AppleScript 等其他方式绕过。页面操作和截图来自被测 Electron 应用的 Playwright/CDP，不能当成系统桌面或第三方程序画面证据。
-- 原始日志、私有驱动、失败 trace、截图、安装副本和产物在本机 `.private/qa/2026-10-10-macos-new-features/` 与 `release/macos-new-features-20261010/`；不提交原始私有证据。共享 JSON 记录步骤、观测、退出码、时间及本机文件哈希。
+- 原始日志、私有驱动、失败 trace 和截图保留在本机 `.private/qa/2026-10-10-macos-new-features/`；不提交原始私有证据。测试安装副本及 `release/macos-new-features-20261010/` 中的产物已按用户后续指令清理。共享 JSON 保留实际测试的步骤、观测、退出码、时间及文件哈希，另记清理时间和范围。
 
 ## 新功能验证
 
@@ -128,7 +128,7 @@ Keychain 不仅核对可用性：真实存储后退出、换新 PID、无需重�
 - 已确认本轮 QuayTerm/Electron、Node fixture、Python PTY、SFTP、专用 tmux/screen、Preview 均结束，无本轮残留挂载。传输残留 part 与外部打开副本均仅在所属测试目录清理。
 - 最后一次空闲/断开测试完成后，剪贴板备份助手恢复成功并退出，其配置目录已删除。原始剪贴板内容未输出或保存到文件；恢复范围限 Electron 可读取的格式。
 - 发现 1 个创建于本轮之前的 `quayterm-open-*` 临时目录，核对创建时间后保留，未读取或删除其内容。日常配置和原有会话未改动，未删除可能被其他 QuayTerm 实例使用的系统 Keychain 项。
-- 保留本轮构建、安装副本、日志、截图、trace 和私有测试脚本供本机复核；旧的默认测试报告/失败产物在新运行前已归档。报告与共享 JSON 已检查脱敏，`.private/`、`release/`、`test-results/` 不提交。
+- 用户后续授权清理后，已删除本轮 ZIP/DMG、构建目录、两份安装副本、`dist/` 及重复测试输出，共 18 个路径，原占用 1,227,501,568 字节（约 1.23 GB）。日志、截图、首次失败 trace、文件清单和私有驱动保留约 4.3 MiB，默认输出中的 9 张最终桌面截图先归档再清理。旧测试目录、工具和此前归档逐项核对未变；未清理日常配置或其他运行的产物。报告与共享 JSON 已检查脱敏，`.private/`、`release/`、`test-results/` 不提交。
 - **核心父项统计：PASS 12 / FAIL 0 / BLOCKED 7 / NOT_RUN 0 / N/A 0。** 核心验收仍未完成；已完成本机新功能与可执行回归，不扩大为所有 macOS 硬件或原生系统交互均通过。
 - 下一步：具备原生交互能力的测试会话或人工补 R01、R02、T02、T03、F02、F05、N01；Apple Silicon 与实体 Intel Mac 分别绑定自己的程序包/哈希执行。其他平台沿用各自报告，不能使用本轮 Mac 结果替代。
-- 测试修正与脱敏报告保留在本地分支 `codex/macos-new-features-20261010`；测试驱动提交见环境节。未获本轮推送指令，未向远端写入。
+- 测试修正与脱敏报告已按用户后续指令推送至 [GitHub 测试分支](https://github.com/Kangede/quayterm/tree/codex/macos-new-features-20261010)；首次推送包含 `13da802` 和 `3d31333`，清理记录随本节后续文档提交保存。未合并 main 或发布 Release；既有测试结论、首次失败和产物哈希均保持原样。共享 JSON 的 `postTestArtifactCleanup` 记录此次清理明细。

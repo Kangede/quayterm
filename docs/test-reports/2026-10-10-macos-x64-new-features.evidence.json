@@ -3423,5 +3423,200 @@
     "userConfigurationsAndSessionsUntouched": true,
     "testEvidenceAndInstallCopiesRetained": true,
     "remainingThisRunNodeOrPtyProcesses": []
+  },
+  "postTestArtifactCleanup": {
+    "checkedAt": "2026-10-10T10:12:46.960011+00:00",
+    "authorization": "User requested GitHub push and test-artifact cleanup after the completed test report.",
+    "scope": "Only this run's generated packages, extracted applications, build output and redundant test output were removed.",
+    "firstPushedCommit": "3d313338024cca9426597e05ec8d8f59dd3a0188",
+    "branch": "codex/macos-new-features-20261010",
+    "removed": [
+      {
+        "path": "release/macos-new-features-20261010",
+        "fileCount": 262,
+        "logicalBytes": 578962591,
+        "allocatedBytes": 582193152,
+        "removed": true
+      },
+      {
+        "path": ".private/qa/2026-10-10-macos-new-features/zip-install",
+        "fileCount": 256,
+        "logicalBytes": 311888209,
+        "allocatedBytes": 319504384,
+        "removed": true
+      },
+      {
+        "path": ".private/qa/2026-10-10-macos-new-features/dmg-install",
+        "fileCount": 256,
+        "logicalBytes": 311888209,
+        "allocatedBytes": 323436544,
+        "removed": true
+      },
+      {
+        "path": ".private/qa/20261010-workspace",
+        "fileCount": 3,
+        "logicalBytes": 265157,
+        "allocatedBytes": 270336,
+        "removed": true
+      },
+      {
+        "path": "test-results",
+        "fileCount": 1,
+        "logicalBytes": 45,
+        "allocatedBytes": 4096,
+        "removed": true
+      },
+      {
+        "path": "dist",
+        "fileCount": 3,
+        "logicalBytes": 1275392,
+        "allocatedBytes": 1286144,
+        "removed": true
+      },
+      {
+        "path": ".private/e2e-report.json",
+        "fileCount": 1,
+        "logicalBytes": 35226,
+        "allocatedBytes": 36864,
+        "removed": true
+      },
+      {
+        "path": ".private/e2e-failed.png",
+        "fileCount": 1,
+        "logicalBytes": 70174,
+        "allocatedBytes": 73728,
+        "removed": true
+      },
+      {
+        "path": ".private/features-failed.png",
+        "fileCount": 1,
+        "logicalBytes": 52851,
+        "allocatedBytes": 53248,
+        "removed": true
+      },
+      {
+        "path": ".private/context-menu.png",
+        "fileCount": 1,
+        "logicalBytes": 90780,
+        "allocatedBytes": 94208,
+        "removed": true
+      },
+      {
+        "path": ".private/hosts.png",
+        "fileCount": 1,
+        "logicalBytes": 50382,
+        "allocatedBytes": 53248,
+        "removed": true
+      },
+      {
+        "path": ".private/output-highlights.png",
+        "fileCount": 1,
+        "logicalBytes": 56689,
+        "allocatedBytes": 57344,
+        "removed": true
+      },
+      {
+        "path": ".private/paper-theme.png",
+        "fileCount": 1,
+        "logicalBytes": 83387,
+        "allocatedBytes": 86016,
+        "removed": true
+      },
+      {
+        "path": ".private/sftp.png",
+        "fileCount": 1,
+        "logicalBytes": 85731,
+        "allocatedBytes": 86016,
+        "removed": true
+      },
+      {
+        "path": ".private/split.png",
+        "fileCount": 1,
+        "logicalBytes": 57261,
+        "allocatedBytes": 57344,
+        "removed": true
+      },
+      {
+        "path": ".private/terminal.png",
+        "fileCount": 1,
+        "logicalBytes": 82353,
+        "allocatedBytes": 86016,
+        "removed": true
+      },
+      {
+        "path": ".private/tmux.png",
+        "fileCount": 1,
+        "logicalBytes": 64724,
+        "allocatedBytes": 65536,
+        "removed": true
+      },
+      {
+        "path": ".private/two-tabs-per-pane.png",
+        "fileCount": 1,
+        "logicalBytes": 57179,
+        "allocatedBytes": 57344,
+        "removed": true
+      }
+    ],
+    "totalRemovedAllocatedBytes": 1227501568,
+    "totalRemovedLogicalBytes": 1205066340,
+    "newlyArchivedScreenshots": [
+      {
+        "path": "final-desktop-screenshots/context-menu.png",
+        "bytes": 90780,
+        "sha256": "4a45465f75f27c9e353ae99ae6595bf29919bc4749bdd6a4c8a06f5b618a05e0"
+      },
+      {
+        "path": "final-desktop-screenshots/hosts.png",
+        "bytes": 50382,
+        "sha256": "414b129e2ab152a986b3bd0e251bac6187ff488c3d745c33e27d0e7702f9e28e"
+      },
+      {
+        "path": "final-desktop-screenshots/output-highlights.png",
+        "bytes": 56689,
+        "sha256": "4ea4ace68b902d550a479dbb055257235b52e99a6f748d992e705c90476db0b6"
+      },
+      {
+        "path": "final-desktop-screenshots/paper-theme.png",
+        "bytes": 83387,
+        "sha256": "b12d552f8084417ead0be7e6d74200b8ec1c769f24a841a1856a098ad31e7125"
+      },
+      {
+        "path": "final-desktop-screenshots/sftp.png",
+        "bytes": 85731,
+        "sha256": "323b6cea5f2aee8f0aa43f4d5e9831fe7aca6ada2c1cdec4020e619adb44ea25"
+      },
+      {
+        "path": "final-desktop-screenshots/split.png",
+        "bytes": 57261,
+        "sha256": "81c9536849258372cf1efd25495983cfca37be6430fd3f2fb29de9bb21558aa2"
+      },
+      {
+        "path": "final-desktop-screenshots/terminal.png",
+        "bytes": 82353,
+        "sha256": "e0c387601583aad72a719db6b494ed3176fecfc6d16f8cc1c5e8dec624e40c77"
+      },
+      {
+        "path": "final-desktop-screenshots/tmux.png",
+        "bytes": 64724,
+        "sha256": "d4c159ae7f5dc8dc99dea4c664c6487e531b9d287f6a0a93133cf9b4460c0bd7"
+      },
+      {
+        "path": "final-desktop-screenshots/two-tabs-per-pane.png",
+        "bytes": 57179,
+        "sha256": "79ad2569c88f9e5c6fc420295b44a4136d5642b5295b59541092be76247e1c4d"
+      }
+    ],
+    "retained": "Original logs, failure traces, screenshots, manifests and private test helpers remain in the ignored local QA directory. Historical backups, earlier test runs, tooling and user configurations are preserved.",
+    "preservedDirectoriesUnchanged": [
+      ".private/qa/2026-10-09-macos-x64",
+      ".private/qa/2026-10-10-macos-new-features/prior-output-backup",
+      "release/macos-shift-fix",
+      ".private/tooling"
+    ],
+    "remainingThisRunMounts": [],
+    "remainingThisRunAppProcesses": [],
+    "existingTestConclusionsAndArtifactHashesUnchanged": true,
+    "privateArtifactsUploaded": false
   }
 }
