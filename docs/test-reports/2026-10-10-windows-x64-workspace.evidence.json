@@ -608,12 +608,15 @@
       "contentsSaved": true
     },
     "png": {
-      "status": "BLOCKED",
+      "status": "PASS",
       "systemOpenReturnedSuccess": true,
       "downloadHashMatches": true,
       "photosWindowCreated": true,
       "visualCapture": "timeout",
-      "humanConfirmation": false
+      "humanConfirmation": true,
+      "humanConfirmationDate": "2026-10-10",
+      "humanConfirmationSource": "Direct user reply in this test conversation about QuayTerm-QA-20261010-image.png",
+      "humanObservation": "图标正常显示"
     },
     "pdf": {
       "status": "BLOCKED",
