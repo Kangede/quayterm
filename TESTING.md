@@ -1,5 +1,11 @@
 # QuayTerm 验证记录
 
+## 2026-11-01：v0.2.4 发布验证
+
+已核对上次推送 `ba8e022dd87b324ae1d9efd6c2257515a44e410c` 的 [Actions 38041128542](https://github.com/Kangede/quayterm/actions/runs/38041128542)：Linux、Windows、macOS 三个任务全部成功，没有待修复的 CI 失败。
+
+本轮将已验证的工作区改进纳入 v0.2.4，版本号与锁文件同步。新版本会在独立的 main 构建中重新验证，发布使用该次成功运行的三平台产物；实际提交、运行链接、程序包抽查和资产 SHA-256 记录在 [v0.2.4 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.4)，不复用上次 0.2.3 安装包。历史报告和原生验收缺口保持原有结论。
+
 ## 2026-10-10：终端自动复制、文件侧栏与拖动布局
 
 本轮修复 tmux 鼠标模式自动复制、每会话文件侧栏状态、四向拖动分屏，以及已使用空面板的自动收起；保留手动布局预留空位。完整记录、首次失败与复测、最终源码清单和本地修复包哈希见 [Linux 工作区报告](docs/test-reports/2026-10-10-linux-x64-workspace.md)。
