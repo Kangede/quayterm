@@ -20,12 +20,13 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
       : [path.resolve(__dirname, '..'), ...(process.platform === 'linux' ? ['--no-sandbox'] : [])],
     env: { ...process.env, QUAYTERM_DATA_DIR: directory }
   })
+  let page
   try {
     if (executable) {
       expect(await app.evaluate(({ app }) => app.isPackaged)).toBe(true)
       expect(await app.evaluate(({ app }) => app.commandLine.hasSwitch('no-sandbox'))).toBe(false)
     }
-    const page = await app.firstWindow()
+    page = await app.firstWindow()
     const launch = await app.evaluate(({ app, BrowserWindow }) => ({
       platform: process.platform,
       arch: process.arch,
@@ -116,8 +117,21 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
       await firstLine.dblclick({ position: { x: 3, y: 7 } })
     }
     const toggleAutoCopy = async () => {
+      const enabled = () =>
+        JSON.parse(fs.readFileSync(path.join(directory, 'quayterm.json'), 'utf8')).settings.copyOnSelect ===
+        true
+      const before = enabled()
       await page.getByRole('button', { name: '终端操作', exact: true }).click()
-      await page.getByRole('menuitem', { name: '选中文本后自动复制', exact: true }).click()
+      const menu = page.locator('.ant-dropdown:visible')
+      // As with the file context menus, wait for Ant Design's entrance motion
+      // and layout to finish before targeting the item in native Electron.
+      await expect(menu).toHaveCSS('opacity', '1')
+      await expect(menu).not.toHaveClass(/ant-slide-(?:up|down)-(?:enter|appear)/)
+      await page.evaluate(
+        () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+      )
+      await menu.getByRole('menuitem', { name: '选中文本后自动复制', exact: true }).click()
+      await expect.poll(enabled).toBe(!before)
       await expect(page.locator('.ant-dropdown:visible')).toHaveCount(0)
     }
     await app.evaluate(({ clipboard }) => clipboard.writeText('disabled-sentinel'))
@@ -224,6 +238,9 @@ test('native desktop SSH, SFTP, shortcuts, credentials isolation and window star
     probe.output('\x1b[?1000l\x1b[?1002l\x1b[?1003l\x1b[?1006l\x1b[?1049l')
     expect(await page.evaluate(() => typeof window.require)).toBe('undefined')
     expect(errors).toEqual([])
+  } catch (error) {
+    await page?.screenshot({ path: test.info().outputPath('desktop-smoke-failed.png') }).catch(() => {})
+    throw error
   } finally {
     const opened = await app.evaluate(() => global.__nativeOpened || []).catch(() => [])
     await app.evaluate(({ app }) => app.exit())

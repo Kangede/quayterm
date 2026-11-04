@@ -48,3 +48,11 @@
 CI 已将选择逻辑测试和可移植桌面专项加入 Windows/macOS 的基础检查。该专项使用真实 SSH/SFTP 协议的只读内存文件树，不执行远端命令；Linux 的另一个新增用例使用真实文件及 OpenSSH SFTP 子系统。Windows/macOS 本机原生运行不由本报告的 Linux 结果替代。
 
 最终发布提交、三平台 CI、Linux 实际发布包复测与安装包 SHA-256 在 [v0.2.5 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.5) 中记录。保留既有签名、公证和其他原生验收限制，不覆盖旧版本报告或安装包。
+
+## 首轮 CI 与测试驱动修正
+
+[首轮 Actions 41849062684](https://github.com/Kangede/quayterm/actions/runs/41849062684) 中，新增连选用例在三平台通过；macOS 的原有 `desktop-smoke.e2e.cjs` 在自动复制菜单点击后未关闭，导致该任务失败。失败日志与 trace 保存在 `first-ci-macos.log`、`first-ci-macos/`，不将该轮记为全通过。
+
+该驱动原先在打开菜单后立即定位并点击选项，没有像既有文件菜单测试那样等待进场动画结束。失败 trace 中该次选项点击仅约 117 ms。现补充透明度、动画类和绘制完成等待，并增加设置实际翻转的断言及失败截图；原有菜单关闭、剪贴板、鼠标协议断言全部保留。此修正只涉及测试驱动，SFTP 产品修复保持不变；最终三平台复测结果绑定 Release 中记录的新提交与运行。
+
+驱动修正后，本机重测原有桌面 smoke 和新增文件连选专项，2 / 2 通过（`native-smoke-sync.log`、`native-smoke-sync.json`）；类型和格式检查也通过。最终三平台通过状态以新的完整 CI 为准，不靠随机重试消除原失败记录。
