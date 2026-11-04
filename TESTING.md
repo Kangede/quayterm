@@ -1,5 +1,14 @@
 # QuayTerm 验证记录
 
+## 2026-11-04：SFTP 文件侧栏 Shift 连选修复
+
+修复展开目录后的子文件没有参与 Shift 范围计算，以及反向选取后起点漂移的问题。新选择逻辑按实际显示顺序遍历展开分支，保留独立起点，并处理隐藏、折叠、筛选与会话切换。实测修复提交、基线失败及覆盖范围见 [Linux 连选测试报告](docs/test-reports/2026-11-04-linux-x64-selection.md)。
+
+- v0.2.4 基线实际复现：从展开目录的 `a.txt` Shift 选到 `c.txt`，预期三项，实际零项。
+- 修复后类型/格式检查与构建通过；完整底层/集成测试 43 PASS / 1 个 Windows 专用 SKIP，完整 Linux 源码桌面测试 22 / 22 PASS。
+- 新增 8 项逻辑测试和 2 项桌面回归，已包含在上述数量中。Windows/macOS CI 同步运行新增选择逻辑与可移植桌面专项。
+- v0.2.5 的最终 CI、实际发布包验证和校验和以 [Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.5) 为准，历史程序包结论不升级。
+
 ## 2026-11-01：v0.2.4 发布验证
 
 已核对上次推送 `ba8e022dd87b324ae1d9efd6c2257515a44e410c` 的 [Actions 38041128542](https://github.com/Kangede/quayterm/actions/runs/38041128542)：Linux、Windows、macOS 三个任务全部成功，没有待修复的 CI 失败。
