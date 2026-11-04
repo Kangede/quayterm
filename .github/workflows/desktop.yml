@@ -29,7 +29,7 @@ jobs:
       - name: Build renderer
         run: npm run build
       - name: Verify native paths and terminal behavior
-        run: node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs
+        run: node --test tests/workspace.test.cjs tests/file-selection.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs
       - if: runner.os == 'Linux'
         run: |
           sudo apt-get update
@@ -38,7 +38,7 @@ jobs:
           QUAYTERM_SFTP_SERVER=/usr/lib/openssh/sftp-server QUAYTERM_TMUX=/usr/bin/tmux xvfb-run -a npx playwright test
       - if: runner.os != 'Linux'
         name: Verify native desktop SSH and clipboard
-        run: npx playwright test tests/desktop-smoke.e2e.cjs
+        run: npx playwright test tests/desktop-smoke.e2e.cjs tests/file-selection.e2e.cjs
       - if: runner.os == 'Linux'
         run: npm run dist:linux
       - if: runner.os == 'Windows'

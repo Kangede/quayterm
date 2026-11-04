@@ -1,16 +1,24 @@
 // A portable protocol peer for native Windows/macOS/Linux desktop checks.
-// It speaks real SSH/SFTP on loopback, executes no commands, and exposes one
-// read-only in-memory file. Real PTY and multiplexer tests use fixture.cjs.
+// It speaks real SSH/SFTP on loopback, executes no commands, and exposes
+// read-only in-memory files. Real PTY and multiplexer tests use fixture.cjs.
 const { Server, utils } = require('@electerm/ssh2')
 const crypto = require('node:crypto')
+const path = require('node:path').posix
 const { fingerprint } = require('../electron/known-hosts.cjs')
 
-async function nativeProbe() {
+async function nativeProbe({ extraFiles = {} } = {}) {
   const key = crypto
     .generateKeyPairSync('rsa', { modulusLength: 2048 })
     .privateKey.export({ type: 'pkcs1', format: 'pem' })
   const text = 'Native SFTP ✓\n跨平台文件浏览\n'
   const contents = Buffer.from(text)
+  const files = new Map([['/native/info.txt', contents]])
+  const directories = new Set(['/native'])
+  for (const [name, value] of Object.entries(extraFiles)) {
+    if (!name.startsWith('/native/') || path.normalize(name) !== name) throw new Error('Invalid fixture path')
+    files.set(name, Buffer.from(value))
+    for (let p = path.dirname(name); p.startsWith('/native/'); p = path.dirname(p)) directories.add(p)
+  }
   const clients = new Set()
   const channels = new Set()
   const input = []
@@ -64,43 +72,52 @@ async function nativeProbe() {
           const handles = new Map()
           let next = 0
           const fail = (id) => sftp.status(id, 2)
+          const canonical = (p) => (['.', '/'].includes(p) ? '/native' : path.normalize(p))
           const info = (p) =>
-            p === '/native/info.txt' ? attrs : ['.', '/', '/native'].includes(p) ? directoryAttrs : null
-          const handle = (id, kind) => {
+            files.has(canonical(p))
+              ? { ...attrs, size: files.get(canonical(p)).length }
+              : directories.has(canonical(p))
+                ? directoryAttrs
+                : null
+          const handle = (id, kind, p) => {
             const key = String(++next)
-            handles.set(key, { kind, listed: false })
+            handles.set(key, { kind, path: canonical(p), listed: false })
             sftp.handle(id, Buffer.from(key))
           }
           sftp.on('error', () => {})
           sftp.on('REALPATH', (id, p) =>
-            info(p)
-              ? sftp.name(id, [
-                  { filename: p === '/native/info.txt' ? p : '/native', longname: '', attrs: info(p) }
-                ])
-              : fail(id)
+            info(p) ? sftp.name(id, [{ filename: canonical(p), longname: '', attrs: info(p) }]) : fail(id)
           )
           for (const event of ['STAT', 'LSTAT'])
             sftp.on(event, (id, p) => (info(p) ? sftp.attrs(id, info(p)) : fail(id)))
-          sftp.on('FSTAT', (id, key) => (handles.has(key.toString()) ? sftp.attrs(id, attrs) : fail(id)))
+          sftp.on('FSTAT', (id, key) => {
+            const item = handles.get(key.toString())
+            return item ? sftp.attrs(id, info(item.path)) : fail(id)
+          })
           sftp.on('OPENDIR', (id, p) =>
-            info(p)?.mode === directoryAttrs.mode ? handle(id, 'directory') : fail(id)
+            info(p)?.mode === directoryAttrs.mode ? handle(id, 'directory', p) : fail(id)
           )
           sftp.on('READDIR', (id, key) => {
             const item = handles.get(key.toString())
             if (!item || item.kind !== 'directory') return fail(id)
             if (item.listed) return sftp.status(id, 1)
             item.listed = true
-            sftp.name(id, [
-              { filename: 'info.txt', longname: '-rw------- 1 tester tester 0 Jan 1 2024 info.txt', attrs }
-            ])
+            sftp.name(
+              id,
+              [...directories, ...files.keys()]
+                .filter((p) => p !== item.path && path.dirname(p) === item.path)
+                .map((p) => ({ filename: path.basename(p), longname: '', attrs: info(p) }))
+            )
           })
           sftp.on('OPEN', (id, p, flags) =>
-            p === '/native/info.txt' && flags === 1 ? handle(id, 'file') : sftp.status(id, 3)
+            files.has(canonical(p)) && flags === 1 ? handle(id, 'file', p) : sftp.status(id, 3)
           )
           sftp.on('READ', (id, key, offset, length) => {
-            if (handles.get(key.toString())?.kind !== 'file') return fail(id)
-            if (offset >= contents.length) return sftp.status(id, 1)
-            sftp.data(id, contents.subarray(offset, offset + length))
+            const item = handles.get(key.toString())
+            if (item?.kind !== 'file') return fail(id)
+            const data = files.get(item.path)
+            if (offset >= data.length) return sftp.status(id, 1)
+            sftp.data(id, data.subarray(offset, offset + length))
           })
           sftp.on('CLOSE', (id, key) => {
             handles.delete(key.toString())

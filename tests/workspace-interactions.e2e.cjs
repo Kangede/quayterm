@@ -350,3 +350,33 @@ test('real tmux mouse selections auto-copy without modifiers and preserve report
   await expect.poll(() => Buffer.concat(fx.inputs.slice(wheelOffset)).toString()).toMatch(/\x1b\[<64;/)
   await page.screenshot({ path: path.join(evidence, 'tmux-selection.png') })
 })
+
+test('expanded SFTP sidebar supports Shift ranges and preserves its anchor when switching sessions', async () => {
+  const {
+    selectionFiles,
+    exerciseTreeSelection,
+    fileRow,
+    selectedPaths
+  } = require('./file-selection-checks.cjs')
+  for (const [name, contents] of Object.entries(selectionFiles)) {
+    const target = path.join(fx.root, name)
+    fs.mkdirSync(path.dirname(target), { recursive: true })
+    fs.writeFileSync(target, contents)
+  }
+  await connect('Alpha')
+  const side = page.locator('.terminal-files')
+  await exerciseTreeSelection(page, app, side, fx.root)
+  await connect('Beta')
+  await tab('Alpha').click()
+  await fileRow(side, fx.root, 'selection/b.txt').click({ modifiers: ['Shift'] })
+  await expect
+    .poll(() => selectedPaths(side))
+    .toEqual(['b.txt', 'c.txt'].map((n) => `${fx.root}/selection/${n}`))
+  await page.getByRole('button', { name: '切换文件侧栏', exact: true }).click()
+  await page.getByRole('button', { name: '切换文件侧栏', exact: true }).click()
+  await fileRow(side, fx.root, 'selection/d.txt').click({ modifiers: ['Shift'] })
+  await expect
+    .poll(() => selectedPaths(side))
+    .toEqual(['c.txt', 'd.txt'].map((n) => `${fx.root}/selection/${n}`))
+  expect(fx.shells.length).toBe(2)
+})

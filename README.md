@@ -2,7 +2,7 @@
 
 一个 SSH + SFTP 桌面客户端。Quay 是码头：多个远程会话可以在自己的面板中停靠、切换。界面按需求中的 Termius / TermX 布局组织，采用 electerm 同类核心技术。
 
-当前版本为 **0.2.4**，安装包见 [v0.2.4 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.4)，变更见 [CHANGELOG.md](CHANGELOG.md)。本版改进 tmux 选区自动复制、按会话保留文件侧栏状态、拖动分屏和空面板自动收起。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
+当前版本为 **0.2.5**，安装包见 [v0.2.5 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.5)，变更见 [CHANGELOG.md](CHANGELOG.md)。本版修复 SFTP 文件侧栏展开目录后的 Shift 连续选取，并保留反向调整选区时的起始位置。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
 
 ## 启动
 
@@ -10,10 +10,10 @@
 
 | 平台                | 发布文件                                                   | 启动方式                         |
 | ------------------- | ---------------------------------------------------------- | -------------------------------- |
-| Linux x64           | `QuayTerm-0.2.4.AppImage`、`quayterm-0.2.4.tar.gz`         | AppImage 或解压后运行 `quayterm` |
-| Windows x64         | `QuayTerm.Setup.0.2.4.exe`、`QuayTerm.0.2.4.exe`           | 分别为安装器和便携程序           |
-| macOS Intel         | `QuayTerm-0.2.4.dmg`、`QuayTerm-0.2.4-mac.zip`             | 安装/解压 `QuayTerm.app`         |
-| macOS Apple Silicon | `QuayTerm-0.2.4-arm64.dmg`、`QuayTerm-0.2.4-arm64-mac.zip` | 安装/解压 `QuayTerm.app`         |
+| Linux x64           | `QuayTerm-0.2.5.AppImage`、`quayterm-0.2.5.tar.gz`         | AppImage 或解压后运行 `quayterm` |
+| Windows x64         | `QuayTerm.Setup.0.2.5.exe`、`QuayTerm.0.2.5.exe`           | 分别为安装器和便携程序           |
+| macOS Intel         | `QuayTerm-0.2.5.dmg`、`QuayTerm-0.2.5-mac.zip`             | 安装/解压 `QuayTerm.app`         |
+| macOS Apple Silicon | `QuayTerm-0.2.5-arm64.dmg`、`QuayTerm-0.2.5-arm64-mac.zip` | 安装/解压 `QuayTerm.app`         |
 
 Linux AppImage 需要系统的 FUSE 支持。也可以使用 tar.gz 包，或运行 AppImage 的 `--appimage-extract-and-run` 模式。当前 Windows 包未做发行签名，macOS 包未做发行签名/公证，首次启动可能出现系统提示。各版本源码 CI 与发行包实测范围分别记录，发行包完整原生验收仍有未完成项，具体范围见 [测试状态](TESTING.md) 和 [完成标准](docs/test-acceptance.md)。构建脚本默认输出到 `release/`；该目录及早期本地包不包含在 Git 仓库中。
 
@@ -43,6 +43,8 @@ npm run dev
 ## 右键菜单与终端风格
 
 本地文件列表、双栏 SFTP 和终端文件侧栏均支持右键菜单。右键未选中的项目会选择该项目；右键已有多选中的项目会保留多选。可打开文件夹、编辑文本、复制文件、复制名称 / 路径、粘贴、重命名、删除、查看属性。在文件夹或列表空白处可新建文件 / 文件夹、刷新和切换隐藏文件。右键文件夹时，新建和粘贴会作用于该文件夹内部。
+
+文件侧栏中可先单击一个文件，再按住 Shift 单击另一个文件，按实际显示顺序连续选取，包括已展开的多层目录。继续按 Shift 调整范围时保留最初单击的位置；切换会话或隐藏后恢复侧栏也会保留该位置。折叠、过滤或隐藏后不可见的条目会退出选区；原起点不可见时，下一次 Shift 单击从新点击的文件开始。Ctrl/⌘ 单击仍可逐项增减选择，全选仍作用于当前目录的顶层条目。
 
 远端菜单另有下载到本地、上传文件 / 文件夹；双栏另一侧已连接时可直接“传输到另一侧”。复制 / 粘贴使用客户端内的文件剪贴板，跨面板传输仍会确认目标和覆盖选项。删除需要确认。文件列表获得焦点时支持 Ctrl/⌘ C、Ctrl/⌘ V；Shift+F10 可打开所聚焦项目的菜单。
 
@@ -147,9 +149,9 @@ npm run dist:mac
 Windows / macOS 可以运行无 Linux 依赖的测试；桌面测试会在本机启动临时 SSH/SFTP 协议服务，验证连接、粘贴、控制键、目录列表、文本读取和 resize。tmux/screen 仍由 Linux 的真实 PTY 测试覆盖：
 
 ```sh
-node --test tests/workspace.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs
+node --test tests/workspace.test.cjs tests/file-selection.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs
 npm run build
-npx playwright test tests/desktop-smoke.e2e.cjs
+npx playwright test tests/desktop-smoke.e2e.cjs tests/file-selection.e2e.cjs
 ```
 
 局域网测试通过 `QUAYTERM_TEST_HOSTS` 指向私有 JSON 数组，字段为 `name/address/port/username/password`。仅新建 SSH PTY、发送 resize 请求和列出 SFTP 主目录，不发送远端 shell 命令，不写远端文件。

@@ -26,6 +26,14 @@ import {
 } from '@ant-design/icons'
 import type { FileEntry, FileList, Host, Session } from '../types'
 import { HostIcon } from './HostManager'
+import {
+  fileTreeRows,
+  displayedFilePaths,
+  selectFile,
+  visibleSelection,
+  type FileRow,
+  type FileSelection
+} from '../lib/file-selection'
 export function formatSize(size: number) {
   if (size < 1024) return `${size} B`
   if (size < 1048576) return `${(size / 1024).toFixed(1)} KiB`
@@ -40,6 +48,7 @@ export type FilePaneSnapshot = {
   list: FileList | null
   pathInput: string
   selected: string[]
+  selectionAnchor?: string | null
   filter: string
   filtering: boolean
   hidden: boolean
@@ -150,7 +159,11 @@ export function FilePane({
   const [pathInput, setPathInput] = useState(saved?.pathInput || '')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const [selected, setSelected] = useState<string[]>(saved?.selected || [])
+  const [selection, setSelection] = useState<FileSelection>({
+    selected: saved?.selected || [],
+    anchor: saved?.selectionAnchor ?? null
+  })
+  const { selected } = selection
   const [filter, setFilter] = useState(saved?.filter || '')
   const [filtering, setFiltering] = useState(saved?.filtering || false)
   const [hidden, setHidden] = useState(saved?.hidden ?? showHiddenDefault)
@@ -172,6 +185,7 @@ export function FilePane({
       list,
       pathInput,
       selected,
+      selectionAnchor: selection.anchor,
       filter,
       filtering,
       hidden,
@@ -205,7 +219,7 @@ export function FilePane({
         setHistory((h) => [...h, current.current!.path])
       setList(result)
       setPathInput(result.path)
-      setSelected([])
+      setSelection({ selected: [], anchor: null })
       if (!sameDirectory) setExpanded({})
       onLocation?.(result.path)
       // Refresh open branches in place. A save/transfer in another session can
@@ -252,7 +266,7 @@ export function FilePane({
     setContext(null)
     current.current = null
     setHistory([])
-    setSelected([])
+    setSelection({ selected: [], anchor: null })
     setExpanded({})
     setChoosing(false)
     setError('')
@@ -290,14 +304,17 @@ export function FilePane({
         ),
     [list, hidden, filter, sort]
   )
+  const fileRows = useMemo(
+    () => fileTreeRows(visible, compact ? expanded : {}, hidden),
+    [visible, compact, expanded, hidden]
+  )
+  const displayedPaths = useMemo(() => displayedFilePaths(fileRows), [fileRows])
+  useEffect(() => {
+    setSelection((s) => visibleSelection(s, displayedPaths))
+  }, [displayedPaths])
   function pick(e: FileEntry, event: React.MouseEvent) {
-    if (event.shiftKey && selected.length) {
-      const i = visible.findIndex((f) => f.path === selected[0])
-      const j = visible.findIndex((f) => f.path === e.path)
-      setSelected(visible.slice(Math.min(i, j), Math.max(i, j) + 1).map((f) => f.path))
-    } else if (event.ctrlKey || event.metaKey)
-      setSelected((s) => (s.includes(e.path) ? s.filter((p) => p !== e.path) : [...s, e.path]))
-    else setSelected([e.path])
+    const modifiers = { range: event.shiftKey, toggle: event.ctrlKey || event.metaKey }
+    setSelection((s) => selectFile(s, displayedPaths, e.path, modifiers))
   }
   function open(e: FileEntry, editOnly = false) {
     if (e.isDirectory) void load(e.path)
@@ -349,8 +366,13 @@ export function FilePane({
     [...(list?.entries || []), ...Object.values(expanded).flat()].find((entry) => entry.path === p)
   function showContext(entry: FileEntry | undefined, x: number, y: number) {
     if (!list || !canLoad) return
-    const paths = entry ? (selected.includes(entry.path) ? selected : [entry.path]) : []
-    setSelected(paths)
+    const current = visibleSelection(selection, displayedPaths)
+    const next =
+      entry && current.selected.includes(entry.path)
+        ? current
+        : { selected: entry ? [entry.path] : [], anchor: entry?.path || null }
+    const paths = next.selected
+    setSelection(next)
     setContext({ x, y, entry, paths, directory: entry?.isDirectory ? entry.path : list.path })
   }
   async function action(key: string, target?: FileContext) {
@@ -509,12 +531,13 @@ export function FilePane({
       message.error('无法读取拖放的文件')
     }
   }
-  function row(entry: FileEntry, depth = 0): React.ReactNode {
+  function row({ entry, children }: FileRow, depth = 0): React.ReactNode {
     return (
       <div key={entry.path}>
         <div
           className={`file-row ${selected.includes(entry.path) ? 'selected' : ''} ${entry.inaccessible ? 'muted' : ''}`}
           role="row"
+          aria-selected={selected.includes(entry.path)}
           tabIndex={0}
           data-path={entry.path}
           onClick={(e) => pick(entry, e)}
@@ -600,10 +623,7 @@ export function FilePane({
             </>
           )}
         </div>
-        {compact &&
-          expanded[entry.path]
-            ?.filter((e) => hidden || !e.name.startsWith('.'))
-            .map((e) => row(e, depth + 1))}
+        {children.map((child) => row(child, depth + 1))}
       </div>
     )
   }
@@ -787,7 +807,12 @@ export function FilePane({
               if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
                 e.preventDefault()
                 e.stopPropagation()
-                setSelected(visible.map((v) => v.path))
+                // Select the current directory's entries as before; selecting
+                // a directory already includes its contents in file operations.
+                setSelection({
+                  selected: visible.map((entry) => entry.path),
+                  anchor: visible[0]?.path || null
+                })
               } else if ((e.ctrlKey || e.metaKey) && ['c', 'v'].includes(e.key.toLowerCase())) {
                 e.preventDefault()
                 e.stopPropagation()
@@ -817,14 +842,14 @@ export function FilePane({
                 </span>
               </div>
             )}
-            {visible.map((e) => row(e))}
+            {fileRows.map((entry) => row(entry))}
             {list && !visible.length && !busy && (
               <div className="file-empty">{filter ? '没有匹配的文件' : '此文件夹为空'}</div>
             )}
           </div>
           <footer className="file-footer">
             <span>
-              {visible.length} 个项目{selected.length > 0 && ` · 已选 ${selected.length}`}
+              {displayedPaths.length} 个项目{selected.length > 0 && ` · 已选 ${selected.length}`}
             </span>
             <span className="toolbar-spacer" />
             <Tooltip title={hidden ? '隐藏点文件' : '显示点文件'}>
