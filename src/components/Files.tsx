@@ -47,6 +47,7 @@ export type TransferTarget = { endpoint: string; directory: string }
 export type FilePaneSnapshot = {
   list: FileList | null
   pathInput: string
+  pathDraft?: string | null
   selected: string[]
   selectionAnchor?: string | null
   filter: string
@@ -156,8 +157,10 @@ export function FilePane({
   const saved = useRef(endpoint ? stateCache?.get(endpoint) : undefined).current
   const [choosing, setChoosing] = useState(false)
   const [list, setList] = useState<FileList | null>(saved?.list || null)
-  const [pathInput, setPathInput] = useState(saved?.pathInput || '')
+  const [pathDraft, setPathDraft] = useState<string | null>(saved?.pathDraft ?? null)
+  const pathInput = pathDraft ?? list?.path ?? ''
   const pathInputRevision = useRef(0)
+  const draftEndpoint = useRef(endpoint)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [selection, setSelection] = useState<FileSelection>({
@@ -186,6 +189,7 @@ export function FilePane({
     snapshot.current = {
       list,
       pathInput,
+      pathDraft,
       selected,
       selectionAnchor: selection.anchor,
       filter,
@@ -216,7 +220,7 @@ export function FilePane({
     try {
       await window.quay.invoke('fileOperation', { endpoint, ...operation })
       setOperation((current) => (current === operation ? null : current))
-      if (gen === generation.current) await load(list?.path, false)
+      if (gen === generation.current) await load(list?.path, false, false)
     } catch (e: any) {
       message.error(e.message)
     } finally {
@@ -224,7 +228,7 @@ export function FilePane({
       setOpBusy(false)
     }
   }
-  async function load(p?: string, remember = true) {
+  async function load(p?: string, remember = true, acceptInput = true) {
     if (!endpoint || !canLoad) return
     const gen = ++generation.current
     const inputRevision = pathInputRevision.current
@@ -237,9 +241,10 @@ export function FilePane({
       if (remember && current.current && current.current.path !== result.path)
         setHistory((h) => [...h, current.current!.path])
       setList(result)
-      // Do not replace a path the user started editing while this request was
-      // in flight. Explicit navigation still receives the canonical path.
-      if (inputRevision === pathInputRevision.current) setPathInput(result.path)
+      // Background listings update the directory, never the user's draft.
+      // Recheck revisions when React applies an explicit navigation result,
+      // since focus/typing can begin after this response has already queued.
+      if (acceptInput) setPathDraft((draft) => (inputRevision === pathInputRevision.current ? null : draft))
       setSelection({ selected: [], anchor: null })
       if (!sameDirectory) setExpanded({})
       onLocation?.(result.path)
@@ -283,7 +288,10 @@ export function FilePane({
       }
     }
     setList(null)
-    setPathInput('')
+    if (draftEndpoint.current !== endpoint) {
+      draftEndpoint.current = endpoint
+      setPathDraft(null)
+    }
     setContext(null)
     current.current = null
     setHistory([])
@@ -291,13 +299,13 @@ export function FilePane({
     setExpanded({})
     setChoosing(false)
     setError('')
-    if (canLoad) void load(undefined, false)
+    if (canLoad) void load(undefined, false, false)
     return () => {
       generation.current++
     }
   }, [endpoint, canLoad])
   useEffect(() => {
-    if (refreshToken !== lastRefresh.current && current.current) void load(current.current.path, false)
+    if (refreshToken !== lastRefresh.current && current.current) void load(current.current.path, false, false)
     lastRefresh.current = refreshToken
   }, [refreshToken])
   useEffect(() => {
@@ -375,10 +383,10 @@ export function FilePane({
         try {
           for (const p of paths)
             await window.quay.invoke('fileOperation', { endpoint, path: p, action: 'delete' })
-          await load(list?.path, false)
+          await load(list?.path, false, false)
         } catch (e: any) {
           message.error(e.message)
-          await load(list?.path, false)
+          await load(list?.path, false, false)
         }
       }
     })
@@ -770,14 +778,29 @@ export function FilePane({
         <Input
           aria-label={compact ? '侧栏文件路径' : '文件路径'}
           value={pathInput}
-          onFocus={() => {
+          onFocus={(e) => {
             pathInputRevision.current++
+            setPathDraft(e.currentTarget.value)
+          }}
+          onMouseDown={(e) => {
+            pathInputRevision.current++
+            setPathDraft(e.currentTarget.value)
+          }}
+          onKeyDown={(e) => {
+            if (e.key !== 'Enter') {
+              pathInputRevision.current++
+              setPathDraft(e.currentTarget.value)
+            }
           }}
           onChange={(e) => {
             pathInputRevision.current++
-            setPathInput(e.target.value)
+            setPathDraft(e.target.value)
           }}
-          onPressEnter={() => load(pathInput)}
+          onPressEnter={(e) => {
+            if (e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return
+            e.preventDefault()
+            void load(e.currentTarget.value)
+          }}
           variant="borderless"
           spellCheck={false}
         />

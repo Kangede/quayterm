@@ -362,4 +362,21 @@ test('a delayed initial directory listing cannot overwrite a path being entered'
   await field.press('Enter')
   await expect(field).toHaveValue(fs.realpathSync.native(local))
   await expect(pane.locator('.file-row').filter({ hasText: '.local-hidden' })).toBeVisible()
+  // A later automatic refresh must also preserve an unfinished path draft,
+  // even when that draft existed before the refresh request was started.
+  await field.fill(initial)
+  fs.writeFileSync(path.join(local, 'refresh-marker.txt'), 'new listing entry')
+  await pane.locator('.file-row').filter({ hasText: '.local-hidden' }).dblclick()
+  const editor = page.getByRole('textbox', { name: '文件编辑器', exact: true })
+  await editor.fill('saved during path editing')
+  await editor.press(process.platform === 'darwin' ? 'Meta+s' : 'Control+s')
+  await expect
+    .poll(() => fs.readFileSync(path.join(local, '.local-hidden'), 'utf8'))
+    .toBe('saved during path editing')
+  await page.getByRole('button', { name: '关闭', exact: true }).last().click()
+  await expect(pane.locator('.file-row').filter({ hasText: 'refresh-marker.txt' })).toBeVisible()
+  await expect(field).toHaveValue(initial)
+  await field.press('Enter')
+  await expect(field).toHaveValue(fs.realpathSync.native(initial))
+  await expect(pane.locator('.file-row').filter({ hasText: 'initial-marker.txt' })).toBeVisible()
 })
