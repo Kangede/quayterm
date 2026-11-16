@@ -3,7 +3,7 @@
 ## 环境与代码
 
 - 日期：2026-11-16，Asia/Shanghai；Linux x64、Ubuntu 26.04.1、Node 22.23.2、Electron 44.7.0。
-- 基线：`470735a464a79bf19711e753f69fb62ca69f1adb`（v0.2.5）；修复实现提交：`a4bbaaea6743a970eb0181d9555c8940fd282969`（版本字符串 0.2.6）。
+- 基线：`470735a464a79bf19711e753f69fb62ca69f1adb`（v0.2.5）；四项修复实现：`a4bbaaea6743a970eb0181d9555c8940fd282969`，后续路径输入保护：`eb5d24f1d5b381a87e8ed8fcd8f88243d8a163c1`（版本字符串均为 0.2.6）。
 - 使用真实桌面、独立 `QUAYTERM_DATA_DIR`、一次性本地文件和回环 SSH/SFTP 服务。未读取用户实际主机密码，未操作用户 LAN 主机或日常配置。
 - 日志、截图、trace 保存在忽略目录 `.private/qa/20261116-usability/`。各轮桌面输出隔离，不覆盖历史测试证据。
 
@@ -32,11 +32,20 @@
 | 六项界面专项 | 6 / 6 PASS | `targeted-fixed.log`、`targeted-fixed.json`；已包含在完整桌面套件内 |
 | 完整底层/集成套件 | 47 PASS / 0 FAIL / 1 SKIP | `core.log`；跳过的是 Windows 专用不可用盘符测试 |
 | 完整源码桌面套件 | 29 / 29 PASS，无跳过和重试通过 | `full-final.log`、`full-final.json` |
+| 路径输入保护后的完整源码桌面套件 | 30 / 30 PASS，无跳过和重试通过 | `full-navigation-fixed.log`、`full-navigation-fixed.json` |
 
 开发过程中的失败也予以保留：两个凭证单测最初没有提供保存 API 要求的完整主机字段；一个延迟读取测试最初假设 Electron 测试求值环境有全局 `require`，改用公开的 `process.getBuiltinModule` 与 `createRequire` 后通过。完整桌面首轮为 28 PASS / 1 FAIL，原因是确认按钮加载图标改变了其可访问名称；修正定位后仍断言该按钮禁用、请求次数为一次，完整复测 29 / 29。对应 `credentials-unit.log`、`targeted.log`、`full-e2e.log` 及失败 trace 保留，没有删除功能断言。
 
 ## 发布验证范围
 
-六项可移植界面专项和凭证单测已加入三平台 CI；真实 PTY/SFTP 写入仍在 Linux 套件中执行。源码 Linux 测试沿用项目原有的显式 `--no-sandbox`，不视为程序包默认沙箱证据。
+七项可移植界面专项（包含后续路径输入保护）和凭证单测已加入三平台 CI；真实 PTY/SFTP 写入仍在 Linux 套件中执行。源码 Linux 测试沿用项目原有的显式 `--no-sandbox`，不视为程序包默认沙箱证据。
 
 最终 v0.2.6 的 CI 提交、三平台结果、实际 Linux 发布包验证与八个安装包的 SHA-256 记在 [Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.6)。旧包结果不升级到新包，Windows/macOS 基础 CI 不替代全部原生安装/签名/公证、密码重启、输入法、系统睡眠等验收。历史限制继续保留。
+
+## 首轮 CI 发现的目录输入竞态
+
+[首轮 CI 43825956784](https://github.com/Kangede/quayterm/actions/runs/43825956784) 的 Linux 任务通过；Windows、macOS 中新增六项功能专项均通过，但原有桌面 smoke 在本地目录跳转后找不到测试配置文件。失败截图显示 Windows 仍停留在主目录，macOS 的输入路径也被干扰，错误地解析到主目录下；未将该轮记为全通过。
+
+原实现会在目录请求返回时无条件替换路径输入框。通过延迟初始列表响应，在 Linux 确定性复现了用户已输入目标目录却被旧路径覆盖（`path-race-before.log`、`path-race-before.json`），而不是仅增加测试等待。
+
+修复记录路径输入的编辑版本：请求期间用户开始编辑后，旧响应不再回写输入；用户按 Enter 导航后仍正常显示规范化路径。新增用例验证晚到列表仍可显示，但输入草稿保持，之后 Enter 能打开正确目录。完整复测 30 / 30 通过；首轮 CI 日志和两个平台诊断包保存在 `first-ci-logs.zip`、`first-ci-windows/`、`first-ci-macos/`，失败证据保留。
