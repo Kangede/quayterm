@@ -157,6 +157,7 @@ export function FilePane({
   const [choosing, setChoosing] = useState(false)
   const [list, setList] = useState<FileList | null>(saved?.list || null)
   const [pathInput, setPathInput] = useState(saved?.pathInput || '')
+  const pathInputRevision = useRef(0)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [selection, setSelection] = useState<FileSelection>({
@@ -226,6 +227,7 @@ export function FilePane({
   async function load(p?: string, remember = true) {
     if (!endpoint || !canLoad) return
     const gen = ++generation.current
+    const inputRevision = pathInputRevision.current
     setBusy(true)
     setError('')
     try {
@@ -235,7 +237,9 @@ export function FilePane({
       if (remember && current.current && current.current.path !== result.path)
         setHistory((h) => [...h, current.current!.path])
       setList(result)
-      setPathInput(result.path)
+      // Do not replace a path the user started editing while this request was
+      // in flight. Explicit navigation still receives the canonical path.
+      if (inputRevision === pathInputRevision.current) setPathInput(result.path)
       setSelection({ selected: [], anchor: null })
       if (!sameDirectory) setExpanded({})
       onLocation?.(result.path)
@@ -766,7 +770,13 @@ export function FilePane({
         <Input
           aria-label={compact ? '侧栏文件路径' : '文件路径'}
           value={pathInput}
-          onChange={(e) => setPathInput(e.target.value)}
+          onFocus={() => {
+            pathInputRevision.current++
+          }}
+          onChange={(e) => {
+            pathInputRevision.current++
+            setPathInput(e.target.value)
+          }}
           onPressEnter={() => load(pathInput)}
           variant="borderless"
           spellCheck={false}

@@ -329,3 +329,37 @@ test('an explicit hidden-file preference is honored while new defaults remain en
   await pane.getByRole('button', { name: '显示隐藏文件', exact: true }).click()
   await expect(pane.locator('.file-row').filter({ hasText: '.local-hidden' })).toBeVisible()
 })
+
+test('a delayed initial directory listing cannot overwrite a path being entered', async () => {
+  const initial = path.join(directory, 'initial')
+  fs.mkdirSync(initial)
+  fs.writeFileSync(path.join(initial, 'initial-marker.txt'), 'initial listing')
+  await app.evaluate(({ app }, initial) => {
+    const { Files } = process
+      .getBuiltinModule('node:module')
+      .createRequire(app.getAppPath() + '/package.json')('./electron/files.cjs')
+    const original = Files.prototype.list
+    let held = false
+    Files.prototype.list = async function (endpoint, requested) {
+      if (endpoint === 'local' && requested === undefined && !held) {
+        held = true
+        const result = await original.call(this, endpoint, initial)
+        return new Promise((resolve) => {
+          global.__finishInitialListing = () => resolve(result)
+        })
+      }
+      return original.call(this, endpoint, requested)
+    }
+  }, initial)
+  await page.getByRole('button', { name: 'SFTP', exact: true }).click()
+  const pane = page.locator('.sftp-screen .file-pane').first()
+  const field = pane.getByRole('textbox', { name: '文件路径', exact: true })
+  await expect.poll(() => app.evaluate(() => typeof global.__finishInitialListing)).toBe('function')
+  await field.fill(local)
+  await app.evaluate(() => global.__finishInitialListing())
+  await expect(pane.locator('.file-row').filter({ hasText: 'initial-marker.txt' })).toBeVisible()
+  await expect(field).toHaveValue(local)
+  await field.press('Enter')
+  await expect(field).toHaveValue(fs.realpathSync.native(local))
+  await expect(pane.locator('.file-row').filter({ hasText: '.local-hidden' })).toBeVisible()
+})
