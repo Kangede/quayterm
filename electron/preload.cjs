@@ -2,6 +2,7 @@ const { contextBridge, ipcRenderer, webUtils } = require('electron')
 const allowed = new Set([
   'bootstrap',
   'hostSave',
+  'hostCredentials',
   'hostDelete',
   'knownDelete',
   'knownList',

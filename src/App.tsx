@@ -529,6 +529,7 @@ export default function App() {
         {sftpVisited && (
           <div className={`sftp-screen ${view !== 'sftp' ? 'hidden-screen' : ''}`}>
             <FilePane
+              showHiddenDefault={settings.showHidden !== false}
               clipboard={availableClipboard}
               onCopy={setFileClipboard}
               transferTarget={
@@ -553,6 +554,7 @@ export default function App() {
               <SwapOutlined />
             </div>
             <FilePane
+              showHiddenDefault={settings.showHidden !== false}
               clipboard={availableClipboard}
               onCopy={setFileClipboard}
               transferTarget={

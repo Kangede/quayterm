@@ -428,3 +428,61 @@ test('automatic highlights preserve ANSI colors, progress redraw and alternate s
   fx.output('ERROR normal again\r\n')
   await expect.poll(() => foreground('ERROR normal again', 'ERROR')).toBe(rgb(themes['quay-dark'].palette[1]))
 })
+
+test('Enter creates remote files and folders once, including repeated key events', async () => {
+  await page.getByRole('button', { name: 'SFTP', exact: true }).click()
+  const remote = panel(1)
+  await location(remote, fx.root)
+  async function create(action, name) {
+    await remote.getByRole('button', { name: '文件操作', exact: true }).click()
+    await popupPainted()
+    await contextItem(action)
+    const field = page.getByRole('textbox', { name: '文件名称', exact: true })
+    await field.fill(name)
+    return field
+  }
+  for (const [action, name, folder] of [
+    ['新建文件$', 'enter-created.txt', false],
+    ['新建文件夹$', 'enter-created-folder', true]
+  ]) {
+    const field = await create(action, name)
+    await field.press('Enter')
+    await expect(field).toHaveCount(0)
+    await expect.poll(() => fs.existsSync(path.join(fx.root, name))).toBe(true)
+    expect(fs.statSync(path.join(fx.root, name)).isDirectory()).toBe(folder)
+  }
+  await app.evaluate(({ app }) => {
+    const { Files } = process
+      .getBuiltinModule('node:module')
+      .createRequire(app.getAppPath() + '/package.json')('./electron/files.cjs')
+    global.__originalKeyboardOperation = Files.prototype.operate
+    global.__keyboardOperationCalls = 0
+    Files.prototype.operate = function (input) {
+      global.__keyboardOperationCalls++
+      return new Promise((resolve, reject) => {
+        global.__finishKeyboardOperation = () =>
+          Promise.resolve(global.__originalKeyboardOperation.call(this, input)).then(resolve, reject)
+      })
+    }
+  })
+  const field = await create('新建文件$', 'enter-once.txt')
+  await field.evaluate((el) => {
+    el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true }))
+    el.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true, repeat: true })
+    )
+  })
+  await expect.poll(() => app.evaluate(() => global.__keyboardOperationCalls)).toBe(1)
+  await expect(field).toBeDisabled()
+  await expect(page.locator('.ant-modal:visible').getByRole('button', { name: /确定/ })).toBeDisabled()
+  await app.evaluate(() => global.__finishKeyboardOperation())
+  await expect(field).toHaveCount(0)
+  expect(fs.existsSync(path.join(fx.root, 'enter-once.txt'))).toBe(true)
+  expect(await app.evaluate(() => global.__keyboardOperationCalls)).toBe(1)
+  await app.evaluate(({ app }) => {
+    const { Files } = process
+      .getBuiltinModule('node:module')
+      .createRequire(app.getAppPath() + '/package.json')('./electron/files.cjs')
+    Files.prototype.operate = global.__originalKeyboardOperation
+  })
+})

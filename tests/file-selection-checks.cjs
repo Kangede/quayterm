@@ -25,6 +25,11 @@ async function exerciseTreeSelection(page, app, pane, root) {
   const selected = async (names) => expect.poll(() => selectedPaths(pane)).toEqual(paths(names))
   await pane.getByRole('button', { name: '展开 selection', exact: true }).click()
   await expect(row('d.txt')).toBeVisible()
+  // Hidden files are now shown by default. Exercise range selection with them
+  // explicitly hidden, then verify toggling the preference below.
+  await expect(row('.hidden.txt')).toBeVisible()
+  await pane.getByRole('button', { name: '显示隐藏文件', exact: true }).click()
+  await expect(row('.hidden.txt')).toHaveCount(0)
   await row('a.txt').click()
   await row('c.txt').click({ modifiers: ['Shift'] })
   await selected(['a.txt', 'b.txt', 'c.txt'])

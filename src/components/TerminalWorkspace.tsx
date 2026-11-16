@@ -199,7 +199,7 @@ function TerminalPane({
             )
           })}
         </div>
-        <Tooltip title="在此面板添加会话">
+        <Tooltip title="在此面板添加会话" placement="bottomRight">
           <Button
             type="text"
             size="small"
@@ -534,6 +534,7 @@ export function TerminalWorkspace({
               <FilePane
                 key={activeSession?.id || 'empty'}
                 stateCache={fileStates.current}
+                showHiddenDefault={appearance.showHidden !== false}
                 endpoint={activeSession?.id || null}
                 session={activeSession}
                 hosts={hosts}

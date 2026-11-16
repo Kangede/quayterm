@@ -127,6 +127,7 @@ app.whenReady().then(() => {
       version: app.getVersion()
     }),
     hostSave: (input) => store.upsert(input),
+    hostCredentials: ({ id }) => store.credentials(id),
     hostDelete: ({ id }) => store.remove(id),
     knownDelete: ({ id }) => known.remove(id),
     knownList: () => known.list(),

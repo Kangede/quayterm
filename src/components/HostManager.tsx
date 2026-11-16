@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { App, Button, Checkbox, Dropdown, Input, InputNumber, Select, Tag, Tooltip } from 'antd'
 import {
   AppstoreOutlined,
@@ -14,7 +14,9 @@ import {
   TagOutlined,
   DownOutlined,
   DesktopOutlined,
-  ArrowRightOutlined
+  ArrowRightOutlined,
+  EyeOutlined,
+  EyeInvisibleOutlined
 } from '@ant-design/icons'
 import { FingerprintOutlined } from './Icons'
 import type { Host, HostDraft, KnownHost, Settings } from '../types'
@@ -55,9 +57,48 @@ export function HostManager({
   const { modal, message } = App.useApp()
   const [query, setQuery] = useState('')
   const [tag, setTag] = useState<string>()
-  const [editing, setEditing] = useState<HostDraft | null>(null)
+  const [editing, setDraft] = useState<HostDraft | null>(null)
+  const [passwordLoading, setPasswordLoading] = useState(false)
+  const [passwordVisible, setPasswordVisible] = useState(false)
+  const [passwordDirty, setPasswordDirty] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const credentialRequest = useRef(0)
+  const originalRemembered = useRef<boolean | null>(null)
   const [selected, setSelected] = useState('')
   const [saving, setSaving] = useState(false)
+  function setEditing(draft: HostDraft | null) {
+    const request = ++credentialRequest.current
+    setDraft(draft)
+    setPasswordVisible(false)
+    setPasswordDirty(false)
+    setPasswordError(false)
+    originalRemembered.current = null
+    setPasswordLoading(Boolean(draft?.id && draft.hasPassword))
+    if (!draft?.id || !draft.hasPassword) return
+    // Fetch just the explicitly opened host. Bootstrap/list/save responses
+    // continue to contain only public host metadata.
+    void window.quay
+      .invoke<{ password: string; rememberPassword: boolean }>('hostCredentials', { id: draft.id })
+      .then((credentials) => {
+        if (request !== credentialRequest.current) return
+        originalRemembered.current = credentials.rememberPassword
+        setDraft((current) => (current?.id === draft.id ? { ...current, ...credentials } : current))
+      })
+      .catch((error) => {
+        if (request !== credentialRequest.current) return
+        setPasswordError(true)
+        message.error(error.message)
+      })
+      .finally(() => {
+        if (request === credentialRequest.current) setPasswordLoading(false)
+      })
+  }
+  useEffect(
+    () => () => {
+      credentialRequest.current++
+    },
+    []
+  )
   useEffect(() => {
     if (openNew)
       setEditing({ port: 22, username: 'root', tags: [], color: '#ed7045', rememberPassword: true })
@@ -89,12 +130,21 @@ export function HostManager({
         ),
     [hosts, query, tag, sort]
   )
-  const update = (v: HostDraft) => setEditing((h) => ({ ...h, ...v }))
+  const update = (v: HostDraft) => setDraft((h) => (h ? { ...h, ...v } : h))
   async function save(connect = false) {
-    if (!editing) return
+    if (!editing || passwordLoading || saving) return
+    const request = credentialRequest.current
+    const { password, ...fields } = editing
+    const credentialChanged =
+      passwordDirty ||
+      (originalRemembered.current !== null &&
+        originalRemembered.current !== (editing.rememberPassword !== false))
     setSaving(true)
     try {
-      const host = await onSave(editing)
+      // Reading a password must not implicitly re-save it, change its storage
+      // mode or replace an unreadable credential when editing another field.
+      const host = await onSave(credentialChanged ? { ...fields, password: password || '' } : fields)
+      if (request !== credentialRequest.current) return
       setEditing(null)
       if (connect) onConnect(host)
       else message.success('主机已保存')
@@ -505,15 +555,37 @@ export function HostManager({
               />
               <Input.Password
                 aria-label="SSH 密码"
-                placeholder={editing.hasPassword ? '已保存；留空保持原密码' : '密码'}
-                value={editing.password}
-                onChange={(e) =>
-                  update({ password: e.target.value || (editing.hasPassword ? undefined : '') })
+                placeholder={
+                  passwordLoading
+                    ? '正在读取已保存的密码…'
+                    : passwordError
+                      ? '读取失败，可输入新密码'
+                      : '密码'
                 }
+                disabled={passwordLoading}
+                value={editing.password || ''}
+                visibilityToggle={{ visible: passwordVisible, onVisibleChange: setPasswordVisible }}
+                iconRender={(visible) =>
+                  visible ? (
+                    <EyeOutlined aria-label="隐藏密码" />
+                  ) : (
+                    <EyeInvisibleOutlined aria-label="显示密码" />
+                  )
+                }
+                onChange={(e) => {
+                  setPasswordDirty(true)
+                  setPasswordError(false)
+                  update({ password: e.target.value })
+                }}
                 autoComplete="new-password"
               />
+              {passwordError && <p className="field-hint">未修改密码直接保存，会保留原密码。</p>}
+              {editing.hasPassword && !passwordError && !passwordLoading && (
+                <p className="field-hint">点击眼睛可查看密码；修改或清空后保存会更新密码。</p>
+              )}
               <Checkbox
                 checked={editing.rememberPassword !== false}
+                disabled={passwordLoading}
                 onChange={(e) => update({ rememberPassword: e.target.checked })}
               >
                 记住密码
@@ -562,10 +634,10 @@ export function HostManager({
             )}
           </div>
           <footer>
-            <Button loading={saving} onClick={() => save(false)}>
+            <Button loading={saving} disabled={passwordLoading} onClick={() => save(false)}>
               保存
             </Button>
-            <Button type="primary" loading={saving} onClick={() => save(true)}>
+            <Button type="primary" loading={saving} disabled={passwordLoading} onClick={() => save(true)}>
               保存并连接 <ArrowRightOutlined />
             </Button>
           </footer>

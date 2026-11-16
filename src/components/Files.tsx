@@ -135,7 +135,7 @@ export function FilePane({
   onLocation,
   refreshToken,
   stateCache,
-  showHiddenDefault = false
+  showHiddenDefault = true
 }: {
   endpoint: string | null
   session?: Session
@@ -171,6 +171,7 @@ export function FilePane({
   const [sort, setSort] = useState(saved?.sort || 'name')
   const [operation, setOperation] = useState<{ action: string; name: string; path: string } | null>(null)
   const [opBusy, setOpBusy] = useState(false)
+  const operationPending = useRef(false)
   const [history, setHistory] = useState<string[]>(saved?.history || [])
   const [context, setContext] = useState<FileContext | null>(null)
   const generation = useRef(0)
@@ -206,6 +207,22 @@ export function FilePane({
   const restored = useRef(Boolean(saved?.list))
   const lastRefresh = useRef(saved?.refreshToken ?? refreshToken)
   const canLoad = endpoint === 'local' || session?.state === 'ready'
+  async function submitOperation() {
+    if (!operation || !endpoint || !operation.name.trim() || operationPending.current) return
+    operationPending.current = true
+    setOpBusy(true)
+    const gen = generation.current
+    try {
+      await window.quay.invoke('fileOperation', { endpoint, ...operation })
+      setOperation((current) => (current === operation ? null : current))
+      if (gen === generation.current) await load(list?.path, false)
+    } catch (e: any) {
+      message.error(e.message)
+    } finally {
+      operationPending.current = false
+      setOpBusy(false)
+    }
+  }
   async function load(p?: string, remember = true) {
     if (!endpoint || !canLoad) return
     const gen = ++generation.current
@@ -898,25 +915,21 @@ export function FilePane({
         okText="确定"
         cancelText="取消"
         confirmLoading={opBusy}
+        okButtonProps={{ disabled: !operation?.name.trim() || opBusy }}
         onCancel={() => setOperation(null)}
-        onOk={async () => {
-          setOpBusy(true)
-          try {
-            await window.quay.invoke('fileOperation', { endpoint, ...operation })
-            setOperation(null)
-            await load(list?.path, false)
-          } catch (e: any) {
-            message.error(e.message)
-          } finally {
-            setOpBusy(false)
-          }
-        }}
+        onOk={submitOperation}
       >
         <Input
           autoFocus
           aria-label="文件名称"
+          disabled={opBusy}
           value={operation?.name || ''}
           onChange={(e) => setOperation((o) => (o ? { ...o, name: e.target.value } : o))}
+          onPressEnter={(e) => {
+            if (e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return
+            e.preventDefault()
+            void submitOperation()
+          }}
         />
       </Modal>
     </div>

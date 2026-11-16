@@ -49,15 +49,19 @@ class Store {
       throw new Error('无法解密已保存的密码，请重新输入')
     }
   }
+  credentials(id) {
+    const host = this.get(id)
+    return { password: this.password(id), rememberPassword: Boolean(host.secret) }
+  }
   upsert(input) {
     const previous = input.id ? this.get(input.id) : undefined
     const h = validateHost(input, previous)
     if (previous?.secret) h.secret = previous.secret
     if (typeof input.password === 'string') {
+      if (input.password.length > 16384) throw new Error('密码过长')
       delete h.secret
       this.passwords.delete(h.id)
       if (input.password) {
-        if (input.password.length > 16384) throw new Error('密码过长')
         this.passwords.set(h.id, input.password)
         if (input.rememberPassword !== false && this.secure())
           h.secret = this.vault.encryptString(input.password).toString('base64')

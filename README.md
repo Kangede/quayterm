@@ -2,7 +2,7 @@
 
 一个 SSH + SFTP 桌面客户端。Quay 是码头：多个远程会话可以在自己的面板中停靠、切换。界面按需求中的 Termius / TermX 布局组织，采用 electerm 同类核心技术。
 
-当前版本为 **0.2.5**，安装包见 [v0.2.5 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.5)，变更见 [CHANGELOG.md](CHANGELOG.md)。本版修复 SFTP 文件侧栏展开目录后的 Shift 连续选取，并保留反向调整选区时的起始位置。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
+当前版本为 **0.2.6**，安装包见 [v0.2.6 Release](https://github.com/Kangede/quayterm/releases/tag/v0.2.6)，变更见 [CHANGELOG.md](CHANGELOG.md)。本版默认显示隐藏文件，支持 Enter 确认创建、查看已保存的主机密码，并修复面板添加按钮提示导致的窗口边缘滚动条。GitHub 三平台构建与验证见 [Actions](https://github.com/Kangede/quayterm/actions/workflows/desktop.yml)。让另一台机器上的 agent 接手未完成测试，请从 [AGENTS.md](AGENTS.md) 和 [测试交接指南](docs/agent-testing.md) 开始。
 
 ## 启动
 
@@ -10,10 +10,10 @@
 
 | 平台                | 发布文件                                                   | 启动方式                         |
 | ------------------- | ---------------------------------------------------------- | -------------------------------- |
-| Linux x64           | `QuayTerm-0.2.5.AppImage`、`quayterm-0.2.5.tar.gz`         | AppImage 或解压后运行 `quayterm` |
-| Windows x64         | `QuayTerm.Setup.0.2.5.exe`、`QuayTerm.0.2.5.exe`           | 分别为安装器和便携程序           |
-| macOS Intel         | `QuayTerm-0.2.5.dmg`、`QuayTerm-0.2.5-mac.zip`             | 安装/解压 `QuayTerm.app`         |
-| macOS Apple Silicon | `QuayTerm-0.2.5-arm64.dmg`、`QuayTerm-0.2.5-arm64-mac.zip` | 安装/解压 `QuayTerm.app`         |
+| Linux x64           | `QuayTerm-0.2.6.AppImage`、`quayterm-0.2.6.tar.gz`         | AppImage 或解压后运行 `quayterm` |
+| Windows x64         | `QuayTerm.Setup.0.2.6.exe`、`QuayTerm.0.2.6.exe`           | 分别为安装器和便携程序           |
+| macOS Intel         | `QuayTerm-0.2.6.dmg`、`QuayTerm-0.2.6-mac.zip`             | 安装/解压 `QuayTerm.app`         |
+| macOS Apple Silicon | `QuayTerm-0.2.6-arm64.dmg`、`QuayTerm-0.2.6-arm64-mac.zip` | 安装/解压 `QuayTerm.app`         |
 
 Linux AppImage 需要系统的 FUSE 支持。也可以使用 tar.gz 包，或运行 AppImage 的 `--appimage-extract-and-run` 模式。当前 Windows 包未做发行签名，macOS 包未做发行签名/公证，首次启动可能出现系统提示。各版本源码 CI 与发行包实测范围分别记录，发行包完整原生验收仍有未完成项，具体范围见 [测试状态](TESTING.md) 和 [完成标准](docs/test-acceptance.md)。构建脚本默认输出到 `release/`；该目录及早期本地包不包含在 Git 仓库中。
 
@@ -37,12 +37,12 @@ npm run dev
 - **终端**：每个会话拥有独立 SSH 连接和 PTY。默认显示左侧 SFTP 文件树（文件侧栏），单击箭头展开目录、双击进入目录或编辑文本。侧栏跟随当前聚焦的会话，按会话记住当前目录、展开状态、导航历史、筛选和滚动位置；切换标签、移动会话及隐藏后再显示侧栏均会恢复。状态保留到该会话关闭，也可调整侧栏宽度。
 - **布局**：将会话标签拖到面板左、右、上、下边缘，可按预览直接分屏；拖到面板中间或标签栏可合并会话，拖到某个标签前可排序。支持继续拆分任意已有面板，分隔线可拖动调整尺寸。原有单一、双列、三列、双行、三行、2×2、右侧双行、底部双列布局菜单仍保留，缩减布局会合并标签。切换布局、拖动和调整尺寸不会重建 SSH 会话。
 - **空面板**：最后一个会话关闭或移走后，该面板会自动收起，邻近面板填补空间。手动选择布局产生的空面板会保留，便于连接或拖入会话；一旦使用过，再清空时也会收起。关闭所有会话后保留一个起始面板。
-- **SFTP**：左侧默认本地，右侧选择主机；点击任一侧左上角的名称可重新选择本地或主机。输入路径跳转，支持隐藏文件、过滤、按名称 / 日期 / 大小排序，以及 Windows 磁盘选择。
+- **SFTP**：左侧默认本地，右侧选择主机；点击任一侧左上角的名称可重新选择本地或主机。输入路径跳转，默认显示隐藏文件，支持手动隐藏、过滤、按名称 / 日期 / 大小排序，以及 Windows 磁盘选择。文件侧栏和本地列表使用相同默认值，已有明确偏好仍保留。
 - **文件**：拖放文件或文件夹到另一侧开始传输，也可把系统文件管理器中的本地文件拖入。传输前确认目标，可选择允许覆盖。支持本地到远端、远端到本地及远端到远端的流式传输。双栏连接相同地址、端口和用户名时，也会阻止复制到自身或子目录。支持递归目录、进度、取消、新建文件 / 文件夹、重命名、确认删除和文本编辑。编辑保存时检查版本，检测到外部修改会保留原文件并提示重新打开。
 
 ## 右键菜单与终端风格
 
-本地文件列表、双栏 SFTP 和终端文件侧栏均支持右键菜单。右键未选中的项目会选择该项目；右键已有多选中的项目会保留多选。可打开文件夹、编辑文本、复制文件、复制名称 / 路径、粘贴、重命名、删除、查看属性。在文件夹或列表空白处可新建文件 / 文件夹、刷新和切换隐藏文件。右键文件夹时，新建和粘贴会作用于该文件夹内部。
+本地文件列表、双栏 SFTP 和终端文件侧栏均支持右键菜单。右键未选中的项目会选择该项目；右键已有多选中的项目会保留多选。可打开文件夹、编辑文本、复制文件、复制名称 / 路径、粘贴、重命名、删除、查看属性。在文件夹或列表空白处可新建文件 / 文件夹、刷新和切换隐藏文件。右键文件夹时，新建和粘贴会作用于该文件夹内部。新建文件、文件夹和重命名的名称输入框支持 Enter 确认；中文输入法正在组词时不会提前提交，操作进行中不会重复提交。
 
 文件侧栏中可先单击一个文件，再按住 Shift 单击另一个文件，按实际显示顺序连续选取，包括已展开的多层目录。继续按 Shift 调整范围时保留最初单击的位置；切换会话或隐藏后恢复侧栏也会保留该位置。折叠、过滤或隐藏后不可见的条目会退出选区；原起点不可见时，下一次 Shift 单击从新点击的文件开始。Ctrl/⌘ 单击仍可逐项增减选择，全选仍作用于当前目录的顶层条目。
 
@@ -107,7 +107,7 @@ Ctrl+A、Ctrl+B、Ctrl+C、Ctrl+D、Ctrl+Z、Tab、方向键和普通 Ctrl+K 保
 
 数据保存到 Electron 的用户数据目录下的 `quayterm.json`（通常为 Linux 的 `~/.config/QuayTerm/`、Windows 的 `%APPDATA%/QuayTerm/`、macOS 的 `~/Library/Application Support/QuayTerm/`）。主机、已知指纹和界面偏好保存在此设备。
 
-密码通过 Electron `safeStorage` 调用系统安全存储：Windows DPAPI、macOS Keychain、Linux Secret Service / Keyring。如果安全存储不可用或退化为 `basic_text`，密码仅保留在进程内存中。界面会提示这一状态；不会回退到明文保存密码。已有密码留空不修改。
+密码通过 Electron `safeStorage` 调用系统安全存储：Windows DPAPI、macOS Keychain、Linux Secret Service / Keyring。如果安全存储不可用或退化为 `basic_text`，密码仅保留在进程内存中。界面会提示这一状态；不会回退到明文保存密码。编辑已保存主机时，密码会以掩码填入，点击“小眼睛”可以查看；关闭或切换编辑对象后恢复隐藏。修改或清空密码后保存会更新凭证，仅修改名称等信息则保持原密码及存储方式。读取失败会显示提示，未修改密码直接保存不会清除原凭证。
 
 测试凭证位于项目之外的私有测试文件中，不包含在源码提交或程序包中。程序不会上传主机配置或进行云同步。
 
@@ -149,9 +149,9 @@ npm run dist:mac
 Windows / macOS 可以运行无 Linux 依赖的测试；桌面测试会在本机启动临时 SSH/SFTP 协议服务，验证连接、粘贴、控制键、目录列表、文本读取和 resize。tmux/screen 仍由 Linux 的真实 PTY 测试覆盖：
 
 ```sh
-node --test tests/workspace.test.cjs tests/file-selection.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs
+node --test tests/workspace.test.cjs tests/file-selection.test.cjs tests/host-credentials.test.cjs tests/local-files.test.cjs tests/terminal-display.test.cjs
 npm run build
-npx playwright test tests/desktop-smoke.e2e.cjs tests/file-selection.e2e.cjs
+npx playwright test tests/desktop-smoke.e2e.cjs tests/file-selection.e2e.cjs tests/usability.e2e.cjs
 ```
 
 局域网测试通过 `QUAYTERM_TEST_HOSTS` 指向私有 JSON 数组，字段为 `name/address/port/username/password`。仅新建 SSH PTY、发送 resize 请求和列出 SFTP 主目录，不发送远端 shell 命令，不写远端文件。
